@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         playerVariables.playerTransform = transform;
+        playerVariables.caught = false;
     }
 
     public void Update()

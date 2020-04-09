@@ -14,7 +14,9 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     [HideInInspector]
     public Color currentColor;
 
+    [HideInInspector]
     public bool disabled = false;
+    [HideInInspector]
     public bool assist = false;
 
     public PlayerSoundSubject playerSoundSubject;

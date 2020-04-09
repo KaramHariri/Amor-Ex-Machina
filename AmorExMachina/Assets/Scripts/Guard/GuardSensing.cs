@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class GuardSensing : MonoBehaviour
 {
+    [HideInInspector]
     public bool playerInSight = false;
+    [HideInInspector]
     public bool canHear = false;
+    [HideInInspector]
     public bool suspicious = false;
 
     [HideInInspector]

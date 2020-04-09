@@ -10,7 +10,9 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector]
     public int wayPointIndex = 1;
 
+    [HideInInspector]
     public float talkingTimer = 5.0f;
+    [HideInInspector]
     public float idleTimer = 5.0f;
 
     [HideInInspector]

@@ -103,6 +103,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   disabled: 0
+  beingControlled: 0
   assist: 0
   playerSoundSubject: {fileID: 11400000, guid: ab3c192c92869f848838ec2278d6f171, type: 2}
   playerLastSightPositionSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,

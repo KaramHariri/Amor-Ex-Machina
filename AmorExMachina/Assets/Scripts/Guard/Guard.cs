@@ -16,6 +16,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
 
     [HideInInspector]
     public bool disabled = false;
+    public bool beingControlled = false;
     [HideInInspector]
     public bool assist = false;
 

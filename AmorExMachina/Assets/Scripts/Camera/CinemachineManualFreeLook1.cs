@@ -9,6 +9,7 @@ public class CinemachineManualFreeLook1 : MonoBehaviour
     private Camera camera;
 
     public bool switched = false;
+    public BoolVariable cameraSwitched;
 
     private void Awake()
     {
@@ -17,29 +18,27 @@ public class CinemachineManualFreeLook1 : MonoBehaviour
         camera = Camera.main;
         cinemachineBrain = camera.GetComponent<CinemachineBrain>();
         switched = false;
+        cameraSwitched.value = switched;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         float playerYAngle = freeLook.m_Follow.eulerAngles.y;
         if (playerYAngle > 180)
             playerYAngle -= 360;
 
-        float addPlayerAngle = 90.0f + playerYAngle;
-        float subtractPlayerAngle = -90 + playerYAngle;
+        //float addPlayerAngle = 90.0f + playerYAngle;
+        //float subtractPlayerAngle = -90 + playerYAngle;
 
-        if (addPlayerAngle < subtractPlayerAngle)
-        {
-            freeLook.m_XAxis.m_MinValue = addPlayerAngle;
-            freeLook.m_XAxis.m_MaxValue = subtractPlayerAngle;
-        }
-        else
-        {
-            freeLook.m_XAxis.m_MinValue = subtractPlayerAngle;
-            freeLook.m_XAxis.m_MaxValue = addPlayerAngle;
-        }
+        //freeLook.m_XAxis.m_MinValue = subtractPlayerAngle;
+        //freeLook.m_XAxis.m_MaxValue = addPlayerAngle;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        Vector3 targetPos = new Vector3(freeLook.m_Follow.position.x, transform.position.y, freeLook.m_Follow.position.z);
+        Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
+
+        bool switching = Input.GetButtonDown("SwitchingCamera");
+        if(switching)
         {
             if (freeLook.m_Priority == 22)
             {
@@ -50,13 +49,14 @@ public class CinemachineManualFreeLook1 : MonoBehaviour
             {
                 freeLook.m_Priority = 22;
                 switched = false;
+                cameraSwitched.value = switched;
                 StopCoroutine("ResetCamera");
             }
         }
 
         if (switched)
         {
-            freeLook.m_XAxis.Value = (freeLook.m_XAxis.m_MinValue + freeLook.m_XAxis.m_MaxValue) * 0.5f;
+            freeLook.m_XAxis.Value = playerYAngle;
             freeLook.m_YAxis.Value = 0.5f;
         }
     }
@@ -65,5 +65,6 @@ public class CinemachineManualFreeLook1 : MonoBehaviour
     {
         yield return new WaitForSeconds(cinemachineBrain.m_DefaultBlend.m_Time);
         switched = true;
+        cameraSwitched.value = switched;
     }
 }

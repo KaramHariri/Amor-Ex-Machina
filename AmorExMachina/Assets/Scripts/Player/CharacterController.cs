@@ -56,7 +56,7 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!cameraSwitched.value)
+        if (!cameraSwitched.value && (verticalInput != 0.0f || horizontalInput != 0.0f))
         {
             HandleRotation();
         }
@@ -82,21 +82,24 @@ public class CharacterController : MonoBehaviour
 
     void HandleRotation()
     {
-        moveDir = freeLook.transform.forward * verticalInput;
-        moveDir += freeLook.transform.right * horizontalInput;
-        moveDir.Normalize();
+        //moveDir = freeLook.transform.forward * verticalInput;
+        //moveDir += freeLook.transform.right * horizontalInput;
+        //moveDir.Normalize();
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
-        Vector3 targetDir = moveDir;
+        Quaternion targetRotation = Quaternion.Euler(0.0f, freeLook.transform.eulerAngles.y, 0.0f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
 
-        targetDir.y = 0;
-        if (targetDir == Vector3.zero)
-            targetDir = transform.forward;
+        //Vector3 targetDir = moveDir;
 
-        Quaternion tr = Quaternion.LookRotation(targetDir);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotateVelocity);
-        transform.rotation = targetRotation;
+        //targetDir.y = 0;
+        //if (targetDir == Vector3.zero)
+        //    targetDir = transform.forward;
+
+        //Quaternion tr = Quaternion.LookRotation(targetDir);
+        //Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, Time.deltaTime * moveAmount * rotateVelocity);
+        //transform.rotation = targetRotation;
     }
 
     void HandleMovement()
@@ -108,11 +111,19 @@ public class CharacterController : MonoBehaviour
             Vector3 dir = transform.right * horizontalInput + transform.forward * verticalInput;
             v = dir;
         }
+        else
+        {
+            Vector3 dir = freeLook.transform.right * horizontalInput + freeLook.transform.forward * verticalInput;
+            v = dir;
+        }
 
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
 
         v.y = rigidbody.velocity.y;
         rigidbody.velocity = v;
+
+        if (!sneaking)
+            playerSoundSubject.NotifyObservers(SoundType.WALKING, transform.position);
 
     }
 

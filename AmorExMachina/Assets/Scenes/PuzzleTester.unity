@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 1
+  type: 0
   direction: 0
   buttonOn: 0
   background: {fileID: 0}
@@ -636,7 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
   type: 0
-  direction: 0
+  direction: 1
   buttonOn: 0
   background: {fileID: 0}
   ButtonEmpty: {fileID: 0}
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
   type: 0
-  direction: 0
+  direction: 3
   buttonOn: 0
   background: {fileID: 0}
   ButtonEmpty: {fileID: 0}
@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 4
+  type: 0
   direction: 1
   buttonOn: 0
   background: {fileID: 0}
@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
   type: 0
-  direction: 0
+  direction: 1
   buttonOn: 0
   background: {fileID: 0}
   ButtonEmpty: {fileID: 0}
@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 4
+  type: 0
   direction: 0
   buttonOn: 0
   background: {fileID: 0}
@@ -2217,7 +2217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
   type: 0
-  direction: 0
+  direction: 2
   buttonOn: 0
   background: {fileID: 0}
   ButtonEmpty: {fileID: 0}
@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 4
+  type: 0
   direction: 0
   buttonOn: 0
   background: {fileID: 0}

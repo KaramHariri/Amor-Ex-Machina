@@ -7,7 +7,9 @@ public class Puzzle : MonoBehaviour
 {
     //public List<PuzzleButton> buttons;
     public PuzzleButton[] buttons;
-    public PuzzleButton selectedButton;
+    private PuzzleButton selectedButton;
+    private List<PuzzleButton> activateableButtons = new List<PuzzleButton>();
+    private int selectedButtonIndex = 0;
 
     public FlexibleGridLayout layout;
     public int rows;
@@ -15,66 +17,39 @@ public class Puzzle : MonoBehaviour
 
     public List<PuzzleButton> flipButtons = new List<PuzzleButton>();
 
+    float buttonSwitchingCooldown = 0f;
+    float buttonSwitchingCooldownTime = 0.3f;
+    float buttonRotateCooldown = 0f;
+    float buttonRotateCooldownTime = 0.2f;
+    float buttonActivateCooldown = 0f;
+    float timeBetweenFlips = 0.2f;
+
+    private void Start()
+    {
+        foreach(PuzzleButton b in buttons)
+        {
+            if(b.type != PuzzleButton.ButtonType.Empty)
+            {
+                activateableButtons.Add(b);
+            }
+        }
+
+        if(activateableButtons.Count == 0)
+        {
+            Debug.Log("All buttons are 'Empty'");
+            return;
+        }
+
+        selectedButton = activateableButtons[0];
+        SetHover(activateableButtons[0].transform.GetSiblingIndex());
+    }
+
     private void Update()
     {
+        DecreaseCooldowns();
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if(selectedButton != null && selectedButton.transform.GetSiblingIndex() > 0)
-            {
-                //Debug.Log("Current index = " +selectedButton.transform.GetSiblingIndex());
-                SetHover(selectedButton.transform.GetSiblingIndex() - 1);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (selectedButton != null && selectedButton.transform.GetSiblingIndex() < (layout.transform.childCount - 1))
-            {
-                //Debug.Log("Current index = " + selectedButton.transform.GetSiblingIndex());
-                SetHover(selectedButton.transform.GetSiblingIndex() + 1);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (selectedButton != null && (selectedButton.transform.GetSiblingIndex() - columns >= 0))
-            {
-                //Debug.Log("up Current index = " + selectedButton.transform.GetSiblingIndex());
-                SetHover(selectedButton.transform.GetSiblingIndex() - columns);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (selectedButton != null && (selectedButton.transform.GetSiblingIndex() + columns) < (layout.transform.childCount))
-            {
-                //Debug.Log("down Current index = " + selectedButton.transform.GetSiblingIndex());
-                //Debug.Log("layout transform childcount = " + layout.transform.childCount);
-                SetHover(selectedButton.transform.GetSiblingIndex() + columns);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(selectedButton != null)
-            {
-                selectedButton.Select();
-                GenerateFlipTileList();
-                StartCoroutine(ActivateFlipping());
-                //CheckIfGameIsWon();
-            }
-
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (selectedButton != null && selectedButton.type == PuzzleButton.ButtonType.RotatableArrow)
-            {
-                selectedButton.RotateDirection();
-            }
-
-        }
-
-
+        HandleMouseAndKeyboardInput();
+        HandleControllerInput();
     }
 
     public void Subscribe(PuzzleButton button)
@@ -90,8 +65,9 @@ public class Puzzle : MonoBehaviour
     public void OnButtonEnter(PuzzleButton button)
     {
         ResetButtons();
-        if (selectedButton == null || button != selectedButton)
+        if (button.type != PuzzleButton.ButtonType.Empty)
         {
+            SetHover(button.transform.GetSiblingIndex());
         }
     }
 
@@ -313,11 +289,9 @@ public class Puzzle : MonoBehaviour
 
     IEnumerator ActivateFlipping()
     {
-        float waitTime = 0.35f;
-
         while (flipButtons.Count > 0)
         {
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(timeBetweenFlips);
             flipButtons[0].Select();
             flipButtons.RemoveAt(0);
         }
@@ -339,5 +313,102 @@ public class Puzzle : MonoBehaviour
         }
         Debug.Log("Puzzle completed!");
         return true;
+    }
+
+    private void HandleMouseAndKeyboardInput()
+    {
+        if (selectedButton == null) { Debug.Log("selectedButton is null"); return; }
+
+        //if (Input.GetButtonDown("X");
+
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && buttonSwitchingCooldown == 0.0f && selectedButtonIndex > 0)
+        {
+            //Debug.Log("L");
+            buttonSwitchingCooldown = buttonSwitchingCooldownTime;
+            selectedButtonIndex--;
+            SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
+            return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && buttonSwitchingCooldown == 0.0f && selectedButtonIndex + 1 < activateableButtons.Count)
+        {
+            //Debug.Log("R");
+            buttonSwitchingCooldown = buttonSwitchingCooldownTime;
+            selectedButtonIndex++;
+            SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
+            return;
+        }
+
+
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F) ) && buttonRotateCooldown == 0.0f)
+        {
+            selectedButton.RotateDirection();
+            return;
+        }
+
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) ) && buttonActivateCooldown == 0.0f)
+        {
+            selectedButton.Select();
+            GenerateFlipTileList();
+            buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;
+            StartCoroutine(ActivateFlipping());
+        }
+    }
+
+    private void HandleControllerInput()
+    {
+        if (selectedButton == null) { Debug.Log("selectedButton is null"); return; }
+
+        //if (Input.GetButtonDown("X");
+
+
+        if (Input.GetAxis("Horizontal") < -0.6f && buttonSwitchingCooldown == 0.0f && selectedButtonIndex > 0)
+        {
+            //Debug.Log("L");
+            buttonSwitchingCooldown = buttonSwitchingCooldownTime;
+            selectedButtonIndex--;
+            SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
+            return;
+        }
+
+
+        if (Input.GetAxis("Horizontal") > 0.6f && buttonSwitchingCooldown == 0.0f && selectedButtonIndex + 1 < activateableButtons.Count)
+        {
+            //Debug.Log("R");
+            buttonSwitchingCooldown = buttonSwitchingCooldownTime;
+            selectedButtonIndex++;
+            SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
+            return;
+        }
+
+
+        if (Input.GetButtonDown("Triangle") && buttonRotateCooldown == 0.0f)
+        {
+            //if (selectedButton != null && selectedButton.type == PuzzleButton.ButtonType.RotatableArrow)
+            //{
+                selectedButton.RotateDirection();
+                return;
+            //}
+        }
+
+        if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
+        {
+            selectedButton.Select();
+            GenerateFlipTileList();
+            buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;
+            StartCoroutine(ActivateFlipping());
+        }
+    }
+
+    private void DecreaseCooldowns()
+    {
+        buttonSwitchingCooldown -= Time.deltaTime;
+        if (buttonSwitchingCooldown < 0f) { buttonSwitchingCooldown = 0f; }
+        buttonRotateCooldown -= Time.deltaTime;
+        if (buttonRotateCooldown < 0f) { buttonRotateCooldown = 0f; }
+        buttonActivateCooldown -= Time.deltaTime;
+        if (buttonActivateCooldown < 0f) { buttonActivateCooldown = 0f; }
     }
 }

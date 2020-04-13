@@ -175,8 +175,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -362,8 +360,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -463,8 +459,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -638,8 +632,6 @@ MonoBehaviour:
   type: 0
   direction: 1
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -739,8 +731,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -840,8 +830,6 @@ MonoBehaviour:
   type: 0
   direction: 3
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -941,8 +929,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1134,8 +1120,6 @@ MonoBehaviour:
   type: 0
   direction: 1
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1417,8 +1401,6 @@ MonoBehaviour:
   type: 0
   direction: 1
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1536,7 +1518,6 @@ MonoBehaviour:
   layout: {fileID: 385034246}
   rows: 4
   columns: 4
-  flipButtons: []
 --- !u!114 &1474184168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1644,11 +1625,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 0
+  type: 1
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1748,8 +1727,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -1846,11 +1823,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 0
-  direction: 0
+  type: 3
+  direction: 2
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -2044,11 +2019,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 0
+  type: 1
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -2216,11 +2189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puzzle: {fileID: 1474184167}
-  type: 0
+  type: 4
   direction: 2
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -2320,8 +2291,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []
@@ -2421,8 +2390,6 @@ MonoBehaviour:
   type: 0
   direction: 0
   buttonOn: 0
-  background: {fileID: 0}
-  ButtonEmpty: {fileID: 0}
   onButtonSelected:
     m_PersistentCalls:
       m_Calls: []

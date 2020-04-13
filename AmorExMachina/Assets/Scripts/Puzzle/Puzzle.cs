@@ -15,10 +15,10 @@ public class Puzzle : MonoBehaviour
     public int rows;
     public int columns;
 
-    public List<PuzzleButton> flipButtons = new List<PuzzleButton>();
+    private List<PuzzleButton> flipButtons = new List<PuzzleButton>();
 
     float buttonSwitchingCooldown = 0f;
-    float buttonSwitchingCooldownTime = 0.3f;
+    float buttonSwitchingCooldownTime = 0.20f;
     float buttonRotateCooldown = 0f;
     float buttonRotateCooldownTime = 0.2f;
     float buttonActivateCooldown = 0f;

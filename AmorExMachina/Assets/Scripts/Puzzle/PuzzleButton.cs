@@ -30,9 +30,9 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public ButtonDirection direction;
     public bool buttonOn = false;
 
-    public Image background;
+    private Image background;
 
-    public Sprite ButtonEmpty;
+    private Sprite ButtonEmpty;
 
     private Sprite normalCircle;
     private Sprite normalCross;
@@ -82,7 +82,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         SetNormalImage();
     }
 
-    private void Start()
+    private void Awake()
     {
 
         background = GetComponent<Image>();
@@ -134,6 +134,8 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void RotateDirection()
     {
+        if(type != ButtonType.RotatableArrow) { return; }
+
         switch (direction)
         {
             case ButtonDirection.North:

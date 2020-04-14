@@ -174,10 +174,10 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 75
+    FieldOfView: 40
     OrthographicSize: 5
     NearClipPlane: 0.1
-    FarClipPlane: 5000
+    FarClipPlane: 1000
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -200,5 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6716abd1b157a874191ec7046fbd2448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cinemachinePOV: {fileID: 0}
   cameraSwitched: {fileID: 11400000, guid: b845c60bb94f5144693c3a42c92ef339, type: 2}
+  verticalSpeed: 150
+  horizontalSpeed: 150
+  invertVerticalInput: 0
+  invertHorizontalInput: 0
+  useMouseInput: 0
+  cameraYRange: {x: -70, y: 70}
+  firstPersonCameraVariables: {fileID: 0}

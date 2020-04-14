@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Cinemachine;
 
 public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositionObserver
 {
@@ -25,8 +26,13 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     public GuardVariables guardVariables;
     public PlayerVariables playerVariables;
 
+    [HideInInspector]
+    public CinemachineVirtualCamera vC;
+
     public void Awake()
     {
+        vC = GameObject.Find(transform.name + "Camera").GetComponent<CinemachineVirtualCamera>();
+        vC.m_Follow = transform.GetChild(transform.childCount - 1);
         playerSoundSubject.AddObserver(this);
         playerLastSightPositionSubject.AddObserver(this);
         GuardGetComponents();

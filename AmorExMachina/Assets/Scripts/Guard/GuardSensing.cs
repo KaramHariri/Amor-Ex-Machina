@@ -21,10 +21,13 @@ public class GuardSensing : MonoBehaviour
     GuardVariables guardVariables;
     PlayerVariables playerVariables;
 
+    Guard guardScript;
+
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        guardScript = GetComponent<Guard>();
     }
 
     public void Update()
@@ -68,22 +71,25 @@ public class GuardSensing : MonoBehaviour
     {
         if (other.gameObject == playerVariables.playerTransform.gameObject)
         {
-            canHear = true;
-
-            Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(direction, transform.forward);
-
-            if (angle < guardVariables.fieldOfViewAngle)
+            if (!guardScript.beingControlled && !guardScript.disabled)
             {
-                RaycastHit raycastHit;
-                if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                canHear = true;
+
+                Vector3 direction = other.transform.position - transform.position;
+                float angle = Vector3.Angle(direction, transform.forward);
+
+                if (angle < guardVariables.fieldOfViewAngle)
                 {
-                    if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                    RaycastHit raycastHit;
+                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
                     {
-                        playerInSight = true;
+                        if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                        {
+                            playerInSight = true;
+                        }
+                        else
+                            playerInSight = false;
                     }
-                    else
-                        playerInSight = false;
                 }
             }
         }
@@ -95,7 +101,7 @@ public class GuardSensing : MonoBehaviour
 
             if (angle < guardVariables.fieldOfViewAngle)
             {
-                if (other.GetComponent<Guard>().disabled)
+                if (other.GetComponent<Guard>().disabled && !other.GetComponent<Guard>().beingControlled)
                 {
                     RaycastHit raycastHit;
                     if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))

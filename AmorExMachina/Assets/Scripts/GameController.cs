@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour, IGameStateObserver
 {
     public static Guard[] guards;
@@ -9,6 +9,14 @@ public class GameController : MonoBehaviour, IGameStateObserver
     {
         gameStateSubject.AddObserver(this);
         FindAllGuards();
+    }
+
+    void Update()
+    {
+        if(Input.GetButtonDown("Options"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void FindAllGuards()

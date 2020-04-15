@@ -279,7 +279,7 @@ MonoBehaviour:
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 0.3
-  m_Strategy: 0
+  m_Strategy: 1
   m_MaximumEffort: 4
   m_SmoothingTime: 0
   m_Damping: 1
@@ -306,7 +306,7 @@ MonoBehaviour:
   topRingRadius: 4
   middleRingHeight: 2.5
   middleRingRadius: 7
-  bottomRingHeight: 0.1
+  bottomRingHeight: -0.7
   bottomRingRadius: 4
   thirdPersonCameraVariables: {fileID: 11400000, guid: a6a7a7a68c4a7e1469b662f07e8e4689,
     type: 2}

@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         playerVariables.caught = false;
         rb = GetComponent<Rigidbody>();
         firstPersonCameraVariables.followTarget = transform.GetChild(1);
-        thirdPersonCameraVariables.followTarget = transform;
+        thirdPersonCameraVariables.followTarget = transform.GetChild(2);
         PlayerLastSightPositionSubject.AddObserver(this);
     }
 
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         v.y = rb.velocity.y;
         rb.velocity = v;
 
-        if (!sneaking)
+        if (!sneaking && (verticalInput != 0 || horizontalInput != 0))
             playerSoundSubject.NotifyObservers(SoundType.WALKING, transform.position);
 
     }

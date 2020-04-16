@@ -128,8 +128,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5276379237382202433}
   - component: {fileID: 5276379237382202434}
-  - component: {fileID: 5276379237382202435}
   - component: {fileID: 5276379237382202460}
+  - component: {fileID: 366947854}
   m_Layer: 0
   m_Name: ThirdPersonCamera
   m_TagString: Untagged
@@ -255,36 +255,6 @@ MonoBehaviour:
   - {fileID: 5276379237530013089}
   - {fileID: 5276379239306769849}
   - {fileID: 5276379238261293149}
---- !u!114 &5276379237382202435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5276379237382202461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CollideAgainst:
-    serializedVersion: 2
-    m_Bits: 256
-  m_IgnoreTag: Player
-  m_TransparentLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_MinimumDistanceFromTarget: 0.1
-  m_AvoidObstacles: 1
-  m_DistanceLimit: 0
-  m_MinimumOcclusionTime: 0
-  m_CameraRadius: 0.3
-  m_Strategy: 1
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0
-  m_Damping: 1
-  m_DampingWhenOccluded: 0.3
-  m_OptimalTargetDistance: 0
 --- !u!114 &5276379237382202460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +285,24 @@ MonoBehaviour:
   playerCameras: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
   cameraSwitchedToFirstPerson: {fileID: 11400000, guid: e95f5c985f4700d4dbc5f04eb002ecf4,
     type: 2}
+--- !u!114 &366947854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276379237382202461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96ad936a1cd43b4ba7a4ed30f0d2ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collideAgainst:
+    serializedVersion: 2
+    m_Bits: 256
+  minimumDistanceFromTarget: 0.1
+  avoidObstacles: 1
+  cameraRadius: 0.1
 --- !u!1 &5276379237530013090
 GameObject:
   m_ObjectHideFlags: 0

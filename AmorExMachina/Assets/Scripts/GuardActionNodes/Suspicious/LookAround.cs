@@ -13,6 +13,7 @@
         guard.guardMovement.idleTimer -= UnityEngine.Time.deltaTime;
         if (guard.guardMovement.idleTimer <= 0)
         {
+            guard.guardMovement.idle = false;
             guard.assist = false;
             guard.sensing.suspicious = false;
             nodeState = NodeState.SUCCESS;

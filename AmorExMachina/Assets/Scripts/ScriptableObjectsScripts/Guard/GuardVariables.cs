@@ -22,6 +22,6 @@ public class GuardVariables : ScriptableObject
     public Color chasingColor = Color.red;
     public Color suspiciousColor = Color.yellow;
     public Color patrolColor = Color.green;
+    public Color stationaryColor = Color.blue;
     public Color idleColor = Color.cyan;
-    public Color talkingToOtherGuardColor = Color.blue;
 }

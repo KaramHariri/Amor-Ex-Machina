@@ -12,7 +12,7 @@
         NodeState nodeState = NodeState.RUNNING;
 
         float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.sensing.disabledGuards[0].transform.position);
-        if (distance <= guard.sensing.navMeshAgent.stoppingDistance)
+        if (distance <= guard.sensing.navMeshAgent.stoppingDistance + 0.1f)
         {
             nodeState = NodeState.SUCCESS;
         }

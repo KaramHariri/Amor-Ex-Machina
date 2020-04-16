@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 {
-    public float walkSpeed = 5.0f;
+    public float walkSpeed = 10.0f;
     public float sneakSpeed = 2.5f;
     public float rotateVelocity = 100.0f;
 
@@ -42,48 +42,54 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 
     void Update()
     {
-        if(disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+        if (!playerVariables.caught)
         {
-            disabledGuard.beingControlled = true;
-            controlling = true;
-        }
-        else if(disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-        {
-            disabledGuard.beingControlled = false;
-            controlling = false;
-        }
+            if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+            {
+                disabledGuard.beingControlled = true;
+                controlling = true;
+            }
+            else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
+            {
+                disabledGuard.beingControlled = false;
+                controlling = false;
+            }
 
-        if (controlling)
-        {
-            guardHackedSubject.GuardHackedNotify(disabledGuard.name);
-        }
-        else
-        {
-            guardHackedSubject.GuardHackedNotify("");
-        }
+            if (controlling)
+            {
+                guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+            }
+            else
+            {
+                guardHackedSubject.GuardHackedNotify("");
+            }
 
-        if (playerVariables.caught)
-        {
-            gameStateSubject.GameStateNotify(GameState.LOST);
-        }
-        else
-        {
+            if (playerVariables.caught)
+            {
+                gameStateSubject.GameStateNotify(GameState.LOST);
+            }
+            else
+            {
+                if (controlling == false)
+                    GetInput();
+            }
             if (controlling == false)
-                GetInput();
+                FPSRotate();
         }
-        if (controlling == false)
-            FPSRotate();
     }
 
     void FixedUpdate()
     {
-        if (controlling == false)
+        if (!playerVariables.caught)
         {
-            if (!cameraSwitchedToFirstPerson.value && (verticalInput != 0.0f || horizontalInput != 0.0f))
+            if (controlling == false)
             {
-                HandleRotation();
+                if (!cameraSwitchedToFirstPerson.value && (verticalInput != 0.0f || horizontalInput != 0.0f))
+                {
+                    HandleRotation();
+                }
+                HandleMovement();
             }
-            HandleMovement();
         }
     }
 

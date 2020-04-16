@@ -27,6 +27,14 @@ public class GuardController : MonoBehaviour
 
     void Update()
     {
+        if(guard.beingControlled)
+        {
+            rb.isKinematic = false;
+        }
+        else
+        {
+            rb.isKinematic = true;
+        }
         if (guard.disabled && guard.beingControlled)
         {
             GetInput();

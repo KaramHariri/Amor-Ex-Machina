@@ -36,11 +36,13 @@
     EnableGuard wakeUpDisabledGuard;
 
     // Patrol
-    SelectorNode patrol;
-    SequenceNode InteractWithTheOtherGuard;
-    TalkToOtherGuardCheck talkToOtherGuardCheck;
-    SucceederNode talkToOtherGuardSucceeder;
-    TalkToOtherGuard talkToOtherGuard;
+    SelectorNode movementCheck;
+    SequenceNode stationaryGuard;
+    StationaryGuardCheck stationaryGuardCheck;
+    SelectorNode stationary;
+    StationaryIdle stationaryIdle;
+    FollowPath goBackToPosition;
+    SelectorNode movingGuard;
     Idle idle;
     FollowPath followPath;
 
@@ -88,11 +90,13 @@
         wakeUpDisabledGuard = new EnableGuard(agent);
 
         // Patrol
-        patrol = new SelectorNode();
-        InteractWithTheOtherGuard = new SequenceNode();
-        talkToOtherGuardCheck = new TalkToOtherGuardCheck(agent);
-        talkToOtherGuardSucceeder = new SucceederNode();
-        talkToOtherGuard = new TalkToOtherGuard(agent);
+        movementCheck = new SelectorNode();
+        stationaryGuard = new SequenceNode();
+        stationaryGuardCheck = new StationaryGuardCheck(agent);
+        stationary = new SelectorNode();
+        goBackToPosition = new FollowPath(agent);
+        stationaryIdle = new StationaryIdle(agent);
+        movingGuard = new SelectorNode();
         idle = new Idle(agent);
         followPath = new FollowPath(agent);
     }
@@ -133,13 +137,15 @@
         disabledGuardFound.AddChild(wakeUpDisabledGuard);
 
         // Patrol
-        rootNode.AddChild(patrol);
-        patrol.AddChild(InteractWithTheOtherGuard);
-        patrol.AddChild(idle);
-        patrol.AddChild(followPath);
-        InteractWithTheOtherGuard.AddChild(talkToOtherGuardCheck);
-        InteractWithTheOtherGuard.AddChild(talkToOtherGuardSucceeder);
-        talkToOtherGuardSucceeder.AddChild(talkToOtherGuard);
+        rootNode.AddChild(movementCheck);
+        movementCheck.AddChild(stationaryGuard);
+        stationaryGuard.AddChild(stationaryGuardCheck);
+        stationaryGuard.AddChild(stationary);
+        stationary.AddChild(stationaryIdle);
+        stationary.AddChild(goBackToPosition);
+        movementCheck.AddChild(movingGuard);
+        movingGuard.AddChild(idle);
+        movingGuard.AddChild(followPath);
     }
 
     public void Run()

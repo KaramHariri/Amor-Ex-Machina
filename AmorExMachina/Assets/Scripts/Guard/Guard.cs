@@ -2,8 +2,24 @@
 using UnityEngine;
 using Cinemachine;
 
+public enum GuardType
+{
+    STATIONARY,
+    MOVING
+}
+
+public enum MovementType
+{
+    WAIT_AT_WAYPOINT,
+    WAIT_AFTER_FULL_CYCLE,
+    DONT_WAIT
+}
+
 public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositionObserver
 {
+    public GuardType guardType = GuardType.MOVING;
+    public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
+
     GuardBehaviourTree guardBehavioralTree;
     [HideInInspector]
     public GuardMovement guardMovement;
@@ -40,6 +56,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
         guardMovement.SetScriptablesObjects(guardVariables, playerVariables);
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
+        guardMovement.SetGuardAndMovementType(guardType, movementType);
         currentColor = guardVariables.patrolColor;
     }
 

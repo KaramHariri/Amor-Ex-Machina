@@ -8,7 +8,7 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector]
     public Vector3 currentWayPoint;
     [HideInInspector]
-    public int wayPointIndex = 1;
+    public int wayPointIndex = 0;
 
     [HideInInspector]
     public float talkingTimer = 5.0f;
@@ -22,13 +22,51 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector]
     public Vector3 assistPosition;
 
+    [HideInInspector]
+    public Quaternion targetRotation;
+
     GuardVariables guardVariables;
     PlayerVariables playerVariables;
 
+    [HideInInspector]
+    public bool idle = false;
+    public bool drawWayPointGizmos = false;
+    bool foundPathHolder = false;
+
+    MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
+    GuardType guardType = GuardType.MOVING;
+
+    private void OnDrawGizmos()
+    {
+        if (drawWayPointGizmos)
+        {
+            Vector3 startPosition = pathHolder.GetChild(0).position;
+            Vector3 previousPosition = startPosition;
+
+            foreach (Transform wayPoint in pathHolder)
+            {
+                Gizmos.DrawSphere(wayPoint.position, 0.3f);
+                Gizmos.DrawLine(previousPosition, wayPoint.position);
+                previousPosition = wayPoint.position;
+            }
+            Gizmos.DrawLine(previousPosition, startPosition);
+        }
+    }
+
     public void GuardMovementAwake()
     {
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        //pathHolder = GameObject.Find(transform.name + "PathHolder").transform;
         SetPath();
+        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        targetRotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
+        idleTimer = guardVariables.maxIdletimer;
+
+    }
+
+    public void SetGuardAndMovementType(GuardType gType, MovementType mType)
+    {
+        guardType = gType;
+        movementType = mType;
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
@@ -42,11 +80,37 @@ public class GuardMovement : MonoBehaviour
         float distance = Vector3.Distance(transform.position, currentWayPoint);
         if (distance <= navMeshAgent.stoppingDistance)
         {
-            wayPointIndex = (wayPointIndex + 1) % path.Length;
-            if (wayPointIndex == 0)
+            if (guardType == GuardType.STATIONARY)
+            {
+                wayPointIndex = 0;
+                idle = true;
                 navMeshAgent.stoppingDistance = 0.1f;
+            }
             else
-                navMeshAgent.stoppingDistance = 1.0f;
+            {
+                switch (movementType)
+                {
+                    case MovementType.WAIT_AFTER_FULL_CYCLE:
+                        wayPointIndex = (wayPointIndex + 1) % path.Length;
+                        if (wayPointIndex == 0)
+                        {
+                            idle = true;
+                            navMeshAgent.stoppingDistance = 0.1f;
+                        }
+                        else
+                            navMeshAgent.stoppingDistance = 1.0f;
+                        break;
+                    case MovementType.WAIT_AT_WAYPOINT:
+                        wayPointIndex = (wayPointIndex + 1) % path.Length;
+                        navMeshAgent.stoppingDistance = 0.1f;
+                        idle = true;
+                        break;
+                    case MovementType.DONT_WAIT:
+                        wayPointIndex = (wayPointIndex + 1) % path.Length;
+                        break;
+                }
+            }
+            
         }
         currentWayPoint = path[wayPointIndex];
         Vector3 currentWayPointPosition = new Vector3(currentWayPoint.x, 1.0f, currentWayPoint.z);
@@ -69,6 +133,7 @@ public class GuardMovement : MonoBehaviour
 
     public void Investigate()
     {
+        idle = false;
         Vector3 investigationPos = new Vector3(investigationPosition.x, 1.0f, investigationPosition.z);
         navMeshAgent.SetDestination(investigationPos);
         navMeshAgent.stoppingDistance = 1.0f;
@@ -77,6 +142,7 @@ public class GuardMovement : MonoBehaviour
 
     public void ChasePlayer()
     {
+        idle = false;
         Vector3 playerPos = new Vector3(playerVariables.playerTransform.position.x, 1.0f, playerVariables.playerTransform.position.z);
         navMeshAgent.SetDestination(playerPos);
         navMeshAgent.speed = guardVariables.chaseSpeed;

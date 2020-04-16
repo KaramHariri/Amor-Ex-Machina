@@ -83,8 +83,9 @@ public class GuardSensing : MonoBehaviour
                     RaycastHit raycastHit;
                     if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
                     {
+                        Debug.DrawLine(transform.position, raycastHit.point, Color.red);
                         if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
-                        {
+                        { 
                             playerInSight = true;
                         }
                         else

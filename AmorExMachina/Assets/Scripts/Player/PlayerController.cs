@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
             if (controlling == false)
                 FPSRotate();
         }
+        else
+        {
+            rb.isKinematic = true;
+        }
     }
 
     void FixedUpdate()
@@ -148,7 +152,8 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         {
             Vector3 targetToPlayerDirection = transform.position - other.transform.position;
             float angleToTarget = Vector3.Angle(other.transform.forward, targetToPlayerDirection);
-            if (angleToTarget < 180.0f && angleToTarget > 135.0f && Input.GetButtonDown("X"))
+            Debug.Log(angleToTarget);
+            if (angleToTarget < 180.0f && angleToTarget > 120.0f && Input.GetButtonDown("X"))
             {
                 disabledGuard = other.GetComponent<Guard>();
                 if (disabledGuard != null)

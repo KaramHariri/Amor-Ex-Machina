@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: pathHolder
       value: 
       objectReference: {fileID: 272295587}
+    - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
+        type: 3}
+      propertyPath: drawWayPointGizmos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4764624099325711218, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1163,26 +1168,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 898446429}
     m_Modifications:
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: guardType
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
       value: 
       objectReference: {fileID: 719624945}
-    - target: {fileID: 4764624099325711217, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: m_Mass
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325711217, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4764624099325711218, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1242,11 +1232,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard
-      objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325711222, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad67e32d80fc274bb3a286950307329, type: 3}

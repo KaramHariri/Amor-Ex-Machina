@@ -85,11 +85,14 @@ public class GuardSensing : MonoBehaviour
                     {
                         Debug.DrawLine(transform.position, raycastHit.point, Color.red);
                         if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
-                        { 
+                        {
                             playerInSight = true;
                         }
                         else
+                        {
+                            //Debug.Log(raycastHit.collider.gameObject.name);
                             playerInSight = false;
+                        }
                     }
                 }
             }

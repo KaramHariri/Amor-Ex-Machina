@@ -133,11 +133,6 @@ PrefabInstance:
       propertyPath: pathHolder
       value: 
       objectReference: {fileID: 272295587}
-    - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: drawWayPointGizmos
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4764624099325711218, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1202,6 +1197,11 @@ PrefabInstance:
     - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: guardType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
+        type: 3}
+      propertyPath: showSensingSphere
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,

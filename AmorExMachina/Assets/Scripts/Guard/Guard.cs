@@ -33,6 +33,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
 
     [HideInInspector]
     public bool disabled = false;
+    [HideInInspector]
     public bool beingControlled = false;
     [HideInInspector]
     public bool assist = false;
@@ -41,6 +42,9 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     public PlayerLastSightPositionSubject playerLastSightPositionSubject;
     public GuardVariables guardVariables;
     public PlayerVariables playerVariables;
+
+    public bool showSensingSphere = true;
+    public bool showFieldOfView = true;
 
     [HideInInspector]
     public CinemachineVirtualCamera vC;
@@ -68,15 +72,21 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, guardVariables.fieldOfViewRadius);
+        if (showSensingSphere)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, guardVariables.fieldOfViewRadius);
+        }
 
         Vector3 fovLine1 = Quaternion.AngleAxis(guardVariables.fieldOfViewAngle, transform.up) * transform.forward * guardVariables.fieldOfViewRadius;
         Vector3 fovLine2 = Quaternion.AngleAxis(-guardVariables.fieldOfViewAngle, transform.up) * transform.forward * guardVariables.fieldOfViewRadius;
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, fovLine1);
-        Gizmos.DrawRay(transform.position, fovLine2);
+        if (showFieldOfView)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, fovLine1);
+            Gizmos.DrawRay(transform.position, fovLine2);
+        }
     }
 
     public void Update()

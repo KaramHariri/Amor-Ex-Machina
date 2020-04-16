@@ -63,6 +63,9 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (type == PuzzleButton.ButtonType.Empty)
+            return;
+
         puzzle.OnButtonSelected(this);
 
         SetSelectedImage();
@@ -70,6 +73,9 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (type == PuzzleButton.ButtonType.Empty)
+            return;
+
         puzzle.OnButtonEnter(this);
 
         SetSelectedImage();
@@ -77,6 +83,9 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (type == PuzzleButton.ButtonType.Empty)
+            return;
+
         puzzle.OnButtonExit(this);
 
         SetNormalImage();

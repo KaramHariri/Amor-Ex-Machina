@@ -100,6 +100,9 @@ public class Puzzle : MonoBehaviour
 
     public void SetActive(int index)
     {
+        if (buttons[index].type == PuzzleButton.ButtonType.Empty)
+            return;
+
         //Debug.Log("Set Active - Index " + index);
         selectedButton.Deselect();
         selectedButton = buttons[index];
@@ -108,6 +111,9 @@ public class Puzzle : MonoBehaviour
 
     public void SetHover(int index)
     {
+        if (buttons[index].type == PuzzleButton.ButtonType.Empty)
+            return;
+
         //Debug.Log("Set Active - Index " + index);
         selectedButton.Deselect();
         selectedButton = buttons[index];

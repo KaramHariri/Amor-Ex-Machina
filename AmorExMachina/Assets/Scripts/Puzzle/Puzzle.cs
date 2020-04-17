@@ -20,9 +20,11 @@ public class Puzzle : MonoBehaviour
     float buttonSwitchingCooldown = 0f;
     float buttonSwitchingCooldownTime = 0.20f;
     float buttonRotateCooldown = 0f;
-    float buttonRotateCooldownTime = 0.2f;
+    //float buttonRotateCooldownTime = 0.2f;
     float buttonActivateCooldown = 0f;
     float timeBetweenFlips = 0.2f;
+
+    public PuzzleActivator PA;
 
     private void Start()
     {
@@ -312,6 +314,12 @@ public class Puzzle : MonoBehaviour
             }
         }
         Debug.Log("Puzzle completed!");
+
+        if(PA != null)
+        {
+            PA.DeactivatePuzzle();
+        }
+
         return true;
     }
 

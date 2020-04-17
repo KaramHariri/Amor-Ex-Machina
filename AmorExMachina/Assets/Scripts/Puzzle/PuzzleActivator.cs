@@ -18,6 +18,13 @@ public class PuzzleActivator : MonoBehaviour
 
     private bool canBeActivated = false;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     public void Update()
     {
         if(puzzleSolved) { return; }
@@ -32,6 +39,7 @@ public class PuzzleActivator : MonoBehaviour
         {
             if (!activated)
             {
+                audioManager.Play("StartPuzzle");
                 //Debug.Log("Activated");
                 MoveTo(offScreenPosition, onScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
@@ -39,6 +47,7 @@ public class PuzzleActivator : MonoBehaviour
             }
             else
             {
+                audioManager.Play("StartPuzzle");
                 //Debug.Log("Deactivated");
                 MoveTo(onScreenPosition, offScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
@@ -64,6 +73,8 @@ public class PuzzleActivator : MonoBehaviour
 
     public void DeactivatePuzzle()
     {
+        audioManager.Play("CompletePuzzle");
+
         puzzleSolved = true;
 
         //Debug.Log("Deactivated");

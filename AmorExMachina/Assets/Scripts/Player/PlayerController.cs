@@ -30,6 +30,12 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     public TransformVariable thirdPersonCameraTransform;
     public PlayerLastSightPositionSubject PlayerLastSightPositionSubject;
 
+    [SerializeField]
+    AudioManager audioManager;
+
+    float accumulateDistance = 0.0f;
+    float stepDistance = 0.2f;
+
     void Awake()
     {
         playerVariables.playerTransform = transform;
@@ -38,6 +44,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         firstPersonCameraVariables.followTarget = transform.GetChild(1);
         thirdPersonCameraVariables.followTarget = transform.GetChild(2);
         PlayerLastSightPositionSubject.AddObserver(this);
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -90,10 +97,28 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
             {
                 if (!cameraSwitchedToFirstPerson.value && (verticalInput != 0.0f || horizontalInput != 0.0f))
                 {
+                    //PlaySound();
                     HandleRotation();
                 }
                 HandleMovement();
             }
+        }
+    }
+
+    void PlaySound()
+    {
+        accumulateDistance += Time.deltaTime;
+        if (rb.velocity.sqrMagnitude > 0.0f)
+        {
+            if (accumulateDistance > stepDistance)
+            {
+                audioManager.Play("Movement");
+                accumulateDistance = 0.0f;
+            }
+        }
+        else
+        {
+            accumulateDistance = 0.0f;
         }
     }
 

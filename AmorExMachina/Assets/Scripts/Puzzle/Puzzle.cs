@@ -8,6 +8,7 @@ public class Puzzle : MonoBehaviour
     //public List<PuzzleButton> buttons;
     public PuzzleButton[] buttons;
     private PuzzleButton selectedButton;
+
     private List<PuzzleButton> activateableButtons = new List<PuzzleButton>();
     private int selectedButtonIndex = 0;
 
@@ -48,10 +49,13 @@ public class Puzzle : MonoBehaviour
 
     private void Update()
     {
-        DecreaseCooldowns();
+        if (PA.activated)
+        {
+            DecreaseCooldowns();
 
-        HandleMouseAndKeyboardInput();
-        HandleControllerInput();
+            HandleMouseAndKeyboardInput();
+            HandleControllerInput();
+        }
     }
 
     public void Subscribe(PuzzleButton button)

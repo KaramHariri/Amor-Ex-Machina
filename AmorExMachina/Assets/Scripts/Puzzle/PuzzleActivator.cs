@@ -8,8 +8,8 @@ public class PuzzleActivator : MonoBehaviour
     public Vector3 onScreenPosition;
     public GameObject objectToMove;
     public AnimationCurve animationCurve;
-
-    private bool activated = false;
+    [HideInInspector]
+    public bool activated = false;
     private bool puzzleSolved = false;
 
     public float duration = 1.5f;

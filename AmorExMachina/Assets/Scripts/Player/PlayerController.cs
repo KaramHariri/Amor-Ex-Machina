@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     public TransformVariable thirdPersonCameraTransform;
     public PlayerLastSightPositionSubject PlayerLastSightPositionSubject;
 
-    [SerializeField]
     AudioManager audioManager;
 
     float accumulateDistance = 0.0f;

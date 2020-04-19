@@ -919,6 +919,18 @@ PrefabInstance:
       propertyPath: type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8459803004941548504, guid: 243389904229c7e40942cacad30cee9c,
+        type: 3}
+      propertyPath: gameStateSubject
+      value: 
+      objectReference: {fileID: 11400000, guid: 45877ae9b67b10741b0237cb2847dde8,
+        type: 2}
+    - target: {fileID: 8459803004941548504, guid: 243389904229c7e40942cacad30cee9c,
+        type: 3}
+      propertyPath: PlayerLastSightPositionSubject
+      value: 
+      objectReference: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
+        type: 2}
     - target: {fileID: 8459803005031868542, guid: 243389904229c7e40942cacad30cee9c,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2714,7 +2726,7 @@ PrefabInstance:
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: soundFX.Array.data[0].randomPitch
-      value: 0.298
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
@@ -2749,7 +2761,7 @@ PrefabInstance:
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: soundFX.Array.data[1].randomPitch
-      value: 0.298
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
@@ -2784,7 +2796,7 @@ PrefabInstance:
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: soundFX.Array.data[2].randomPitch
-      value: 0.298
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
@@ -2819,7 +2831,7 @@ PrefabInstance:
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: soundFX.Array.data[3].randomPitch
-      value: 0.298
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}

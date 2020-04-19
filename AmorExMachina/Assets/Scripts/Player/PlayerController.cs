@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     
     Guard disabledGuard;
     
-    public GameStateSubject gameStateSubject;
     public PlayerSoundSubject playerSoundSubject;
     public GuardHackedSubject guardHackedSubject;
     public PlayerVariables playerVariables;
@@ -48,17 +47,21 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 
     void Update()
     {
+        if(GameHandler.currentState != GameState.NORMALGAME) { return; }
+
         if (!playerVariables.caught)
         {
             if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
             {
                 disabledGuard.beingControlled = true;
                 controlling = true;
+                GameHandler.currentState = GameState.HACKING;
             }
             else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
             {
                 disabledGuard.beingControlled = false;
                 controlling = false;
+                GameHandler.currentState = GameState.NORMALGAME;
             }
 
             if (controlling)
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 
             if (playerVariables.caught)
             {
-                gameStateSubject.GameStateNotify(GameState.LOST);
+                GameHandler.currentState = GameState.LOST;
             }
             else
             {
@@ -90,6 +93,8 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 
     void FixedUpdate()
     {
+        if (GameHandler.currentState != GameState.NORMALGAME) { return; }
+
         if (!playerVariables.caught)
         {
             if (controlling == false)
@@ -199,6 +204,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
             disabledGuard.beingControlled = false;
             disabledGuard = null;
             controlling = false;
+            GameHandler.currentState = GameState.NORMALGAME;
         }
     }
 }

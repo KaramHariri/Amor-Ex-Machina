@@ -1,14 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-public class GameController : MonoBehaviour, IGameStateObserver
+
+public enum GameState
 {
+    NORMALGAME,
+    MENU,
+    PUZZLE,
+    HACKING,
+    WON,
+    LOST
+}
+public class GameHandler : MonoBehaviour
+{
+    static public GameState currentState;
+    private GameState previousState;
+
     public static Guard[] guards;
-    public GameStateSubject gameStateSubject;
 
     private void Awake()
     {
-        gameStateSubject.AddObserver(this);
         FindAllGuards();
+        previousState = currentState;
     }
 
     void Update()
@@ -16,6 +28,12 @@ public class GameController : MonoBehaviour, IGameStateObserver
         if(Input.GetButtonDown("Options"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if(previousState != currentState)
+        {
+            //Debug.Log("Switching state from :" + previousState + " to " + currentState);
+            previousState = currentState;
         }
     }
 
@@ -26,18 +44,6 @@ public class GameController : MonoBehaviour, IGameStateObserver
         for (int i = 0; i < allGuards.Length; i++)
         {
             guards[i] = allGuards[i].GetComponent<Guard>();
-        }
-    }
-
-    public void GameStateNotify(GameState gameState)
-    {
-        if (gameState == GameState.LOST)
-        {
-            // Lost.
-        }
-        else if (gameState == GameState.WON)
-        {
-            // Won.
         }
     }
 }

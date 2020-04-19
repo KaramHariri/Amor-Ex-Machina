@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleActivator : MonoBehaviour
+public class PuzzleActivator : MonoBehaviour, IPlayerLastSightPositionObserver
 {
     public Vector3 offScreenPosition;
     public Vector3 onScreenPosition;
@@ -14,15 +14,24 @@ public class PuzzleActivator : MonoBehaviour
 
     public float duration = 1.5f;
     public float animationCooldown = 0f;
-    private float deactivationDelay = 1.5f;
+    private float deactivationDelay = 1.0f;
 
     private bool canBeActivated = false;
 
     AudioManager audioManager;
+    [SerializeField] PlayerLastSightPositionSubject PlayerLastSightPositionSubject = null;
 
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        if(PlayerLastSightPositionSubject != null)
+        {
+            PlayerLastSightPositionSubject.AddObserver(this);
+        }
+        else
+        {
+            Debug.Log("Could not find PlayerLastSightPositionSubject, add it in the inspector");
+        }
     }
 
     public void Update()
@@ -44,6 +53,7 @@ public class PuzzleActivator : MonoBehaviour
                 MoveTo(offScreenPosition, onScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
                 activated = !activated;
+                GameHandler.currentState = GameState.PUZZLE;
             }
             else
             {
@@ -52,6 +62,7 @@ public class PuzzleActivator : MonoBehaviour
                 MoveTo(onScreenPosition, offScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
                 activated = !activated;
+                GameHandler.currentState = GameState.NORMALGAME;
             }
         }
     }
@@ -81,6 +92,7 @@ public class PuzzleActivator : MonoBehaviour
         MoveTo(onScreenPosition, offScreenPosition, duration, deactivationDelay);
         animationCooldown = duration + deactivationDelay + 1.5f;
         activated = !activated;
+        GameHandler.currentState = GameState.NORMALGAME;
     }
 
     void MoveTo(Vector3 origin, Vector3 target, float duration)
@@ -127,6 +139,20 @@ public class PuzzleActivator : MonoBehaviour
             objectToMove.transform.position = Vector3.LerpUnclamped(origin, target, curvePercent);
 
             yield return null;
+        }
+    }
+
+    public void Notify(Vector3 position)
+    {
+        if(activated)
+        {
+            canBeActivated = false;
+            audioManager.Play("StartPuzzle");
+            Debug.Log("FORCED TO CLOSE DOWN THE PUZZLE SOLVING DUE TO BEING SPOTTED");
+            animationCooldown = duration + 0.2f;
+            MoveTo(onScreenPosition, offScreenPosition, duration);
+            activated = !activated;
+            GameHandler.currentState = GameState.NORMALGAME;
         }
     }
 }

@@ -58,9 +58,9 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
 
     void AddGuardVirtualCamerasToDictionary()
     {
-        for(int i = 0; i < GameController.guards.Length; i++)
+        for(int i = 0; i < GameHandler.guards.Length; i++)
         {
-            guardsVirtualCameras.Add(GameController.guards[i].name, GameController.guards[i].vC);
+            guardsVirtualCameras.Add(GameHandler.guards[i].name, GameHandler.guards[i].vC);
         }
     }
 

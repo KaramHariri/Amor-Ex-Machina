@@ -31,7 +31,6 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector]
     public bool idle = false;
     public bool drawWayPointGizmos = false;
-    bool foundPathHolder = false;
 
     MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     GuardType guardType = GuardType.MOVING;
@@ -227,7 +226,7 @@ public class GuardMovement : MonoBehaviour
     {
         float closestDistanceSquared = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        foreach (Guard guard in GameController.guards)
+        foreach (Guard guard in GameHandler.guards)
         {
             if (guard.gameObject != this.gameObject)
             {

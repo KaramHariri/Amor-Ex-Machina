@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinimapCamera : MonoBehaviour
 {
     [SerializeField]
-    private PlayerVariables playerVariables;
+    private PlayerVariables playerVariables = null;
     private Camera mainCamera;
 
     private void Awake()
@@ -20,6 +20,5 @@ public class MinimapCamera : MonoBehaviour
 
         //transform.rotation = Quaternion.Euler(90.0f, playerVariables.playerTransform.eulerAngles.y, 0.0f);
         transform.rotation = Quaternion.Euler(90.0f, mainCamera.transform.eulerAngles.y, 0.0f);
-
     }
 }

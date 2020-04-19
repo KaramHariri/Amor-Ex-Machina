@@ -23,6 +23,8 @@ public class GuardSensing : MonoBehaviour
 
     Guard guardScript;
 
+    [SerializeField] LayerMask ignoreLayer = 9;
+
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
@@ -33,6 +35,15 @@ public class GuardSensing : MonoBehaviour
     public void Update()
     {
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
+        if (playerInSight)
+        {
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform);
+        }
+        else
+        {
+            UIManager.removeIndicator(this.transform);
+        }
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
@@ -75,22 +86,21 @@ public class GuardSensing : MonoBehaviour
             {
                 canHear = true;
 
-                Vector3 direction = other.transform.position - transform.position;
+                Vector3 playerPosition = new Vector3(other.transform.position.x, other.transform.position.y + 0.5f, other.transform.position.z);
+                Vector3 direction = playerPosition - transform.position;
                 float angle = Vector3.Angle(direction, transform.forward);
 
                 if (angle < guardVariables.fieldOfViewAngle)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    if(Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
                     {
-                        Debug.DrawLine(transform.position, raycastHit.point, Color.red);
                         if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
                         {
                             playerInSight = true;
                         }
                         else
                         {
-                            //Debug.Log(raycastHit.collider.gameObject.name);
                             playerInSight = false;
                         }
                     }

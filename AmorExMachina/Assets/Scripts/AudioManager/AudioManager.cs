@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Audio;
 using System;
 
 [System.Serializable]
@@ -52,9 +51,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string p_name)
+    public void Play(string name, Vector3 position = default)
     {
-        Audio aud = Array.Find(soundFX, Audio => Audio.name == p_name);
+        Audio aud = Array.Find(soundFX, Audio => Audio.name == name);
         if (aud == null)
         {
             Debug.Log("Audio : " + aud.name + " not found");
@@ -68,21 +67,22 @@ public class AudioManager : MonoBehaviour
             if (aud.aS.spatialBlend == 1)
             {
                 aud.aS.maxDistance = aud.maxSoundDistance;
-                AudioSource.PlayClipAtPoint(aud.aS.clip, new Vector3(200.0f, 0.0f, 10.0f));
+                PlayAudioSource(name, aud.aS.clip, position, aud.aS.volume, aud.aS.pitch, aud.aS.maxDistance);
+                //AudioSource.PlayClipAtPoint(aud.aS.clip, new Vector3(200.0f, 0.0f, 10.0f));
             }
             else
                 aud.aS.Play();
         }
     }
 
-    public void Mute(string p_name)
+    public void Mute(string name)
     {
-        StartCoroutine(MuteSound(p_name));
+        StartCoroutine(MuteSound(name));
     }
 
-    IEnumerator MuteSound(string p_name)
+    IEnumerator MuteSound(string name)
     {
-        Audio aud = Array.Find(soundFX, Audio => Audio.name == p_name);
+        Audio aud = Array.Find(soundFX, Audio => Audio.name == name);
         if (aud == null)
         {
             Debug.Log("Audio : " + name + " not found");
@@ -98,13 +98,13 @@ public class AudioManager : MonoBehaviour
         }
         if (aud.aS.volume <= 0.01f)
         {
-            Stop(p_name);
+            Stop(name);
         }
     }
 
-    public void Stop(string p_name)
+    public void Stop(string name)
     {
-        Audio aud = Array.Find(soundFX, Audio => Audio.name == p_name);
+        Audio aud = Array.Find(soundFX, Audio => Audio.name == name);
         if (aud == null)
         {
             Debug.Log("Audio : " + name + " not found");
@@ -117,5 +117,16 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    //  FindObjectOfType<AudioManager>().Play("Name of the clip");
+    void PlayAudioSource(string name, AudioClip audioClip, Vector3 position, float volume, float pitch, float maxDistance)
+    {
+        AudioSource audioSource = AudioSourcePool.instance.GetAudioSource();
+        audioSource.clip = audioClip;
+        audioSource.spatialBlend = 1.0f;
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
+        audioSource.maxDistance = maxDistance;
+        audioSource.gameObject.transform.position = position;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
 }

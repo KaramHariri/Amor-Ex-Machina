@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     public ThirdPersonCameraVariables thirdPersonCameraVariables;
     public TransformVariable firstPersonCameraTransform;
     public TransformVariable thirdPersonCameraTransform;
-    public PlayerLastSightPositionSubject PlayerLastSightPositionSubject;
+    public PlayerLastSightPositionSubject playerLastSightPositionSubject;
 
     AudioManager audioManager;
 
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         rb = GetComponent<Rigidbody>();
         firstPersonCameraVariables.followTarget = transform.GetChild(1);
         thirdPersonCameraVariables.followTarget = transform.GetChild(2);
-        PlayerLastSightPositionSubject.AddObserver(this);
+        playerLastSightPositionSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
     }
 

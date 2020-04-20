@@ -47,6 +47,13 @@ public class FirstPersonCinemachine : MonoBehaviour
     private void LateUpdate()
     {
         UpdateCameraSettings();
+
+        if(GameHandler.currentState != GameState.NORMALGAME)
+        {
+            cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = 0.0f;
+            cinemachinePOV.m_VerticalAxis.m_MaxSpeed = 0.0f;
+            return;
+        }
         RotateCinemachineTransform();
     }
 

@@ -43,64 +43,25 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void Update()
     {
-        if (!playerVariables.caught)
+        PlayerIsKinematicCheck();
+
+        if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
+
+        HackingGuardCheck();
+
+        if (playerVariables.caught)
         {
-            if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-            {
-                disabledGuard.beingControlled = false;
-                controlling = false;
-                disabledGuard = null;
-                GameHandler.currentState = GameState.NORMALGAME;
-            }
+            GameHandler.currentState = GameState.LOST;
         }
 
-        if (GameHandler.currentState != GameState.NORMALGAME) { return; }
-
-        if (!playerVariables.caught)
-        {
-            if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
-            {
-                disabledGuard.beingControlled = true;
-                controlling = true;
-                GameHandler.currentState = GameState.HACKING;
-            }
-            else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-            {
-                disabledGuard.beingControlled = false;
-                controlling = false;
-                GameHandler.currentState = GameState.NORMALGAME;
-            }
-
-            if (controlling)
-            {
-                guardHackedSubject.GuardHackedNotify(disabledGuard.name);
-            }
-            else
-            {
-                guardHackedSubject.GuardHackedNotify("");
-            }
-
-            if (playerVariables.caught)
-            {
-                GameHandler.currentState = GameState.LOST;
-            }
-            else
-            {
-                if (controlling == false)
-                    GetInput();
-            }
-            if (controlling == false)
-                FPSRotate();
-        }
-        else
-        {
-            rb.isKinematic = true;
-        }
+        GetInput();
+        if (!controlling)
+            FPSRotate();
     }
 
     void FixedUpdate()
     {
-        if (GameHandler.currentState != GameState.NORMALGAME) { return; }
+        if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
 
         if (!playerVariables.caught)
         {
@@ -130,6 +91,36 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         else
         {
             accumulateDistance = 0.0f;
+        }
+    }
+
+    void PlayerIsKinematicCheck()
+    {
+        if (GameHandler.currentState != GameState.NORMALGAME)
+        {
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    void HackingGuardCheck()
+    {
+        if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+        {
+            disabledGuard.beingControlled = true;
+            controlling = true;
+            guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+            GameHandler.currentState = GameState.HACKING;
+        }
+        else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
+        {
+            disabledGuard.beingControlled = false;
+            controlling = false;
+            guardHackedSubject.GuardHackedNotify("");
+            GameHandler.currentState = GameState.NORMALGAME;
         }
     }
 
@@ -202,7 +193,6 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             }
         }
     }
-
 
     // Player Spotted Notify.
     public void Notify(Vector3 position)

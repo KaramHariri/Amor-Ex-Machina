@@ -25,6 +25,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
 
     private void Update()
     {
+        if (GameHandler.currentState != GameState.NORMALGAME) { return; }
         SwitchPlayerCameraCheck();
     }
 

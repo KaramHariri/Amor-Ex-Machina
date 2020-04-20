@@ -53,6 +53,13 @@ public class ThirdPersonCinemachine : MonoBehaviour
     private void LateUpdate()
     {
         UpdateCameraSettings();
+
+        if(GameHandler.currentState != GameState.NORMALGAME) 
+        {
+            cinemachineFreeLook.m_XAxis.m_MaxSpeed = 0.0f;
+            cinemachineFreeLook.m_YAxis.m_MaxSpeed = 0.0f;
+            return; 
+        }
         RotateCinemachineTransform();
     }
 

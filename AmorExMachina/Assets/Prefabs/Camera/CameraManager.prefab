@@ -278,12 +278,7 @@ MonoBehaviour:
   middleRingRadius: 7
   bottomRingHeight: -0.7
   bottomRingRadius: 4
-  thirdPersonCameraVariables: {fileID: 11400000, guid: a6a7a7a68c4a7e1469b662f07e8e4689,
-    type: 2}
-  thirdPersonCameraTransform: {fileID: 11400000, guid: d77b4b4e739cba344b7acdabd6f6e814,
-    type: 2}
-  playerCameras: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
-  cameraSwitchedToFirstPerson: {fileID: 11400000, guid: e95f5c985f4700d4dbc5f04eb002ecf4,
+  playerCamerasVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166,
     type: 2}
 --- !u!114 &366947854
 MonoBehaviour:
@@ -424,8 +419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCameras: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
-  cameraSwitchedToFirstPerson: {fileID: 11400000, guid: e95f5c985f4700d4dbc5f04eb002ecf4,
-    type: 2}
   guardHackedSubject: {fileID: 11400000, guid: ddda057fc03953a4bba3164ee12e9282, type: 2}
 --- !u!1 &5276379237964430837
 GameObject:
@@ -834,12 +827,7 @@ MonoBehaviour:
   useMouseInput: 0
   cameraYMin: -70
   cameraYMax: 70
-  firstPersonCameraVariables: {fileID: 11400000, guid: 8c1824f24a12b2b43a68b5e65d7f9185,
-    type: 2}
-  firstPersonTransform: {fileID: 11400000, guid: 345fa99420ac31843b971492c5243029,
-    type: 2}
-  playerCameras: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
-  cameraSwitchedToFirstPerson: {fileID: 11400000, guid: e95f5c985f4700d4dbc5f04eb002ecf4,
+  playerCamerasVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166,
     type: 2}
 --- !u!1 &5276379238820037884
 GameObject:

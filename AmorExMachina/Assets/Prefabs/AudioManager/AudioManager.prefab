@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59db15cc1391b745a61f41e2b72847f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourcePrefab: {fileID: 0}
+  audioSourcePrefab: {fileID: 1436373257723949812, guid: 18469666dfa05774dbff026ade50efef,
+    type: 3}
   numberOfAudioSources: 10
   pooledAudioSources: []

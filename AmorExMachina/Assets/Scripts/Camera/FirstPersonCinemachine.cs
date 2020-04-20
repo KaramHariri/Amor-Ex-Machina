@@ -24,10 +24,7 @@ public class FirstPersonCinemachine : MonoBehaviour
     private float cameraYMax = 70.0f;
 
     [Header("ScriptableObjects")]
-    public FirstPersonCameraVariables firstPersonCameraVariables;
-    public TransformVariable firstPersonTransform;
-    public PlayerCameras playerCameras;
-    public BoolVariable cameraSwitchedToFirstPerson;
+    public PlayerCamerasVariables playerCamerasVariables;
 
     int priority = 20;
 
@@ -37,8 +34,8 @@ public class FirstPersonCinemachine : MonoBehaviour
         cinemachineVirtualCamera.m_Priority = priority;
         cinemachinePOV = cinemachineVirtualCamera.GetCinemachineComponent<CinemachinePOV>();
         mainCamera = Camera.main;
-        firstPersonTransform.value = this.transform;
-        playerCameras.firstPersonCamera = cinemachineVirtualCamera;
+        playerCamerasVariables.firstPersonCameraTransform = this.transform;
+        playerCamerasVariables.firstPersonCamera = cinemachineVirtualCamera;
     }
 
     private void Start()
@@ -50,6 +47,13 @@ public class FirstPersonCinemachine : MonoBehaviour
     private void LateUpdate()
     {
         UpdateCameraSettings();
+
+        if(GameHandler.currentState != GameState.NORMALGAME)
+        {
+            cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = 0.0f;
+            cinemachinePOV.m_VerticalAxis.m_MaxSpeed = 0.0f;
+            return;
+        }
         RotateCinemachineTransform();
     }
 
@@ -59,7 +63,7 @@ public class FirstPersonCinemachine : MonoBehaviour
         if (playerYAngle > 180)
             playerYAngle -= 360;
 
-        if (!cameraSwitchedToFirstPerson.value)
+        if (!playerCamerasVariables.switchedCameraToFirstPerson)
         {
             cinemachinePOV.m_HorizontalAxis.Value = playerYAngle;
         }
@@ -68,7 +72,7 @@ public class FirstPersonCinemachine : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0.0f, mainCamera.transform.eulerAngles.y, 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }
-        firstPersonTransform.value = this.transform;
+        playerCamerasVariables.firstPersonCameraTransform = this.transform;
     }
 
     void UpdateCameraSettings()
@@ -98,26 +102,26 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void SetCameraSettings()
     {
-        cinemachineVirtualCamera.m_Follow = firstPersonCameraVariables.followTarget;
+        cinemachineVirtualCamera.m_Follow = playerCamerasVariables.firstPersonCameraFollowTarget;
 
-        invertVerticalInput = firstPersonCameraVariables.invertVerticalInput;
-        verticalSpeed = firstPersonCameraVariables.verticalSpeed;
-        cameraYMin = firstPersonCameraVariables.cameraYMin;
-        cameraYMax = firstPersonCameraVariables.cameraYMax;
+        invertVerticalInput = playerCamerasVariables.firstPersonCameraInvertVerticalInput;
+        verticalSpeed = playerCamerasVariables.firstPersonCameraVerticalSpeed;
+        cameraYMin = playerCamerasVariables.firstPersonCameraYMin;
+        cameraYMax = playerCamerasVariables.firstPersonCameraYMax;
 
-        invertHorizontalInput = firstPersonCameraVariables.invertHorizontalInput;
-        horizontalSpeed = firstPersonCameraVariables.horizontalSpeed;
+        invertHorizontalInput = playerCamerasVariables.firstPersonCameraInvertHorizontalInput;
+        horizontalSpeed = playerCamerasVariables.firstPersonCameraHorizontalSpeed;
     }
 
     void UpdateFirstPersonCameraVariables()
     {
-        firstPersonCameraVariables.invertVerticalInput = invertVerticalInput;
-        firstPersonCameraVariables.invertHorizontalInput = invertHorizontalInput;
-        
-        firstPersonCameraVariables.verticalSpeed = verticalSpeed;
-        firstPersonCameraVariables.horizontalSpeed = horizontalSpeed;
+        playerCamerasVariables.firstPersonCameraInvertVerticalInput = invertVerticalInput;
+        playerCamerasVariables.firstPersonCameraInvertHorizontalInput = invertHorizontalInput;
 
-        firstPersonCameraVariables.cameraYMin = cameraYMin;
-        firstPersonCameraVariables.cameraYMax = cameraYMax;
+        playerCamerasVariables.firstPersonCameraVerticalSpeed = verticalSpeed;
+        playerCamerasVariables.firstPersonCameraHorizontalSpeed = horizontalSpeed;
+
+        playerCamerasVariables.firstPersonCameraYMin = cameraYMin;
+        playerCamerasVariables.firstPersonCameraYMax = cameraYMax;
     }
 }

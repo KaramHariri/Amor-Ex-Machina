@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleActivator : MonoBehaviour, IPlayerLastSightPositionObserver
+public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 {
     public Vector3 offScreenPosition;
     public Vector3 onScreenPosition;
@@ -19,14 +19,14 @@ public class PuzzleActivator : MonoBehaviour, IPlayerLastSightPositionObserver
     private bool canBeActivated = false;
 
     AudioManager audioManager;
-    [SerializeField] PlayerLastSightPositionSubject PlayerLastSightPositionSubject = null;
+    [SerializeField] PlayerSpottedSubject PlayerSpottedSubject = null;
 
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        if(PlayerLastSightPositionSubject != null)
+        if(PlayerSpottedSubject != null)
         {
-            PlayerLastSightPositionSubject.AddObserver(this);
+            PlayerSpottedSubject.AddObserver(this);
         }
         else
         {

@@ -1304,8 +1304,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  activated: 0
   duration: 1.5
   animationCooldown: 0
+  PlayerSpottedSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
+    type: 2}
 --- !u!1 &8459803005031868541
 GameObject:
   m_ObjectHideFlags: 0

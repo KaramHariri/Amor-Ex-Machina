@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
+public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 {
     public float walkSpeed = 10.0f;
     public float sneakSpeed = 2.5f;
@@ -22,12 +22,8 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     public PlayerSoundSubject playerSoundSubject;
     public GuardHackedSubject guardHackedSubject;
     public PlayerVariables playerVariables;
-    public BoolVariable cameraSwitchedToFirstPerson;
-    public FirstPersonCameraVariables firstPersonCameraVariables;
-    public ThirdPersonCameraVariables thirdPersonCameraVariables;
-    public TransformVariable firstPersonCameraTransform;
-    public TransformVariable thirdPersonCameraTransform;
-    public PlayerLastSightPositionSubject playerLastSightPositionSubject;
+    public PlayerCamerasVariables cameraVariables;
+    public PlayerSpottedSubject playerSpottedSubject;
 
     AudioManager audioManager;
 
@@ -39,67 +35,39 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         playerVariables.playerTransform = transform;
         playerVariables.caught = false;
         rb = GetComponent<Rigidbody>();
-        firstPersonCameraVariables.followTarget = transform.GetChild(1);
-        thirdPersonCameraVariables.followTarget = transform.GetChild(2);
-        playerLastSightPositionSubject.AddObserver(this);
+        cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
+        cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
+        playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
     {
-        if(GameHandler.currentState != GameState.NORMALGAME) { return; }
+        PlayerIsKinematicCheck();
 
-        if (!playerVariables.caught)
+        if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
+
+        HackingGuardCheck();
+
+        if (playerVariables.caught)
         {
-            if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
-            {
-                disabledGuard.beingControlled = true;
-                controlling = true;
-                GameHandler.currentState = GameState.HACKING;
-            }
-            else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-            {
-                disabledGuard.beingControlled = false;
-                controlling = false;
-                GameHandler.currentState = GameState.NORMALGAME;
-            }
-
-            if (controlling)
-            {
-                guardHackedSubject.GuardHackedNotify(disabledGuard.name);
-            }
-            else
-            {
-                guardHackedSubject.GuardHackedNotify("");
-            }
-
-            if (playerVariables.caught)
-            {
-                GameHandler.currentState = GameState.LOST;
-            }
-            else
-            {
-                if (controlling == false)
-                    GetInput();
-            }
-            if (controlling == false)
-                FPSRotate();
+            GameHandler.currentState = GameState.LOST;
         }
-        else
-        {
-            rb.isKinematic = true;
-        }
+
+        GetInput();
+        if (!controlling)
+            FPSRotate();
     }
 
     void FixedUpdate()
     {
-        if (GameHandler.currentState != GameState.NORMALGAME) { return; }
+        if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
 
         if (!playerVariables.caught)
         {
             if (controlling == false)
             {
-                if (!cameraSwitchedToFirstPerson.value && (verticalInput != 0.0f || horizontalInput != 0.0f))
+                if (!cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
                 {
                     //PlaySound();
                     HandleRotation();
@@ -126,6 +94,36 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         }
     }
 
+    void PlayerIsKinematicCheck()
+    {
+        if (GameHandler.currentState != GameState.NORMALGAME)
+        {
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    void HackingGuardCheck()
+    {
+        if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+        {
+            disabledGuard.beingControlled = true;
+            controlling = true;
+            guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+            GameHandler.currentState = GameState.HACKING;
+        }
+        else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
+        {
+            disabledGuard.beingControlled = false;
+            controlling = false;
+            guardHackedSubject.GuardHackedNotify("");
+            GameHandler.currentState = GameState.NORMALGAME;
+        }
+    }
+
     void GetInput()
     {
         verticalInput = Input.GetAxis("Vertical");
@@ -134,11 +132,11 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
 
     void FPSRotate()
     {
-        if(cameraSwitchedToFirstPerson.value)
+        if(cameraVariables.switchedCameraToFirstPerson)
         {
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
-            Quaternion targetRotation = Quaternion.Euler(0.0f, firstPersonCameraTransform.value.eulerAngles.y , 0.0f);
+            Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.firstPersonCameraTransform.eulerAngles.y , 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }
     }
@@ -146,7 +144,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     void HandleRotation()
     {
         moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
-        Quaternion targetRotation = Quaternion.Euler(0.0f, thirdPersonCameraTransform.value.eulerAngles.y, 0.0f);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.thirdPersonCameraTransform.eulerAngles.y, 0.0f);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
     }
 
@@ -154,14 +152,14 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
     {
         sneaking = Input.GetButton("Sneaking");
         Vector3 v = transform.forward;
-        if (cameraSwitchedToFirstPerson.value)
+        if (cameraVariables.switchedCameraToFirstPerson)
         {
             Vector3 dir = transform.right * horizontalInput + transform.forward * verticalInput;
             v = dir;
         }
         else
         {
-            Vector3 dir = thirdPersonCameraTransform.value.transform.right * horizontalInput + thirdPersonCameraTransform.value.forward * verticalInput;
+            Vector3 dir = cameraVariables.thirdPersonCameraTransform.transform.right * horizontalInput + cameraVariables.thirdPersonCameraTransform.forward * verticalInput;
             v = dir;
         }
 
@@ -181,7 +179,6 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         {
             Vector3 targetToPlayerDirection = transform.position - other.transform.position;
             float angleToTarget = Vector3.Angle(other.transform.forward, targetToPlayerDirection);
-            //Debug.Log(angleToTarget);
             if (angleToTarget < 180.0f && angleToTarget > 110.0f && Input.GetButtonDown("X"))
             {
                 disabledGuard = other.GetComponent<Guard>();
@@ -197,6 +194,7 @@ public class PlayerController : MonoBehaviour, IPlayerLastSightPositionObserver
         }
     }
 
+    // Player Spotted Notify.
     public void Notify(Vector3 position)
     {
         if (disabledGuard != null)

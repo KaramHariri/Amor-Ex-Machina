@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
 
+
+
     void Awake()
     {
         playerVariables.playerTransform = transform;
@@ -63,18 +65,18 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
 
-        if (!playerVariables.caught)
-        {
-            if (controlling == false)
-            {
+        //if (!playerVariables.caught)
+        //{
+        //    if (controlling == false)
+        //    {
                 if (!cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
                 {
                     //PlaySound();
                     HandleRotation();
                 }
                 HandleMovement();
-            }
-        }
+        //    }
+        //}
     }
 
     void PlaySound()
@@ -128,6 +130,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
+        if (Input.GetButtonDown("Sneaking"))
+        {
+            sneaking = !sneaking;
+        }
     }
 
     void FPSRotate()
@@ -150,7 +156,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HandleMovement()
     {
-        sneaking = Input.GetButton("Sneaking");
+        //sneaking = Input.GetButton("Sneaking");
         Vector3 v = transform.forward;
         if (cameraVariables.switchedCameraToFirstPerson)
         {

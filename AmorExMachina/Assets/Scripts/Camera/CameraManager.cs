@@ -10,8 +10,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     private bool switchedToFirstPersonCamera = false;
     private CinemachineBrain cinemachineBrain;
 
-    public PlayerCameras playerCameras;
-    public BoolVariable cameraSwitchedToFirstPerson;
+    public PlayerCamerasVariables playerCameras;
     public GuardHackedSubject guardHackedSubject;
 
     private void Start()
@@ -19,7 +18,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         Camera mainCamera = Camera.main;
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
         switchedToFirstPersonCamera = false;
-        cameraSwitchedToFirstPerson.value = switchedToFirstPersonCamera;
+        playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
         AddGuardVirtualCamerasToDictionary();
         guardHackedSubject.AddObserver(this);
     }
@@ -43,7 +42,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
             {
                 playerCameras.thirdPersonCamera.m_Priority = 22;
                 switchedToFirstPersonCamera = false;
-                cameraSwitchedToFirstPerson.value = switchedToFirstPersonCamera;
+                playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
                 StopCoroutine("ResetCamera");
             }
         }
@@ -53,7 +52,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     {
         yield return new WaitForSeconds(cinemachineBrain.m_DefaultBlend.m_Time);
         switchedToFirstPersonCamera = true;
-        cameraSwitchedToFirstPerson.value = switchedToFirstPersonCamera;
+        playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
     }
 
     void AddGuardVirtualCamerasToDictionary()

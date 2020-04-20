@@ -30,10 +30,7 @@ public class ThirdPersonCinemachine : MonoBehaviour
     private float bottomRingRadius = 4.0f;
 
     [Header("ScriptableObjects")]
-    public ThirdPersonCameraVariables thirdPersonCameraVariables;
-    public TransformVariable thirdPersonCameraTransform;
-    public PlayerCameras playerCameras;
-    public BoolVariable cameraSwitchedToFirstPerson;
+    public PlayerCamerasVariables playerCamerasVariables;
 
     private int priority = 22;
 
@@ -43,16 +40,12 @@ public class ThirdPersonCinemachine : MonoBehaviour
         cinemachineFreeLook.m_YAxis.Value = 0.5f;
         cinemachineFreeLook.m_Priority = priority;
         
-        //cameraSwitchedToFirstPerson = Resources.Load("ScriptableObjects/Camera/CameraSwitchedToFirstPerson") as BoolVariable;
-        //thirdPersonCameraTransform = Resources.Load("ScriptableObjects/Camera/ThirdPersonTransform") as TransformVariable;
-        thirdPersonCameraTransform.value = this.transform;
-        //playerCameras = Resources.Load("ScriptableObjects/Camera/PlayerCameras") as PlayerCameras;
-        playerCameras.thirdPersonCamera = cinemachineFreeLook;
+        playerCamerasVariables.thirdPersonCameraTransform = this.transform;
+        playerCamerasVariables.thirdPersonCamera = cinemachineFreeLook;
     }
 
     private void Start()
     {
-        //thirdPersonCameraVariables = Resources.Load("ScriptableObjects/Camera/ThirdPersonCameraVariables") as ThirdPersonCameraVariables;
         SetCameraSettings();
         UpdateCameraSettings();
     }
@@ -73,47 +66,47 @@ public class ThirdPersonCinemachine : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetPos - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
 
-        if (cameraSwitchedToFirstPerson.value)
+        if (playerCamerasVariables.switchedCameraToFirstPerson)
         {
             cinemachineFreeLook.m_XAxis.Value = playerYAngle;
             cinemachineFreeLook.m_YAxis.Value = 0.5f;
         }
-        thirdPersonCameraTransform.value = this.transform;
+        playerCamerasVariables.thirdPersonCameraTransform = this.transform;
     }
 
     void SetCameraSettings()
     {
-        cinemachineFreeLook.m_Follow = thirdPersonCameraVariables.followTarget;
-        cinemachineFreeLook.m_LookAt = thirdPersonCameraVariables.followTarget;
+        cinemachineFreeLook.m_Follow = playerCamerasVariables.thirdPersonCameraFollowTarget;
+        cinemachineFreeLook.m_LookAt = playerCamerasVariables.thirdPersonCameraFollowTarget;
 
-        invertVerticalInput = thirdPersonCameraVariables.invertVerticalInput;
-        verticalSpeed = thirdPersonCameraVariables.verticalSpeed;
+        invertVerticalInput = playerCamerasVariables.thirdPersonCameraInvertVerticalInput;
+        verticalSpeed = playerCamerasVariables.thirdPersonCameraVerticalSpeed;
 
-        topRingHeight = thirdPersonCameraVariables.topRingHeight;
-        topRingRadius = thirdPersonCameraVariables.topRingRadius;
-        middleRingHeight = thirdPersonCameraVariables.middleRingHeight;
-        middleRingRadius = thirdPersonCameraVariables.middleRingRadius;
-        bottomRingHeight = thirdPersonCameraVariables.bottomRingHeight;
-        bottomRingRadius = thirdPersonCameraVariables.bottomRingRadius;
+        topRingHeight = playerCamerasVariables.thirdPersonCameraTopRingHeight;
+        topRingRadius = playerCamerasVariables.thirdPersonCameraTopRingRadius;
+        middleRingHeight = playerCamerasVariables.thirdPersonCameraMiddleRingHeight;
+        middleRingRadius = playerCamerasVariables.thirdPersonCameraMiddleRingRadius;
+        bottomRingHeight = playerCamerasVariables.thirdPersonCameraBottomRingHeight;
+        bottomRingRadius = playerCamerasVariables.thirdPersonCameraBottomRingRadius;
 
-        invertHorizontalInput = thirdPersonCameraVariables.invertHorizontalInput;
-        horizontalSpeed = thirdPersonCameraVariables.horizontalSpeed;
+        invertHorizontalInput = playerCamerasVariables.thirdPersonCameraInvertHorizontalInput;
+        horizontalSpeed = playerCamerasVariables.thirdPersonCameraHorizontalSpeed;
     }
 
     void UpdateThirdPersonCameraVariables()
     {
-        thirdPersonCameraVariables.invertVerticalInput = invertVerticalInput;
-        thirdPersonCameraVariables.invertHorizontalInput = invertHorizontalInput;
+        playerCamerasVariables.thirdPersonCameraInvertVerticalInput = invertVerticalInput;
+        playerCamerasVariables.thirdPersonCameraInvertHorizontalInput = invertHorizontalInput;
 
-        thirdPersonCameraVariables.topRingHeight = topRingHeight;
-        thirdPersonCameraVariables.topRingRadius = topRingRadius;
-        thirdPersonCameraVariables.middleRingHeight = middleRingHeight;
-        thirdPersonCameraVariables.middleRingRadius = middleRingRadius;
-        thirdPersonCameraVariables.bottomRingHeight = bottomRingHeight;
-        thirdPersonCameraVariables.bottomRingRadius = bottomRingRadius;
+        playerCamerasVariables.thirdPersonCameraTopRingHeight = topRingHeight;
+        playerCamerasVariables.thirdPersonCameraTopRingRadius = topRingRadius;
+        playerCamerasVariables.thirdPersonCameraMiddleRingHeight = middleRingHeight;
+        playerCamerasVariables.thirdPersonCameraMiddleRingRadius = middleRingRadius;
+        playerCamerasVariables.thirdPersonCameraBottomRingHeight = bottomRingHeight;
+        playerCamerasVariables.thirdPersonCameraBottomRingRadius = bottomRingRadius;
 
-        thirdPersonCameraVariables.verticalSpeed = verticalSpeed;
-        thirdPersonCameraVariables.horizontalSpeed = horizontalSpeed;
+        playerCamerasVariables.thirdPersonCameraVerticalSpeed = verticalSpeed;
+        playerCamerasVariables.thirdPersonCameraHorizontalSpeed = horizontalSpeed;
     }
 
     void UpdateCameraSettings()

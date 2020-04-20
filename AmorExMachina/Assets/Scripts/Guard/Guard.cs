@@ -15,7 +15,7 @@ public enum MovementType
     DONT_WAIT
 }
 
-public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositionObserver
+public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 {
     public GuardType guardType = GuardType.MOVING;
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
@@ -39,7 +39,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     public bool assist = false;
 
     public PlayerSoundSubject playerSoundSubject;
-    public PlayerLastSightPositionSubject playerLastSightPositionSubject;
+    public PlayerSpottedSubject playerSpottedSubject;
     public GuardVariables guardVariables;
     public PlayerVariables playerVariables;
 
@@ -54,7 +54,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
         vC = GameObject.Find(transform.name + "Camera").GetComponent<CinemachineVirtualCamera>();
         vC.m_Follow = transform.GetChild(transform.childCount - 1);
         playerSoundSubject.AddObserver(this);
-        playerLastSightPositionSubject.AddObserver(this);
+        playerSpottedSubject.AddObserver(this);
         GuardGetComponents();
         sensing.SetScriptablesObjects(guardVariables, playerVariables);
         guardMovement.SetScriptablesObjects(guardVariables, playerVariables);
@@ -93,7 +93,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     {
         if(sensing.playerInSight)
         {
-            playerLastSightPositionSubject.NotifyObservers(playerVariables.playerTransform.position);
+            playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
         }
     }
 
@@ -148,6 +148,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerLastSightPositi
     void OnDestroy()
     {
         playerSoundSubject.RemoveObserver(this);
-        playerLastSightPositionSubject.RemoveObserver(this);
+        playerSpottedSubject.RemoveObserver(this);
     }
 }

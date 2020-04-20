@@ -65,36 +65,36 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (type == PuzzleButton.ButtonType.Empty)
-            return;
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        audioManager.Play("SelectButton");
+        //audioManager.Play("SelectButton");
 
-        puzzle.OnButtonSelected(this);
+        //puzzle.OnButtonSelected(this);
 
-        SetSelectedImage();
+        //SetSelectedImage();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (type == PuzzleButton.ButtonType.Empty)
-            return;
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        audioManager.Play("SwitchButton");
+        //audioManager.Play("SwitchButton");
 
-        puzzle.OnButtonEnter(this);
+        //puzzle.OnButtonEnter(this);
 
-        SetSelectedImage();
+        //SetSelectedImage();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (type == PuzzleButton.ButtonType.Empty)
-            return;
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        puzzle.OnButtonExit(this);
+        //puzzle.OnButtonExit(this);
 
-        SetNormalImage();
+        //SetNormalImage();
     }
 
     private void Awake()

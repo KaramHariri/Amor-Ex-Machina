@@ -72,6 +72,10 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
+            if(interactionButtonSubject == null)
+            {
+                Debug.Log("Interaction subject is null");
+            }
             interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = true;
         }

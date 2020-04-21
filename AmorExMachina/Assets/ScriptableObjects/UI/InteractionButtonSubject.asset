@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: abb6caf7db1235d468416941b5f20dba, type: 3}
   m_Name: InteractionButtonSubject
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionButtonSubject
+  m_EditorClassIdentifier: 

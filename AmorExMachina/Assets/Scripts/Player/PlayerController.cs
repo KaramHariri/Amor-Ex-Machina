@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
+        rb.isKinematic = false;
     }
 
     void Update()

@@ -20,6 +20,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
     AudioManager audioManager;
     [SerializeField] PlayerSpottedSubject PlayerSpottedSubject = null;
+    [SerializeField] InteractionButtonSubject interactionButtonSubject = null;
 
     private void Awake()
     {
@@ -71,6 +72,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
+            interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = true;
         }
     }
@@ -78,6 +80,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
+            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = false;
         }
     }

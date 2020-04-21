@@ -118,6 +118,8 @@ MonoBehaviour:
   cameraVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
   playerSpottedSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
     type: 2}
+  interactionButtonSubject: {fileID: 11400000, guid: e91cc55a9b197964a9b8cfa5d5b6a8f3,
+    type: 2}
 --- !u!1 &1239064953661300898
 GameObject:
   m_ObjectHideFlags: 0

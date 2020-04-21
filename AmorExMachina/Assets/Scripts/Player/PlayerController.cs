@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public PlayerVariables playerVariables;
     public PlayerCamerasVariables cameraVariables;
     public PlayerSpottedSubject playerSpottedSubject;
+    public InteractionButtonSubject interactionButtonSubject;
 
     AudioManager audioManager;
 
@@ -185,18 +186,34 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             Vector3 targetToPlayerDirection = transform.position - other.transform.position;
             float angleToTarget = Vector3.Angle(other.transform.forward, targetToPlayerDirection);
-            if (angleToTarget < 180.0f && angleToTarget > 110.0f && Input.GetButtonDown("X"))
+            if (angleToTarget < 180.0f && angleToTarget > 110.0f /*&& Input.GetButtonDown("X")*/)
             {
-                disabledGuard = other.GetComponent<Guard>();
-                if (disabledGuard != null)
+                interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                if (Input.GetButtonDown("X"))
                 {
-                    disabledGuard.disabled = true;
-                }
-                if(Vector3.Distance(disabledGuard.transform.position, transform.position) >= 50.0f)
-                {
-                    disabledGuard = null;
+                    disabledGuard = other.GetComponent<Guard>();
+                    if (disabledGuard != null)
+                    {
+                        disabledGuard.disabled = true;
+                    }
+                    if (Vector3.Distance(disabledGuard.transform.position, transform.position) >= 50.0f)
+                    {
+                        disabledGuard = null;
+                    }
                 }
             }
+            else
+            {
+                interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other is CapsuleCollider && other.CompareTag("Guard"))
+        {
+            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
         }
     }
 

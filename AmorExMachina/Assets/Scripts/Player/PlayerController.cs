@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
         playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
+        Cursor.visible = false;
     }
 
     void Update()

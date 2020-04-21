@@ -58,26 +58,23 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
 
         GetInput();
-        if (!controlling)
-            FPSRotate();
+        
     }
 
     void FixedUpdate()
     {
         if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
 
-        //if (!playerVariables.caught)
-        //{
-        //    if (controlling == false)
-        //    {
-                if (!cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
-                {
-                    //PlaySound();
-                    HandleRotation();
-                }
-                HandleMovement();
-        //    }
-        //}
+        if (!cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
+        {
+            //PlaySound();
+            HandleRotation();
+        }
+        else if (cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
+        {
+            FPSRotate();
+        }
+        HandleMovement();
     }
 
     void PlaySound()

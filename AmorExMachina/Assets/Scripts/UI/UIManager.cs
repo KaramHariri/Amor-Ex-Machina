@@ -29,11 +29,15 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     void Awake()
     {
+        InteractionButtonSubject.AddObserver(this);
+    }
+
+    void Start()
+    {
         circleButton = GameObject.Find("CircleButton");
         circleButton.SetActive(false);
         crossButton = GameObject.Find("CrossButton");
         crossButton.SetActive(false);
-        InteractionButtonSubject.AddObserver(this);
     }
 
     private void OnEnable()
@@ -109,5 +113,10 @@ public class UIManager : MonoBehaviour, IInteractionButton
             default:
                 break;
         }
+    }
+
+    void OnDestroy()
+    {
+        InteractionButtonSubject.RemoveObserver(this);
     }
 }

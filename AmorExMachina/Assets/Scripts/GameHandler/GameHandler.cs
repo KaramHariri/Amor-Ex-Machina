@@ -20,6 +20,7 @@ public class GameHandler : MonoBehaviour
     private void Awake()
     {
         FindAllGuards();
+        currentState = GameState.NORMALGAME;
         previousState = currentState;
     }
 

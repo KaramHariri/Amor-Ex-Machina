@@ -227,4 +227,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }
+
+    void OnDestroy()
+    {
+        playerSpottedSubject.RemoveObserver(this);
+    }
 }

@@ -14,6 +14,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7380483112668946462, guid: b4c414fa7bfcd464e90a52f4100bef8b, type: 3}
+--- !u!65 &3930117902454914758
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002523383340687622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21466136, y: 3.500079, z: 2.2004635}
+  m_Center: {x: 0.10733068, y: 1.7500395, z: -1.100232}
+--- !u!65 &1740755765347898468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002523383340687622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.2004633, y: 3.500079, z: 0.20275879}
+  m_Center: {x: 1.1002316, y: 1.7500395, z: -2.0990844}
 --- !u!1001 &4947834047540246543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24,7 +50,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
@@ -34,12 +60,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -7.4
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
@@ -79,7 +105,17 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: b4c414fa7bfcd464e90a52f4100bef8b,
         type: 3}
       propertyPath: m_Name
-      value: Grungy_WallCorner
+      value: Grungy_WallCorner Variant1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b4c414fa7bfcd464e90a52f4100bef8b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b4c414fa7bfcd464e90a52f4100bef8b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4c414fa7bfcd464e90a52f4100bef8b, type: 3}

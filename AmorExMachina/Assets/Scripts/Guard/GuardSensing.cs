@@ -25,6 +25,9 @@ public class GuardSensing : MonoBehaviour
 
     [SerializeField] LayerMask ignoreLayer = 9;
 
+    public float detectionAmount = 0.0f;
+    public float maxDetectionAmount = 2.0f;
+
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
@@ -37,6 +40,7 @@ public class GuardSensing : MonoBehaviour
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
         if (playerInSight)
         {
+            detectionAmount += Time.deltaTime * 3.0f;
             UIManager.createIndicator(this.transform);
             UIManager.updateIndicator(this.transform);
         }

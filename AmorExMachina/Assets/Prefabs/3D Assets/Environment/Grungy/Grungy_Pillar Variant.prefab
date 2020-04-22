@@ -14,6 +14,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5746075582720806025, guid: f2f59f4e69f5b5344928b7e99e2e04ad, type: 3}
+--- !u!65 &7659119839483181973
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613043146488516541}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 3.500048, z: 0.75}
+  m_Center: {x: 0.375, y: 1.750024, z: -0.375}
 --- !u!1001 &2947556074913846964
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +92,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: f2f59f4e69f5b5344928b7e99e2e04ad,
         type: 3}
       propertyPath: m_Name
-      value: Grungy_Pillar
+      value: Grungy_Pillar Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2f59f4e69f5b5344928b7e99e2e04ad, type: 3}

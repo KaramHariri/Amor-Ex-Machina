@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     [SerializeField] private PlayerVariables playerVariables = null;
 
     private Dictionary<Transform, SpottedIndicator> indicators = new Dictionary<Transform, SpottedIndicator>();
+    //private Dictionary<Transform, SpottedIndicatorTest> indicatorsTest = new Dictionary<Transform, SpottedIndicatorTest>();
 
     [SerializeField] InteractionButtonSubject InteractionButtonSubject = null;
     GameObject circleButton = null;
@@ -63,10 +64,24 @@ public class UIManager : MonoBehaviour, IInteractionButton
         }
     }
 
+    //void CreateIndicator(Transform target)
+    //{
+    //    if (!indicatorsTest.ContainsKey(target))
+    //    {
+    //        SpottedIndicatorTest spottedIndicator = SpottedIndicatorPoolTest.instance.GetIndicator();
+    //        indicatorsTest.Add(target, spottedIndicator);
+    //    }
+    //}
+
     void UpdateIndicator(Transform target)
     {
         indicators[target].Register(target, playerVariables.playerTransform, new Action(() => { indicators.Remove(target); }));
     }
+
+    //void UpdateIndicator(Transform target)
+    //{
+    //    indicatorsTest[target].Register(target, playerVariables.playerTransform, new Action(() => { indicatorsTest.Remove(target); }));
+    //}
 
     void RemoveIndicator(Transform target)
     {
@@ -76,6 +91,15 @@ public class UIManager : MonoBehaviour, IInteractionButton
             indicators.Remove(target);
         }
     }
+
+    //void RemoveIndicator(Transform target)
+    //{
+    //    if (indicatorsTest.ContainsKey(target))
+    //    {
+    //        indicatorsTest[target].UnRegister();
+    //        indicatorsTest.Remove(target);
+    //    }
+    //}
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)
     {

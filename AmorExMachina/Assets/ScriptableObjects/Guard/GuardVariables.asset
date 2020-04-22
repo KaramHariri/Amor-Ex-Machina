@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldOfViewAngle: 70
   fieldOfViewRadius: 20
-  maxBackupRadius: 2
+  maxBackupRadius: 5
   patrolSpeed: 2
   chaseSpeed: 5
   suspiciousSpeed: 3.5

@@ -14,6 +14,45 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8718067696059622027, guid: 16417141f87788642b8043e0da9f8db2, type: 3}
+--- !u!65 &6622865754291415902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754636122800147113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21835399, y: 2.5000002, z: 0.20004016}
+  m_Center: {x: 0.10917699, y: 1.2499999, z: -0.10002008}
+--- !u!65 &3258897358490535501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754636122800147113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21681058, y: 2.5000002, z: 0.20004016}
+  m_Center: {x: 1.8915946, y: 1.2499999, z: -0.10002008}
+--- !u!65 &4080794007303983211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754636122800147113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.21710253, z: 0.20004016}
+  m_Center: {x: 1, y: 2.3914487, z: -0.10002008}
 --- !u!1001 &747415281260893088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +118,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 16417141f87788642b8043e0da9f8db2,
         type: 3}
       propertyPath: m_Name
-      value: Pristine_Elevator_DoorFrame
+      value: Pristine_Elevator_DoorFrame Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16417141f87788642b8043e0da9f8db2, type: 3}

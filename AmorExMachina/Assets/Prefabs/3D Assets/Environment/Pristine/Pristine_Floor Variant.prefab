@@ -14,6 +14,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7222417738985694473, guid: 494ebe02524a7e6459152d5c4e33daaa, type: 3}
+--- !u!65 &4129472346953982283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6957860891336591977}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9999999, y: 0.19999999, z: 2}
+  m_Center: {x: 0.9999998, y: 0.099999994, z: -1}
 --- !u!1001 &1418251852373037920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +92,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 494ebe02524a7e6459152d5c4e33daaa,
         type: 3}
       propertyPath: m_Name
-      value: Pristine_Floor
+      value: Pristine_Floor Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 494ebe02524a7e6459152d5c4e33daaa, type: 3}

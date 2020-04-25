@@ -14,6 +14,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5263693875760744999, guid: 4629ac94afa53b544af747d660a7678a, type: 3}
+--- !u!65 &971157475200684502
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534572480924517247}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6000565, y: 0.19999999, z: 0.20002455}
+  m_Center: {x: 0.80002826, y: 0.099999994, z: -0.1000123}
 --- !u!1001 &5768391116239133302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +92,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 4629ac94afa53b544af747d660a7678a,
         type: 3}
       propertyPath: m_Name
-      value: Grungy_FloorBelowDoor
+      value: Grungy_FloorBelowDoor Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4629ac94afa53b544af747d660a7678a, type: 3}

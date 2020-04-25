@@ -97,7 +97,7 @@ public class GuardSensing : MonoBehaviour
                 if (angle < guardVariables.fieldOfViewAngle)
                 {
                     RaycastHit raycastHit;
-                    if(Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
+                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
                     {
                         if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
                         {
@@ -132,10 +132,9 @@ public class GuardSensing : MonoBehaviour
                     }
                 }
                 else
-                {
+
                     if (disabledGuards.Contains(other.GetComponent<Guard>()))
-                        disabledGuards.Remove(other.GetComponent<Guard>());
-                }
+                    disabledGuards.Remove(other.GetComponent<Guard>());
             }
         }
     }

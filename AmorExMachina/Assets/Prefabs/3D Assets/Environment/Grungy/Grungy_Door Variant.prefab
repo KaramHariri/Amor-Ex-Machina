@@ -107,7 +107,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 935cc136fe051a14797c558ede82fceb,
         type: 3}
       propertyPath: m_Name
-      value: Grungy_Door 1
+      value: Grungy_Door Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 935cc136fe051a14797c558ede82fceb, type: 3}

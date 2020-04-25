@@ -9,6 +9,8 @@ public class GuardSensing : MonoBehaviour
     public bool canHear = false;
     [HideInInspector]
     public bool suspicious = false;
+    [HideInInspector]
+    public bool distracted = false;
 
     [HideInInspector]
     public UnityEngine.AI.NavMeshAgent navMeshAgent;
@@ -25,6 +27,7 @@ public class GuardSensing : MonoBehaviour
 
     [SerializeField] LayerMask ignoreLayer = 9;
 
+    [HideInInspector]
     public float detectionAmount = 0.0f;
     public float maxDetectionAmount = 2.0f;
 
@@ -38,6 +41,17 @@ public class GuardSensing : MonoBehaviour
     public void Update()
     {
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
+        SpottedIndicatorHandler();
+    }
+
+    public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
+    {
+        guardVariables = guardVariablesScriptableObject;
+        playerVariables = playerVariablesScriptableObject;
+    }
+
+    void SpottedIndicatorHandler()
+    {
         if (playerInSight)
         {
             detectionAmount += Time.deltaTime /** 3.0f*/;
@@ -47,7 +61,7 @@ public class GuardSensing : MonoBehaviour
             UIManager.createIndicator(this.transform);
             UIManager.updateIndicator(this.transform, IndicatorColor.Red);
         }
-        else if(suspicious)
+        else if (suspicious)
         {
             detectionAmount = maxDetectionAmount;
             UIManager.createIndicator(this.transform);
@@ -66,12 +80,6 @@ public class GuardSensing : MonoBehaviour
         }
     }
 
-    public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
-    {
-        guardVariables = guardVariablesScriptableObject;
-        playerVariables = playerVariablesScriptableObject;
-    }
-
     public bool CheckPlayerInSight()
     {
         if (playerInSight)
@@ -82,7 +90,7 @@ public class GuardSensing : MonoBehaviour
 
     public bool Suspicious()
     {
-        if (suspicious)
+        if (suspicious || distracted)
         {
             return true;
         }

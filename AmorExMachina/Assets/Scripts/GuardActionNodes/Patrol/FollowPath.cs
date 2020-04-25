@@ -14,7 +14,6 @@
         guard.currentColor = UnityEngine.Color.Lerp(guard.currentColor, guard.guardVariables.patrolColor, UnityEngine.Time.deltaTime);
         guard.meshRenderer.material.color = guard.currentColor;
 
-        guard.guardMovement.ResetPatrolTimer();
         guard.guardMovement.ResetIdleTimer();
         guard.guardMovement.FollowPath();
         return nodeState;

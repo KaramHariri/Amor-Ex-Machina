@@ -17,6 +17,8 @@ public class GuardController : MonoBehaviour
 
     Camera mainCamera;
     Guard guard;
+    [SerializeField]
+    PlayerSoundSubject playerSoundSubject;
 
     void Awake()
     {
@@ -54,6 +56,10 @@ public class GuardController : MonoBehaviour
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
+        if(Input.GetButtonDown("X"))
+        {
+            playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
+        }
     }
 
     void HandleRotation()

@@ -337,6 +337,8 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 1280
+  detectionAmount: 0
+  maxDetectionAmount: 2
 --- !u!114 &7934396710864760483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   rotateVelocity: 100
+  playerSoundSubject: {fileID: 11400000, guid: ab3c192c92869f848838ec2278d6f171, type: 2}
 --- !u!195 &4764624099325710479
 NavMeshAgent:
   m_ObjectHideFlags: 0

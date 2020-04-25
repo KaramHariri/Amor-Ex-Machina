@@ -16,6 +16,7 @@
             guard.guardMovement.idle = false;
             guard.assist = false;
             guard.sensing.suspicious = false;
+            guard.sensing.distracted = false;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

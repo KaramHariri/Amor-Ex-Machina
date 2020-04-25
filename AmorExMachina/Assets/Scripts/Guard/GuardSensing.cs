@@ -40,13 +40,29 @@ public class GuardSensing : MonoBehaviour
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
         if (playerInSight)
         {
-            detectionAmount += Time.deltaTime * 3.0f;
+            detectionAmount += Time.deltaTime /** 3.0f*/;
+            if (detectionAmount >= maxDetectionAmount)
+                detectionAmount = maxDetectionAmount;
+
             UIManager.createIndicator(this.transform);
-            UIManager.updateIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Red);
+        }
+        else if(suspicious)
+        {
+            detectionAmount = maxDetectionAmount;
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
         }
         else
         {
-            UIManager.removeIndicator(this.transform);
+            detectionAmount -= Time.deltaTime;
+            if (detectionAmount <= 0.0f)
+            {
+                detectionAmount = 0.0f;
+                UIManager.removeIndicator(this.transform);
+            }
+            else
+                UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
         }
     }
 
@@ -89,6 +105,7 @@ public class GuardSensing : MonoBehaviour
             if (!guardScript.beingControlled && !guardScript.disabled)
             {
                 canHear = true;
+                playerInSight = false;
 
                 Vector3 playerPosition = new Vector3(other.transform.position.x, other.transform.position.y + 0.5f, other.transform.position.z);
                 Vector3 direction = playerPosition - transform.position;

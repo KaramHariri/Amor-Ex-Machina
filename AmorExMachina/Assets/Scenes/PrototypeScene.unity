@@ -597,7 +597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &766341716
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2051,7 +2051,7 @@ PrefabInstance:
     - target: {fileID: 180491193629470259, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 180491193799710880, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
@@ -2250,6 +2250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gabriel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793664170661196449, guid: 2bbe5a0918acb5a488ff87dc1d61b395,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bbe5a0918acb5a488ff87dc1d61b395, type: 3}

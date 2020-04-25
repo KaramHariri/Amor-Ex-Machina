@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     #region Delegates
     public static Action<Transform> createIndicator = delegate { };
-    public static Action<Transform> updateIndicator = delegate { };
+    public static Action<Transform, IndicatorColor> updateIndicator = delegate { };
     public static Action<Transform> removeIndicator = delegate { };
     #endregion
 
@@ -73,9 +73,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
     //    }
     //}
 
-    void UpdateIndicator(Transform target)
+    void UpdateIndicator(Transform target, IndicatorColor indicatorColor)
     {
-        indicators[target].Register(target, playerVariables.playerTransform, new Action(() => { indicators.Remove(target); }));
+        indicators[target].Register(target, playerVariables.playerTransform, new Action(() => { indicators.Remove(target); }), indicatorColor);
     }
 
     //void UpdateIndicator(Transform target)

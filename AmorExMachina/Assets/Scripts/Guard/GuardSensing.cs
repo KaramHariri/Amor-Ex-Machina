@@ -177,7 +177,8 @@ public class GuardSensing : MonoBehaviour
                 if (other.GetComponent<Guard>().disabled && !other.GetComponent<Guard>().beingControlled)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    //if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
                     {
                         if (raycastHit.collider.gameObject == other.gameObject)
                         {

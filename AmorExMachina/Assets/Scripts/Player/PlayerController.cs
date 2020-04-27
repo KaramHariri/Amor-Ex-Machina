@@ -223,6 +223,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard.beingControlled = false;
             disabledGuard = null;
             controlling = false;
+            guardHackedSubject.GuardHackedNotify("");
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }

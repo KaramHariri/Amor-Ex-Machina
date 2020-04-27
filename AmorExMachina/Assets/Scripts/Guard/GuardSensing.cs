@@ -158,7 +158,6 @@ public class GuardSensing : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log(raycastHit.collider.gameObject.name);
                                 playerInSight = false;
                             }
                         }

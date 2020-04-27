@@ -25,7 +25,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        if(PlayerSpottedSubject != null)
+        if (PlayerSpottedSubject != null)
         {
             PlayerSpottedSubject.AddObserver(this);
         }

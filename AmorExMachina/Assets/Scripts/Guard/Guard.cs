@@ -129,7 +129,12 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
         else if (soundType == SoundType.DISTRACTION)
         {
-            Debug.Log("Distraction");
+            if(sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
+            {
+                sensing.distracted = true;
+                guardMovement.SetInvestigationPosition(position);
+                guardMovement.ResetIdleTimer();
+            }
         }
     }
 

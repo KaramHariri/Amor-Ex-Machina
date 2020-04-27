@@ -156,7 +156,6 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HandleMovement()
     {
-        //sneaking = Input.GetButton("Sneaking");
         Vector3 v = transform.forward;
         if (cameraVariables.switchedCameraToFirstPerson)
         {
@@ -185,7 +184,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             Vector3 targetToPlayerDirection = transform.position - other.transform.position;
             float angleToTarget = Vector3.Angle(other.transform.forward, targetToPlayerDirection);
-            if (angleToTarget < 180.0f && angleToTarget > 110.0f /*&& Input.GetButtonDown("X")*/)
+            if (angleToTarget < 180.0f && angleToTarget > 110.0f)
             {
                 interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
                 if (Input.GetButtonDown("X"))

@@ -8,6 +8,7 @@
     // Player in sight
     SequenceNode playerDetection;
     PlayerInSightCheck playerInSightCheck;
+    SucceederNode playerInSightSucceeder;
     ChasePlayer chasePlayer;
 
     // Assist
@@ -62,6 +63,7 @@
         // Player in sight
         playerDetection = new SequenceNode();
         playerInSightCheck = new PlayerInSightCheck(agent);
+        playerInSightSucceeder = new SucceederNode();
         chasePlayer = new ChasePlayer(agent);
 
         // Assist
@@ -109,7 +111,9 @@
         // Player Detected
         rootNode.AddChild(playerDetection);
         playerDetection.AddChild(playerInSightCheck);
-        playerDetection.AddChild(chasePlayer);
+        playerDetection.AddChild(playerInSightSucceeder);
+        playerInSightSucceeder.AddChild(chasePlayer);
+        //playerDetection.AddChild(chasePlayer);
 
         // Assist
         rootNode.AddChild(assistCheck);

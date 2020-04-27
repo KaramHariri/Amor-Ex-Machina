@@ -9,6 +9,8 @@ public class GuardSensing : MonoBehaviour
     public bool canHear = false;
     [HideInInspector]
     public bool suspicious = false;
+    [HideInInspector]
+    public bool distracted = false;
 
     [HideInInspector]
     public UnityEngine.AI.NavMeshAgent navMeshAgent;
@@ -23,37 +25,69 @@ public class GuardSensing : MonoBehaviour
 
     Guard guardScript;
 
-    [SerializeField] LayerMask ignoreLayer = 9;
+    [SerializeField] LayerMask raycastCheckLayer = 0;
+    [SerializeField] LayerMask raycastCheckLayerWithSmoke = 0;
 
+    [HideInInspector]
     public float detectionAmount = 0.0f;
     public float maxDetectionAmount = 2.0f;
+    [SerializeField]
+    private float timerSincePlayerWasSpotted = 0.0f;
+    [SerializeField]
+    private float maxTimerSincePlayerWasSpotted = 5.0f;
 
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         guardScript = GetComponent<Guard>();
+        raycastCheckLayer = LayerMask.GetMask("Walls", "Player");
+        raycastCheckLayerWithSmoke = LayerMask.GetMask("Walls", "Player", "SmokeScreen");
     }
 
     public void Update()
     {
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
-        if (playerInSight)
-        {
-            detectionAmount += Time.deltaTime * 3.0f;
-            UIManager.createIndicator(this.transform);
-            UIManager.updateIndicator(this.transform);
-        }
-        else
-        {
-            UIManager.removeIndicator(this.transform);
-        }
+        SpottedIndicatorHandler();
+
+        timerSincePlayerWasSpotted += Time.deltaTime;
+        timerSincePlayerWasSpotted = Mathf.Clamp(timerSincePlayerWasSpotted, 0.0f, 20.0f);
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
     {
         guardVariables = guardVariablesScriptableObject;
         playerVariables = playerVariablesScriptableObject;
+    }
+
+    void SpottedIndicatorHandler()
+    {
+        if (playerInSight)
+        {
+            detectionAmount += Time.deltaTime;
+            if (detectionAmount >= maxDetectionAmount)
+                detectionAmount = maxDetectionAmount;
+
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Red);
+        }
+        else if (suspicious)
+        {
+            detectionAmount = maxDetectionAmount;
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
+        }
+        else
+        {
+            detectionAmount -= Time.deltaTime;
+            if (detectionAmount <= 0.0f)
+            {
+                detectionAmount = 0.0f;
+                UIManager.removeIndicator(this.transform);
+            }
+            else
+                UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
+        }
     }
 
     public bool CheckPlayerInSight()
@@ -66,7 +100,7 @@ public class GuardSensing : MonoBehaviour
 
     public bool Suspicious()
     {
-        if (suspicious)
+        if (suspicious || distracted)
         {
             return true;
         }
@@ -89,6 +123,7 @@ public class GuardSensing : MonoBehaviour
             if (!guardScript.beingControlled && !guardScript.disabled)
             {
                 canHear = true;
+                playerInSight = false;
 
                 Vector3 playerPosition = new Vector3(other.transform.position.x, other.transform.position.y + 0.5f, other.transform.position.z);
                 Vector3 direction = playerPosition - transform.position;
@@ -97,15 +132,35 @@ public class GuardSensing : MonoBehaviour
                 if (angle < guardVariables.fieldOfViewAngle)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
+                    if (timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
                     {
-                        if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
                         {
-                            playerInSight = true;
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                playerInSight = false;
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayerWithSmoke))
                         {
-                            playerInSight = false;
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                Debug.Log(raycastHit.collider.gameObject.name);
+                                playerInSight = false;
+                            }
                         }
                     }
                 }
@@ -122,7 +177,8 @@ public class GuardSensing : MonoBehaviour
                 if (other.GetComponent<Guard>().disabled && !other.GetComponent<Guard>().beingControlled)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    //if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
                     {
                         if (raycastHit.collider.gameObject == other.gameObject)
                         {
@@ -132,9 +188,10 @@ public class GuardSensing : MonoBehaviour
                     }
                 }
                 else
-
+                {
                     if (disabledGuards.Contains(other.GetComponent<Guard>()))
-                    disabledGuards.Remove(other.GetComponent<Guard>());
+                        disabledGuards.Remove(other.GetComponent<Guard>());
+                }
             }
         }
     }

@@ -2,26 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+
+public enum IndicatorColor
+{
+    Red,
+    Yellow
+}
 
 public class SpottedIndicator : MonoBehaviour
 {
-    private CanvasGroup canvasGroup = null;
-    protected CanvasGroup CanvasGroup
-    {
-        get
-        {
-            if(canvasGroup == null)
-            {
-                canvasGroup = GetComponent<CanvasGroup>();
-                if(canvasGroup == null)
-                {
-                    canvasGroup = gameObject.AddComponent<CanvasGroup>();
-                }
-            }
-            return canvasGroup;
-        }
-    }
-
     private RectTransform rect = null;
     protected RectTransform Rect
     {
@@ -47,27 +37,42 @@ public class SpottedIndicator : MonoBehaviour
     private Quaternion tRot = Quaternion.identity;
     private Vector3 tPos = Vector3.zero;
 
-    public void Register(Transform t, Transform p, Action unRegister)
+    [SerializeField]
+    private Image image;
+    GuardSensing guardSensing;
+
+    private void Awake()
+    {
+        image.color = new Color(1.0f, 0.92f, 0.016f, 0.8f);
+        image.fillAmount = 0.0f;
+    }
+
+    public void Register(Transform t, Transform p, Action unRegister, IndicatorColor indicatorColor)
     {
         this.target = t;
         this.player = p;
         this.unRegister = unRegister;
 
         if (!gameObject.activeInHierarchy)
+        {
+            guardSensing = t.GetComponent<GuardSensing>();
             gameObject.SetActive(true);
+        }
+
+        if (indicatorColor == IndicatorColor.Red)
+            image.color = Color.Lerp(image.color, new Color(1.0f, 0.0f, 0.0f, 0.8f), Time.deltaTime);
+        else
+            image.color = Color.Lerp(image.color, new Color(1.0f, 0.92f, 0.016f, 0.8f), Time.deltaTime);
+
+        image.fillAmount = guardSensing.detectionAmount / guardSensing.maxDetectionAmount;
 
         RotateToTheTarget();
-        if(CanvasGroup.alpha < 1.0f)
-        {
-            CanvasGroup.alpha += Time.deltaTime;
-        }
     }
 
     public void UnRegister()
     {
         unRegister();
-        //Destroy(gameObject);
-        if(gameObject.activeInHierarchy)
+        if (gameObject.activeInHierarchy)
             gameObject.SetActive(false);
     }
 

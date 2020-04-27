@@ -50,6 +50,7 @@ public class SpottedIndicatorTest : MonoBehaviour
 
     [SerializeField]
     private Image image;
+    GuardSensing guardSensing;
 
     private void Awake()
     {
@@ -63,20 +64,25 @@ public class SpottedIndicatorTest : MonoBehaviour
         this.unRegister = unRegister;
 
         if (!gameObject.activeInHierarchy)
+        {
+            guardSensing = t.GetComponent<GuardSensing>();
             gameObject.SetActive(true);
+        }
 
-        image.fillAmount = t.GetComponent<GuardSensing>().detectionAmount / t.GetComponent<GuardSensing>().maxDetectionAmount;
+        image.fillAmount = guardSensing.detectionAmount / guardSensing.maxDetectionAmount;
 
         RotateToTheTarget();
-        if(CanvasGroup.alpha < 1.0f)
-        {
-            CanvasGroup.alpha += Time.deltaTime;
-        }
+        //if (CanvasGroup.alpha < 1.0f)
+        //{
+        //    CanvasGroup.alpha += Time.deltaTime;
+        //}
     }
 
     public void UnRegister()
     {
         unRegister();
+        //Debug.Log("UnRegister SPOTTED INDICATOR TEST");
+        //image.fillAmount = guardSensing.detectionAmount / guardSensing.maxDetectionAmount;
         //Destroy(gameObject);
         if(gameObject.activeInHierarchy)
             gameObject.SetActive(false);

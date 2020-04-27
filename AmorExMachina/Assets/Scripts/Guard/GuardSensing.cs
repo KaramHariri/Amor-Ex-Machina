@@ -25,23 +25,33 @@ public class GuardSensing : MonoBehaviour
 
     Guard guardScript;
 
-    [SerializeField] LayerMask ignoreLayer = 9;
+    [SerializeField] LayerMask raycastCheckLayer = 0;
+    [SerializeField] LayerMask raycastCheckLayerWithSmoke = 0;
 
     [HideInInspector]
     public float detectionAmount = 0.0f;
     public float maxDetectionAmount = 2.0f;
+    [SerializeField]
+    private float timerSincePlayerWasSpotted = 0.0f;
+    [SerializeField]
+    private float maxTimerSincePlayerWasSpotted = 5.0f;
 
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         guardScript = GetComponent<Guard>();
+        raycastCheckLayer = LayerMask.GetMask("Walls", "Player");
+        raycastCheckLayerWithSmoke = LayerMask.GetMask("Walls", "Player", "SmokeScreen");
     }
 
     public void Update()
     {
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
         SpottedIndicatorHandler();
+
+        timerSincePlayerWasSpotted += Time.deltaTime;
+        timerSincePlayerWasSpotted = Mathf.Clamp(timerSincePlayerWasSpotted, 0.0f, 20.0f);
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
@@ -54,7 +64,7 @@ public class GuardSensing : MonoBehaviour
     {
         if (playerInSight)
         {
-            detectionAmount += Time.deltaTime /** 3.0f*/;
+            detectionAmount += Time.deltaTime;
             if (detectionAmount >= maxDetectionAmount)
                 detectionAmount = maxDetectionAmount;
 
@@ -122,15 +132,35 @@ public class GuardSensing : MonoBehaviour
                 if (angle < guardVariables.fieldOfViewAngle)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, ignoreLayer))
+                    if (timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
                     {
-                        if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
                         {
-                            playerInSight = true;
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                playerInSight = false;
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayerWithSmoke))
                         {
-                            playerInSight = false;
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                Debug.Log(raycastHit.collider.gameObject.name);
+                                playerInSight = false;
+                            }
                         }
                     }
                 }
@@ -157,9 +187,10 @@ public class GuardSensing : MonoBehaviour
                     }
                 }
                 else
-
+                {
                     if (disabledGuards.Contains(other.GetComponent<Guard>()))
-                    disabledGuards.Remove(other.GetComponent<Guard>());
+                        disabledGuards.Remove(other.GetComponent<Guard>());
+                }
             }
         }
     }

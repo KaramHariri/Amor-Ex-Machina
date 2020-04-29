@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             //PlaySound();
             HandleRotation();
         }
-        else if (cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
+        else if (cameraVariables.switchedCameraToFirstPerson)
         {
             FPSRotate();
         }

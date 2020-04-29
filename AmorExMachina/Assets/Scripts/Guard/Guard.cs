@@ -49,6 +49,13 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector]
     public CinemachineVirtualCamera vC;
 
+    GameObject minimapIcon = null;
+    [SerializeField]
+    private bool visibleInMiniMap = false;
+    Camera mainCamera = null;
+
+    [SerializeField] LayerMask raycastCheckLayer = 0;
+
     public void Awake()
     {
         vC = GameObject.Find(transform.name + "Camera").GetComponent<CinemachineVirtualCamera>();
@@ -62,6 +69,13 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         guardMovement.GuardMovementAwake();
         guardMovement.SetGuardAndMovementType(guardType, movementType);
         currentColor = guardVariables.patrolColor;
+
+        minimapIcon = transform.GetChild(0).gameObject;
+        minimapIcon.SetActive(false);
+        visibleInMiniMap = false;
+        mainCamera = Camera.main;
+
+        raycastCheckLayer = LayerMask.GetMask("Walls");
     }
 
     public void Start()
@@ -95,6 +109,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         {
             playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
         }
+
+        ActivateMinimapIconCheck();
     }
 
     IEnumerator Run()
@@ -155,4 +171,33 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSoundSubject.RemoveObserver(this);
         playerSpottedSubject.RemoveObserver(this);
     }
+
+    bool ActivateMinimapIconCheck()
+    {
+        RaycastHit raycastHit;
+        if (!visibleInMiniMap && GuardInCameraFieldOfView())
+        {
+            Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+            if(!Physics.Raycast(transform.position, directionToCamera.normalized, out raycastHit, directionToCamera.magnitude, raycastCheckLayer))
+            {
+                minimapIcon.SetActive(true);
+                visibleInMiniMap = true;
+                return true;
+            }
+        }
+        else if(sensing.CheckPlayerInSight())
+        {
+            minimapIcon.SetActive(true);
+            visibleInMiniMap = true;
+            return true;
+        }
+        return false;
+    }
+
+    bool GuardInCameraFieldOfView()
+    {
+        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
+        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.y > 0 && screenPoint.x < 1 && screenPoint.y < 1;
+    }
+
 }

@@ -92,7 +92,7 @@ public class GuardSensing : MonoBehaviour
 
     public bool CheckPlayerInSight()
     {
-        if (playerInSight)
+        if (playerInSight && detectionAmount >= maxDetectionAmount)
             return true;
 
         return false;

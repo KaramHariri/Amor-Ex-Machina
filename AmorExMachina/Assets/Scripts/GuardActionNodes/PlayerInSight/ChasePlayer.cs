@@ -10,8 +10,7 @@
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.RUNNING;
-        if(guard.sensing.detectionAmount >= guard.sensing.maxDetectionAmount)
-            guard.guardMovement.ChasePlayer();
+        guard.guardMovement.ChasePlayer();
         float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.playerVariables.playerTransform.position);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance)
         {

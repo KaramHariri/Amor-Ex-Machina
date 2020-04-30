@@ -105,11 +105,12 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     public void Update()
     {
-        if(sensing.playerInSight)
+        if (sensing.playerInSight)
         {
             playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
         }
 
+        MinimapCamera.updateIconSize(minimapIcon.transform);
         ActivateMinimapIconCheck();
     }
 

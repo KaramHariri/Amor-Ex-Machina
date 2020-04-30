@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 {
@@ -22,17 +23,37 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
     Vector3 minimapCameraPosition = Vector3.zero;
     bool switchedToGuardCamera = false;
 
+    public static Action<Transform> updateIconSize = delegate { };
+
+    bool firstPersonCamera = false;
+
     private void Awake()
     {
         mainCamera = Camera.main;
         minimapCamera = GetComponent<Camera>();
         guardHackedSubject.AddObserver(this);
         switchedToGuardCamera = false;
+        firstPersonCamera = false;
+    }
+
+    void OnEnable()
+    {
+        updateIconSize += UpdateIconSize;
+    }
+
+    void OnDisable()
+    {
+        updateIconSize -= UpdateIconSize;
     }
 
     private void Update()
     {
-        if (cameraVariables.switchedCameraToFirstPerson || switchedToGuardCamera)
+        if( Input.GetButtonDown("SwitchingCamera"))
+        {
+            firstPersonCamera = !firstPersonCamera;
+        }
+
+        if (firstPersonCamera || switchedToGuardCamera)
         {
             minimapCamera.orthographicSize = Mathf.Lerp(minimapCamera.orthographicSize, firstPersonMinimapSize, Time.deltaTime * zoomSpeed);
         }
@@ -44,23 +65,31 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 
     private void LateUpdate()
     {
-        //Vector3 newPosition = playerVariables.playerTransform.position;
-        //newPosition.y = transform.position.y;
-        //transform.position = newPosition;
-        if(switchedToGuardCamera)
-        {
-            minimapCameraPosition = mainCamera.transform.position;
-            minimapCameraPosition.y = transform.position.y;
-        }
-        else
+        if(!switchedToGuardCamera)
         {
             minimapCameraPosition = playerVariables.playerTransform.position;
             minimapCameraPosition.y = transform.position.y;
         }
+        else
+        {
+            minimapCameraPosition = mainCamera.transform.position;
+            minimapCameraPosition.y = transform.position.y;
+        }
         transform.position = Vector3.Lerp(transform.position, minimapCameraPosition, Time.deltaTime * followSpeed);
-        //transform.position = minimapCameraPosition;
 
         transform.rotation = Quaternion.Euler(90.0f, mainCamera.transform.eulerAngles.y, 0.0f);
+    }
+
+    private void UpdateIconSize(Transform target)
+    {
+        if(!firstPersonCamera)
+        {
+            target.localScale = Vector3.Lerp(target.localScale, Vector3.one, Time.deltaTime * zoomSpeed);
+        }
+        else
+        {
+            target.localScale = Vector3.Lerp(target.localScale, Vector3.one * 2.0f, Time.deltaTime * zoomSpeed);
+        }
     }
 
     public void GuardHackedNotify(string guardName)

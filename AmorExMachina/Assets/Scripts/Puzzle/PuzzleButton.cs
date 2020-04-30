@@ -68,7 +68,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         //if (type == PuzzleButton.ButtonType.Empty)
         //    return;
 
-        //audioManager.Play("SelectButton");
+        audioManager.Play("SelectButton");
 
         //puzzle.OnButtonSelected(this);
 

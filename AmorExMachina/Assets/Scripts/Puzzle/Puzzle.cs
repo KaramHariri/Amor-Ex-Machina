@@ -26,6 +26,8 @@ public class Puzzle : MonoBehaviour
     float timeBetweenFlips = 0.2f;
 
     public PuzzleActivator PA;
+    // ADDED
+    public SlidingDoor door;
 
     private void Start()
     {
@@ -324,8 +326,9 @@ public class Puzzle : MonoBehaviour
             }
         }
         Debug.Log("Puzzle completed!");
+        door.UnlockDoor();
 
-        if(PA != null)
+        if (PA != null)
         {
             PA.DeactivatePuzzle();
         }

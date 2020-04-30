@@ -40,7 +40,6 @@ public class GuardController : MonoBehaviour
         if (guard.disabled && guard.beingControlled)
         {
             GetInput();
-            HandleRotation();
         }
     }
 
@@ -48,6 +47,7 @@ public class GuardController : MonoBehaviour
     {
         if (guard.disabled && guard.beingControlled)
         {
+            HandleRotation();
             HandleMovement();
         }
     }

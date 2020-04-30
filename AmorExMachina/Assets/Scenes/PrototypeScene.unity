@@ -2239,11 +2239,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinimapCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 2747581754219403632, guid: 94a4748a31d25a144838bc1ddb64cb9a,
-        type: 3}
-      propertyPath: orthographic size
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 2747581754219403633, guid: 94a4748a31d25a144838bc1ddb64cb9a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2299,12 +2294,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2747581754219403634, guid: 94a4748a31d25a144838bc1ddb64cb9a,
-        type: 3}
-      propertyPath: guardHackedSubject
-      value: 
-      objectReference: {fileID: 11400000, guid: ddda057fc03953a4bba3164ee12e9282,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94a4748a31d25a144838bc1ddb64cb9a, type: 3}
 --- !u!1001 &4438296502962673257

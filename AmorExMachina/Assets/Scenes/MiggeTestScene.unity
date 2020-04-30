@@ -1214,6 +1214,286 @@ Transform:
   m_Father: {fileID: 460342164}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1988511654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].clip.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].clip.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].clip.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].clip.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].clip.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].name
+      value: SelectButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].clip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 71ba38125526df944b2919310c9c2e04, type: 3}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].randomVolume
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].randomPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[0].maxSoundDistance
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].name
+      value: StartPuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].clip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ef74c1af4d61d54387cbd27d3f1f029, type: 3}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].randomVolume
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].randomPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[1].maxSoundDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].name
+      value: CompletePuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].clip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 74d93185d8208b841a362f15c7381833, type: 3}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].randomVolume
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].randomPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[2].maxSoundDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].name
+      value: SwitchButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].clip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5499d604a4cad3a40bc3bb88d8d25580, type: 3}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].randomVolume
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].randomPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[3].maxSoundDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].clip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].pitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].randomVolume
+      value: 0.163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].maxSoundDistance
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: soundFX.Array.data[4].threeDimensionalSound
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353145917178366114, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3772194529545792510, guid: 5d3065baac6382540b38913bf14bb4a8,
+        type: 3}
+      propertyPath: audioSourcePrefab
+      value: 
+      objectReference: {fileID: 1436373257723949812, guid: 18469666dfa05774dbff026ade50efef,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d3065baac6382540b38913bf14bb4a8, type: 3}
 --- !u!1001 &2020669394
 PrefabInstance:
   m_ObjectHideFlags: 0

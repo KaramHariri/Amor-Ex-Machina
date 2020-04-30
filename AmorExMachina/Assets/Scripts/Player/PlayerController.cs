@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public PlayerSpottedSubject playerSpottedSubject;
     public InteractionButtonSubject interactionButtonSubject;
 
+    private GameObject minimapIcon = null;
+
     AudioManager audioManager;
 
     float accumulateDistance = 0.0f;
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         rb.isKinematic = false;
+        minimapIcon = transform.GetChild(transform.childCount - 1).gameObject;
     }
 
     void Update()
@@ -52,6 +55,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }
 
+        MinimapCamera.updateIconSize(minimapIcon.transform);
         HackingGuardCheck();
 
         if (playerVariables.caught)

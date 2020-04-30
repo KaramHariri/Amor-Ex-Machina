@@ -89,3 +89,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
   cameraVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
+  guardHackedSubject: {fileID: 11400000, guid: ddda057fc03953a4bba3164ee12e9282, type: 2}
+  thirdPersonMinimapSize: 10
+  firstPersonMinimapSize: 20
+  zoomSpeed: 2
+  followSpeed: 4

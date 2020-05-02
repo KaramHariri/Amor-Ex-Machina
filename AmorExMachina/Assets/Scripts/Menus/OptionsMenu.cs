@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -15,9 +16,34 @@ public class OptionsMenu : MonoBehaviour
     CanvasGroup gameplayCanvasGroup = null;
     [SerializeField]
     CanvasGroup buttonsCanvasGroup = null;
+
     public GameObject firstSelectedButtonInOptions = null;
     public GameObject firstSelectedButtonInAudio = null;
     public GameObject firstSelectedButtonInGameplay = null;
+
+    #region Sliders GameObjects
+    [SerializeField]
+    private GameObject thirdPersonLookSensitivitySlider = null;
+    [SerializeField]
+    private GameObject firstPersonLookSensitivitySlider = null;
+    [SerializeField]
+    private GameObject effectAudioSlider = null;
+    [SerializeField]
+    private GameObject footstepsAudioSlider = null;
+    [SerializeField]
+    private GameObject voiceAudioSlider = null;
+    [SerializeField]
+    private GameObject musicAudioSlider = null;
+    #endregion
+
+    #region Slider Fill
+    private Image thirdPersonLookSensitivityFillImage = null;
+    private Image firstPersonLookSensitivityFillImage = null;
+    private Image effectAudioFillImage = null;
+    private Image footstepsFillImage = null;
+    private Image voiceAudioFillImage = null;
+    private Image musicAudioFillImage = null;
+    #endregion
 
     GameObject currentSelectedButton = null;
 
@@ -27,12 +53,17 @@ public class OptionsMenu : MonoBehaviour
     private bool inAudioMenu = false;
     [SerializeField]
     private bool inGameplayMenu = false;
+    [SerializeField]
+    private Settings settings = null;
 
     private void Start()
     {
         transform.gameObject.SetActive(false);
         audioCanvasGroup.alpha = 0.0f;
         gameplayCanvasGroup.alpha = 0.0f;
+
+        InitSlidersFill();
+        SetSlidersValues();
     }
 
     private void Update()
@@ -41,13 +72,11 @@ public class OptionsMenu : MonoBehaviour
         {
             if (inAudioMenu)
             {
-                Debug.Log("Switching from audio");
                 StartSwitchingFromAudioCoroutine();
                 return;
             }
             else if (inGameplayMenu)
             {
-                Debug.Log("Switching from gameplay");
                 StartSwitchingFromGameplayCoroutine();
                 return;
             }
@@ -56,6 +85,19 @@ public class OptionsMenu : MonoBehaviour
                 ExitOptionsMenu();
             }
         }
+
+        UpdateSlidersCheck();
+        UpdateSettingsValues();
+    }
+
+    void UpdateSlidersCheck()
+    {
+        SliderButtonCheck(thirdPersonLookSensitivitySlider, thirdPersonLookSensitivityFillImage);
+        SliderButtonCheck(firstPersonLookSensitivitySlider, firstPersonLookSensitivityFillImage);
+        SliderButtonCheck(effectAudioSlider, effectAudioFillImage);
+        SliderButtonCheck(footstepsAudioSlider, footstepsFillImage);
+        SliderButtonCheck(voiceAudioSlider, voiceAudioFillImage);
+        SliderButtonCheck(musicAudioSlider, musicAudioFillImage);
     }
 
     public void ExitOptionsMenu()
@@ -101,6 +143,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void StartSwitchingToAudioMenuCoroutine()
     {
+        audioCanvasGroup.gameObject.SetActive(true);
+        gameplayCanvasGroup.gameObject.SetActive(false);
         StartCoroutine(UpdateCurrentSelectedObject(firstSelectedButtonInAudio));
         StartCoroutine(SwitchOptionMenu(FadeOutCanvasGroup(buttonsCanvasGroup), FadeInCanvasGroup(audioCanvasGroup)));
         inAudioMenu = true;
@@ -108,6 +152,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void StartSwitchingToGameplayCoroutine()
     {
+        gameplayCanvasGroup.gameObject.SetActive(true);
+        audioCanvasGroup.gameObject.SetActive(false);
         StartCoroutine(UpdateCurrentSelectedObject(firstSelectedButtonInGameplay));
         StartCoroutine(SwitchOptionMenu(FadeOutCanvasGroup(buttonsCanvasGroup), FadeInCanvasGroup(gameplayCanvasGroup)));
         inGameplayMenu = true;
@@ -145,4 +191,56 @@ public class OptionsMenu : MonoBehaviour
         yield return null;
         eventSystem.SetSelectedGameObject(nextSelectedObject);
     }
+
+    public void ToggleButton(Toggle toggle)
+    {
+        toggle.isOn = !toggle.isOn;
+    }
+
+    public void SliderButtonCheck(GameObject slider, Image imageFill)
+    {
+        if(eventSystem.currentSelectedGameObject == slider)
+        {
+            float input = Input.GetAxis("Horizontal");
+            if(input >= 0.6f)
+            {
+                imageFill.fillAmount += 0.01f;
+            }
+            else if(input <= -0.6f)
+            {
+                imageFill.fillAmount -= 0.01f;
+            }
+        }
+    }
+
+    void InitSlidersFill()
+    {
+        thirdPersonLookSensitivityFillImage = thirdPersonLookSensitivitySlider.transform.GetChild(thirdPersonLookSensitivitySlider.transform.childCount - 1).GetComponent<Image>();
+        firstPersonLookSensitivityFillImage = firstPersonLookSensitivitySlider.transform.GetChild(firstPersonLookSensitivitySlider.transform.childCount - 1).GetComponent<Image>();
+        effectAudioFillImage = effectAudioSlider.transform.GetChild(effectAudioSlider.transform.childCount - 1).GetComponent<Image>();
+        footstepsFillImage = footstepsAudioSlider.transform.GetChild(footstepsAudioSlider.transform.childCount - 1).GetComponent<Image>();
+        voiceAudioFillImage = voiceAudioSlider.transform.GetChild(voiceAudioSlider.transform.childCount - 1).GetComponent<Image>();
+        musicAudioFillImage = musicAudioSlider.transform.GetChild(musicAudioSlider.transform.childCount - 1).GetComponent<Image>();
+    }
+
+    void SetSlidersValues()
+    {
+        thirdPersonLookSensitivityFillImage.fillAmount = settings.thirdPersonLookSensitivity / 300.0f;
+        firstPersonLookSensitivityFillImage.fillAmount = settings.firstPersonLookSensitivity / 300.0f;
+        effectAudioFillImage.fillAmount = settings.effectsVolume;
+        footstepsFillImage.fillAmount = settings.footstepsVolume;
+        voiceAudioFillImage.fillAmount = settings.voiceVolume;
+        musicAudioFillImage.fillAmount = settings.musicVolume;
+    }
+
+    void UpdateSettingsValues()
+    {
+        settings.thirdPersonLookSensitivity = thirdPersonLookSensitivityFillImage.fillAmount * 300.0f;
+        settings.firstPersonLookSensitivity = firstPersonLookSensitivityFillImage.fillAmount * 300.0f;
+        settings.effectsVolume = effectAudioFillImage.fillAmount;
+        settings.footstepsVolume = footstepsFillImage.fillAmount;
+        settings.voiceVolume = voiceAudioFillImage.fillAmount;
+        settings.musicVolume = musicAudioFillImage.fillAmount;
+    }
+
 }

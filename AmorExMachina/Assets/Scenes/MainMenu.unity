@@ -5061,6 +5061,8 @@ MonoBehaviour:
   footstepsAudioSlider: {fileID: 1798730269}
   voiceAudioSlider: {fileID: 1586252979}
   musicAudioSlider: {fileID: 2094964702}
+  invertYToggleGameObject: {fileID: 591230166}
+  subtitleToggleGameObject: {fileID: 867485008}
   fadingSpeed: 4
   inAudioMenu: 0
   inGameplayMenu: 0

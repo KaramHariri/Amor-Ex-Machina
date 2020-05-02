@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum ToggleType
+{
+    INVERTY,
+    SUBTITLE
+}
+
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField]
@@ -45,6 +51,19 @@ public class OptionsMenu : MonoBehaviour
     private Image musicAudioFillImage = null;
     #endregion
 
+    #region Toggles GameObjects
+    [SerializeField]
+    private GameObject invertYToggleGameObject = null;
+    [SerializeField]
+    private GameObject subtitleToggleGameObject = null;
+    #endregion
+
+    #region Toggles
+    private Toggle invertYToggle = null;
+    private Toggle subtitleToggle = null;
+    #endregion
+
+
     GameObject currentSelectedButton = null;
 
     [SerializeField]
@@ -63,7 +82,8 @@ public class OptionsMenu : MonoBehaviour
         gameplayCanvasGroup.alpha = 0.0f;
 
         InitSlidersFill();
-        SetSlidersValues();
+        InitToggles();
+        SetSettingsValues();
     }
 
     private void Update()
@@ -223,7 +243,13 @@ public class OptionsMenu : MonoBehaviour
         musicAudioFillImage = musicAudioSlider.transform.GetChild(musicAudioSlider.transform.childCount - 1).GetComponent<Image>();
     }
 
-    void SetSlidersValues()
+    void InitToggles()
+    {
+        invertYToggle = invertYToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
+        subtitleToggle = subtitleToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
+    }
+
+    void SetSettingsValues()
     {
         thirdPersonLookSensitivityFillImage.fillAmount = settings.thirdPersonLookSensitivity / 300.0f;
         firstPersonLookSensitivityFillImage.fillAmount = settings.firstPersonLookSensitivity / 300.0f;
@@ -231,6 +257,8 @@ public class OptionsMenu : MonoBehaviour
         footstepsFillImage.fillAmount = settings.footstepsVolume;
         voiceAudioFillImage.fillAmount = settings.voiceVolume;
         musicAudioFillImage.fillAmount = settings.musicVolume;
+        invertYToggle.isOn = settings.invertY;
+        subtitleToggle.isOn = settings.subtitle;
     }
 
     void UpdateSettingsValues()
@@ -241,6 +269,8 @@ public class OptionsMenu : MonoBehaviour
         settings.footstepsVolume = footstepsFillImage.fillAmount;
         settings.voiceVolume = voiceAudioFillImage.fillAmount;
         settings.musicVolume = musicAudioFillImage.fillAmount;
+        settings.invertY = invertYToggle.isOn;
+        settings.subtitle = subtitleToggle.isOn;
     }
 
 }

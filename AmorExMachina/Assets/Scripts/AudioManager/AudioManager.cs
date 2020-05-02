@@ -6,7 +6,16 @@ using System;
 [System.Serializable]
 public class Audio
 {
+    public enum AudioType
+    {
+        EFFECT,
+        FOOTSTEPS,
+        VOICE,
+        MUSIC
+    }
+
     public string name;
+    public AudioType audioType;
     public AudioClip[] clip;
 
     [Range(0f, 1f)]
@@ -29,12 +38,15 @@ public class Audio
 public class AudioManager : MonoBehaviour
 {
     public Audio[] soundFX;
+    [SerializeField]
+    private Settings settings;
 
     void Awake()
     {
         foreach (Audio aud in soundFX)
         {
             aud.aS = gameObject.AddComponent<AudioSource>();
+            SetVolumeFromSettings(aud);
             //aud.aS.clip = aud.clip;
             aud.aS.volume = aud.volume;
             aud.aS.loop = aud.loop;
@@ -128,5 +140,24 @@ public class AudioManager : MonoBehaviour
         audioSource.gameObject.transform.position = position;
         audioSource.loop = true;
         audioSource.Play();
+    }
+
+    void SetVolumeFromSettings(Audio audio)
+    {
+        switch(audio.audioType)
+        {
+            case Audio.AudioType.EFFECT:
+                audio.volume = settings.effectsVolume;
+                break;
+            case Audio.AudioType.FOOTSTEPS:
+                audio.volume = settings.footstepsVolume;
+                break;
+            case Audio.AudioType.VOICE:
+                audio.volume = settings.voiceVolume;
+                break;
+            case Audio.AudioType.MUSIC:
+                audio.volume = settings.musicVolume;
+                break;
+        }
     }
 }

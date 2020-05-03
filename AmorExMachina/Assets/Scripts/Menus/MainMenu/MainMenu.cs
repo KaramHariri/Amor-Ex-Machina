@@ -12,6 +12,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     EventSystem eventSystem;
 
+    [SerializeField]
+    Text test;
+
     GameObject currentSelectedButton = null;
 
     private void Start()

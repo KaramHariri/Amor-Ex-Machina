@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControlsSettingsMenu : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class ControlsSettingsMenu : MonoBehaviour
     private KeyboardControlsKeyBinding keyboardKeyBinding = null;
     private ControllerControlsKeyBinding controllerKeyBinding = null;
 
+    [SerializeField]
+    private Button controllerControlsButton = null;
+
     private void Awake()
     {
         instance = this;
@@ -34,6 +38,8 @@ public class ControlsSettingsMenu : MonoBehaviour
         optionsMenuInstance = OptionsMenu.instance;
         keyboardKeyBinding = KeyboardControlsKeyBinding.instance;
         controllerKeyBinding = ControllerControlsKeyBinding.instance;
+        keyboardKeyBinding.gameObject.SetActive(false);
+        controllerKeyBinding.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -42,6 +48,23 @@ public class ControlsSettingsMenu : MonoBehaviour
         {
             optionsMenuInstance.StartSwitchingFromControlsCoroutine();
             return;
+        }
+
+        ControllerConnectedCheck();
+    }
+
+    void ControllerConnectedCheck()
+    {
+        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        {
+            if (Input.GetJoystickNames().Length == 1 && Input.GetJoystickNames()[i] == "")
+            {
+                controllerControlsButton.interactable = false;
+            }
+            else
+            {
+                controllerControlsButton.interactable = true;
+            }
         }
     }
 

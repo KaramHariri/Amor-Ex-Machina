@@ -31,6 +31,14 @@ public class Settings : ScriptableObject
     public KeyCode hackGuardKeyboard = KeyCode.R;
     public KeyCode distractGuardWhileHackingKeyboard = KeyCode.E;
 
+    public KeyCode defaultRotatePuzzleArrowKeyboard = KeyCode.F;
+    public KeyCode defaultActivateButtonInPuzzleKeyboard = KeyCode.E;
+    public KeyCode defaultCameraToggleKeyboard = KeyCode.Q;
+    public KeyCode defaultMovementToggleKeyboard = KeyCode.LeftShift;
+    public KeyCode defaultDisableGuardKeyboard = KeyCode.E;
+    public KeyCode defaultHackGuardKeyboard = KeyCode.R;
+    public KeyCode defaultDistractGuardWhileHackingKeyboard = KeyCode.E;
+
     [Header("Controller")]
     public KeyCode rotatePuzzleArrowController = KeyCode.JoystickButton3;
     public KeyCode activateButtonInPuzzleController = KeyCode.JoystickButton1;
@@ -39,6 +47,14 @@ public class Settings : ScriptableObject
     public KeyCode disableGuardController = KeyCode.JoystickButton1;
     public KeyCode hackGuardController = KeyCode.JoystickButton0;
     public KeyCode distractGuardWhileHackingController = KeyCode.JoystickButton1;
+
+    public KeyCode defaultRotatePuzzleArrowController = KeyCode.JoystickButton3;
+    public KeyCode defaultActivateButtonInPuzzleController = KeyCode.JoystickButton1;
+    public KeyCode defaultCameraToggleController = KeyCode.JoystickButton11;
+    public KeyCode defaultMovementToggleController = KeyCode.JoystickButton10;
+    public KeyCode defaultDisableGuardController = KeyCode.JoystickButton1;
+    public KeyCode defaultHackGuardController = KeyCode.JoystickButton0;
+    public KeyCode defaultDistractGuardWhileHackingController = KeyCode.JoystickButton1;
 
     [Header("Controls Strings")]
     public string rotatePuzzleArrow = "RotatePuzzleArrow";

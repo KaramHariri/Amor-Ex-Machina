@@ -21,7 +21,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     [SerializeField] private Text movementToggle;
     [SerializeField] private Text disableGuard;
     [SerializeField] private Text hackGuard;
-    [SerializeField] private Text distactGuardWhileHacking;
+    [SerializeField] private Text distractGuardWhileHacking;
 
     [SerializeField] private GameObject pressAKeyCanvas;
     private GameObject currentSelectedGameObject;
@@ -60,19 +60,35 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             return;
         }
 
+        if (!changedKey)
+        {
+            StartCoroutine("EnableInput");
+            if (canTakeInput)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    keybindings[currentSelectedGameObject.name] = KeyCode.LeftShift;
+                    changingKeyText.text = KeyCode.LeftShift.ToString();
+                    changedKey = true;
+                    changingKeyText = null;
+                    StartCoroutine("ChangeButtonText");
+                }
+                else if(Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    keybindings[currentSelectedGameObject.name] = KeyCode.RightShift;
+                    changingKeyText.text = KeyCode.RightShift.ToString();
+                    changedKey = true;
+                    changingKeyText = null;
+                    StartCoroutine("ChangeButtonText");
+                }
+            }
+        }
+
         UpdateSettings();
     }
 
     void InitDictionaryKeys()
-    {
-        //keybindings.Add("RotatePuzzleArrow", KeyCode.F);
-        //keybindings.Add("ActivateButtonInPuzzle", KeyCode.E);
-        //keybindings.Add("CameraToggle", KeyCode.Q);
-        //keybindings.Add("MovementToggle", KeyCode.LeftShift);
-        //keybindings.Add("DisableGuard", KeyCode.E);
-        //keybindings.Add("HackGuard", KeyCode.R);
-        //keybindings.Add("DistactGuardWhileHacking", KeyCode.E);
-        
+    {    
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowKeyboard);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleKeyboard);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleKeyboard);
@@ -90,7 +106,20 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
         movementToggle.text = keybindings[settings.movementToggle].ToString();
         disableGuard.text = keybindings[settings.disableGuard].ToString();
         hackGuard.text = keybindings[settings.hackGuard].ToString();
-        distactGuardWhileHacking.text = keybindings[settings.distractGuardWhileHacking].ToString();
+        distractGuardWhileHacking.text = keybindings[settings.distractGuardWhileHacking].ToString();
+    }
+
+    public void ResetKeys()
+    {
+        keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowKeyboard;
+        keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleKeyboard;
+        keybindings[settings.cameraToggle] = settings.defaultCameraToggleKeyboard;
+        keybindings[settings.movementToggle] = settings.defaultMovementToggleKeyboard;
+        keybindings[settings.disableGuard] = settings.defaultDisableGuardKeyboard;
+        keybindings[settings.hackGuard] = settings.defaultHackGuardKeyboard;
+        keybindings[settings.distractGuardWhileHacking] = settings.defaultDistractGuardWhileHackingKeyboard;
+
+        SetButtonKeyText();
     }
 
     public void ChangeButton(Text buttonText)

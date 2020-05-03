@@ -23,6 +23,8 @@ public class AudioSettingsMenu : MonoBehaviour
 
     private OptionsMenu optionsMenuInstance = null;
 
+    private float slidingDelay = 0.0f;
+    private float maxSlidingDelay = 0.1f;
     private void Awake()
     {
         instance = this;
@@ -40,6 +42,7 @@ public class AudioSettingsMenu : MonoBehaviour
     {
         optionsMenuInstance = OptionsMenu.instance;
         SetSettingsValues();
+        slidingDelay = maxSlidingDelay;
     }
 
     private void Update()
@@ -99,13 +102,22 @@ public class AudioSettingsMenu : MonoBehaviour
         if (optionsMenuInstance.eventSystem.currentSelectedGameObject == slider)
         {
             float input = Input.GetAxis("Horizontal");
-            if (input >= 0.6f)
+            if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
                 imageFill.fillAmount += 0.01f;
             }
-            else if (input <= -0.6f)
+            else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
                 imageFill.fillAmount -= 0.01f;
+            }
+
+            if (slidingDelay >= maxSlidingDelay)
+            {
+                slidingDelay = 0.0f;
+            }
+            else
+            {
+                slidingDelay += Time.deltaTime;
             }
         }
     }

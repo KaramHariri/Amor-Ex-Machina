@@ -22,7 +22,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     [SerializeField] private Image movementToggle;
     [SerializeField] private Image disableGuard;
     [SerializeField] private Image hackGuard;
-    [SerializeField] private Image distactGuardWhileHacking;
+    [SerializeField] private Image distractGuardWhileHacking;
 
     [SerializeField] private GameObject pressAKeyCanvas;
     private GameObject currentSelectedGameObject;
@@ -99,15 +99,21 @@ public class ControllerControlsKeyBinding : MonoBehaviour
         UpdateSettings();
     }
 
+    public void ResetKeys()
+    {
+        keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowController;
+        keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleController;
+        keybindings[settings.cameraToggle] = settings.defaultCameraToggleController;
+        keybindings[settings.movementToggle] = settings.defaultMovementToggleController;
+        keybindings[settings.disableGuard] = settings.defaultDisableGuardController;
+        keybindings[settings.hackGuard] = settings.defaultHackGuardController;
+        keybindings[settings.distractGuardWhileHacking] = settings.defaultDistractGuardWhileHackingController;
+
+        SetButtonKeySprite();
+    }
+
     void InitDictionaryKeys()
     {
-        //keybindings.Add("RotatePuzzleArrow", KeyCode.JoystickButton3);
-        //keybindings.Add("ActivateButtonInPuzzle", KeyCode.JoystickButton1);
-        //keybindings.Add("CameraToggle", KeyCode.JoystickButton11);
-        //keybindings.Add("MovementToggle", KeyCode.JoystickButton10);
-        //keybindings.Add("DisableGuard", KeyCode.JoystickButton1);
-        //keybindings.Add("HackGuard", KeyCode.JoystickButton0);
-        //keybindings.Add("DistactGuardWhileHacking", KeyCode.JoystickButton1);
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowController);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleController);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleController);
@@ -119,13 +125,13 @@ public class ControllerControlsKeyBinding : MonoBehaviour
 
     void SetButtonKeySprite()
     {
-        rotatePuzzleArrow.sprite = SetSprite(keybindings["RotatePuzzleArrow"]);
-        activateButtonInPuzzle.sprite = SetSprite(keybindings["ActivateButtonInPuzzle"]);
-        cameraToggle.sprite = SetSprite(keybindings["CameraToggle"]);
-        movementToggle.sprite = SetSprite(keybindings["MovementToggle"]);
-        disableGuard.sprite = SetSprite(keybindings["DisableGuard"]);
-        hackGuard.sprite = SetSprite(keybindings["HackGuard"]);
-        distactGuardWhileHacking.sprite = SetSprite(keybindings["DistactGuardWhileHacking"]);
+        rotatePuzzleArrow.sprite = SetSprite(keybindings[settings.rotatePuzzleArrow]);
+        activateButtonInPuzzle.sprite = SetSprite(keybindings[settings.activateButtonInPuzzle]);
+        cameraToggle.sprite = SetSprite(keybindings[settings.cameraToggle]);
+        movementToggle.sprite = SetSprite(keybindings[settings.movementToggle]);
+        disableGuard.sprite = SetSprite(keybindings[settings.disableGuard]);
+        hackGuard.sprite = SetSprite(keybindings[settings.hackGuard]);
+        distractGuardWhileHacking.sprite = SetSprite(keybindings[settings.distractGuardWhileHacking]);
     }
 
     Sprite SetSprite(KeyCode keyCode)

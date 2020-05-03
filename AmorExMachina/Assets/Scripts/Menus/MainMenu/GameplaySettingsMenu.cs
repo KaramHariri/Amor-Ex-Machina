@@ -24,7 +24,7 @@ public class GameplaySettingsMenu : MonoBehaviour
     private OptionsMenu optionsMenuInstance = null;
 
     private float slidingDelay = 0.0f;
-    private float maxSlidingDelay = 0.1f;
+    private float maxSlidingDelay = 0.05f;
 
     private void Awake()
     {

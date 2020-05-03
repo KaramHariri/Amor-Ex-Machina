@@ -12,6 +12,8 @@ public class Settings : ScriptableObject
     [Range(50.0f, 300.0f)]
     public float firstPersonLookSensitivity;
     [Range(0.0f, 1.0f)]
+    public float masterVolume;
+    [Range(0.0f, 1.0f)]
     public float effectsVolume;
     [Range(0.0f, 1.0f)]
     public float footstepsVolume;

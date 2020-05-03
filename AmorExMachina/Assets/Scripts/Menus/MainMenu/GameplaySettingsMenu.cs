@@ -14,6 +14,8 @@ public class GameplaySettingsMenu : MonoBehaviour
     private Image firstPersonLookSensitivityFillImage = null;
     private Toggle invertYToggle = null;
     private Toggle subtitleToggle = null;
+    private Text thirdPersonLookSensitivityAmountText = null;
+    private Text firstPersonLookSensitivityAmountText = null;
 
     public static GameplaySettingsMenu instance;
     [HideInInspector]
@@ -24,7 +26,7 @@ public class GameplaySettingsMenu : MonoBehaviour
     private OptionsMenu optionsMenuInstance = null;
 
     private float slidingDelay = 0.0f;
-    private float maxSlidingDelay = 0.05f;
+    private float maxSlidingDelay = 0.1f;
 
     private void Awake()
     {
@@ -36,6 +38,7 @@ public class GameplaySettingsMenu : MonoBehaviour
         InitTogglesAndSliderGameObjects();
         InitSlidersFill();
         InitToggles();
+        InitSlidersAmountText();
         firstSelectedButtonInGameplay = invertYToggleGameObject;
     }
 
@@ -56,12 +59,21 @@ public class GameplaySettingsMenu : MonoBehaviour
 
         UpdateSlidersCheck();
         UpdateSettingsValues();
+        UpdateSlidersAmountText();
     }
 
     private void UpdateSlidersCheck()
     {
         SliderButtonCheck(thirdPersonLookSensitivitySlider, thirdPersonLookSensitivityFillImage);
         SliderButtonCheck(firstPersonLookSensitivitySlider, firstPersonLookSensitivityFillImage);
+    }
+
+    private void UpdateSlidersAmountText()
+    {
+        float thirdPersonSensitivityAmount = Mathf.RoundToInt(thirdPersonLookSensitivityFillImage.fillAmount * 300.0f);
+        thirdPersonLookSensitivityAmountText.text = thirdPersonSensitivityAmount.ToString();
+        float firstPersonSensitivityAmount = Mathf.RoundToInt(firstPersonLookSensitivityFillImage.fillAmount * 300.0f);
+        firstPersonLookSensitivityAmountText.text = firstPersonSensitivityAmount.ToString();
     }
 
     void InitTogglesAndSliderGameObjects()
@@ -76,6 +88,12 @@ public class GameplaySettingsMenu : MonoBehaviour
     {
         thirdPersonLookSensitivityFillImage = thirdPersonLookSensitivitySlider.transform.GetChild(thirdPersonLookSensitivitySlider.transform.childCount - 1).GetComponent<Image>();
         firstPersonLookSensitivityFillImage = firstPersonLookSensitivitySlider.transform.GetChild(firstPersonLookSensitivitySlider.transform.childCount - 1).GetComponent<Image>();
+    }
+
+    private void InitSlidersAmountText()
+    {
+        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
+        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
     }
 
     private void InitToggles()
@@ -112,20 +130,25 @@ public class GameplaySettingsMenu : MonoBehaviour
             float input = Input.GetAxis("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
-                imageFill.fillAmount += 0.01f;
+                imageFill.fillAmount += 0.1f;
             }
             else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
-                imageFill.fillAmount -= 0.01f;
+                imageFill.fillAmount -= 0.1f;
             }
 
-            if(slidingDelay >= maxSlidingDelay)
+            if (slidingDelay >= maxSlidingDelay)
             {
                 slidingDelay = 0.0f;
             }
             else
             {
                 slidingDelay += Time.deltaTime;
+            }
+
+            if (input == 0.0f)
+            {
+                slidingDelay = maxSlidingDelay;
             }
         }
     }

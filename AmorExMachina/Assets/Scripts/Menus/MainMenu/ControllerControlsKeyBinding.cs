@@ -45,6 +45,8 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     private Sprite R3Sprite;
     #endregion
 
+
+    [SerializeField] Settings settings;
     List<KeyCode> possibleKeyCodes = new List<KeyCode>();
 
     private void Awake()
@@ -93,28 +95,30 @@ public class ControllerControlsKeyBinding : MonoBehaviour
                 }
             }
         }
+
+        UpdateSettings();
     }
 
     void InitDictionaryKeys()
     {
-        keybindings.Add("RotatePuzzleArrow", KeyCode.JoystickButton3);
-        keybindings.Add("ActivateButtonInPuzzle", KeyCode.JoystickButton1);
-        keybindings.Add("CameraToggle", KeyCode.JoystickButton11);
-        keybindings.Add("MovementToggle", KeyCode.JoystickButton10);
-        keybindings.Add("DisableGuard", KeyCode.JoystickButton1);
-        keybindings.Add("HackGuard", KeyCode.JoystickButton0);
-        keybindings.Add("DistactGuardWhileHacking", KeyCode.JoystickButton1);
+        //keybindings.Add("RotatePuzzleArrow", KeyCode.JoystickButton3);
+        //keybindings.Add("ActivateButtonInPuzzle", KeyCode.JoystickButton1);
+        //keybindings.Add("CameraToggle", KeyCode.JoystickButton11);
+        //keybindings.Add("MovementToggle", KeyCode.JoystickButton10);
+        //keybindings.Add("DisableGuard", KeyCode.JoystickButton1);
+        //keybindings.Add("HackGuard", KeyCode.JoystickButton0);
+        //keybindings.Add("DistactGuardWhileHacking", KeyCode.JoystickButton1);
+        keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowController);
+        keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleController);
+        keybindings.Add(settings.cameraToggle, settings.cameraToggleController);
+        keybindings.Add(settings.movementToggle, settings.movementToggleController);
+        keybindings.Add(settings.disableGuard, settings.disableGuardController);
+        keybindings.Add(settings.hackGuard, settings.hackGuardController);
+        keybindings.Add(settings.distractGuardWhileHacking, settings.distractGuardWhileHackingController);
     }
 
     void SetButtonKeySprite()
     {
-        //rotatePuzzleArrow.sprite = keybindings["RotatePuzzleArrow"].ToString();
-        //activateButtonInPuzzle.text = keybindings["ActivateButtonInPuzzle"].ToString();
-        //cameraToggle.text = keybindings["CameraToggle"].ToString();
-        //movementToggle.text = keybindings["MovementToggle"].ToString();
-        //disableGuard.text = keybindings["DisableGuard"].ToString();
-        //hackGuard.text = keybindings["HackGuard"].ToString();
-        //distactGuardWhileHacking.text = keybindings["DistactGuardWhileHacking"].ToString();
         rotatePuzzleArrow.sprite = SetSprite(keybindings["RotatePuzzleArrow"]);
         activateButtonInPuzzle.sprite = SetSprite(keybindings["ActivateButtonInPuzzle"]);
         cameraToggle.sprite = SetSprite(keybindings["CameraToggle"]);
@@ -153,32 +157,12 @@ public class ControllerControlsKeyBinding : MonoBehaviour
             case KeyCode.JoystickButton7:
                 tempSprite = R2Sprite;
                 break;
-            //case KeyCode.JoystickButton8:
-            //    break;
-            //case KeyCode.JoystickButton9:
-            //    break;
             case KeyCode.JoystickButton10:
                 tempSprite = L3Sprite;
                 break;
             case KeyCode.JoystickButton11:
                 tempSprite = R3Sprite;
                 break;
-            //case KeyCode.JoystickButton12:
-            //    break;
-            //case KeyCode.JoystickButton13:
-            //    break;
-            //case KeyCode.JoystickButton14:
-            //    break;
-            //case KeyCode.JoystickButton15:
-            //    break;
-            //case KeyCode.JoystickButton16:
-            //    break;
-            //case KeyCode.JoystickButton17:
-            //    break;
-            //case KeyCode.JoystickButton18:
-            //    break;
-            //case KeyCode.JoystickButton19:
-            //    break;
             default:
                 break;
         }
@@ -247,5 +231,16 @@ public class ControllerControlsKeyBinding : MonoBehaviour
         R1Sprite = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/R1Button");
         R2Sprite = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/R2Button");
         R3Sprite = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/R3Button");
+    }
+
+    void UpdateSettings()
+    {
+        settings.rotatePuzzleArrowController = keybindings[settings.rotatePuzzleArrow];
+        settings.activateButtonInPuzzleController = keybindings[settings.activateButtonInPuzzle];
+        settings.cameraToggleController = keybindings[settings.cameraToggle];
+        settings.movementToggleController = keybindings[settings.movementToggle];
+        settings.disableGuardController = keybindings[settings.disableGuard];
+        settings.hackGuardController = keybindings[settings.hackGuard];
+        settings.distractGuardWhileHackingController = keybindings[settings.distractGuardWhileHacking];
     }
 }

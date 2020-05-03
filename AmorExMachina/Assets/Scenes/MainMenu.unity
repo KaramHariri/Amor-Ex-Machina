@@ -1954,6 +1954,7 @@ MonoBehaviour:
   hackGuard: {fileID: 114215679}
   distactGuardWhileHacking: {fileID: 865641198}
   pressAKeyCanvas: {fileID: 587747410}
+  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!225 &425303016
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7306,6 +7307,7 @@ MonoBehaviour:
   hackGuard: {fileID: 536801257}
   distactGuardWhileHacking: {fileID: 1755444225}
   pressAKeyCanvas: {fileID: 587747410}
+  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!225 &1470324437
 CanvasGroup:
   m_ObjectHideFlags: 0

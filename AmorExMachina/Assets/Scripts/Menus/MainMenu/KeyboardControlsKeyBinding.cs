@@ -31,6 +31,8 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     private bool changedKey = true;
     private Text changingKeyText;
 
+    [SerializeField] private Settings settings;
+
     private void Awake()
     {
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
@@ -57,28 +59,38 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             controlsSettingsMenuInstance.StartSwitchingFromKeyboardControlsCoroutine();
             return;
         }
+
+        UpdateSettings();
     }
 
     void InitDictionaryKeys()
     {
-        keybindings.Add("RotatePuzzleArrow", KeyCode.F);
-        keybindings.Add("ActivateButtonInPuzzle", KeyCode.E);
-        keybindings.Add("CameraToggle", KeyCode.Q);
-        keybindings.Add("MovementToggle", KeyCode.LeftShift);
-        keybindings.Add("DisableGuard", KeyCode.E);
-        keybindings.Add("HackGuard", KeyCode.R);
-        keybindings.Add("DistactGuardWhileHacking", KeyCode.E);
+        //keybindings.Add("RotatePuzzleArrow", KeyCode.F);
+        //keybindings.Add("ActivateButtonInPuzzle", KeyCode.E);
+        //keybindings.Add("CameraToggle", KeyCode.Q);
+        //keybindings.Add("MovementToggle", KeyCode.LeftShift);
+        //keybindings.Add("DisableGuard", KeyCode.E);
+        //keybindings.Add("HackGuard", KeyCode.R);
+        //keybindings.Add("DistactGuardWhileHacking", KeyCode.E);
+        
+        keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowKeyboard);
+        keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleKeyboard);
+        keybindings.Add(settings.cameraToggle, settings.cameraToggleKeyboard);
+        keybindings.Add(settings.movementToggle, settings.movementToggleKeyboard);
+        keybindings.Add(settings.disableGuard, settings.disableGuardKeyboard);
+        keybindings.Add(settings.hackGuard, settings.hackGuardKeyboard);
+        keybindings.Add(settings.distractGuardWhileHacking, settings.distractGuardWhileHackingKeyboard);
     }
 
     void SetButtonKeyText()
     {
-        rotatePuzzleArrow.text = keybindings["RotatePuzzleArrow"].ToString();
-        activateButtonInPuzzle.text = keybindings["ActivateButtonInPuzzle"].ToString();
-        cameraToggle.text = keybindings["CameraToggle"].ToString();
-        movementToggle.text = keybindings["MovementToggle"].ToString();
-        disableGuard.text = keybindings["DisableGuard"].ToString();
-        hackGuard.text = keybindings["HackGuard"].ToString();
-        distactGuardWhileHacking.text = keybindings["DistactGuardWhileHacking"].ToString();
+        rotatePuzzleArrow.text = keybindings[settings.rotatePuzzleArrow].ToString();
+        activateButtonInPuzzle.text = keybindings[settings.activateButtonInPuzzle].ToString();
+        cameraToggle.text = keybindings[settings.cameraToggle].ToString();
+        movementToggle.text = keybindings[settings.movementToggle].ToString();
+        disableGuard.text = keybindings[settings.disableGuard].ToString();
+        hackGuard.text = keybindings[settings.hackGuard].ToString();
+        distactGuardWhileHacking.text = keybindings[settings.distractGuardWhileHacking].ToString();
     }
 
     public void ChangeButton(Text buttonText)
@@ -93,7 +105,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
         pressAKeyCanvas.SetActive(true);
         canTakeInput = false;
         changedKey = false;
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
     }
 
     IEnumerator ChangeButtonText()
@@ -101,7 +113,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             if (changedKey)
             {
                 canTakeInput = false;
-                yield return null;
+                yield return new WaitForSeconds(0.1f);
                 pressAKeyCanvas.SetActive(false);
                 canTakeInput = true;
             }
@@ -109,7 +121,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
 
     IEnumerator EnableInput()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         canTakeInput = true;
     }
 
@@ -128,5 +140,16 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
                 StartCoroutine("ChangeButtonText");
             }
         }
+    }
+
+    void UpdateSettings()
+    {
+        settings.rotatePuzzleArrowKeyboard = keybindings[settings.rotatePuzzleArrow];
+        settings.activateButtonInPuzzleKeyboard = keybindings[settings.activateButtonInPuzzle];
+        settings.cameraToggleKeyboard = keybindings[settings.cameraToggle];
+        settings.movementToggleKeyboard = keybindings[settings.movementToggle];
+        settings.disableGuardKeyboard = keybindings[settings.disableGuard];
+        settings.hackGuardKeyboard = keybindings[settings.hackGuard];
+        settings.distractGuardWhileHackingKeyboard = keybindings[settings.distractGuardWhileHacking];
     }
 }

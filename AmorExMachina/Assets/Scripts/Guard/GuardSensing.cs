@@ -9,6 +9,8 @@ public class GuardSensing : MonoBehaviour
     public bool canHear = false;
     [HideInInspector]
     public bool suspicious = false;
+    [HideInInspector]
+    public bool distracted = false;
 
     [HideInInspector]
     public UnityEngine.AI.NavMeshAgent navMeshAgent;
@@ -21,15 +23,35 @@ public class GuardSensing : MonoBehaviour
     GuardVariables guardVariables;
     PlayerVariables playerVariables;
 
+    Guard guardScript;
+
+    [SerializeField] LayerMask raycastCheckLayer = 0;
+    [SerializeField] LayerMask raycastCheckLayerWithSmoke = 0;
+
+    [HideInInspector]
+    public float detectionAmount = 0.0f;
+    public float maxDetectionAmount = 2.0f;
+    [SerializeField]
+    private float timerSincePlayerWasSpotted = 0.0f;
+    [SerializeField]
+    private float maxTimerSincePlayerWasSpotted = 5.0f;
+
     public void GuardSensingAwake()
     {
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        guardScript = GetComponent<Guard>();
+        raycastCheckLayer = LayerMask.GetMask("Walls", "Player");
+        raycastCheckLayerWithSmoke = LayerMask.GetMask("Walls", "Player", "SmokeScreen");
     }
 
     public void Update()
     {
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
+        SpottedIndicatorHandler();
+
+        timerSincePlayerWasSpotted += Time.deltaTime;
+        timerSincePlayerWasSpotted = Mathf.Clamp(timerSincePlayerWasSpotted, 0.0f, 20.0f);
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
@@ -38,9 +60,39 @@ public class GuardSensing : MonoBehaviour
         playerVariables = playerVariablesScriptableObject;
     }
 
-    public bool CheckPlayerInSight()
+    void SpottedIndicatorHandler()
     {
         if (playerInSight)
+        {
+            detectionAmount += Time.deltaTime;
+            if (detectionAmount >= maxDetectionAmount)
+                detectionAmount = maxDetectionAmount;
+
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Red);
+        }
+        else if (suspicious)
+        {
+            detectionAmount = maxDetectionAmount;
+            UIManager.createIndicator(this.transform);
+            UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
+        }
+        else
+        {
+            detectionAmount -= Time.deltaTime;
+            if (detectionAmount <= 0.0f)
+            {
+                detectionAmount = 0.0f;
+                UIManager.removeIndicator(this.transform);
+            }
+            else
+                UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
+        }
+    }
+
+    public bool CheckPlayerInSight()
+    {
+        if (playerInSight && detectionAmount >= maxDetectionAmount)
             return true;
 
         return false;
@@ -48,7 +100,7 @@ public class GuardSensing : MonoBehaviour
 
     public bool Suspicious()
     {
-        if (suspicious)
+        if (suspicious || distracted)
         {
             return true;
         }
@@ -68,22 +120,48 @@ public class GuardSensing : MonoBehaviour
     {
         if (other.gameObject == playerVariables.playerTransform.gameObject)
         {
-            canHear = true;
-
-            Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(direction, transform.forward);
-
-            if (angle < guardVariables.fieldOfViewAngle)
+            if (!guardScript.beingControlled && !guardScript.disabled)
             {
-                RaycastHit raycastHit;
-                if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                canHear = true;
+                playerInSight = false;
+
+                Vector3 playerPosition = new Vector3(other.transform.position.x, other.transform.position.y + 0.5f, other.transform.position.z);
+                Vector3 direction = playerPosition - transform.position;
+                float angle = Vector3.Angle(direction, transform.forward);
+
+                if (angle < guardVariables.fieldOfViewAngle)
                 {
-                    if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                    RaycastHit raycastHit;
+                    if (timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
                     {
-                        playerInSight = true;
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
+                        {
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                playerInSight = false;
+                            }
+                        }
                     }
                     else
-                        playerInSight = false;
+                    {
+                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayerWithSmoke))
+                        {
+                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
+                            {
+                                timerSincePlayerWasSpotted = 0.0f;
+                                playerInSight = true;
+                            }
+                            else
+                            {
+                                playerInSight = false;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -95,10 +173,11 @@ public class GuardSensing : MonoBehaviour
 
             if (angle < guardVariables.fieldOfViewAngle)
             {
-                if (other.GetComponent<Guard>().disabled)
+                if (other.GetComponent<Guard>().disabled && !other.GetComponent<Guard>().beingControlled)
                 {
                     RaycastHit raycastHit;
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    //if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
+                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
                     {
                         if (raycastHit.collider.gameObject == other.gameObject)
                         {

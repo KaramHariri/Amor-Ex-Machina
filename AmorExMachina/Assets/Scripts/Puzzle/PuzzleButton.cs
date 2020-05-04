@@ -61,35 +61,50 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public UnityEvent onButtonDeselected;
     public UnityEvent onButtonHovered;
 
+    AudioManager audioManager;
+
     public void OnPointerClick(PointerEventData eventData)
     {
-        puzzle.OnButtonSelected(this);
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        SetSelectedImage();
+        audioManager.Play("SelectButton");
+
+        //puzzle.OnButtonSelected(this);
+
+        //SetSelectedImage();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        puzzle.OnButtonEnter(this);
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        SetSelectedImage();
+        audioManager.Play("SwitchButton");
+
+        //puzzle.OnButtonEnter(this);
+
+        //SetSelectedImage();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        puzzle.OnButtonExit(this);
+        //if (type == PuzzleButton.ButtonType.Empty)
+        //    return;
 
-        SetNormalImage();
+        //puzzle.OnButtonExit(this);
+
+        //SetNormalImage();
     }
 
     private void Awake()
     {
-
         background = GetComponent<Image>();
         puzzle.Subscribe(this);
 
         LoadSprites();
         SetNormalImage();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     public void Select()
@@ -110,6 +125,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 {
                     StartCoroutine(ChangeColorToRed());
                 }
+                audioManager.Play("SelectButton");
             }
         }
     }
@@ -129,6 +145,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             onButtonHovered.Invoke();
             SetSelectedImage();
+            audioManager.Play("SwitchButton");
         }
     }
 

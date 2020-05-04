@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6410a3e664b0ba4a9267a4fa80c9aed, type: 3}
   m_Name: GuardVariables
   m_EditorClassIdentifier: 
-  fieldOfViewAngle: 45
+  fieldOfViewAngle: 70
   fieldOfViewRadius: 20
-  maxBackupRadius: 40
+  maxBackupRadius: 10
   patrolSpeed: 2
   chaseSpeed: 5
   suspiciousSpeed: 3.5
@@ -24,5 +24,5 @@ MonoBehaviour:
   chasingColor: {r: 1, g: 0, b: 0, a: 1}
   suspiciousColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   patrolColor: {r: 0, g: 1, b: 0, a: 1}
+  stationaryColor: {r: 0, g: 0, b: 1, a: 1}
   idleColor: {r: 0, g: 1, b: 1, a: 1}
-  talkingToOtherGuardColor: {r: 0, g: 0, b: 1, a: 1}

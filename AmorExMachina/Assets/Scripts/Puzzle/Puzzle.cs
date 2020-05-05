@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Puzzle : MonoBehaviour
 {
+    [SerializeField] Settings settings;
     //public List<PuzzleButton> buttons;
     public PuzzleButton[] buttons;
     private PuzzleButton selectedButton;
@@ -236,7 +237,7 @@ public class Puzzle : MonoBehaviour
         int xPos = index % columns;
         //Debug.Log("Selected button at ( " + xPos + " , " + yPos + ")");
 
-        List<Vector2> temp = new List<Vector2>();
+        //List<Vector2> temp = new List<Vector2>();
 
         switch (selectedButton.direction)
         {
@@ -340,12 +341,9 @@ public class Puzzle : MonoBehaviour
     {
         if (selectedButton == null) { Debug.Log("selectedButton is null"); return; }
 
-        //if (Input.GetButtonDown("X");
-
 
         if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && buttonSwitchingCooldown == 0.0f && selectedButtonIndex > 0)
         {
-            //Debug.Log("L");
             buttonSwitchingCooldown = buttonSwitchingCooldownTime;
             selectedButtonIndex--;
             SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
@@ -353,10 +351,8 @@ public class Puzzle : MonoBehaviour
         }
 
 
-        //if (Input.GetKeyDown(KeyCode.RightArrow) && buttonSwitchingCooldown == 0.0f && selectedButtonIndex + 1 < activateableButtons.Count)
         if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && buttonSwitchingCooldown == 0.0f && selectedButtonIndex + 1 < activateableButtons.Count)
             {
-            //Debug.Log("R");
             buttonSwitchingCooldown = buttonSwitchingCooldownTime;
             selectedButtonIndex++;
             SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
@@ -364,21 +360,20 @@ public class Puzzle : MonoBehaviour
         }
 
 
-        //if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F) ) && buttonRotateCooldown == 0.0f)
-        //if (Input.GetKeyDown(KeyCode.R) && buttonRotateCooldown == 0.0f)
-        //{
-        //    selectedButton.RotateDirection();
-        //    buttonRotateCooldown = buttonRotateCooldownTime;
-        //    return;
-        //}
 
-        //if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) ) && buttonActivateCooldown == 0.0f)
-        if (Input.GetKeyDown(KeyCode.Space) && buttonActivateCooldown == 0.0f)
-        {
+        if (Input.GetKeyDown(settings.activateButtonInPuzzleKeyboard) && buttonActivateCooldown == 0.0f)
+            {
             selectedButton.Select();
             GenerateFlipTileList();
             buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;
             StartCoroutine(ActivateFlipping());
+        }
+
+        if (Input.GetKeyDown(settings.rotatePuzzleArrowKeyboard) && buttonRotateCooldown == 0.0f)
+        {
+            selectedButton.RotateDirection();
+            buttonRotateCooldown = buttonRotateCooldownTime;
+            return;
         }
     }
 
@@ -386,12 +381,9 @@ public class Puzzle : MonoBehaviour
     {
         if (selectedButton == null) { Debug.Log("selectedButton is null"); return; }
 
-        //if (Input.GetButtonDown("X");
-
 
         if (Input.GetAxis("Horizontal") < -0.6f && buttonSwitchingCooldown == 0.0f && selectedButtonIndex > 0)
         {
-            //Debug.Log("L");
             buttonSwitchingCooldown = buttonSwitchingCooldownTime;
             selectedButtonIndex--;
             SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
@@ -401,7 +393,6 @@ public class Puzzle : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") > 0.6f && buttonSwitchingCooldown == 0.0f && selectedButtonIndex + 1 < activateableButtons.Count)
         {
-            //Debug.Log("R");
             buttonSwitchingCooldown = buttonSwitchingCooldownTime;
             selectedButtonIndex++;
             SetHover(activateableButtons[selectedButtonIndex].transform.GetSiblingIndex());
@@ -409,17 +400,15 @@ public class Puzzle : MonoBehaviour
         }
 
 
-        if (Input.GetButtonDown("Triangle") && buttonRotateCooldown == 0.0f)
-        {
-            //if (selectedButton != null && selectedButton.type == PuzzleButton.ButtonType.RotatableArrow)
-            //{
+        if (Input.GetKeyDown(settings.rotatePuzzleArrowController) && buttonRotateCooldown == 0.0f)
+            {
                 selectedButton.RotateDirection();
-            buttonRotateCooldown = buttonRotateCooldownTime;
+                buttonRotateCooldown = buttonRotateCooldownTime;
                 return;
-            //}
         }
 
-        if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
+        //if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
+        if (Input.GetKeyDown(settings.activateButtonInPuzzleKeyboard) && buttonActivateCooldown == 0.0f)
         {
             selectedButton.Select();
             GenerateFlipTileList();

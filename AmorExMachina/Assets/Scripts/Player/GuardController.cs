@@ -6,19 +6,15 @@ public class GuardController : MonoBehaviour
 {
     public float walkSpeed = 5.0f;
     public float rotateVelocity = 100.0f;
+    private float verticalInput = 0.0f;
+    private float horizontalInput = 0.0f;
+    private float moveAmount = 0.0f;
 
-    Rigidbody rb;
-    float verticalInput = 0.0f;
-    float horizontalInput = 0.0f;
-
-    Vector3 moveDir = Vector3.zero;
-
-    float moveAmount = 0.0f;
-
-    Camera mainCamera;
-    Guard guard;
-    [SerializeField]
-    PlayerSoundSubject playerSoundSubject;
+    private Rigidbody rb = null;
+    private Camera mainCamera = null;
+    private Guard guard = null;
+    [SerializeField] PlayerSoundSubject playerSoundSubject = null;
+    [SerializeField] Settings settings = null;
 
     void Awake()
     {
@@ -29,7 +25,7 @@ public class GuardController : MonoBehaviour
 
     void Update()
     {
-        if(guard.beingControlled)
+        if(guard.hacked)
         {
             rb.isKinematic = false;
         }
@@ -37,7 +33,7 @@ public class GuardController : MonoBehaviour
         {
             rb.isKinematic = true;
         }
-        if (guard.disabled && guard.beingControlled)
+        if (guard.disabled && guard.hacked)
         {
             GetInput();
         }
@@ -45,7 +41,7 @@ public class GuardController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (guard.disabled && guard.beingControlled)
+        if (guard.disabled && guard.hacked)
         {
             HandleRotation();
             HandleMovement();
@@ -56,7 +52,7 @@ public class GuardController : MonoBehaviour
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown("X"))
+        if(Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard))
         {
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
         }

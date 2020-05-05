@@ -8,10 +8,11 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     private Dictionary<string, CinemachineVirtualCamera> guardsVirtualCameras = new Dictionary<string, CinemachineVirtualCamera>();
     string hackedGuardName = "";
     private bool switchedToFirstPersonCamera = false;
-    private CinemachineBrain cinemachineBrain;
+    private CinemachineBrain cinemachineBrain = null;
 
-    public PlayerCamerasVariables playerCameras;
-    public GuardHackedSubject guardHackedSubject;
+    public PlayerCamerasVariables playerCameras = null;
+    public GuardHackedSubject guardHackedSubject = null;
+    public Settings settings = null;
 
     private void Start()
     {
@@ -31,7 +32,11 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
 
     void SwitchPlayerCameraCheck()
     {
-        bool switching = Input.GetButtonDown("SwitchingCamera");
+        bool switching = false;
+        if(Input.GetKeyDown(settings.cameraToggleKeyboard) || Input.GetKeyDown(settings.cameraToggleController))
+        {
+            switching = true;
+        }
         if (switching)
         {
             if (playerCameras.thirdPersonCamera.m_Priority == 22)

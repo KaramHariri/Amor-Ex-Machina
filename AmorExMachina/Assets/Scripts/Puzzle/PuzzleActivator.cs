@@ -21,6 +21,8 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     AudioManager audioManager;
     [SerializeField] PlayerSpottedSubject PlayerSpottedSubject = null;
     [SerializeField] InteractionButtonSubject interactionButtonSubject = null;
+    [SerializeField] PlayerVariables playerVariables = null;
+    [SerializeField] Settings settings = null;
 
     private void Awake()
     {
@@ -45,7 +47,8 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
         if (!canBeActivated) { return; }
 
-        if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
+        //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
+        if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
             if (!activated)
             {
@@ -72,6 +75,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
+            playerVariables.canHackGuard = false;
             if(interactionButtonSubject == null)
             {
                 Debug.Log("Interaction subject is null");
@@ -84,6 +88,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
+            playerVariables.canHackGuard = true;
             interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = false;
         }
@@ -149,7 +154,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
-    public void Notify(Vector3 position)
+    public void PlayerSpottedNotify(Vector3 position)
     {
         if(activated)
         {

@@ -5,4 +5,5 @@ public class PlayerVariables : ScriptableObject
 {
     public Transform playerTransform;
     public bool caught = false;
+    public bool canHackGuard = true;
 }

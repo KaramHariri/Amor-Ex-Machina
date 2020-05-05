@@ -5,21 +5,21 @@ using UnityEngine.EventSystems;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [SerializeField]
-    MainMenu mainMenu;
+    [SerializeField] MainMenu mainMenu = null;
 
-    public EventSystem eventSystem;
-    public CanvasGroup buttonsCanvasGroup = null;
     public GameObject firstSelectedButtonInOptions = null;
-    GameObject currentSelectedButton = null;
+    private GameObject currentSelectedButton = null;
 
-    public float fadingSpeed = 4.0f;
+    public EventSystem eventSystem = null;
+    public CanvasGroup buttonsCanvasGroup = null;
     public Settings settings = null;
 
     private AudioSettingsMenu audioSettingsMenuInstance = null;
     private GameplaySettingsMenu gameplaySettingsMenuInstance = null;
     private ControlsSettingsMenu controlsSettingsMenuInstance = null;
     public static OptionsMenu instance = null;
+
+    public float fadingSpeed = 4.0f;
     private bool canTakeInput = true;
 
     private void Awake()

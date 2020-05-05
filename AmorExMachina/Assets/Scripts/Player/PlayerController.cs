@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 {
-    public float walkSpeed = 10.0f;
-    public float sneakSpeed = 2.5f;
-    public float rotateVelocity = 100.0f;
-
-    Rigidbody rb;
-    float verticalInput = 0.0f;
-    float horizontalInput = 0.0f;
-
-    Vector3 moveDir = Vector3.zero;
-    float moveAmount = 0.0f;
-    bool sneaking = false;
-    bool controlling = false;
+    [Range(1.3f, 2.5f)] [SerializeField] private float disableDistance = 1.8f;
+    [Range(1.0f, 6.0f)] [SerializeField] private float sneakSpeed = 4.0f;
+    [Range(5.0f, 10.0f)] [SerializeField] private float walkSpeed = 7.5f;
+    //[Range(50.0f, 150.0f)] [SerializeField] private float rotateVelocity = 100.0f;
+    private float verticalInput = 0.0f;
+    private float horizontalInput = 0.0f;
+    private float moveAmount = 0.0f;
+    private bool sneaking = false;
+    private bool controlling = false;
     
-    Guard disabledGuard;
-    
-    public PlayerSoundSubject playerSoundSubject;
-    public GuardHackedSubject guardHackedSubject;
-    public PlayerVariables playerVariables;
-    public PlayerCamerasVariables cameraVariables;
-    public PlayerSpottedSubject playerSpottedSubject;
-    public InteractionButtonSubject interactionButtonSubject;
+    private Rigidbody rb = null;
+    private Guard disabledGuard = null;
+    [SerializeField] List<Guard> possibleGuardsToDisable = null;
+
+    #region Observer pattern subjects
+    public PlayerSoundSubject playerSoundSubject = null;
+    public GuardHackedSubject guardHackedSubject = null;
+    public PlayerVariables playerVariables = null;
+    public PlayerCamerasVariables cameraVariables = null;
+    public PlayerSpottedSubject playerSpottedSubject = null;
+    public InteractionButtonSubject interactionButtonSubject = null;
+    #endregion
 
     private GameObject minimapIcon = null;
-
-    AudioManager audioManager;
+    private AudioManager audioManager = null;
+    [SerializeField] private Settings settings = null;
 
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
 
-
-
     void Awake()
     {
+        possibleGuardsToDisable = new List<Guard>();
         playerVariables.playerTransform = transform;
         playerVariables.caught = false;
+        playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
         cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
         cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
@@ -64,7 +65,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
 
         GetInput();
-        
+
+        DisableGuardCheck();
     }
 
     void FixedUpdate()
@@ -73,12 +75,11 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         if (!cameraVariables.switchedCameraToFirstPerson && (verticalInput != 0.0f || horizontalInput != 0.0f))
         {
-            //PlaySound();
-            HandleRotation();
+            ThirdPersonRotationHandling();
         }
         else if (cameraVariables.switchedCameraToFirstPerson)
         {
-            FPSRotate();
+            FirstPersonRotationHandling();
         }
         HandleMovement();
     }
@@ -114,19 +115,25 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HackingGuardCheck()
     {
-        if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+        if (playerVariables.canHackGuard)
         {
-            disabledGuard.beingControlled = true;
-            controlling = true;
-            guardHackedSubject.GuardHackedNotify(disabledGuard.name);
-            GameHandler.currentState = GameState.HACKING;
-        }
-        else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-        {
-            disabledGuard.beingControlled = false;
-            controlling = false;
-            guardHackedSubject.GuardHackedNotify("");
-            GameHandler.currentState = GameState.NORMALGAME;
+            if (disabledGuard != null && !controlling && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            {
+                disabledGuard.hacked = true;
+                controlling = true;
+                guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+                GameHandler.currentState = GameState.HACKING;
+                return;
+            }
+            else if (disabledGuard != null && controlling && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            {
+                disabledGuard.hacked = false;
+                controlling = false;
+                guardHackedSubject.GuardHackedNotify("");
+                GameHandler.currentState = GameState.NORMALGAME;
+                disabledGuard = null;
+                return;
+            }
         }
     }
 
@@ -134,13 +141,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown("Sneaking"))
+        if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
         {
             sneaking = !sneaking;
         }
     }
 
-    void FPSRotate()
+    void FirstPersonRotationHandling()
     {
         if(cameraVariables.switchedCameraToFirstPerson)
         {
@@ -151,7 +158,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
-    void HandleRotation()
+    void ThirdPersonRotationHandling()
     {
         moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
         Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.thirdPersonCameraTransform.eulerAngles.y, 0.0f);
@@ -179,28 +186,37 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         if (!sneaking && (verticalInput != 0 || horizontalInput != 0))
             playerSoundSubject.NotifyObservers(SoundType.WALKING, transform.position);
+        else
+            playerSoundSubject.NotifyObservers(SoundType.CROUCHING, transform.position);
 
     }
 
-    private void OnTriggerStay(Collider other)
+    void DisableGuardCheck()
     {
-        if (other is CapsuleCollider && other.CompareTag("Guard"))
+        // Check if the guard is disabled, if so remove it from the list so we can't hack it again after the time limit/ not showing disable icon.
+        for(int i = 0; i < possibleGuardsToDisable.Count; i++)
         {
-            Vector3 targetToPlayerDirection = transform.position - other.transform.position;
-            float angleToTarget = Vector3.Angle(other.transform.forward, targetToPlayerDirection);
-            if (angleToTarget < 180.0f && angleToTarget > 110.0f)
+            if(possibleGuardsToDisable[i].disabled)
+            {
+                possibleGuardsToDisable.Remove(possibleGuardsToDisable[i]);
+            }
+        }
+
+        // If there is a possible guard to disable, we get the closest one and check if we're in a specific angle and distance to the guard to disable it.
+        if (possibleGuardsToDisable.Count > 0)
+        {
+            Guard closestGuard = GetClosestGuard();
+            Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
+            float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
+            if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
             {
                 interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                if (Input.GetButtonDown("X"))
+                if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
                 {
-                    disabledGuard = other.GetComponent<Guard>();
+                    disabledGuard = closestGuard;
                     if (disabledGuard != null)
                     {
                         disabledGuard.disabled = true;
-                    }
-                    if (Vector3.Distance(disabledGuard.transform.position, transform.position) >= 50.0f)
-                    {
-                        disabledGuard = null;
                     }
                 }
             }
@@ -211,20 +227,54 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other is CapsuleCollider && other.CompareTag("Guard"))
+        // Add the guard that entered to a list of possible guards to disable.
+        if (other.CompareTag("Guard"))
         {
-            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+            Guard tempScript = other.GetComponent<Guard>();
+            //if(!possibleGuardsToDisable.Contains(tempScript))
+            if(!tempScript.disabled)
+                possibleGuardsToDisable.Add(tempScript);
         }
     }
 
-    // Player Spotted Notify.
-    public void Notify(Vector3 position)
+    private void OnTriggerExit(Collider other)
     {
+        // Remove the guard when he exits from the list of possible guards to disable.
+        Guard tempScript = other.GetComponent<Guard>();
+        //if (possibleGuardsToDisable.Contains(tempScript))
+        //{
+        possibleGuardsToDisable.Remove(tempScript);
+        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+        //}
+    }
+
+    Guard GetClosestGuard()
+    {
+        Guard closestGuard = null;
+        float closestDistanceSquared = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        for(int i = 0; i < possibleGuardsToDisable.Count; i++)
+        {
+            Vector3 directionToTarget = possibleGuardsToDisable[i].transform.position - currentPosition;
+            float distanceSquaredToTarget = directionToTarget.sqrMagnitude;
+            if (distanceSquaredToTarget < closestDistanceSquared)
+            {
+                closestDistanceSquared = distanceSquaredToTarget;
+                closestGuard = possibleGuardsToDisable[i];
+            }
+        }
+        return closestGuard;
+    }
+
+    // Player got notified that it got spotted.
+    public void PlayerSpottedNotify(Vector3 position)
+    {
+        // If the player got notified that it got spotted, the player gets forced out of hacking and/or can't hack anymore.
         if (disabledGuard != null)
         {
-            disabledGuard.beingControlled = false;
+            disabledGuard.hacked = false;
             disabledGuard = null;
             controlling = false;
             guardHackedSubject.GuardHackedNotify("");

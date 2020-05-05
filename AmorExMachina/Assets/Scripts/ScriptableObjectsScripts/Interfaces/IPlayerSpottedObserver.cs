@@ -1,4 +1,4 @@
 ﻿public interface IPlayerSpottedObserver
 {
-    void Notify(UnityEngine.Vector3 position);
+    void PlayerSpottedNotify(UnityEngine.Vector3 position);
 }

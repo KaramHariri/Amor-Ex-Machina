@@ -2,74 +2,58 @@
 using UnityEngine.AI;
 public class GuardMovement : MonoBehaviour
 {
-    public Transform pathHolder;
-    [HideInInspector]
-    public Vector3[] path;
-    [HideInInspector]
-    public Vector3 currentWayPoint;
-    [HideInInspector]
-    public int wayPointIndex = 0;
+    [HideInInspector] public Transform pathHolder = null;
+    [HideInInspector] public Vector3[] path = null;
+    [HideInInspector] public Vector3 currentWayPoint = Vector3.zero;
+    [HideInInspector] public int wayPointIndex = 0;
 
     //[HideInInspector]
     public float idleTimer = 5.0f;
 
-    [HideInInspector]
-    public NavMeshAgent navMeshAgent;
-    [HideInInspector]
-    public Vector3 investigationPosition;
-    [HideInInspector]
-    public Vector3 assistPosition;
+    [HideInInspector] public NavMeshAgent navMeshAgent = null;
+    [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
+    [HideInInspector] public Vector3 assistPosition = Vector3.zero;
 
-    [HideInInspector]
-    public Quaternion targetRotation;
+    [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
 
-    GuardVariables guardVariables;
-    PlayerVariables playerVariables;
+    private GuardVariables guardVariables = null;
+    private PlayerVariables playerVariables = null;
+    private Guard guardScript = null;
 
-    [HideInInspector]
-    public bool idle = false;
-    public bool drawWayPointGizmos = false;
+    [HideInInspector] public bool idle = false;
 
-    MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
-    GuardType guardType = GuardType.MOVING;
-
-    private void OnDrawGizmos()
-    {
-        if (drawWayPointGizmos)
-        {
-            Vector3 startPosition = pathHolder.GetChild(0).position;
-            Vector3 previousPosition = startPosition;
-
-            foreach (Transform wayPoint in pathHolder)
-            {
-                Gizmos.DrawSphere(wayPoint.position, 0.3f);
-                Gizmos.DrawLine(previousPosition, wayPoint.position);
-                previousPosition = wayPoint.position;
-            }
-            Gizmos.DrawLine(previousPosition, startPosition);
-        }
-    }
+    private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
+    private GuardType guardType = GuardType.MOVING;
+    private GuardState guardState = GuardState.NORMAL;
 
     public void GuardMovementAwake()
     {
-        //pathHolder = GameObject.Find(transform.name + "PathHolder").transform;
         SetPath();
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        GetComponents();
+        AssignPlayerAndGuardVariables();
+        SetMovementVariables();
+
+        guardState = guardScript.guardState;
+    }
+
+    void GetComponents()
+    {
+        guardScript = GetComponent<Guard>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    void AssignPlayerAndGuardVariables()
+    {
+        guardVariables = guardScript.guardVariables;
+        playerVariables = guardScript.playerVariables;
+    }
+
+    void SetMovementVariables()
+    {
+        guardType = guardScript.guardType;
+        movementType = guardScript.movementType;
         targetRotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
         idleTimer = guardVariables.maxIdletimer;
-
-    }
-
-    public void SetGuardAndMovementType(GuardType gType, MovementType mType)
-    {
-        guardType = gType;
-        movementType = mType;
-    }
-
-    public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
-    {
-        guardVariables = guardVariablesScriptableObject;
-        playerVariables = playerVariablesScriptableObject;
     }
 
     public void FollowPath()
@@ -104,6 +88,7 @@ public class GuardMovement : MonoBehaviour
                         break;
                     case MovementType.DONT_WAIT:
                         wayPointIndex = (wayPointIndex + 1) % path.Length;
+                        navMeshAgent.stoppingDistance = 0.5f;
                         break;
                 }
             }

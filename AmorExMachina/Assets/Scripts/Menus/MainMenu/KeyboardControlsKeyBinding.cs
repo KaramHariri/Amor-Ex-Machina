@@ -6,32 +6,34 @@ using UnityEngine.EventSystems;
 
 public class KeyboardControlsKeyBinding : MonoBehaviour
 {
-    [HideInInspector]
-    public CanvasGroup keyboardControlsCanvasGroup = null;
-    public static KeyboardControlsKeyBinding instance = null;
-    [HideInInspector]
-    public GameObject firstSelectedButtonInKeyboard = null;
+    [HideInInspector] public CanvasGroup keyboardControlsCanvasGroup = null;
+    [HideInInspector] public GameObject firstSelectedButtonInKeyboard = null;
+    [SerializeField] private GameObject pressAKeyCanvas = null;
+    private GameObject currentSelectedGameObject = null;
+
+    private EventSystem eventSystem = null;
+    [SerializeField] private Settings settings = null;
+
     private ControlsSettingsMenu controlsSettingsMenuInstance = null;
+    public static KeyboardControlsKeyBinding instance = null;
 
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
 
-    [SerializeField] private Text rotatePuzzleArrow;
-    [SerializeField] private Text activateButtonInPuzzle;
-    [SerializeField] private Text cameraToggle;
-    [SerializeField] private Text movementToggle;
-    [SerializeField] private Text disableGuard;
-    [SerializeField] private Text hackGuard;
-    [SerializeField] private Text distractGuardWhileHacking;
-
-    [SerializeField] private GameObject pressAKeyCanvas;
-    private GameObject currentSelectedGameObject;
-    private EventSystem eventSystem = null;
+    #region Buttons Text
+    [SerializeField] private Text rotatePuzzleArrow = null;
+    [SerializeField] private Text activateButtonInPuzzle = null;
+    [SerializeField] private Text activatePuzzle = null;
+    [SerializeField] private Text cameraToggle = null;
+    [SerializeField] private Text movementToggle = null;
+    [SerializeField] private Text disableGuard = null;
+    [SerializeField] private Text hackGuard = null;
+    [SerializeField] private Text distractGuardWhileHacking = null;
+    private Text changedKeyText = null;
+    #endregion
 
     private bool canTakeInput = true;
     private bool changedKey = true;
-    private Text changingKeyText;
 
-    [SerializeField] private Settings settings;
 
     private void Awake()
     {
@@ -68,17 +70,17 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     keybindings[currentSelectedGameObject.name] = KeyCode.LeftShift;
-                    changingKeyText.text = KeyCode.LeftShift.ToString();
+                    changedKeyText.text = KeyCode.LeftShift.ToString();
                     changedKey = true;
-                    changingKeyText = null;
+                    changedKeyText = null;
                     StartCoroutine("ChangeButtonText");
                 }
                 else if(Input.GetKeyDown(KeyCode.RightShift))
                 {
                     keybindings[currentSelectedGameObject.name] = KeyCode.RightShift;
-                    changingKeyText.text = KeyCode.RightShift.ToString();
+                    changedKeyText.text = KeyCode.RightShift.ToString();
                     changedKey = true;
-                    changingKeyText = null;
+                    changedKeyText = null;
                     StartCoroutine("ChangeButtonText");
                 }
             }
@@ -91,6 +93,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {    
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowKeyboard);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleKeyboard);
+        keybindings.Add(settings.activatePuzzle, settings.activatePuzzleKeyboard);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleKeyboard);
         keybindings.Add(settings.movementToggle, settings.movementToggleKeyboard);
         keybindings.Add(settings.disableGuard, settings.disableGuardKeyboard);
@@ -102,6 +105,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         rotatePuzzleArrow.text = keybindings[settings.rotatePuzzleArrow].ToString();
         activateButtonInPuzzle.text = keybindings[settings.activateButtonInPuzzle].ToString();
+        activatePuzzle.text = keybindings[settings.activatePuzzle].ToString();
         cameraToggle.text = keybindings[settings.cameraToggle].ToString();
         movementToggle.text = keybindings[settings.movementToggle].ToString();
         disableGuard.text = keybindings[settings.disableGuard].ToString();
@@ -113,6 +117,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowKeyboard;
         keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleKeyboard;
+        keybindings[settings.activatePuzzle] = settings.defaultActivatePuzzleKeyboard;
         keybindings[settings.cameraToggle] = settings.defaultCameraToggleKeyboard;
         keybindings[settings.movementToggle] = settings.defaultMovementToggleKeyboard;
         keybindings[settings.disableGuard] = settings.defaultDisableGuardKeyboard;
@@ -125,7 +130,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     public void ChangeButton(Text buttonText)
     {
         StartCoroutine("ActivateChangeButtonPanel");
-        changingKeyText = buttonText;
+        changedKeyText = buttonText;
     }
 
     IEnumerator ActivateChangeButtonPanel()
@@ -163,9 +168,9 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             if (e.isKey && canTakeInput)
             {
                 keybindings[currentSelectedGameObject.name] = e.keyCode;
-                changingKeyText.text = e.keyCode.ToString();
+                changedKeyText.text = e.keyCode.ToString();
                 changedKey = true;
-                changingKeyText = null;
+                changedKeyText = null;
                 StartCoroutine("ChangeButtonText");
             }
         }
@@ -175,6 +180,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         settings.rotatePuzzleArrowKeyboard = keybindings[settings.rotatePuzzleArrow];
         settings.activateButtonInPuzzleKeyboard = keybindings[settings.activateButtonInPuzzle];
+        settings.activatePuzzleKeyboard = keybindings[settings.activatePuzzle];
         settings.cameraToggleKeyboard = keybindings[settings.cameraToggle];
         settings.movementToggleKeyboard = keybindings[settings.movementToggle];
         settings.disableGuardKeyboard = keybindings[settings.disableGuard];

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    [SerializeField] PlayerSpottedSubject playerSpottedSubject;
+    [SerializeField] PlayerSpottedSubject playerSpottedSubject = null;
 
     private void OnTriggerEnter(Collider other)
     {

@@ -7,13 +7,13 @@ using UnityEngine.UI;
 public class Dialogue : MonoBehaviour
 {
     [TextArea(1, 5)]
-    public string sentence;
-    public AudioClip sentenceAudio;
+    public string sentence = "";
+    public AudioClip sentenceAudio = null;
 
     [SerializeField]
-    private GameObject dialogueGameObject;
-    private Text dialogueText;
-    private AudioSource dialogueAudio;
+    private GameObject dialogueGameObject = null;
+    private Text dialogueText = null;
+    private AudioSource dialogueAudio = null;
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
 

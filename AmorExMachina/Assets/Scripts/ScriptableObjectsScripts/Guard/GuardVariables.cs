@@ -4,8 +4,8 @@
 public class GuardVariables : ScriptableObject
 {
     [Header("Field Of View")]
-    public float fieldOfViewAngle = 45.0f;
-    public float fieldOfViewRadius = 20.0f;
+    //public float fieldOfViewAngle = 45.0f;
+    //public float fieldOfViewRadius = 20.0f;
     public float maxBackupRadius = 40.0f;
 
     [Header("Speed")]

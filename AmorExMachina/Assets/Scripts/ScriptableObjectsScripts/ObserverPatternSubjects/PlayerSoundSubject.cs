@@ -20,7 +20,7 @@ public class PlayerSoundSubject : ScriptableObject
     {
         foreach (IPlayerSoundObserver observer in observers)
         {
-            observer.Notify(soundType, soundPosition);
+            observer.PlayerSoundNotify(soundType, soundPosition);
         }
     }
 }

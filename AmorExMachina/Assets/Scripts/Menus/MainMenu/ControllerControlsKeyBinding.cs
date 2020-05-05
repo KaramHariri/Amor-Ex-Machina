@@ -6,31 +6,34 @@ using UnityEngine.EventSystems;
 
 public class ControllerControlsKeyBinding : MonoBehaviour
 {
-    [HideInInspector]
-    public CanvasGroup controllerControlsCanvasGroup = null;
-    public static ControllerControlsKeyBinding instance = null;
-    [HideInInspector]
-    public GameObject firstSelectedButtonInController = null;
+    [HideInInspector] public GameObject firstSelectedButtonInController = null;
+    [SerializeField] private GameObject pressAKeyCanvas = null;
+    private GameObject currentSelectedGameObject = null;
 
+    [HideInInspector] public CanvasGroup controllerControlsCanvasGroup = null;
+    [SerializeField] Settings settings = null;
+    private EventSystem eventSystem = null;
+
+    public static ControllerControlsKeyBinding instance = null;
     private ControlsSettingsMenu controlsSettingsMenuInstance = null;
 
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
+    List<KeyCode> possibleKeyCodes = new List<KeyCode>();
 
-    [SerializeField] private Image rotatePuzzleArrow;
-    [SerializeField] private Image activateButtonInPuzzle;
-    [SerializeField] private Image cameraToggle;
-    [SerializeField] private Image movementToggle;
-    [SerializeField] private Image disableGuard;
-    [SerializeField] private Image hackGuard;
-    [SerializeField] private Image distractGuardWhileHacking;
-
-    [SerializeField] private GameObject pressAKeyCanvas;
-    private GameObject currentSelectedGameObject;
-    private EventSystem eventSystem = null;
+    #region Buttons Images
+    [SerializeField] private Image rotatePuzzleArrow = null;
+    [SerializeField] private Image activateButtonInPuzzle = null;
+    [SerializeField] private Image activatePuzzle = null;
+    [SerializeField] private Image cameraToggle = null;
+    [SerializeField] private Image movementToggle = null;
+    [SerializeField] private Image disableGuard = null;
+    [SerializeField] private Image hackGuard = null;
+    [SerializeField] private Image distractGuardWhileHacking = null;
+    private Image changedKeyImage = null;
+    #endregion
 
     private bool canTakeInput = true;
     private bool changedKey = true;
-    private Image changingKeyImage;
 
     #region Resources Sprites
     private Sprite squareSprite;
@@ -44,10 +47,6 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     private Sprite R2Sprite;
     private Sprite R3Sprite;
     #endregion
-
-
-    [SerializeField] Settings settings;
-    List<KeyCode> possibleKeyCodes = new List<KeyCode>();
 
     private void Awake()
     {
@@ -88,9 +87,9 @@ public class ControllerControlsKeyBinding : MonoBehaviour
                 if (canTakeInput && Input.GetKeyDown(possibleKeyCodes[i]))
                 {
                     keybindings[currentSelectedGameObject.name] = possibleKeyCodes[i];
-                    changingKeyImage.sprite = SetSprite(possibleKeyCodes[i]);
+                    changedKeyImage.sprite = SetSprite(possibleKeyCodes[i]);
                     changedKey = true;
-                    changingKeyImage = null;
+                    changedKeyImage = null;
                     StartCoroutine("ChangeButtonText");
                 }
             }
@@ -103,6 +102,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowController;
         keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleController;
+        keybindings[settings.activatePuzzle] = settings.defaultActivatePuzzleController;
         keybindings[settings.cameraToggle] = settings.defaultCameraToggleController;
         keybindings[settings.movementToggle] = settings.defaultMovementToggleController;
         keybindings[settings.disableGuard] = settings.defaultDisableGuardController;
@@ -116,6 +116,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowController);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleController);
+        keybindings.Add(settings.activatePuzzle, settings.activatePuzzleController);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleController);
         keybindings.Add(settings.movementToggle, settings.movementToggleController);
         keybindings.Add(settings.disableGuard, settings.disableGuardController);
@@ -127,6 +128,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         rotatePuzzleArrow.sprite = SetSprite(keybindings[settings.rotatePuzzleArrow]);
         activateButtonInPuzzle.sprite = SetSprite(keybindings[settings.activateButtonInPuzzle]);
+        activatePuzzle.sprite = SetSprite(keybindings[settings.activatePuzzle]);
         cameraToggle.sprite = SetSprite(keybindings[settings.cameraToggle]);
         movementToggle.sprite = SetSprite(keybindings[settings.movementToggle]);
         disableGuard.sprite = SetSprite(keybindings[settings.disableGuard]);
@@ -195,7 +197,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
         if (changedKey)
         {
             StartCoroutine("ActivateChangeButtonPanel");
-            changingKeyImage = buttonImage;
+            changedKeyImage = buttonImage;
         }
     }
 
@@ -243,6 +245,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         settings.rotatePuzzleArrowController = keybindings[settings.rotatePuzzleArrow];
         settings.activateButtonInPuzzleController = keybindings[settings.activateButtonInPuzzle];
+        settings.activatePuzzleController = keybindings[settings.activatePuzzle];
         settings.cameraToggleController = keybindings[settings.cameraToggle];
         settings.movementToggleController = keybindings[settings.movementToggle];
         settings.disableGuardController = keybindings[settings.disableGuard];

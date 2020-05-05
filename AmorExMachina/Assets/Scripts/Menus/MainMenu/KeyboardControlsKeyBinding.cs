@@ -22,6 +22,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     #region Buttons Text
     [SerializeField] private Text rotatePuzzleArrow = null;
     [SerializeField] private Text activateButtonInPuzzle = null;
+    [SerializeField] private Text activatePuzzle = null;
     [SerializeField] private Text cameraToggle = null;
     [SerializeField] private Text movementToggle = null;
     [SerializeField] private Text disableGuard = null;
@@ -92,6 +93,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {    
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowKeyboard);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleKeyboard);
+        keybindings.Add(settings.activatePuzzle, settings.activatePuzzleKeyboard);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleKeyboard);
         keybindings.Add(settings.movementToggle, settings.movementToggleKeyboard);
         keybindings.Add(settings.disableGuard, settings.disableGuardKeyboard);
@@ -103,6 +105,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         rotatePuzzleArrow.text = keybindings[settings.rotatePuzzleArrow].ToString();
         activateButtonInPuzzle.text = keybindings[settings.activateButtonInPuzzle].ToString();
+        activatePuzzle.text = keybindings[settings.activatePuzzle].ToString();
         cameraToggle.text = keybindings[settings.cameraToggle].ToString();
         movementToggle.text = keybindings[settings.movementToggle].ToString();
         disableGuard.text = keybindings[settings.disableGuard].ToString();
@@ -114,6 +117,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowKeyboard;
         keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleKeyboard;
+        keybindings[settings.activatePuzzle] = settings.defaultActivatePuzzleKeyboard;
         keybindings[settings.cameraToggle] = settings.defaultCameraToggleKeyboard;
         keybindings[settings.movementToggle] = settings.defaultMovementToggleKeyboard;
         keybindings[settings.disableGuard] = settings.defaultDisableGuardKeyboard;
@@ -176,6 +180,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     {
         settings.rotatePuzzleArrowKeyboard = keybindings[settings.rotatePuzzleArrow];
         settings.activateButtonInPuzzleKeyboard = keybindings[settings.activateButtonInPuzzle];
+        settings.activatePuzzleKeyboard = keybindings[settings.activatePuzzle];
         settings.cameraToggleKeyboard = keybindings[settings.cameraToggle];
         settings.movementToggleKeyboard = keybindings[settings.movementToggle];
         settings.disableGuardKeyboard = keybindings[settings.disableGuard];

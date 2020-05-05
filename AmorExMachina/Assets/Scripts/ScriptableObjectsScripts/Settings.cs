@@ -27,6 +27,7 @@ public class Settings : ScriptableObject
     [Header("Keyboard")]
     public KeyCode rotatePuzzleArrowKeyboard = KeyCode.F;
     public KeyCode activateButtonInPuzzleKeyboard = KeyCode.E;
+    public KeyCode activatePuzzleKeyboard = KeyCode.R;
     public KeyCode cameraToggleKeyboard = KeyCode.Q;
     public KeyCode movementToggleKeyboard = KeyCode.LeftShift;
     public KeyCode disableGuardKeyboard = KeyCode.E;
@@ -35,6 +36,7 @@ public class Settings : ScriptableObject
 
     public KeyCode defaultRotatePuzzleArrowKeyboard = KeyCode.F;
     public KeyCode defaultActivateButtonInPuzzleKeyboard = KeyCode.E;
+    public KeyCode defaultActivatePuzzleKeyboard = KeyCode.R;
     public KeyCode defaultCameraToggleKeyboard = KeyCode.Q;
     public KeyCode defaultMovementToggleKeyboard = KeyCode.LeftShift;
     public KeyCode defaultDisableGuardKeyboard = KeyCode.E;
@@ -44,6 +46,7 @@ public class Settings : ScriptableObject
     [Header("Controller")]
     public KeyCode rotatePuzzleArrowController = KeyCode.JoystickButton3;
     public KeyCode activateButtonInPuzzleController = KeyCode.JoystickButton1;
+    public KeyCode activatePuzzleController = KeyCode.JoystickButton0;
     public KeyCode cameraToggleController = KeyCode.JoystickButton11;
     public KeyCode movementToggleController = KeyCode.JoystickButton10;
     public KeyCode disableGuardController = KeyCode.JoystickButton1;
@@ -52,6 +55,7 @@ public class Settings : ScriptableObject
 
     public KeyCode defaultRotatePuzzleArrowController = KeyCode.JoystickButton3;
     public KeyCode defaultActivateButtonInPuzzleController = KeyCode.JoystickButton1;
+    public KeyCode defaultActivatePuzzleController = KeyCode.JoystickButton0;
     public KeyCode defaultCameraToggleController = KeyCode.JoystickButton11;
     public KeyCode defaultMovementToggleController = KeyCode.JoystickButton10;
     public KeyCode defaultDisableGuardController = KeyCode.JoystickButton1;
@@ -61,6 +65,7 @@ public class Settings : ScriptableObject
     [Header("Controls Strings")]
     public string rotatePuzzleArrow = "RotatePuzzleArrow";
     public string activateButtonInPuzzle = "ActivateButtonInPuzzle";
+    public string activatePuzzle = "ActivatePuzzle";
     public string cameraToggle = "CameraToggle";
     public string movementToggle = "MovementToggle";
     public string disableGuard = "DisableGuard";

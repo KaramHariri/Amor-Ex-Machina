@@ -38,6 +38,7 @@ public class ControlsSettingsMenu : MonoBehaviour
         optionsMenuInstance = OptionsMenu.instance;
         keyboardKeyBinding = KeyboardControlsKeyBinding.instance;
         controllerKeyBinding = ControllerControlsKeyBinding.instance;
+        transform.gameObject.SetActive(false);
         keyboardKeyBinding.gameObject.SetActive(false);
         controllerKeyBinding.gameObject.SetActive(false);
     }

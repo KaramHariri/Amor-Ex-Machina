@@ -14,6 +14,7 @@ public class GuardController : MonoBehaviour
     private Camera mainCamera = null;
     private Guard guard = null;
     [SerializeField] PlayerSoundSubject playerSoundSubject = null;
+    [SerializeField] Settings settings = null;
 
     void Awake()
     {
@@ -51,7 +52,7 @@ public class GuardController : MonoBehaviour
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if(Input.GetButtonDown("X"))
+        if(Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard))
         {
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
         }

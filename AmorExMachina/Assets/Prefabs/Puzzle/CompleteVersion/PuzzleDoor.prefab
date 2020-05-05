@@ -1739,6 +1739,7 @@ MonoBehaviour:
     type: 2}
   interactionButtonSubject: {fileID: 11400000, guid: e91cc55a9b197964a9b8cfa5d5b6a8f3,
     type: 2}
+  playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
 --- !u!1 &1316296835437204484
 GameObject:
   m_ObjectHideFlags: 0

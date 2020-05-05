@@ -23,6 +23,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     #region Buttons Images
     [SerializeField] private Image rotatePuzzleArrow = null;
     [SerializeField] private Image activateButtonInPuzzle = null;
+    [SerializeField] private Image activatePuzzle = null;
     [SerializeField] private Image cameraToggle = null;
     [SerializeField] private Image movementToggle = null;
     [SerializeField] private Image disableGuard = null;
@@ -46,8 +47,6 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     private Sprite R2Sprite;
     private Sprite R3Sprite;
     #endregion
-
-
 
     private void Awake()
     {
@@ -103,6 +102,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         keybindings[settings.rotatePuzzleArrow] = settings.defaultRotatePuzzleArrowController;
         keybindings[settings.activateButtonInPuzzle] = settings.defaultActivateButtonInPuzzleController;
+        keybindings[settings.activatePuzzle] = settings.defaultActivatePuzzleController;
         keybindings[settings.cameraToggle] = settings.defaultCameraToggleController;
         keybindings[settings.movementToggle] = settings.defaultMovementToggleController;
         keybindings[settings.disableGuard] = settings.defaultDisableGuardController;
@@ -116,6 +116,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         keybindings.Add(settings.rotatePuzzleArrow, settings.rotatePuzzleArrowController);
         keybindings.Add(settings.activateButtonInPuzzle, settings.activateButtonInPuzzleController);
+        keybindings.Add(settings.activatePuzzle, settings.activatePuzzleController);
         keybindings.Add(settings.cameraToggle, settings.cameraToggleController);
         keybindings.Add(settings.movementToggle, settings.movementToggleController);
         keybindings.Add(settings.disableGuard, settings.disableGuardController);
@@ -127,6 +128,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         rotatePuzzleArrow.sprite = SetSprite(keybindings[settings.rotatePuzzleArrow]);
         activateButtonInPuzzle.sprite = SetSprite(keybindings[settings.activateButtonInPuzzle]);
+        activatePuzzle.sprite = SetSprite(keybindings[settings.activatePuzzle]);
         cameraToggle.sprite = SetSprite(keybindings[settings.cameraToggle]);
         movementToggle.sprite = SetSprite(keybindings[settings.movementToggle]);
         disableGuard.sprite = SetSprite(keybindings[settings.disableGuard]);
@@ -243,6 +245,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         settings.rotatePuzzleArrowController = keybindings[settings.rotatePuzzleArrow];
         settings.activateButtonInPuzzleController = keybindings[settings.activateButtonInPuzzle];
+        settings.activatePuzzleController = keybindings[settings.activatePuzzle];
         settings.cameraToggleController = keybindings[settings.cameraToggle];
         settings.movementToggleController = keybindings[settings.movementToggle];
         settings.disableGuardController = keybindings[settings.disableGuard];

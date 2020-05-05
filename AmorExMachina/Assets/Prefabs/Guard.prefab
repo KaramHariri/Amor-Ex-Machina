@@ -320,8 +320,6 @@ MonoBehaviour:
     type: 2}
   guardVariables: {fileID: 11400000, guid: 4d8ea77fbb0df3d43b1b8f615dbc090e, type: 2}
   playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
-  showSensingSphere: 0
-  showFieldOfView: 1
   vC: {fileID: 0}
   visibleInMiniMap: 0
   raycastCheckLayer:
@@ -365,21 +363,15 @@ MonoBehaviour:
   canHear: 0
   suspicious: 0
   distracted: 0
-  playerInRange: 0
+  showSensingSphere: 0
+  showFieldOfView: 0
+  fieldOfViewRadius: 20
+  fieldOfViewAngle: 70
   navMeshAgent: {fileID: 0}
   sensingCollider: {fileID: 0}
   disabledGuardsFound: []
   guardDisabledSubject: {fileID: 11400000, guid: 000f8d3cfc3598c4a8f17777c06cc42a,
     type: 2}
-  raycastCheckLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  raycastCheckLayerWithSmoke:
-    serializedVersion: 2
-    m_Bits: 0
-  raycastDisabledGuardCheckLayer:
-    serializedVersion: 2
-    m_Bits: 0
   detectionAmount: 0
   maxDetectionAmount: 2
   maxTimerSincePlayerWasSpotted: 5
@@ -399,6 +391,7 @@ MonoBehaviour:
   walkSpeed: 5
   rotateVelocity: 100
   playerSoundSubject: {fileID: 11400000, guid: ab3c192c92869f848838ec2278d6f171, type: 2}
+  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!195 &4764624099325710479
 NavMeshAgent:
   m_ObjectHideFlags: 0

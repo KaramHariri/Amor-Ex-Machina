@@ -50,10 +50,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public PlayerSpottedSubject playerSpottedSubject = null;
     public GuardVariables guardVariables = null;
     public PlayerVariables playerVariables = null;
-    
-
-    public bool showSensingSphere = true;
-    public bool showFieldOfView = true;
 
     [HideInInspector]
     public CinemachineVirtualCamera vC;
@@ -72,7 +68,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSoundSubject.AddObserver(this);
         playerSpottedSubject.AddObserver(this);
         GuardGetComponents();
-        sensing.SetScriptablesObjects(guardVariables, playerVariables);
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
         currentColor = guardVariables.patrolColor;
@@ -89,25 +84,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         guardBehavioralTree = new GuardBehaviourTree(this);
         StartCoroutine("Run");
-    }
-
-    void OnDrawGizmos()
-    {
-        if (showSensingSphere)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, guardVariables.fieldOfViewRadius);
-        }
-
-        Vector3 fovLine1 = Quaternion.AngleAxis(guardVariables.fieldOfViewAngle, transform.up) * transform.forward * guardVariables.fieldOfViewRadius;
-        Vector3 fovLine2 = Quaternion.AngleAxis(-guardVariables.fieldOfViewAngle, transform.up) * transform.forward * guardVariables.fieldOfViewRadius;
-
-        if (showFieldOfView)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position, fovLine1);
-            Gizmos.DrawRay(transform.position, fovLine2);
-        }
     }
 
     public void Update()
@@ -155,8 +131,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         sensing = GetComponent<GuardSensing>();
         meshRenderer = GetComponent<MeshRenderer>();
     }
-
-   
 
     bool ActivateMinimapIconCheck()
     {

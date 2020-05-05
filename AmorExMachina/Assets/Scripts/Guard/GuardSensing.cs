@@ -9,6 +9,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [HideInInspector] public bool distracted = false;
     private bool playerInRange = false;
     private bool playerInSight = false;
+    public bool showSensingSphere = true;
+    public bool showFieldOfView = true;
+
+    [SerializeField] private float fieldOfViewRadius = 20.0f;
+    [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public SphereCollider sensingCollider;
@@ -54,9 +59,28 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         raycastDisabledGuardCheckLayer = LayerMask.GetMask("Walls", "Guards");
     }
 
+    void OnDrawGizmos()
+    {
+        if (showSensingSphere)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, fieldOfViewRadius);
+        }
+
+        Vector3 fovLine1 = Quaternion.AngleAxis(fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
+        Vector3 fovLine2 = Quaternion.AngleAxis(-fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
+
+        if (showFieldOfView)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, fovLine1);
+            Gizmos.DrawRay(transform.position, fovLine2);
+        }
+    }
+
     public void Update()
     {
-        sensingCollider.radius = guardVariables.fieldOfViewRadius;
+        sensingCollider.radius = fieldOfViewRadius;
         SpottedIndicatorHandler();
 
         UpdateTimerSincePlayerWasSpotted();
@@ -67,12 +91,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
         if (!guardScript.disabled)
             DisabledGuardInSightCheck();
-    }
-
-    public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
-    {
-        guardVariables = guardVariablesScriptableObject;
-        playerVariables = playerVariablesScriptableObject;
     }
 
     void SpottedIndicatorHandler()
@@ -151,7 +169,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 Vector3 directionToDisabledGuard = disabledGuardInRange[i].transform.position - transform.position;
                 float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
 
-                if (angle < guardVariables.fieldOfViewAngle)
+                if (angle < fieldOfViewAngle)
                 {
                     if (RaycastHitCheckToTarget(disabledGuardInRange[i].transform, raycastDisabledGuardCheckLayer))
                     {
@@ -217,7 +235,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         Vector3 directionToTarget = targetPosition - transform.position;
         float angle = Vector3.Angle(directionToTarget, transform.forward);
 
-        if (angle < guardVariables.fieldOfViewAngle)
+        if (angle < fieldOfViewAngle)
         {
             RaycastHit raycastHit;
             if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))

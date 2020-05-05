@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     private GameObject minimapIcon = null;
     private AudioManager audioManager = null;
+    [SerializeField] private Settings settings = null;
 
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         possibleGuardsToDisable = new List<Guard>();
         playerVariables.playerTransform = transform;
         playerVariables.caught = false;
+        playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
         cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
         cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
@@ -113,22 +115,25 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HackingGuardCheck()
     {
-        if (disabledGuard != null && Input.GetButtonDown("Square") && !controlling)
+        if (playerVariables.canHackGuard)
         {
-            disabledGuard.hacked = true;
-            controlling = true;
-            guardHackedSubject.GuardHackedNotify(disabledGuard.name);
-            GameHandler.currentState = GameState.HACKING;
-            return;
-        }
-        else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
-        {
-            disabledGuard.hacked = false;
-            controlling = false;
-            guardHackedSubject.GuardHackedNotify("");
-            GameHandler.currentState = GameState.NORMALGAME;
-            disabledGuard = null;
-            return;
+            if (disabledGuard != null && !controlling && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            {
+                disabledGuard.hacked = true;
+                controlling = true;
+                guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+                GameHandler.currentState = GameState.HACKING;
+                return;
+            }
+            else if (disabledGuard != null && controlling && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            {
+                disabledGuard.hacked = false;
+                controlling = false;
+                guardHackedSubject.GuardHackedNotify("");
+                GameHandler.currentState = GameState.NORMALGAME;
+                disabledGuard = null;
+                return;
+            }
         }
     }
 
@@ -136,7 +141,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if (Input.GetButtonDown("Sneaking"))
+        if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
         {
             sneaking = !sneaking;
         }
@@ -204,7 +209,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
             {
                 interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                if (Input.GetButtonDown("X"))
+                if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
                 {
                     disabledGuard = closestGuard;
                     if (disabledGuard != null)

@@ -28,55 +28,40 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     public GuardState guardState = GuardState.NORMAL;
 
-    GuardBehaviourTree guardBehavioralTree;
-    [HideInInspector]
-    public GuardMovement guardMovement;
-    [HideInInspector]
-    public GuardSensing sensing;
+    [HideInInspector] public GuardMovement guardMovement = null;
+    [HideInInspector] public GuardSensing sensing = null;
     
-    [HideInInspector]
-    public MeshRenderer meshRenderer;
-    [HideInInspector]
-    public Color currentColor;
+    private GuardBehaviourTree guardBehavioralTree = null;
+    [HideInInspector] public MeshRenderer meshRenderer = null;
+    [HideInInspector] public Color currentColor = Color.white;
+    [HideInInspector] public CinemachineVirtualCamera vC;
 
-    [HideInInspector]
-    public bool disabled = false;
-    [HideInInspector]
-    public bool hacked = false;
-    [HideInInspector]
-    public bool assist = false;
+    [HideInInspector] public bool disabled = false;
+    [HideInInspector] public bool hacked = false;
+    [HideInInspector] public bool assist = false;
 
     public PlayerSoundSubject playerSoundSubject = null;
     public PlayerSpottedSubject playerSpottedSubject = null;
     public GuardVariables guardVariables = null;
     public PlayerVariables playerVariables = null;
 
-    [HideInInspector]
-    public CinemachineVirtualCamera vC;
-
-    GameObject minimapIcon = null;
-    [SerializeField]
-    private bool visibleInMiniMap = false;
-    Camera mainCamera = null;
+    private GameObject minimapIcon = null;
+    [SerializeField] private bool visibleInMiniMap = false;
+    private Camera mainCamera = null;
 
     [SerializeField] LayerMask raycastCheckLayer = 0;
 
     public void Awake()
     {
-        vC = GameObject.Find(transform.name + "Camera").GetComponent<CinemachineVirtualCamera>();
-        vC.m_Follow = transform.GetChild(transform.childCount - 1);
-        playerSoundSubject.AddObserver(this);
-        playerSpottedSubject.AddObserver(this);
         GuardGetComponents();
+        InitGuardCameraAndPath();
+        AddGuardAsObserver();
+        InitMiniMap();
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
+
         currentColor = guardVariables.patrolColor;
-
-        minimapIcon = transform.GetChild(0).gameObject;
-        minimapIcon.SetActive(false);
-        visibleInMiniMap = false;
         mainCamera = Camera.main;
-
         raycastCheckLayer = LayerMask.GetMask("Walls");
     }
 
@@ -132,6 +117,27 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
+    void InitGuardCameraAndPath()
+    {
+        int index = transform.GetSiblingIndex();
+        guardMovement.pathHolder = GameObject.Find("GuardsPathsHolder").transform.GetChild(index);
+        vC = GameObject.Find("GuardsCamerasHolder").transform.GetChild(index).GetComponent<CinemachineVirtualCamera>();
+        vC.m_Follow = transform.GetChild(transform.childCount - 1);
+    }
+
+    void InitMiniMap()
+    {
+        minimapIcon = transform.GetChild(0).gameObject;
+        minimapIcon.SetActive(false);
+        visibleInMiniMap = false;
+    }
+
+    void AddGuardAsObserver()
+    {
+        playerSoundSubject.AddObserver(this);
+        playerSpottedSubject.AddObserver(this);
+    }
+
     bool ActivateMinimapIconCheck()
     {
         RaycastHit raycastHit;
@@ -182,6 +188,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 guardMovement.SetInvestigationPosition(position);
                 guardMovement.ResetIdleTimer();
             }
+        }
+        else if(soundType == SoundType.CROUCHING)
+        {
+            if(sensing.detectionAmount < sensing.maxDetectionAmount)
+                sensing.suspicious = false;
         }
     }
 

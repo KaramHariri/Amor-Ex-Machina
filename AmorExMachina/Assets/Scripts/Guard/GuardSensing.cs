@@ -44,16 +44,34 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public void GuardSensingAwake()
     {
         guardDisabledSubject.AddObserver(this);
+        InitLists();
+        GetComponents();
+        AssignGuardAndPlayerVariables();
+        AssignLayerMasks();
+        guardState = guardScript.guardState;
+    }
 
-        disabledGuardsFound = new List<Guard>();
-        disabledGuardInRange = new List<Guard>();
-
+    void GetComponents()
+    {
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         guardScript = GetComponent<Guard>();
+    }
+
+    void AssignGuardAndPlayerVariables()
+    {
         guardVariables = guardScript.guardVariables;
         playerVariables = guardScript.playerVariables;
-        guardState = guardScript.guardState;
+    }
+
+    void InitLists()
+    {
+        disabledGuardsFound = new List<Guard>();
+        disabledGuardInRange = new List<Guard>();
+    }
+
+    void AssignLayerMasks()
+    {
         raycastCheckLayer = LayerMask.GetMask("Walls", "Player");
         raycastCheckLayerWithSmoke = LayerMask.GetMask("Walls", "Player", "SmokeScreen");
         raycastDisabledGuardCheckLayer = LayerMask.GetMask("Walls", "Guards");
@@ -89,6 +107,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             PlayerInSightCheck();
 
         guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
+
         if (!guardScript.disabled)
             DisabledGuardInSightCheck();
     }
@@ -106,7 +125,10 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         }
         else if (suspicious)
         {
-            detectionAmount = maxDetectionAmount;
+            detectionAmount += Time.deltaTime * 2.0f;
+            if (detectionAmount >= maxDetectionAmount)
+                detectionAmount = maxDetectionAmount;
+
             UIManager.createIndicator(this.transform);
             UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
         }
@@ -194,7 +216,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public bool Suspicious()
     {
-        if (suspicious || distracted)
+        if ((suspicious && detectionAmount >= maxDetectionAmount) || distracted)
         {
             return true;
         }

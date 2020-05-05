@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Puzzle : MonoBehaviour
 {
-    [SerializeField] Settings settings;
+    [SerializeField] Settings settings = null;
     //public List<PuzzleButton> buttons;
     public PuzzleButton[] buttons;
     private PuzzleButton selectedButton;
@@ -408,7 +408,7 @@ public class Puzzle : MonoBehaviour
         }
 
         //if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
-        if (Input.GetKeyDown(settings.activateButtonInPuzzleKeyboard) && buttonActivateCooldown == 0.0f)
+        if (Input.GetKeyDown(settings.activateButtonInPuzzleController) && buttonActivateCooldown == 0.0f)
         {
             selectedButton.Select();
             GenerateFlipTileList();

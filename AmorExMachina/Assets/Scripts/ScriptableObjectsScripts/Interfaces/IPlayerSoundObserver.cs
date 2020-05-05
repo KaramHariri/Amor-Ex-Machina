@@ -1,5 +1,6 @@
 ﻿public enum SoundType
 {
+    CROUCHING,
     WALKING,
     DISTRACTION
 }

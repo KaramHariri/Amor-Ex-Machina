@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     [Range(1.3f, 2.5f)] [SerializeField] private float disableDistance = 1.8f;
     [Range(1.0f, 6.0f)] [SerializeField] private float sneakSpeed = 4.0f;
     [Range(5.0f, 10.0f)] [SerializeField] private float walkSpeed = 7.5f;
-    [Range(50.0f, 150.0f)] [SerializeField] private float rotateVelocity = 100.0f;
+    //[Range(50.0f, 150.0f)] [SerializeField] private float rotateVelocity = 100.0f;
     private float verticalInput = 0.0f;
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
@@ -186,6 +186,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         if (!sneaking && (verticalInput != 0 || horizontalInput != 0))
             playerSoundSubject.NotifyObservers(SoundType.WALKING, transform.position);
+        else
+            playerSoundSubject.NotifyObservers(SoundType.CROUCHING, transform.position);
 
     }
 

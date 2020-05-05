@@ -109,9 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210b567ff6311234db9109035be36862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
+  walkSpeed: 7.5
   sneakSpeed: 4
   rotateVelocity: 100
+  disableDistance: 1.8
   playerSoundSubject: {fileID: 11400000, guid: ab3c192c92869f848838ec2278d6f171, type: 2}
   guardHackedSubject: {fileID: 11400000, guid: ddda057fc03953a4bba3164ee12e9282, type: 2}
   playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}

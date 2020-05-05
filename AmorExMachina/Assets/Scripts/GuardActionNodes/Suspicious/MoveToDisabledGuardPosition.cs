@@ -11,13 +11,13 @@
     {
         NodeState nodeState = NodeState.RUNNING;
 
-        float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.sensing.disabledGuards[0].transform.position);
+        float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.sensing.disabledGuardsFound[0].transform.position);
         if (distance <= guard.sensing.navMeshAgent.stoppingDistance + 0.1f)
         {
             nodeState = NodeState.SUCCESS;
         }
         else
-            guard.guardMovement.MoveTowardsKnockedOutGuard(guard.sensing.disabledGuards[0].transform.position);
+            guard.guardMovement.MoveTowardsKnockedOutGuard(guard.sensing.disabledGuardsFound[0].transform.position);
         return nodeState;
     }
 }

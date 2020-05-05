@@ -5,27 +5,23 @@ using System;
 
 public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 {
-    [SerializeField]
-    private PlayerVariables playerVariables = null;
-    [SerializeField]
-    private PlayerCamerasVariables cameraVariables = null;
-    [SerializeField]
-    private GuardHackedSubject guardHackedSubject = null;
+    [SerializeField] private PlayerVariables playerVariables = null;
+    [SerializeField] private GuardHackedSubject guardHackedSubject = null;
+
     private Camera mainCamera = null;
     private Camera minimapCamera = null;
-    [SerializeField]
-    private float thirdPersonMinimapSize = 10.0f;
-    [SerializeField]
-    private float firstPersonMinimapSize = 20.0f;
+
+    [SerializeField] private float thirdPersonMinimapSize = 10.0f;
+    [SerializeField] private float firstPersonMinimapSize = 20.0f;
     [SerializeField] private float zoomSpeed = 2.0f;
     [SerializeField] private float followSpeed = 4.0f;
 
-    Vector3 minimapCameraPosition = Vector3.zero;
-    bool switchedToGuardCamera = false;
+    private Vector3 minimapCameraPosition = Vector3.zero;
+
+    private bool switchedToGuardCamera = false;
+    private bool firstPersonCamera = false;
 
     public static Action<Transform> updateIconSize = delegate { };
-
-    bool firstPersonCamera = false;
 
     private void Awake()
     {

@@ -10,8 +10,8 @@
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.RUNNING;
-        guard.sensing.disabledGuards[0].disabled = false;
-        guard.sensing.disabledGuards.RemoveAt(0);
+        guard.sensing.disabledGuardsFound[0].disabled = false;
+        guard.sensing.disabledGuardsFound.RemoveAt(0);
         nodeState = NodeState.SUCCESS;
         return nodeState;
     }

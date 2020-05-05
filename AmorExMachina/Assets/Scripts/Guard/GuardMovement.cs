@@ -2,40 +2,34 @@
 using UnityEngine.AI;
 public class GuardMovement : MonoBehaviour
 {
-    public Transform pathHolder;
-    [HideInInspector]
-    public Vector3[] path;
-    [HideInInspector]
-    public Vector3 currentWayPoint;
-    [HideInInspector]
-    public int wayPointIndex = 0;
+    public Transform pathHolder = null;
+    [HideInInspector] public Vector3[] path = null;
+    [HideInInspector] public Vector3 currentWayPoint = Vector3.zero;
+    [HideInInspector] public int wayPointIndex = 0;
 
     //[HideInInspector]
     public float idleTimer = 5.0f;
 
-    [HideInInspector]
-    public NavMeshAgent navMeshAgent;
-    [HideInInspector]
-    public Vector3 investigationPosition;
-    [HideInInspector]
-    public Vector3 assistPosition;
+    [HideInInspector] public NavMeshAgent navMeshAgent = null;
+    [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
+    [HideInInspector] public Vector3 assistPosition = Vector3.zero;
 
-    [HideInInspector]
-    public Quaternion targetRotation;
+    [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
 
-    GuardVariables guardVariables;
-    PlayerVariables playerVariables;
+    private GuardVariables guardVariables = null;
+    private PlayerVariables playerVariables = null;
+    private Guard guardScript = null;
 
-    [HideInInspector]
-    public bool idle = false;
+    [HideInInspector] public bool idle = false;
     public bool drawWayPointGizmos = false;
 
-    MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
-    GuardType guardType = GuardType.MOVING;
+    private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
+    private GuardType guardType = GuardType.MOVING;
+    private GuardState guardState = GuardState.NORMAL;
 
     private void OnDrawGizmos()
     {
-        if (drawWayPointGizmos)
+        if (drawWayPointGizmos && pathHolder != null)
         {
             Vector3 startPosition = pathHolder.GetChild(0).position;
             Vector3 previousPosition = startPosition;
@@ -54,22 +48,16 @@ public class GuardMovement : MonoBehaviour
     {
         //pathHolder = GameObject.Find(transform.name + "PathHolder").transform;
         SetPath();
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        guardScript = GetComponent<Guard>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        guardVariables = guardScript.guardVariables;
+        playerVariables = guardScript.playerVariables;
+        guardType = guardScript.guardType;
+        movementType = guardScript.movementType;
+        guardState = guardScript.guardState;
         targetRotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
         idleTimer = guardVariables.maxIdletimer;
 
-    }
-
-    public void SetGuardAndMovementType(GuardType gType, MovementType mType)
-    {
-        guardType = gType;
-        movementType = mType;
-    }
-
-    public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
-    {
-        guardVariables = guardVariablesScriptableObject;
-        playerVariables = playerVariablesScriptableObject;
     }
 
     public void FollowPath()

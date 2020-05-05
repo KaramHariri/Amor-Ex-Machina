@@ -20,7 +20,7 @@ public class PlayerSpottedSubject : ScriptableObject
     {
         foreach (IPlayerSpottedObserver observer in observers)
         {
-            observer.Notify(position);
+            observer.PlayerSpottedNotify(position);
         }
     }
 }

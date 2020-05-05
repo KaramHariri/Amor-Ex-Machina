@@ -218,7 +218,6 @@ GameObject:
   - component: {fileID: 4764624099325710478}
   - component: {fileID: 7934396710864760483}
   - component: {fileID: 4764624099325710479}
-  - component: {fileID: 4764624099325711221}
   - component: {fileID: 4764624099325711216}
   - component: {fileID: 2340693448136449134}
   - component: {fileID: 4764624099325711217}
@@ -308,12 +307,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guardType: 1
   movementType: 0
+  guardState: 2
   guardMovement: {fileID: 0}
   sensing: {fileID: 0}
   meshRenderer: {fileID: 0}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
   disabled: 0
-  beingControlled: 0
+  hacked: 0
   assist: 0
   playerSoundSubject: {fileID: 11400000, guid: ab3c192c92869f848838ec2278d6f171, type: 2}
   playerSpottedSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
@@ -362,23 +362,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea685dfd55826b4db7bb3cfa603df47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInSight: 0
   canHear: 0
   suspicious: 0
   distracted: 0
+  playerInRange: 0
   navMeshAgent: {fileID: 0}
   sensingCollider: {fileID: 0}
-  disabledGuards: []
+  disabledGuardsFound: []
+  guardDisabledSubject: {fileID: 11400000, guid: 000f8d3cfc3598c4a8f17777c06cc42a,
+    type: 2}
   raycastCheckLayer:
     serializedVersion: 2
     m_Bits: 0
   raycastCheckLayerWithSmoke:
     serializedVersion: 2
     m_Bits: 0
+  raycastDisabledGuardCheckLayer:
+    serializedVersion: 2
+    m_Bits: 0
   detectionAmount: 0
   maxDetectionAmount: 2
-  timerSincePlayerWasSpotted: 0
   maxTimerSincePlayerWasSpotted: 5
+  timerSincePlayerWasSpotted: 0
 --- !u!114 &7934396710864760483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,20 +421,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &4764624099325711221
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4764624099325711222}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 2
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &4764624099325711216
 SphereCollider:
   m_ObjectHideFlags: 0

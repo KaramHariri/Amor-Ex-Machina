@@ -7,13 +7,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField]
-    OptionsMenu optionsMenu;
-    [SerializeField]
-    EventSystem eventSystem;
-
-    [SerializeField]
-    Text test;
+    [SerializeField] OptionsMenu optionsMenu = null;
+    [SerializeField] EventSystem eventSystem = null;
 
     GameObject currentSelectedButton = null;
 

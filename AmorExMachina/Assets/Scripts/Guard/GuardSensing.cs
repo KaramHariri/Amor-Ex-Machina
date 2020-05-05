@@ -1,48 +1,57 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class GuardSensing : MonoBehaviour
+public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 {
-    [HideInInspector]
-    public bool playerInSight = false;
-    [HideInInspector]
-    public bool canHear = false;
-    [HideInInspector]
-    public bool suspicious = false;
-    [HideInInspector]
-    public bool distracted = false;
+    [HideInInspector] public bool canHear = false;
+    [HideInInspector] public bool suspicious = false;
+    [HideInInspector] public bool distracted = false;
+    private bool playerInRange = false;
+    private bool playerInSight = false;
 
-    [HideInInspector]
-    public UnityEngine.AI.NavMeshAgent navMeshAgent;
-    [HideInInspector]
-    public SphereCollider sensingCollider;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public SphereCollider sensingCollider;
 
-    [HideInInspector]
-    public List<Guard> disabledGuards;
+    [HideInInspector] public List<Guard> disabledGuardsFound = null;
+    private List<Guard> disabledGuardInRange = null;
 
-    GuardVariables guardVariables;
-    PlayerVariables playerVariables;
+    private GuardVariables guardVariables = null;
+    private PlayerVariables playerVariables = null;
+    public GuardDisabledSubject guardDisabledSubject = null;
 
-    Guard guardScript;
+    private Guard guardScript = null;
+    private GuardState guardState = GuardState.NORMAL;
 
-    [SerializeField] LayerMask raycastCheckLayer = 0;
-    [SerializeField] LayerMask raycastCheckLayerWithSmoke = 0;
+    #region Layer masks
+    private LayerMask raycastCheckLayer = 0;
+    private LayerMask raycastCheckLayerWithSmoke = 0;
+    private LayerMask raycastDisabledGuardCheckLayer = 0;
+    #endregion
 
-    [HideInInspector]
-    public float detectionAmount = 0.0f;
+    #region Timers
+    [HideInInspector] public float detectionAmount = 0.0f;
     public float maxDetectionAmount = 2.0f;
-    [SerializeField]
-    private float timerSincePlayerWasSpotted = 0.0f;
-    [SerializeField]
-    private float maxTimerSincePlayerWasSpotted = 5.0f;
+    [SerializeField] private float maxTimerSincePlayerWasSpotted = 5.0f;
+    [SerializeField] private float timerSincePlayerWasSpotted = 0.0f;
+    #endregion
 
     public void GuardSensingAwake()
     {
+        guardDisabledSubject.AddObserver(this);
+
+        disabledGuardsFound = new List<Guard>();
+        disabledGuardInRange = new List<Guard>();
+
         sensingCollider = GetComponent<SphereCollider>();
-        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         guardScript = GetComponent<Guard>();
+        guardVariables = guardScript.guardVariables;
+        playerVariables = guardScript.playerVariables;
+        guardState = guardScript.guardState;
         raycastCheckLayer = LayerMask.GetMask("Walls", "Player");
         raycastCheckLayerWithSmoke = LayerMask.GetMask("Walls", "Player", "SmokeScreen");
+        raycastDisabledGuardCheckLayer = LayerMask.GetMask("Walls", "Guards");
     }
 
     public void Update()
@@ -50,8 +59,14 @@ public class GuardSensing : MonoBehaviour
         sensingCollider.radius = guardVariables.fieldOfViewRadius;
         SpottedIndicatorHandler();
 
-        timerSincePlayerWasSpotted += Time.deltaTime;
-        timerSincePlayerWasSpotted = Mathf.Clamp(timerSincePlayerWasSpotted, 0.0f, 20.0f);
+        UpdateTimerSincePlayerWasSpotted();
+
+        if (playerInRange)
+            PlayerInSightCheck();
+
+        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
+        if (!guardScript.disabled)
+            DisabledGuardInSightCheck();
     }
 
     public void SetScriptablesObjects(GuardVariables guardVariablesScriptableObject, PlayerVariables playerVariablesScriptableObject)
@@ -90,11 +105,72 @@ public class GuardSensing : MonoBehaviour
         }
     }
 
-    public bool CheckPlayerInSight()
+    void UpdateTimerSincePlayerWasSpotted()
+    {
+        timerSincePlayerWasSpotted += Time.deltaTime;
+        timerSincePlayerWasSpotted = Mathf.Clamp(timerSincePlayerWasSpotted, 0.0f, 20.0f);
+    }
+
+    void PlayerInSightCheck()
+    {
+        if (!guardScript.hacked && !guardScript.disabled)
+        {
+            if(timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
+            {
+                if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayer))
+                {
+                    timerSincePlayerWasSpotted = 0.0f;
+                    playerInSight = true;
+                }
+                else
+                {
+                    playerInSight = false;
+                }
+            }
+            else
+            {
+                if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayerWithSmoke))
+                {
+                    timerSincePlayerWasSpotted = 0.0f;
+                    playerInSight = true;
+                }
+                else
+                {
+                    playerInSight = false;
+                }
+            }
+        }
+    }
+
+    void DisabledGuardInSightCheck()
+    {
+        if (disabledGuardInRange.Count > 0)
+        {
+            for (int i = 0; i < disabledGuardInRange.Count; i++)
+            {
+                Vector3 directionToDisabledGuard = disabledGuardInRange[i].transform.position - transform.position;
+                float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
+
+                if (angle < guardVariables.fieldOfViewAngle)
+                {
+                    if (RaycastHitCheckToTarget(disabledGuardInRange[i].transform, raycastDisabledGuardCheckLayer))
+                    {
+                        if (!disabledGuardsFound.Contains(disabledGuardInRange[i]))
+                        {
+                            disabledGuardsFound.Add(disabledGuardInRange[i]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public bool PlayerDetectedCheck()
     {
         if (playerInSight && detectionAmount >= maxDetectionAmount)
+        {
             return true;
-
+        }
         return false;
     }
 
@@ -109,106 +185,59 @@ public class GuardSensing : MonoBehaviour
 
     public bool FoundKnockedOutGuard()
     {
-        if (disabledGuards.Count > 0)
+        if (disabledGuardsFound.Count > 0)
         {
             return true;
         }
         return false;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == playerVariables.playerTransform.gameObject)
+        if (other.CompareTag("Player"))
         {
-            if (!guardScript.beingControlled && !guardScript.disabled)
-            {
-                canHear = true;
-                playerInSight = false;
-
-                Vector3 playerPosition = new Vector3(other.transform.position.x, other.transform.position.y + 0.5f, other.transform.position.z);
-                Vector3 direction = playerPosition - transform.position;
-                float angle = Vector3.Angle(direction, transform.forward);
-
-                if (angle < guardVariables.fieldOfViewAngle)
-                {
-                    RaycastHit raycastHit;
-                    if (timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
-                    {
-                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
-                        {
-                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
-                            {
-                                timerSincePlayerWasSpotted = 0.0f;
-                                playerInSight = true;
-                            }
-                            else
-                            {
-                                playerInSight = false;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayerWithSmoke))
-                        {
-                            if (raycastHit.collider.gameObject == playerVariables.playerTransform.gameObject)
-                            {
-                                timerSincePlayerWasSpotted = 0.0f;
-                                playerInSight = true;
-                            }
-                            else
-                            {
-                                playerInSight = false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (other.gameObject.CompareTag("Guard") && other.gameObject != this.gameObject)
-        {
-            Vector3 direction = other.transform.position - transform.position;
-            float angle = Vector3.Angle(direction, transform.forward);
-
-            if (angle < guardVariables.fieldOfViewAngle)
-            {
-                if (other.GetComponent<Guard>().disabled && !other.GetComponent<Guard>().beingControlled)
-                {
-                    RaycastHit raycastHit;
-                    //if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius))
-                    if (Physics.Raycast(transform.position, direction.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
-                    {
-                        if (raycastHit.collider.gameObject == other.gameObject)
-                        {
-                            if (!disabledGuards.Contains(other.GetComponent<Guard>()))
-                                disabledGuards.Add(other.GetComponent<Guard>());
-                        }
-                    }
-                }
-                else
-                {
-                    if (disabledGuards.Contains(other.GetComponent<Guard>()))
-                        disabledGuards.Remove(other.GetComponent<Guard>());
-                }
-            }
+            playerInRange = true;
+            canHear = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == playerVariables.playerTransform.gameObject)
+        if (other.CompareTag("Player"))
         {
             playerInSight = false;
+            playerInRange = false;
             canHear = false;
         }
     }
 
+    bool RaycastHitCheckToTarget(Transform target, LayerMask layerMask)
+    {
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 0.5f, target.position.z);
+        Vector3 directionToTarget = targetPosition - transform.position;
+        float angle = Vector3.Angle(directionToTarget, transform.forward);
+
+        if (angle < guardVariables.fieldOfViewAngle)
+        {
+            RaycastHit raycastHit;
+            if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))
+            {
+                if (raycastHit.collider.transform == target.transform)
+                {
+                    return true;   
+                }
+            }
+        }
+        return false;
+    }
+
     public float CalculateLength(Vector3 targetPosition)
     {
-        UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+        NavMeshPath path = new NavMeshPath();
+
         if (navMeshAgent.enabled)
             navMeshAgent.CalculatePath(targetPosition, path);
+
         Vector3[] allWayPoints = new Vector3[path.corners.Length + 2];
 
         allWayPoints[0] = transform.position;
@@ -234,5 +263,33 @@ public class GuardSensing : MonoBehaviour
         playerInSight = false;
         canHear = false;
         suspicious = false;
+        playerInRange = false;
+    }
+
+    public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)
+    {
+        if (disabledGuardScript != guardScript)
+        {
+            Vector3 directionToDisabledGuard = disabledGuardScript.transform.position - transform.position;
+            if(directionToDisabledGuard.magnitude <= sensingCollider.radius && !isHacked && isDisabled)
+            {
+                if(!disabledGuardInRange.Contains(disabledGuardScript))
+                {
+                    disabledGuardInRange.Add(disabledGuardScript);
+                }
+            }
+            else
+            {
+                if(disabledGuardInRange.Contains(disabledGuardScript) || isHacked || !isDisabled)
+                {
+                    disabledGuardInRange.Remove(disabledGuardScript);
+                }
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        guardDisabledSubject.RemoveObserver(this);
     }
 }

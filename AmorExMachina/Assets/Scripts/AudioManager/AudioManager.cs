@@ -38,8 +38,7 @@ public class Audio
 public class AudioManager : MonoBehaviour
 {
     public Audio[] soundFX;
-    [SerializeField]
-    private Settings settings;
+    [SerializeField] private Settings settings = null;
 
     void Awake()
     {

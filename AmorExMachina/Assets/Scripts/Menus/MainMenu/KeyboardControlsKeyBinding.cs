@@ -6,32 +6,33 @@ using UnityEngine.EventSystems;
 
 public class KeyboardControlsKeyBinding : MonoBehaviour
 {
-    [HideInInspector]
-    public CanvasGroup keyboardControlsCanvasGroup = null;
-    public static KeyboardControlsKeyBinding instance = null;
-    [HideInInspector]
-    public GameObject firstSelectedButtonInKeyboard = null;
+    [HideInInspector] public CanvasGroup keyboardControlsCanvasGroup = null;
+    [HideInInspector] public GameObject firstSelectedButtonInKeyboard = null;
+    [SerializeField] private GameObject pressAKeyCanvas = null;
+    private GameObject currentSelectedGameObject = null;
+
+    private EventSystem eventSystem = null;
+    [SerializeField] private Settings settings = null;
+
     private ControlsSettingsMenu controlsSettingsMenuInstance = null;
+    public static KeyboardControlsKeyBinding instance = null;
 
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
 
-    [SerializeField] private Text rotatePuzzleArrow;
-    [SerializeField] private Text activateButtonInPuzzle;
-    [SerializeField] private Text cameraToggle;
-    [SerializeField] private Text movementToggle;
-    [SerializeField] private Text disableGuard;
-    [SerializeField] private Text hackGuard;
-    [SerializeField] private Text distractGuardWhileHacking;
-
-    [SerializeField] private GameObject pressAKeyCanvas;
-    private GameObject currentSelectedGameObject;
-    private EventSystem eventSystem = null;
+    #region Buttons Text
+    [SerializeField] private Text rotatePuzzleArrow = null;
+    [SerializeField] private Text activateButtonInPuzzle = null;
+    [SerializeField] private Text cameraToggle = null;
+    [SerializeField] private Text movementToggle = null;
+    [SerializeField] private Text disableGuard = null;
+    [SerializeField] private Text hackGuard = null;
+    [SerializeField] private Text distractGuardWhileHacking = null;
+    private Text changedKeyText = null;
+    #endregion
 
     private bool canTakeInput = true;
     private bool changedKey = true;
-    private Text changingKeyText;
 
-    [SerializeField] private Settings settings;
 
     private void Awake()
     {
@@ -68,17 +69,17 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     keybindings[currentSelectedGameObject.name] = KeyCode.LeftShift;
-                    changingKeyText.text = KeyCode.LeftShift.ToString();
+                    changedKeyText.text = KeyCode.LeftShift.ToString();
                     changedKey = true;
-                    changingKeyText = null;
+                    changedKeyText = null;
                     StartCoroutine("ChangeButtonText");
                 }
                 else if(Input.GetKeyDown(KeyCode.RightShift))
                 {
                     keybindings[currentSelectedGameObject.name] = KeyCode.RightShift;
-                    changingKeyText.text = KeyCode.RightShift.ToString();
+                    changedKeyText.text = KeyCode.RightShift.ToString();
                     changedKey = true;
-                    changingKeyText = null;
+                    changedKeyText = null;
                     StartCoroutine("ChangeButtonText");
                 }
             }
@@ -125,7 +126,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     public void ChangeButton(Text buttonText)
     {
         StartCoroutine("ActivateChangeButtonPanel");
-        changingKeyText = buttonText;
+        changedKeyText = buttonText;
     }
 
     IEnumerator ActivateChangeButtonPanel()
@@ -163,9 +164,9 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             if (e.isKey && canTakeInput)
             {
                 keybindings[currentSelectedGameObject.name] = e.keyCode;
-                changingKeyText.text = e.keyCode.ToString();
+                changedKeyText.text = e.keyCode.ToString();
                 changedKey = true;
-                changingKeyText = null;
+                changedKeyText = null;
                 StartCoroutine("ChangeButtonText");
             }
         }

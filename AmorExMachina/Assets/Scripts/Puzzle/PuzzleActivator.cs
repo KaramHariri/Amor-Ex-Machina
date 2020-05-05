@@ -149,7 +149,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
-    public void Notify(Vector3 position)
+    public void PlayerSpottedNotify(Vector3 position)
     {
         if(activated)
         {

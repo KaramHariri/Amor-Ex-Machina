@@ -6,5 +6,5 @@
 
 public interface IPlayerSoundObserver
 {
-    void Notify(SoundType soundType, UnityEngine.Vector3 position);
+    void PlayerSoundNotify(SoundType soundType, UnityEngine.Vector3 position);
 }

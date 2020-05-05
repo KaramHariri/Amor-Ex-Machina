@@ -15,10 +15,18 @@ public enum MovementType
     DONT_WAIT
 }
 
+public enum GuardState
+{
+    DISABLED,
+    HACKED,
+    NORMAL
+}
+
 public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 {
     public GuardType guardType = GuardType.MOVING;
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
+    public GuardState guardState = GuardState.NORMAL;
 
     GuardBehaviourTree guardBehavioralTree;
     [HideInInspector]
@@ -34,14 +42,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector]
     public bool disabled = false;
     [HideInInspector]
-    public bool beingControlled = false;
+    public bool hacked = false;
     [HideInInspector]
     public bool assist = false;
 
-    public PlayerSoundSubject playerSoundSubject;
-    public PlayerSpottedSubject playerSpottedSubject;
-    public GuardVariables guardVariables;
-    public PlayerVariables playerVariables;
+    public PlayerSoundSubject playerSoundSubject = null;
+    public PlayerSpottedSubject playerSpottedSubject = null;
+    public GuardVariables guardVariables = null;
+    public PlayerVariables playerVariables = null;
+    
 
     public bool showSensingSphere = true;
     public bool showFieldOfView = true;
@@ -64,10 +73,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSpottedSubject.AddObserver(this);
         GuardGetComponents();
         sensing.SetScriptablesObjects(guardVariables, playerVariables);
-        guardMovement.SetScriptablesObjects(guardVariables, playerVariables);
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
-        guardMovement.SetGuardAndMovementType(guardType, movementType);
         currentColor = guardVariables.patrolColor;
 
         minimapIcon = transform.GetChild(0).gameObject;
@@ -105,13 +112,32 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     public void Update()
     {
-        if (sensing.playerInSight)
+        if (sensing.PlayerDetectedCheck())
         {
             playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
         }
 
         MinimapCamera.updateIconSize(minimapIcon.transform);
         ActivateMinimapIconCheck();
+    }
+
+    void UpdateGuardState()
+    {
+        if(hacked)
+        {
+            guardState = GuardState.HACKED;
+            return;
+        }
+        else if(disabled)
+        {
+            guardState = GuardState.DISABLED;
+            return;
+        }
+        else
+        {
+            guardState = GuardState.NORMAL;
+            return;
+        }
     }
 
     IEnumerator Run()
@@ -130,7 +156,37 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void Notify(SoundType soundType, Vector3 position)
+   
+
+    bool ActivateMinimapIconCheck()
+    {
+        RaycastHit raycastHit;
+        if (!visibleInMiniMap && GuardInCameraFieldOfView())
+        {
+            Vector3 directionToCamera = mainCamera.transform.position - transform.position;
+            if(!Physics.Raycast(transform.position, directionToCamera.normalized, out raycastHit, directionToCamera.magnitude, raycastCheckLayer))
+            {
+                minimapIcon.SetActive(true);
+                visibleInMiniMap = true;
+                return true;
+            }
+        }
+        else if(sensing.PlayerDetectedCheck())
+        {
+            minimapIcon.SetActive(true);
+            visibleInMiniMap = true;
+            return true;
+        }
+        return false;
+    }
+
+    bool GuardInCameraFieldOfView()
+    {
+        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
+        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.y > 0 && screenPoint.x < 1 && screenPoint.y < 1;
+    }
+
+    public void PlayerSoundNotify(SoundType soundType, Vector3 position)
     {
         if (soundType == SoundType.WALKING)
         {
@@ -146,7 +202,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
         else if (soundType == SoundType.DISTRACTION)
         {
-            if(sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
+            if (sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
             {
                 sensing.distracted = true;
                 guardMovement.SetInvestigationPosition(position);
@@ -155,7 +211,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
     }
 
-    public void Notify(Vector3 position)
+    public void PlayerSpottedNotify(Vector3 position)
     {
         if (!disabled)
         {
@@ -172,33 +228,4 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSoundSubject.RemoveObserver(this);
         playerSpottedSubject.RemoveObserver(this);
     }
-
-    bool ActivateMinimapIconCheck()
-    {
-        RaycastHit raycastHit;
-        if (!visibleInMiniMap && GuardInCameraFieldOfView())
-        {
-            Vector3 directionToCamera = mainCamera.transform.position - transform.position;
-            if(!Physics.Raycast(transform.position, directionToCamera.normalized, out raycastHit, directionToCamera.magnitude, raycastCheckLayer))
-            {
-                minimapIcon.SetActive(true);
-                visibleInMiniMap = true;
-                return true;
-            }
-        }
-        else if(sensing.CheckPlayerInSight())
-        {
-            minimapIcon.SetActive(true);
-            visibleInMiniMap = true;
-            return true;
-        }
-        return false;
-    }
-
-    bool GuardInCameraFieldOfView()
-    {
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
-        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.y > 0 && screenPoint.x < 1 && screenPoint.y < 1;
-    }
-
 }

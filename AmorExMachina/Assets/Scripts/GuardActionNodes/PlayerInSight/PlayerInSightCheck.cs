@@ -10,7 +10,7 @@
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.FAILURE;
-        if (guard.sensing.CheckPlayerInSight())
+        if (guard.sensing.PlayerDetectedCheck())
         {
             guard.assist = false;
             guard.currentColor = UnityEngine.Color.Lerp(guard.currentColor, guard.guardVariables.chasingColor, UnityEngine.Time.deltaTime);

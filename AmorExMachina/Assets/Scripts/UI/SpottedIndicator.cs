@@ -37,9 +37,8 @@ public class SpottedIndicator : MonoBehaviour
     private Quaternion tRot = Quaternion.identity;
     private Vector3 tPos = Vector3.zero;
 
-    [SerializeField]
-    private Image image;
-    GuardSensing guardSensing;
+    [SerializeField] private Image image = null;
+    private GuardSensing guardSensing = null;
 
     private void Awake()
     {

@@ -409,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 4764624099325711222, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad67e32d80fc274bb3a286950307329, type: 3}
@@ -6492,7 +6492,7 @@ PrefabInstance:
     - target: {fileID: 4764624099325711222, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad67e32d80fc274bb3a286950307329, type: 3}
@@ -8690,6 +8690,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.24
       objectReference: {fileID: 0}
+    - target: {fileID: 5276379237382202460, guid: 84593d0c549aabe4e87825e7606b0e1b,
+        type: 3}
+      propertyPath: useMouseInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5276379237382202460, guid: 84593d0c549aabe4e87825e7606b0e1b,
+        type: 3}
+      propertyPath: invertVerticalInput
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5276379237898172628, guid: 84593d0c549aabe4e87825e7606b0e1b,
         type: 3}
       propertyPath: m_Name
@@ -8759,6 +8769,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254304266613648427, guid: 84593d0c549aabe4e87825e7606b0e1b,
+        type: 3}
+      propertyPath: useMouseInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254304266613648427, guid: 84593d0c549aabe4e87825e7606b0e1b,
+        type: 3}
+      propertyPath: invertVerticalInput
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84593d0c549aabe4e87825e7606b0e1b, type: 3}
@@ -11800,7 +11820,7 @@ PrefabInstance:
     - target: {fileID: 4764624099325711222, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad67e32d80fc274bb3a286950307329, type: 3}

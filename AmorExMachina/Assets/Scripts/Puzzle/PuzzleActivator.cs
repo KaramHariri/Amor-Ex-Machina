@@ -52,7 +52,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         {
             if (!activated)
             {
-                audioManager.Play("StartPuzzle");
+                audioManager.Play("ActivateDoorPuzzle");
                 //Debug.Log("Activated");
                 MoveTo(offScreenPosition, onScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
@@ -61,7 +61,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             }
             else
             {
-                audioManager.Play("StartPuzzle");
+                audioManager.Play("ActivateDoorPuzzle");
                 //Debug.Log("Deactivated");
                 MoveTo(onScreenPosition, offScreenPosition, duration);
                 animationCooldown = duration + 0.2f;
@@ -159,7 +159,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         if(activated)
         {
             canBeActivated = false;
-            audioManager.Play("StartPuzzle");
+            audioManager.Play("ActivateDoorPuzzle");
             Debug.Log("FORCED TO CLOSE DOWN THE PUZZLE SOLVING DUE TO BEING SPOTTED");
             animationCooldown = duration + 0.2f;
             MoveTo(onScreenPosition, offScreenPosition, duration);

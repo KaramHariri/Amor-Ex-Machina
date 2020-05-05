@@ -16,10 +16,12 @@ public class GuardController : MonoBehaviour
     [SerializeField] PlayerSoundSubject playerSoundSubject = null;
     [SerializeField] Settings settings = null;
 
+    private AudioManager audioManager = null;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         guard = GetComponent<Guard>();
+        audioManager = FindObjectOfType<AudioManager>();
         mainCamera = Camera.main;
     }
 
@@ -55,6 +57,7 @@ public class GuardController : MonoBehaviour
         if(Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard))
         {
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
+            audioManager.Play("DistractGuard", this.transform.position);
         }
     }
 

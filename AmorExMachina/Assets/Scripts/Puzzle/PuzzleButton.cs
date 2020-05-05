@@ -68,7 +68,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         //if (type == PuzzleButton.ButtonType.Empty)
         //    return;
 
-        audioManager.Play("SelectButton");
+        audioManager.Play("ActivateButton");
 
         //puzzle.OnButtonSelected(this);
 
@@ -125,7 +125,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 {
                     StartCoroutine(ChangeColorToRed());
                 }
-                audioManager.Play("SelectButton");
+                audioManager.Play("DoorPuzzleChangingColor");
             }
         }
     }

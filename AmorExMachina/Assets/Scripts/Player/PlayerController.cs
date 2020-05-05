@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard.beingControlled = true;
             controlling = true;
             guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+            audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.HACKING;
         }
         else if (disabledGuard != null && Input.GetButtonDown("Square") && controlling)
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard.beingControlled = false;
             controlling = false;
             guardHackedSubject.GuardHackedNotify("");
+            audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }
@@ -228,6 +230,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard = null;
             controlling = false;
             guardHackedSubject.GuardHackedNotify("");
+            audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }

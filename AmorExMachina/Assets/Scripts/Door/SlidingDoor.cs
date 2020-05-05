@@ -70,6 +70,7 @@ public class SlidingDoor : MonoBehaviour
 
         IE_StartAnimating = Begin();
         StartCoroutine(IE_StartAnimating);
+        audioManager.Play("DoorOpen", this.transform.position);
     }
 
     private IEnumerator Begin()

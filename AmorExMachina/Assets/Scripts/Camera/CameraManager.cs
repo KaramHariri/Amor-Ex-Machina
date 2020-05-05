@@ -12,6 +12,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
 
     public PlayerCamerasVariables playerCameras;
     public GuardHackedSubject guardHackedSubject;
+    private AudioManager audioManager = null;
 
     private void Start()
     {
@@ -21,6 +22,8 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
         AddGuardVirtualCamerasToDictionary();
         guardHackedSubject.AddObserver(this);
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -46,6 +49,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
                 playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
                 StopCoroutine("ResetCamera");
             }
+            audioManager.Play("SwitchCameraPerspective");
         }
     }
 

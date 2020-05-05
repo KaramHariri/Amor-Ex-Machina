@@ -44,7 +44,137 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c02a87ddb350c4aba410efde48dcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundFX: []
+  soundFX:
+  - name: SelectButton
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 71ba38125526df944b2919310c9c2e04, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 500
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: StartPuzzle
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 0ef74c1af4d61d54387cbd27d3f1f029, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: CompletePuzzle
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 74d93185d8208b841a362f15c7381833, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: SwitchButton
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 5499d604a4cad3a40bc3bb88d8d25580, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: DistractGuards
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
+  - name: DoorOpen
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
+  - name: GameOver
+    audioType: 3
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: DisableGuard
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
+  - name: HackGuard
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
+  - name: SwitchCameraPerspective
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: b88e2fb244c11ff47a3f66cf2c848ca2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &2494282343061126050
 GameObject:
@@ -92,4 +222,5 @@ MonoBehaviour:
   audioSourcePrefab: {fileID: 1436373257723949812, guid: 18469666dfa05774dbff026ade50efef,
     type: 3}
   numberOfAudioSources: 10
-  pooledAudioSources: []
+  pooledAudioSources:
+  - {fileID: 0}

@@ -16,7 +16,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
-    [HideInInspector] public SphereCollider sensingCollider;
+    /*[HideInInspector]*/ public SphereCollider sensingCollider;
 
     [HideInInspector] public List<Guard> disabledGuardsFound = null;
     private List<Guard> disabledGuardInRange = null;
@@ -43,9 +43,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public void GuardSensingAwake()
     {
+        GetComponents();
         guardDisabledSubject.AddObserver(this);
         InitLists();
-        GetComponents();
         AssignGuardAndPlayerVariables();
         AssignLayerMasks();
         guardState = guardScript.guardState;

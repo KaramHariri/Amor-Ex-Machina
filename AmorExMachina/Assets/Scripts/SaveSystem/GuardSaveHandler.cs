@@ -11,6 +11,8 @@ public class GuardSaveHandler : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Added guard to guardData");
+
         guardScript = GetComponent<Guard>();
 
         indexInGuardData = SaveData.current.guardData.Count;
@@ -24,8 +26,8 @@ public class GuardSaveHandler : MonoBehaviour
     private void SaveGuardData()
     {
         Debug.Log("Guard updating data");
-        Debug.Log("Position: (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
-        Debug.Log("rotation: " + transform.rotation.eulerAngles);
+        //Debug.Log("Position: (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
+        //Debug.Log("rotation: " + transform.rotation.eulerAngles);
 
         //data.position = transform.position;
         //data.rotation = transform.rotation;

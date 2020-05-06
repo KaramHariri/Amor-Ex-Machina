@@ -28,7 +28,9 @@ public class GameHandler : MonoBehaviour
     {
         if(Input.GetButtonDown("Options"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
+            GameEvents.current.LoadDataEvent();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if(previousState != currentState)

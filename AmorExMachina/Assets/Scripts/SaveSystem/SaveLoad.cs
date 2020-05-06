@@ -5,20 +5,20 @@ using UnityEngine;
 public class SaveLoad : MonoBehaviour
 {
     private bool hasUpdated = false;
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    Debug.Log("Sent event out so everything saves its data");
-        //    Save();
-        //}
+    //private void Update()
+    //{
+    //    //if (Input.GetKeyDown(KeyCode.O))
+    //    //{
+    //    //    Debug.Log("Sent event out so everything saves its data");
+    //    //    Save();
+    //    //}
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Loaded from file");
-            Load();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        Debug.Log("Loaded from file");
+    //        Load();
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,10 +51,10 @@ public class SaveLoad : MonoBehaviour
         SaveToFile();
     }
 
-    public void Load()
-    {
-        SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
-        GameEvents.current.LoadDataEvent();
-    }
+    //private void Load()
+    //{
+    //    SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
+    //    GameEvents.current.LoadDataEvent();
+    //}
 
 }

@@ -128,20 +128,39 @@ public class GuardMovement : MonoBehaviour
     {
         idle = false;
         Vector3 investigationPos = new Vector3(investigationPosition.x, 1.0f, investigationPosition.z);
-        navMeshAgent.SetDestination(investigationPos);
-        navMeshAgent.stoppingDistance = 3.0f;
-        navMeshAgent.speed = guardVariables.suspiciousSpeed;
-        navMeshAgent.autoBraking = true;
+
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(investigationPos, newPath);
+        }
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(investigationPos);
+            navMeshAgent.stoppingDistance = 3.0f;
+            navMeshAgent.speed = guardVariables.suspiciousSpeed;
+            navMeshAgent.autoBraking = true;
+        }
     }
 
     public void ChasePlayer()
     {
         idle = false;
         Vector3 playerPos = new Vector3(playerVariables.playerTransform.position.x, 1.0f, playerVariables.playerTransform.position.z);
-        navMeshAgent.SetDestination(playerPos);
-        navMeshAgent.speed = guardVariables.chaseSpeed;
-        navMeshAgent.stoppingDistance = 2.5f;
-        navMeshAgent.autoBraking = false;
+
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(playerPos, newPath);
+        }
+
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(playerPos);
+            navMeshAgent.speed = guardVariables.chaseSpeed;
+            navMeshAgent.stoppingDistance = 2.5f;
+            navMeshAgent.autoBraking = false;
+        }
     }
 
     public void SetAssistPosition(Vector3 position)

@@ -4,11 +4,11 @@ using UnityEngine.AI;
 
 public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 {
-    [HideInInspector] public bool canHear = false;
+    /*[HideInInspector]*/ public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
-    private bool playerInRange = false;
-    private bool playerInSight = false;
+    [SerializeField] private bool playerInRange = false;
+    [SerializeField] private bool playerInSight = false;
     public bool showSensingSphere = true;
     public bool showFieldOfView = true;
 
@@ -16,7 +16,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
-    /*[HideInInspector]*/ public SphereCollider sensingCollider;
+    [HideInInspector] public SphereCollider sensingCollider;
 
     [HideInInspector] public List<Guard> disabledGuardsFound = null;
     private List<Guard> disabledGuardInRange = null;
@@ -26,7 +26,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public GuardDisabledSubject guardDisabledSubject = null;
 
     private Guard guardScript = null;
-    private GuardState guardState = GuardState.NORMAL;
 
     #region Layer masks
     private LayerMask raycastCheckLayer = 0;
@@ -48,7 +47,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         InitLists();
         AssignGuardAndPlayerVariables();
         AssignLayerMasks();
-        guardState = guardScript.guardState;
     }
 
     void GetComponents()
@@ -98,6 +96,10 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public void Update()
     {
+        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
+
+        if (guardScript.guardState != GuardState.NORMAL) { return; }
+
         sensingCollider.radius = fieldOfViewRadius;
         SpottedIndicatorHandler();
 
@@ -106,10 +108,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         if (playerInRange)
             PlayerInSightCheck();
 
-        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
-
-        if (!guardScript.disabled)
-            DisabledGuardInSightCheck();
+        DisabledGuardInSightCheck();
     }
 
     void SpottedIndicatorHandler()
@@ -301,9 +300,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public void Reset()
     {
         playerInSight = false;
-        canHear = false;
         suspicious = false;
-        playerInRange = false;
     }
 
     public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)

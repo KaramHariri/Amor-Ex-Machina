@@ -2249,7 +2249,7 @@ GameObject:
   - component: {fileID: 8056148028908245354}
   - component: {fileID: 4391474290906754451}
   - component: {fileID: 2321530729353029025}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 'Grungy_Door Variant '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2344,7 +2344,7 @@ GameObject:
   - component: {fileID: 3271224010171935759}
   - component: {fileID: 157043513834976356}
   - component: {fileID: 6385219266783747555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Door_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   leftDoor: {fileID: 7362935818387320380}
   LayersToDetect:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   speed: 7.5
   delay: 0.1
   closetXPos: 0.8
@@ -2501,7 +2501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7431835478289469287}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PivotHelper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2536,7 +2536,7 @@ GameObject:
   - component: {fileID: 6990400985224209601}
   - component: {fileID: 3362770717412804955}
   - component: {fileID: 420440889994914404}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Door_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

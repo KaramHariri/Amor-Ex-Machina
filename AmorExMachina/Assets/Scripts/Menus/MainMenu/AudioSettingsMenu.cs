@@ -93,10 +93,10 @@ public class AudioSettingsMenu : MonoBehaviour
     private void InitSliderGameObjects()
     {
         masterAudioSlider = transform.GetChild(0).gameObject;
-        effectAudioSlider = transform.GetChild(1).gameObject;
-        footstepsAudioSlider = transform.GetChild(2).gameObject;
-        voiceAudioSlider = transform.GetChild(3).gameObject;
-        musicAudioSlider = transform.GetChild(4).gameObject;
+        musicAudioSlider = transform.GetChild(1).gameObject;
+        voiceAudioSlider = transform.GetChild(2).gameObject;
+        effectAudioSlider = transform.GetChild(3).gameObject;
+        footstepsAudioSlider = transform.GetChild(4).gameObject;
     }
 
     private void InitSlidersAmountText()

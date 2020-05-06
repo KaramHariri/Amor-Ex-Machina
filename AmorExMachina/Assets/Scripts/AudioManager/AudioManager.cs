@@ -18,8 +18,7 @@ public class Audio
     public AudioType audioType;
     public AudioClip[] clip;
 
-    [Range(0f, 1f)]
-    public float volume = 1f;
+    [HideInInspector] public float volume = 1f;
     [Range(-3f, 3f)]
     public float pitch = 1f;
     [Range(0f, 0.5f)]
@@ -40,6 +39,11 @@ public class AudioManager : MonoBehaviour
     public Audio[] soundFX;
     [SerializeField] private Settings settings = null;
 
+    private Audio generalAmbience = null;
+    private Audio guardsChasingPlayer = null;
+    private Audio gameOver = null;
+    private float musicVolume = 0.0f;
+
     void Awake()
     {
         foreach (Audio aud in soundFX)
@@ -59,6 +63,8 @@ public class AudioManager : MonoBehaviour
             }
             else
                 aud.aS.spatialBlend = 0.0f;
+
+            InitBackgroundMusic(aud);
         }
     }
 
@@ -78,11 +84,32 @@ public class AudioManager : MonoBehaviour
             if (aud.aS.spatialBlend == 1)
             {
                 aud.aS.maxDistance = aud.maxSoundDistance;
-                PlayAudioSource(name, aud.aS.clip, position, aud.aS.volume, aud.aS.pitch, aud.aS.maxDistance);
-                //AudioSource.PlayClipAtPoint(aud.aS.clip, new Vector3(200.0f, 0.0f, 10.0f));
+                PlayAudioSource(name, aud.aS.clip, position, aud.aS.volume, aud.aS.pitch, aud.aS.maxDistance, aud.aS.loop);
             }
             else
                 aud.aS.Play();
+        }
+    }
+
+    public void UpdateBackGroundMusic(PlayerState playerState)
+    {
+        switch (playerState)
+        {
+            case PlayerState.SPOTTED:
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, musicVolume, Time.deltaTime);
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime);
+                break;
+            case PlayerState.NOTSPOTTED:
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, musicVolume, Time.deltaTime);
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime);
+                break;
+            case PlayerState.CAUGHT:
+                gameOver.aS.volume = Mathf.Lerp(gameOver.aS.volume, musicVolume, Time.deltaTime);
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime);
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime);
+                break;
+            default:
+                break;
         }
     }
 
@@ -128,7 +155,7 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    void PlayAudioSource(string name, AudioClip audioClip, Vector3 position, float volume, float pitch, float maxDistance)
+    void PlayAudioSource(string name, AudioClip audioClip, Vector3 position, float volume, float pitch, float maxDistance, bool loop)
     {
         AudioSource audioSource = AudioSourcePool.instance.GetAudioSource();
         audioSource.clip = audioClip;
@@ -137,7 +164,7 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = pitch;
         audioSource.maxDistance = maxDistance;
         audioSource.gameObject.transform.position = position;
-        audioSource.loop = true;
+        audioSource.loop = loop;
         audioSource.Play();
     }
 
@@ -146,17 +173,47 @@ public class AudioManager : MonoBehaviour
         switch(audio.audioType)
         {
             case Audio.AudioType.EFFECT:
-                audio.volume = settings.effectsVolume;
+                audio.volume = settings.effectsVolume * settings.masterVolume;
                 break;
             case Audio.AudioType.FOOTSTEPS:
-                audio.volume = settings.footstepsVolume;
+                audio.volume = settings.footstepsVolume * settings.masterVolume;
                 break;
             case Audio.AudioType.VOICE:
-                audio.volume = settings.voiceVolume;
+                audio.volume = settings.voiceVolume * settings.masterVolume;
                 break;
             case Audio.AudioType.MUSIC:
-                audio.volume = settings.musicVolume;
+                audio.volume = settings.musicVolume * settings.masterVolume;
                 break;
+        }
+    }
+
+    void InitBackgroundMusic(Audio audio)
+    {
+        if(audio.audioType == Audio.AudioType.MUSIC)
+        {
+            switch (audio.name)
+            {
+                case "GeneralAmbience":
+                    generalAmbience = audio;
+                    generalAmbience.aS.clip = generalAmbience.clip[0];
+                    generalAmbience.aS.Play();
+                    break;
+                case "GuardsChasingPlayer":
+                    guardsChasingPlayer = audio;
+                    guardsChasingPlayer.aS.clip = guardsChasingPlayer.clip[0];
+                    guardsChasingPlayer.aS.volume = 0.0f;
+                    guardsChasingPlayer.aS.Play();
+                    break;
+                case "GameOver":
+                    gameOver = audio;
+                    gameOver.aS.clip = gameOver.clip[0];
+                    gameOver.aS.volume = 0.0f;
+                    gameOver.aS.Play();
+                    break;
+                default:
+                    break;
+            }
+            musicVolume = audio.volume;
         }
     }
 }

@@ -44,17 +44,18 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         {
             if (playerCameras.thirdPersonCamera.m_Priority == 22)
             {
+                audioManager.Play("SwitchCameraToFirstPerson");
                 playerCameras.thirdPersonCamera.m_Priority = 18;
                 StartCoroutine("ResetCamera");
             }
             else if (playerCameras.thirdPersonCamera.m_Priority == 18)
             {
+                audioManager.Play("SwitchCameraToThirdPerson");
                 playerCameras.thirdPersonCamera.m_Priority = 22;
                 switchedToFirstPersonCamera = false;
                 playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
                 StopCoroutine("ResetCamera");
             }
-            audioManager.Play("SwitchCameraPerspective");
         }
     }
 

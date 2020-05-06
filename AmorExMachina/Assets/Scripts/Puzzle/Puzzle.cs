@@ -29,6 +29,7 @@ public class Puzzle : MonoBehaviour
     public PuzzleActivator PA;
     // ADDED
     public SlidingDoor door;
+    private AudioManager audioManager = null;
 
     private void Start()
     {
@@ -45,6 +46,8 @@ public class Puzzle : MonoBehaviour
             Debug.Log("All buttons are 'Empty'");
             return;
         }
+
+        audioManager = FindObjectOfType<AudioManager>();
 
         selectedButton = activateableButtons[0];
         SetHover(activateableButtons[0].transform.GetSiblingIndex());
@@ -362,7 +365,7 @@ public class Puzzle : MonoBehaviour
 
 
         if (Input.GetKeyDown(settings.activateButtonInPuzzleKeyboard) && buttonActivateCooldown == 0.0f)
-            {
+        {
             selectedButton.Select();
             GenerateFlipTileList();
             buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;
@@ -371,6 +374,7 @@ public class Puzzle : MonoBehaviour
 
         if (Input.GetKeyDown(settings.rotatePuzzleArrowKeyboard) && buttonRotateCooldown == 0.0f)
         {
+            audioManager.Play("ActivateButton");
             selectedButton.RotateDirection();
             buttonRotateCooldown = buttonRotateCooldownTime;
             return;
@@ -401,15 +405,17 @@ public class Puzzle : MonoBehaviour
 
 
         if (Input.GetKeyDown(settings.rotatePuzzleArrowController) && buttonRotateCooldown == 0.0f)
-            {
-                selectedButton.RotateDirection();
-                buttonRotateCooldown = buttonRotateCooldownTime;
-                return;
+        {
+            audioManager.Play("ActivateButton");
+            selectedButton.RotateDirection();
+            buttonRotateCooldown = buttonRotateCooldownTime;
+            return;
         }
 
         //if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
         if (Input.GetKeyDown(settings.activateButtonInPuzzleController) && buttonActivateCooldown == 0.0f)
         {
+            audioManager.Play("ActivateButton");
             selectedButton.Select();
             GenerateFlipTileList();
             buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;

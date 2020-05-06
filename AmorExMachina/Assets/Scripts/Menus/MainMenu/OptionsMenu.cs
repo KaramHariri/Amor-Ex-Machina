@@ -62,7 +62,7 @@ public class OptionsMenu : MonoBehaviour
 
     IEnumerator SwitchToMainMenu()
     {
-        mainMenu.gameObject.SetActive(true);
+        mainMenu.transform.GetChild(0).gameObject.SetActive(true);
         yield return null;
         transform.gameObject.SetActive(false);
         mainMenu.StartSetSelectedButtonEnumerator();

@@ -68,7 +68,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         //if (type == PuzzleButton.ButtonType.Empty)
         //    return;
 
-        audioManager.Play("ActivateButton");
+        //audioManager.Play("ActivateButton");
 
         //puzzle.OnButtonSelected(this);
 
@@ -80,7 +80,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         //if (type == PuzzleButton.ButtonType.Empty)
         //    return;
 
-        audioManager.Play("SwitchButton");
+        //audioManager.Play("SwitchButton");
 
         //puzzle.OnButtonEnter(this);
 

@@ -117,12 +117,12 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if (playerVariables.canHackGuard)
         {
-            audioManager.Play("HackGuard", this.transform.position);
             if (disabledGuard != null && !controlling && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
                 controlling = true;
                 guardHackedSubject.GuardHackedNotify(disabledGuard.name);
+                audioManager.Play("HackGuard", this.transform.position);
                 GameHandler.currentState = GameState.HACKING;
                 return;
             }
@@ -131,12 +131,12 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 disabledGuard.hacked = false;
                 controlling = false;
                 guardHackedSubject.GuardHackedNotify("");
+                audioManager.Play("HackGuard", this.transform.position);
                 GameHandler.currentState = GameState.NORMALGAME;
                 disabledGuard = null;
                 return;
             }
         }
-            audioManager.Play("HackGuard", this.transform.position);
     }
 
     void GetInput()
@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                     disabledGuard = closestGuard;
                     if (disabledGuard != null)
                     {
+                        audioManager.Play("DisableGuard", this.transform.position);
                         disabledGuard.disabled = true;
                     }
                 }

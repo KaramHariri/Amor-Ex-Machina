@@ -80,8 +80,8 @@ public class GameplaySettingsMenu : MonoBehaviour
     {
         invertYToggleGameObject = transform.GetChild(0).gameObject;
         subtitleToggleGameObject = transform.GetChild(1).gameObject;
-        firstPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
-        thirdPersonLookSensitivitySlider = transform.GetChild(3).gameObject;
+        thirdPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
+        firstPersonLookSensitivitySlider = transform.GetChild(3).gameObject;
     }
 
     private void InitSlidersFill()

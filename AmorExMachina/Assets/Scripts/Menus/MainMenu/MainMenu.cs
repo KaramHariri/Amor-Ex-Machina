@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] OptionsMenu optionsMenu = null;
     [SerializeField] EventSystem eventSystem = null;
+    [SerializeField] AudioSource mainMenuAudio = null;
 
     GameObject currentSelectedButton = null;
 
     private void Start()
     {
+        Cursor.visible = false;
         StartCoroutine("DeactivateBackground");
+        mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
+    }
+
+    private void Update()
+    {
+        mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
     }
 
     public void NewGameButton()
@@ -40,7 +47,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator DeactivateBackground()
     {
         yield return new WaitForSeconds(1.0f);
-            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
     }
 
     IEnumerator SwitchToOptions()
@@ -50,7 +57,7 @@ public class MainMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(optionsMenu.firstSelectedButtonInOptions);
-        transform.gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void StartSetSelectedButtonEnumerator()

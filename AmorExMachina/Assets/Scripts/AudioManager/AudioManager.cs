@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        settings.masterVolume = 0.5f;
         foreach (Audio aud in soundFX)
         {
             aud.aS = gameObject.AddComponent<AudioSource>();

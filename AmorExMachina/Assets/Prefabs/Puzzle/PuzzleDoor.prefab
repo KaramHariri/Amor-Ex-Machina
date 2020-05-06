@@ -1311,6 +1311,8 @@ MonoBehaviour:
     type: 2}
   interactionButtonSubject: {fileID: 11400000, guid: e91cc55a9b197964a9b8cfa5d5b6a8f3,
     type: 2}
+  playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
+  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &8459803005031868541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,6 +1421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 133114b6d4b8a3f478448b24f159180f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 0}
   buttons:
   - {fileID: 8459803004908582660}
   - {fileID: 8459803003910746373}
@@ -1440,6 +1443,7 @@ MonoBehaviour:
   rows: 4
   columns: 4
   PA: {fileID: 8459803004941548504}
+  door: {fileID: 0}
 --- !u!1 &8459803005151118656
 GameObject:
   m_ObjectHideFlags: 0

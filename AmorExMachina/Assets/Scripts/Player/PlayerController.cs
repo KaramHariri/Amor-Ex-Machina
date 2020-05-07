@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     #endregion
 
     [SerializeField] private float hackingTimer = 0.0f;
-    [SerializeField] private float maxHackingTimer = 30.0f;
+    [SerializeField] private float maxHackingTimer = 20.0f;
 
     private GameObject minimapIcon = null;
     private AudioManager audioManager = null;
@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 hacking = false;
                 guardHackedSubject.GuardHackedNotify("");
                 audioManager.Play("HackGuard", this.transform.position);
+                UIManager.deactivateTimer();
                 GameHandler.currentState = GameState.NORMALGAME;
                 disabledGuard = null;
                 return;
@@ -317,7 +318,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard = null;
             hacking = false;
             guardHackedSubject.GuardHackedNotify("");
-            audioManager.Play("HackGuard", this.transform.position);
+            if(hacking)
+                audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }

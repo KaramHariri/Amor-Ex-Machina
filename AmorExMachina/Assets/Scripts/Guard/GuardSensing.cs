@@ -4,15 +4,18 @@ using UnityEngine.AI;
 
 public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 {
-    /*[HideInInspector]*/ public bool canHear = false;
+    [HideInInspector] public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
-    [SerializeField] private bool playerInRange = false;
-    [SerializeField] private bool playerInSight = false;
-    public bool showSensingSphere = true;
+    private bool playerInRange = false;
+    private bool playerInSight = false;
+
+    public bool showHearingRadius = true;
     public bool showFieldOfView = true;
 
+    [Header("Sensing Variables")]
     [SerializeField] private float fieldOfViewRadius = 20.0f;
+    [SerializeField] private float hearingRadius = 20.0f;
     [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -23,7 +26,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     private GuardVariables guardVariables = null;
     private PlayerVariables playerVariables = null;
-    public GuardDisabledSubject guardDisabledSubject = null;
 
     private Guard guardScript = null;
 
@@ -33,12 +35,14 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     private LayerMask raycastDisabledGuardCheckLayer = 0;
     #endregion
 
-    #region Timers
-    [HideInInspector] public float detectionAmount = 0.0f;
+    [Header("Timers")]
     public float maxDetectionAmount = 2.0f;
     [SerializeField] private float maxTimerSincePlayerWasSpotted = 5.0f;
-    [SerializeField] private float timerSincePlayerWasSpotted = 0.0f;
-    #endregion
+    [HideInInspector] public float detectionAmount = 0.0f;
+    private float timerSincePlayerWasSpotted = 0.0f;
+
+    [Header("Scriptable Objects")]
+    public GuardDisabledSubject guardDisabledSubject = null;
 
     public void GuardSensingAwake()
     {
@@ -77,10 +81,10 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     void OnDrawGizmos()
     {
-        if (showSensingSphere)
+        if (showHearingRadius)
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, fieldOfViewRadius);
+            Gizmos.DrawWireSphere(transform.position, hearingRadius);
         }
 
         Vector3 fovLine1 = Quaternion.AngleAxis(fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;

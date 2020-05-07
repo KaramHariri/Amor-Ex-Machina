@@ -50,6 +50,11 @@ public class GuardVirtualCamera : MonoBehaviour
     {
         UpdateCameraSettings();
         RotateCinemachineTransform();
+
+        if (vC.m_Priority == 15)
+        {
+            cinemachinePOV.m_HorizontalAxis.Value = vC.m_Follow.eulerAngles.y;
+        }
     }
 
     void RotateCinemachineTransform()

@@ -121,6 +121,8 @@ MonoBehaviour:
     type: 2}
   interactionButtonSubject: {fileID: 11400000, guid: e91cc55a9b197964a9b8cfa5d5b6a8f3,
     type: 2}
+  hackingTimer: 0
+  maxHackingTimer: 20
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &1239064953661300898
 GameObject:

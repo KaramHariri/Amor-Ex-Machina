@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
         crossButton.SetActive(false);
 
         hackingTimer = GameObject.Find("HackingTimer").GetComponent<Text>();
+        Debug.Log(hackingTimer.gameObject.name);
         hackingTimer.gameObject.SetActive(false);
     }
 
@@ -62,12 +63,12 @@ public class UIManager : MonoBehaviour, IInteractionButton
         deactivateTimer += DeactivateTimer;
     }
 
-    private void OnDisable()
-    {
-        createIndicator -= CreateIndicator;
-        removeIndicator -= RemoveIndicator;
-        updateIndicator -= UpdateIndicator;
-    }
+    //private void OnDisable()
+    //{
+    //    createIndicator -= CreateIndicator;
+    //    removeIndicator -= RemoveIndicator;
+    //    updateIndicator -= UpdateIndicator;
+    //}
 
     void CreateIndicator(Transform target)
     {
@@ -150,5 +151,12 @@ public class UIManager : MonoBehaviour, IInteractionButton
     void OnDestroy()
     {
         InteractionButtonSubject.RemoveObserver(this);
+        createIndicator -= CreateIndicator;
+        removeIndicator -= RemoveIndicator;
+        updateIndicator -= UpdateIndicator;
+
+        activateTimer -= ActivateTimer;
+        updateTimer -= UpdateTimer;
+        deactivateTimer -= DeactivateTimer;
     }
 }

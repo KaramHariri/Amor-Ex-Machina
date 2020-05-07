@@ -41,6 +41,7 @@ public class Dialogue : MonoBehaviour
             dialoguePlayed = true;
             dialogueGameObject.SetActive(true);
             dialogueAudio.clip = sentenceAudio;
+            dialogueAudio.volume = settings.voiceVolume * settings.masterVolume;
             dialogueAudio.Play();
             StopAllCoroutines();
             StartCoroutine(TypeSentence());

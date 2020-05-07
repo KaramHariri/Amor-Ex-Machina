@@ -24,7 +24,6 @@ public class GuardMovement : MonoBehaviour
 
     private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     private GuardType guardType = GuardType.MOVING;
-    private GuardState guardState = GuardState.NORMAL;
 
     public void GuardMovementAwake()
     {
@@ -32,8 +31,6 @@ public class GuardMovement : MonoBehaviour
         GetComponents();
         AssignPlayerAndGuardVariables();
         SetMovementVariables();
-
-        guardState = guardScript.guardState;
     }
 
     void GetComponents()

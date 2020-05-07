@@ -35,6 +35,9 @@ public class GuardController : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+
+        if(GameHandler.currentState == GameState.MENU) { return; }
+
         if (guard.disabled && guard.hacked)
         {
             GetInput();
@@ -43,6 +46,8 @@ public class GuardController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameHandler.currentState == GameState.MENU) { return; }
+
         if (guard.disabled && guard.hacked)
         {
             HandleRotation();

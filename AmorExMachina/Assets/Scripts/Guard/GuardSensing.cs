@@ -97,11 +97,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public void Update()
     {
         guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
+        SpottedIndicatorHandler();
 
         if (guardScript.guardState != GuardState.NORMAL) { return; }
 
         sensingCollider.radius = fieldOfViewRadius;
-        SpottedIndicatorHandler();
 
         UpdateTimerSincePlayerWasSpotted();
 

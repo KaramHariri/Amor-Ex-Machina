@@ -108,7 +108,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         while (true)
         {
-            guardBehavioralTree.Run();
+            if (GameHandler.currentState != GameState.MENU)
+            {
+                guardMovement.navMeshAgent.enabled = true;
+                guardBehavioralTree.Run();
+            }
+            else
+            {
+                guardMovement.navMeshAgent.enabled = false;
+            }
             yield return null;
         }
     }

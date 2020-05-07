@@ -40,6 +40,8 @@ public class ThirdPersonCinemachine : MonoBehaviour
         cinemachineFreeLook = GetComponent<CinemachineFreeLook>();
         cinemachineFreeLook.m_YAxis.Value = 0.5f;
         cinemachineFreeLook.m_Priority = priority;
+
+        useMouseInput = false;
         
         playerCamerasVariables.thirdPersonCameraTransform = this.transform;
         playerCamerasVariables.thirdPersonCamera = cinemachineFreeLook;

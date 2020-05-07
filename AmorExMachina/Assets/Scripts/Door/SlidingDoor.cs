@@ -46,16 +46,19 @@ public class SlidingDoor : MonoBehaviour
         if (other is SphereCollider) { return; }
         inRange.Add(other.transform);
         state = slidingDoorState.OPEN;
+        audioManager.Play("DoorOpen", this.transform.position);
         StartAnimating();
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (((1 << other.gameObject.layer) & LayersToDetect) == 0) { return; }
+        if(other is SphereCollider) { return; }
 
         inRange.Remove(other.transform);
         if (inRange.Count <= 0)
         {
+            audioManager.Play("DoorOpen", this.transform.position);
             state = slidingDoorState.CLOSE;
             StartAnimating();
         }
@@ -71,7 +74,6 @@ public class SlidingDoor : MonoBehaviour
 
         IE_StartAnimating = Begin();
         StartCoroutine(IE_StartAnimating);
-        audioManager.Play("DoorOpen", this.transform.position);
     }
 
     private IEnumerator Begin()

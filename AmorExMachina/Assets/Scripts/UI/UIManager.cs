@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public enum InteractionButtons
 {
@@ -18,13 +19,20 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private Dictionary<Transform, SpottedIndicator> indicators = new Dictionary<Transform, SpottedIndicator>();
 
     [SerializeField] InteractionButtonSubject InteractionButtonSubject = null;
+
     GameObject circleButton = null;
     GameObject crossButton = null;
+
+    Text hackingTimer = null;
 
     #region Delegates
     public static Action<Transform> createIndicator = delegate { };
     public static Action<Transform, IndicatorColor> updateIndicator = delegate { };
     public static Action<Transform> removeIndicator = delegate { };
+
+    public static Action activateTimer = delegate { };
+    public static Action<float> updateTimer = delegate { };
+    public static Action deactivateTimer = delegate { };
     #endregion
 
     void Awake()
@@ -38,6 +46,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
         circleButton.SetActive(false);
         crossButton = GameObject.Find("CrossButton");
         crossButton.SetActive(false);
+
+        hackingTimer = GameObject.Find("HackingTimer").GetComponent<Text>();
+        hackingTimer.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -45,6 +56,10 @@ public class UIManager : MonoBehaviour, IInteractionButton
         createIndicator += CreateIndicator;
         removeIndicator += RemoveIndicator;
         updateIndicator += UpdateIndicator;
+
+        activateTimer += ActivateTimer;
+        updateTimer += UpdateTimer;
+        deactivateTimer += DeactivateTimer;
     }
 
     private void OnDisable()
@@ -75,6 +90,23 @@ public class UIManager : MonoBehaviour, IInteractionButton
             indicators[target].UnRegister();
             indicators.Remove(target);
         }
+    }
+
+    void ActivateTimer()
+    {
+        hackingTimer.text = "0.0";
+        hackingTimer.gameObject.SetActive(true);
+    }
+
+    void UpdateTimer(float currentTime)
+    {
+        hackingTimer.text = currentTime.ToString("F1");
+    }
+
+    void DeactivateTimer()
+    {
+        hackingTimer.text = "";
+        hackingTimer.gameObject.SetActive(false);
     }
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 {
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
     private bool sneaking = true;
-    private bool controlling = false;
+    private bool hacking = false;
     
     private Rigidbody rb = null;
     private Guard disabledGuard = null;
@@ -26,6 +27,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public PlayerSpottedSubject playerSpottedSubject = null;
     public InteractionButtonSubject interactionButtonSubject = null;
     #endregion
+
+    [SerializeField] private float hackingTimer = 0.0f;
+    [SerializeField] private float maxHackingTimer = 30.0f;
 
     private GameObject minimapIcon = null;
     private AudioManager audioManager = null;
@@ -62,6 +66,16 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         if (playerVariables.caught)
         {
             GameHandler.currentState = GameState.LOST;
+        }
+
+        if (hacking)
+        {
+            UpdateHackingTimer();
+            UIManager.updateTimer(hackingTimer);
+        }
+        else
+        {
+            hackingTimer = 0.0f;
         }
 
         GetInput();
@@ -101,6 +115,23 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
+    void UpdateHackingTimer()
+    {
+        hackingTimer += Time.deltaTime;
+        if (hackingTimer >= maxHackingTimer)
+        {
+            hackingTimer = maxHackingTimer;
+            UIManager.deactivateTimer();
+
+            disabledGuard.hacked = false;
+            disabledGuard = null;
+            hacking = false;
+            guardHackedSubject.GuardHackedNotify("");
+            audioManager.Play("HackGuard", this.transform.position);
+            GameHandler.currentState = GameState.NORMALGAME;
+        }
+    }
+
     void PlayerIsKinematicCheck()
     {
         if (GameHandler.currentState != GameState.NORMALGAME)
@@ -117,19 +148,20 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if (playerVariables.canHackGuard)
         {
-            if (disabledGuard != null && !controlling && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            if (disabledGuard != null && !hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
-                controlling = true;
+                hacking = true;
                 guardHackedSubject.GuardHackedNotify(disabledGuard.name);
                 audioManager.Play("HackGuard", this.transform.position);
+                UIManager.activateTimer();
                 GameHandler.currentState = GameState.HACKING;
                 return;
             }
-            else if (disabledGuard != null && controlling && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            else if (disabledGuard != null && hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
             {
                 disabledGuard.hacked = false;
-                controlling = false;
+                hacking = false;
                 guardHackedSubject.GuardHackedNotify("");
                 audioManager.Play("HackGuard", this.transform.position);
                 GameHandler.currentState = GameState.NORMALGAME;
@@ -283,7 +315,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             disabledGuard.hacked = false;
             disabledGuard = null;
-            controlling = false;
+            hacking = false;
             guardHackedSubject.GuardHackedNotify("");
             audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;

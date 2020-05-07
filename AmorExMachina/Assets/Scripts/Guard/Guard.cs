@@ -188,9 +188,9 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         return false;
     }
 
-    public void PlayEnablingSound()
+    public void PlayEnablingSound(Vector3 position)
     {
-
+        audioManager.Play("EnableGuard", position);
     }
 
     bool GuardInCameraFieldOfView()

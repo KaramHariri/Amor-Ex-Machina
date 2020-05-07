@@ -48,7 +48,7 @@ MonoBehaviour:
   - name: ActivateButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 9123fa4ffcc9e67498e6d804b91bf521, type: 3}
+    - {fileID: 8300000, guid: e61c91c4306f48f45b8776d2e43631bd, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -113,7 +113,7 @@ MonoBehaviour:
   - name: DoorOpen
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 28297dca6894ba146a66d995ae09f09f, type: 3}
+    - {fileID: 8300000, guid: 04784ad299970ca4fb99165f42829a42, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -165,7 +165,7 @@ MonoBehaviour:
   - name: SwitchCameraToFirstPerson
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 640ae695aa8359c40b2d416637267f45, type: 3}
+    - {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -178,7 +178,7 @@ MonoBehaviour:
   - name: SwitchCameraToThirdPerson
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 640ae695aa8359c40b2d416637267f45, type: 3}
+    - {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -265,6 +265,19 @@ MonoBehaviour:
     loop: 1
     playOnAwake: 0
     threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: EnableGuard
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: ebd0faf5405bdb94d8cd6594b2e14b01, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
     aS: {fileID: 0}
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &2494282343061126050

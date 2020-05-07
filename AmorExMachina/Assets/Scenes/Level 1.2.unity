@@ -1348,31 +1348,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[0].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: e61c91c4306f48f45b8776d2e43631bd, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[3].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: c7c8228c3e58af94eb887f7dd8081eb9, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[10].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[9].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[5].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 04784ad299970ca4fb99165f42829a42, type: 3}
     - target: {fileID: 2353145917178366114, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: m_Name
@@ -2775,13 +2750,13 @@ Transform:
   - {fileID: 1769260924}
   - {fileID: 1035823219}
   - {fileID: 610289350}
-  - {fileID: 548557609}
-  - {fileID: 1454588421}
-  - {fileID: 261134641}
-  - {fileID: 444397491}
-  - {fileID: 1504581940}
-  - {fileID: 1372490852}
   - {fileID: 784855525}
+  - {fileID: 548557609}
+  - {fileID: 1372490852}
+  - {fileID: 1454588421}
+  - {fileID: 1504581940}
+  - {fileID: 444397491}
+  - {fileID: 261134641}
   - {fileID: 1379769609}
   - {fileID: 1897724981}
   m_Father: {fileID: 1251540023}
@@ -13333,10 +13308,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvases
       objectReference: {fileID: 0}
-    - target: {fileID: 2992464928784795203, guid: ddb91fba7cb17d443bcf70e31bb72531,
+    - target: {fileID: 348892556374238378, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
-      propertyPath: m_Name
-      value: PauseMenuSettingsCanvas
+      propertyPath: m_FontData.m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 348892556374238378, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894544493458882043, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894544493458882043, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb91fba7cb17d443bcf70e31bb72531, type: 3}
@@ -15004,6 +14994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: walkSpeed
       value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239064952944826115, guid: 2bbe5a0918acb5a488ff87dc1d61b395,
+        type: 3}
+      propertyPath: maxHackingTimer
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1239064952944826116, guid: 2bbe5a0918acb5a488ff87dc1d61b395,
         type: 3}

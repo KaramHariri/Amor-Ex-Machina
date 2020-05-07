@@ -2474,7 +2474,7 @@ MonoBehaviour:
   leftDoor: {fileID: 7362935818387320380}
   LayersToDetect:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   speed: 7.5
   delay: 0.1
   closetXPos: 0.8

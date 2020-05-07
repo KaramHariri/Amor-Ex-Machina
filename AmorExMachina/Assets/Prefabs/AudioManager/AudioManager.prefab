@@ -87,7 +87,7 @@ MonoBehaviour:
   - name: SwitchButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 5499d604a4cad3a40bc3bb88d8d25580, type: 3}
+    - {fileID: 8300000, guid: c7c8228c3e58af94eb887f7dd8081eb9, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

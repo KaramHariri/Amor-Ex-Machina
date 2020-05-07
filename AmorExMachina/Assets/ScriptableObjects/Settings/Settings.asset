@@ -17,10 +17,10 @@ MonoBehaviour:
   thirdPersonLookSensitivity: 150
   firstPersonLookSensitivity: 150
   masterVolume: 1
-  effectsVolume: 0.70000005
+  effectsVolume: 0.839
   footstepsVolume: 0.70000005
   voiceVolume: 0.5999999
-  musicVolume: 0.5
+  musicVolume: 0.158
   rotatePuzzleArrowKeyboard: 102
   activateButtonInPuzzleKeyboard: 101
   activatePuzzleKeyboard: 114

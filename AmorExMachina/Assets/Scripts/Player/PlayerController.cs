@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private float verticalInput = 0.0f;
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
-    private bool sneaking = false;
+    private bool sneaking = true;
     private bool controlling = false;
     
     private Rigidbody rb = null;

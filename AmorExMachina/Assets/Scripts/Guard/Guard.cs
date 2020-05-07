@@ -51,6 +51,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     private Camera mainCamera = null;
 
     [SerializeField] LayerMask raycastCheckLayer = 0;
+    private AudioManager audioManager = null;
 
     public void Awake()
     {
@@ -61,6 +62,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
 
+        audioManager = FindObjectOfType<AudioManager>();
         currentColor = guardVariables.patrolColor;
         mainCamera = Camera.main;
         raycastCheckLayer = LayerMask.GetMask("Walls");
@@ -184,6 +186,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             return true;
         }
         return false;
+    }
+
+    public void PlayEnablingSound()
+    {
+
     }
 
     bool GuardInCameraFieldOfView()

@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             Guard tempScript = other.GetComponent<Guard>();
             //if(!possibleGuardsToDisable.Contains(tempScript))
-            if(!tempScript.disabled)
+            //if(!tempScript.disabled)
                 possibleGuardsToDisable.Add(tempScript);
         }
     }

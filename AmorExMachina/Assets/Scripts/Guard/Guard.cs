@@ -46,6 +46,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public PlayerVariables playerVariables = null;
 
     private GameObject minimapIcon = null;
+    private MeshRenderer minimapIconMeshRenderer = null;
     [SerializeField] private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
 
@@ -75,6 +76,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         MinimapCamera.updateIconSize(minimapIcon.transform);
         ActivateMinimapIconCheck();
+        UpdateMinimapIconColor();
         UpdateGuardState();
 
         if(guardState != GuardState.NORMAL) { return; }
@@ -139,6 +141,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     void InitMiniMap()
     {
         minimapIcon = transform.GetChild(0).gameObject;
+        minimapIconMeshRenderer = minimapIcon.GetComponent<MeshRenderer>();
         minimapIcon.SetActive(false);
         visibleInMiniMap = false;
     }
@@ -149,6 +152,18 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSpottedSubject.AddObserver(this);
     }
 
+    void UpdateMinimapIconColor()
+    {
+        if(disabled)
+        {
+            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.black, Time.deltaTime);
+        }
+        else
+        {
+            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.red, Time.deltaTime);
+        }
+    }
+    
     bool ActivateMinimapIconCheck()
     {
         RaycastHit raycastHit;

@@ -204,6 +204,27 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         }
     }
 
+    void SortDisabledGuardsFoundList()
+    {
+        disabledGuardsFound.Sort(SortByDistance);
+    }
+
+    int SortByDistance(Guard guard1Pos, Guard guard2Pos)
+    {
+        float distance1 = Vector3.Distance(guard1Pos.transform.position, playerVariables.playerTransform.position);
+        float distance2 = Vector3.Distance(guard2Pos.transform.position, playerVariables.playerTransform.position);
+
+        if (distance1 < distance2)
+        {
+            return -1;
+        }
+        else if (distance1 > distance2)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
     public bool PlayerDetectedCheck()
     {
         if (playerInSight && detectionAmount >= maxDetectionAmount)
@@ -226,6 +247,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         if (disabledGuardsFound.Count > 0)
         {
+            SortDisabledGuardsFoundList();
             return true;
         }
         return false;
@@ -301,6 +323,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         playerInSight = false;
         suspicious = false;
+        disabledGuardsFound.Clear();
     }
 
     public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)

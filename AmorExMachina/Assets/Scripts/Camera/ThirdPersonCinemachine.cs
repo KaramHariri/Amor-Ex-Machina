@@ -55,7 +55,6 @@ public class ThirdPersonCinemachine : MonoBehaviour
     {
         UpdateCameraSettings();
 
-
         if(GameHandler.currentState != GameState.NORMALGAME) 
         {
             cinemachineFreeLook.m_XAxis.m_MaxSpeed = 0.0f;

@@ -16,8 +16,8 @@ public class FirstPersonCinemachine : MonoBehaviour
     //private bool invertVerticalInput = false;
     [SerializeField]
     private bool invertHorizontalInput = false;
-    //[SerializeField]
-    //private bool useMouseInput = false;
+    [SerializeField]
+    private bool useMouseInput = false;
     [SerializeField][Range(-70, 0)]
     private float cameraYMin = -70.0f;
     [SerializeField][Range(0, 70)]
@@ -91,6 +91,18 @@ public class FirstPersonCinemachine : MonoBehaviour
         cinemachinePOV.m_VerticalAxis.m_MaxValue = cameraYMax;
 
         ControllerConnectedCheck();
+
+        if (useMouseInput)
+        {
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "Mouse Y";
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "Mouse X";
+        }
+        else
+        {
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "CameraVerticalAxis";
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "CameraHorizontalAxis";
+        }
+
         UpdateFirstPersonCameraVariables();
     }
 

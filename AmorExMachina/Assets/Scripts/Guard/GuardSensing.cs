@@ -4,11 +4,11 @@ using UnityEngine.AI;
 
 public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 {
-    [HideInInspector] public bool canHear = false;
+    /*[HideInInspector]*/ public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
-    private bool playerInRange = false;
-    private bool playerInSight = false;
+    [SerializeField] private bool playerInRange = false;
+    [SerializeField] private bool playerInSight = false;
     public bool showSensingSphere = true;
     public bool showFieldOfView = true;
 
@@ -26,7 +26,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public GuardDisabledSubject guardDisabledSubject = null;
 
     private Guard guardScript = null;
-    private GuardState guardState = GuardState.NORMAL;
 
     #region Layer masks
     private LayerMask raycastCheckLayer = 0;
@@ -43,12 +42,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public void GuardSensingAwake()
     {
+        GetComponents();
         guardDisabledSubject.AddObserver(this);
         InitLists();
-        GetComponents();
         AssignGuardAndPlayerVariables();
         AssignLayerMasks();
-        guardState = guardScript.guardState;
     }
 
     void GetComponents()
@@ -98,18 +96,19 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public void Update()
     {
-        sensingCollider.radius = fieldOfViewRadius;
+        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
         SpottedIndicatorHandler();
+
+        if (guardScript.guardState != GuardState.NORMAL) { return; }
+
+        sensingCollider.radius = fieldOfViewRadius;
 
         UpdateTimerSincePlayerWasSpotted();
 
         if (playerInRange)
             PlayerInSightCheck();
 
-        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
-
-        if (!guardScript.disabled)
-            DisabledGuardInSightCheck();
+        DisabledGuardInSightCheck();
     }
 
     void SpottedIndicatorHandler()
@@ -205,6 +204,27 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         }
     }
 
+    void SortDisabledGuardsFoundList()
+    {
+        disabledGuardsFound.Sort(SortByDistance);
+    }
+
+    int SortByDistance(Guard guard1Pos, Guard guard2Pos)
+    {
+        float distance1 = Vector3.Distance(guard1Pos.transform.position, playerVariables.playerTransform.position);
+        float distance2 = Vector3.Distance(guard2Pos.transform.position, playerVariables.playerTransform.position);
+
+        if (distance1 < distance2)
+        {
+            return -1;
+        }
+        else if (distance1 > distance2)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
     public bool PlayerDetectedCheck()
     {
         if (playerInSight && detectionAmount >= maxDetectionAmount)
@@ -227,6 +247,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         if (disabledGuardsFound.Count > 0)
         {
+            SortDisabledGuardsFoundList();
             return true;
         }
         return false;
@@ -301,9 +322,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public void Reset()
     {
         playerInSight = false;
-        canHear = false;
         suspicious = false;
-        playerInRange = false;
+        disabledGuardsFound.Clear();
     }
 
     public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)

@@ -36,7 +36,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector] public Color currentColor = Color.white;
     [HideInInspector] public CinemachineVirtualCamera vC;
 
-    [HideInInspector] public bool disabled = false;
+    /*[HideInInspector]*/ public bool disabled = false;
     [HideInInspector] public bool hacked = false;
     [HideInInspector] public bool assist = false;
 
@@ -46,6 +46,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public PlayerVariables playerVariables = null;
 
     private GameObject minimapIcon = null;
+    private MeshRenderer minimapIconMeshRenderer = null;
     [SerializeField] private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
 
@@ -73,13 +74,17 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     public void Update()
     {
+        MinimapCamera.updateIconSize(minimapIcon.transform);
+        ActivateMinimapIconCheck();
+        UpdateMinimapIconColor();
+        UpdateGuardState();
+
+        if(guardState != GuardState.NORMAL) { return; }
+
         if (sensing.PlayerDetectedCheck())
         {
             playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
         }
-
-        MinimapCamera.updateIconSize(minimapIcon.transform);
-        ActivateMinimapIconCheck();
     }
 
     void UpdateGuardState()
@@ -105,7 +110,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         while (true)
         {
-            guardBehavioralTree.Run();
+            if (GameHandler.currentState != GameState.MENU)
+            {
+                guardMovement.navMeshAgent.enabled = true;
+                guardBehavioralTree.Run();
+            }
+            else
+            {
+                guardMovement.navMeshAgent.enabled = false;
+            }
             yield return null;
         }
     }
@@ -128,6 +141,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     void InitMiniMap()
     {
         minimapIcon = transform.GetChild(0).gameObject;
+        minimapIconMeshRenderer = minimapIcon.GetComponent<MeshRenderer>();
         minimapIcon.SetActive(false);
         visibleInMiniMap = false;
     }
@@ -138,6 +152,18 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSpottedSubject.AddObserver(this);
     }
 
+    void UpdateMinimapIconColor()
+    {
+        if(disabled)
+        {
+            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.black, Time.deltaTime);
+        }
+        else
+        {
+            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.red, Time.deltaTime);
+        }
+    }
+    
     bool ActivateMinimapIconCheck()
     {
         RaycastHit raycastHit;
@@ -168,9 +194,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     public void PlayerSoundNotify(SoundType soundType, Vector3 position)
     {
+        if(guardState != GuardState.NORMAL) { return; }
+
         if (soundType == SoundType.WALKING)
         {
-            if (sensing.canHear && !disabled)
+            if (sensing.canHear)
             {
                 if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.sensingCollider.radius)
                 {
@@ -198,13 +226,12 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     public void PlayerSpottedNotify(Vector3 position)
     {
-        if (!disabled)
+        if (guardState != GuardState.NORMAL) { return; }
+
+        if (sensing.CalculateLength(position) <= guardVariables.maxBackupRadius)
         {
-            if (sensing.CalculateLength(position) <= guardVariables.maxBackupRadius)
-            {
-                assist = true;
-                guardMovement.SetAssistPosition(position);
-            }
+            assist = true;
+            guardMovement.SetAssistPosition(position);
         }
     }
 

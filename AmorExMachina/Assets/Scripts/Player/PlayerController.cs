@@ -195,31 +195,32 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void DisableGuardCheck()
     {
-        // Check if the guard is disabled, if so remove it from the list so we can't hack it again after the time limit/ not showing disable icon.
-        for(int i = 0; i < possibleGuardsToDisable.Count; i++)
-        {
-            if(possibleGuardsToDisable[i].disabled)
-            {
-                possibleGuardsToDisable.Remove(possibleGuardsToDisable[i]);
-            }
-        }
-
         // If there is a possible guard to disable, we get the closest one and check if we're in a specific angle and distance to the guard to disable it.
         if (possibleGuardsToDisable.Count > 0)
         {
             Guard closestGuard = GetClosestGuard();
-            Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
-            float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-            if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
+            if (closestGuard != null)
             {
-                interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
+                Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
+                float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
+                if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
                 {
-                    disabledGuard = closestGuard;
-                    if (disabledGuard != null)
+                    if (!closestGuard.disabled)
                     {
-                        audioManager.Play("DisableGuard", this.transform.position);
-                        disabledGuard.disabled = true;
+                        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                        if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
+                        {
+                            disabledGuard = closestGuard;
+                            if (disabledGuard != null)
+                            {
+                                audioManager.Play("DisableGuard", this.transform.position);
+                                disabledGuard.disabled = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
                     }
                 }
             }
@@ -237,7 +238,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             Guard tempScript = other.GetComponent<Guard>();
             //if(!possibleGuardsToDisable.Contains(tempScript))
-            if(!tempScript.disabled)
+            //if(!tempScript.disabled)
                 possibleGuardsToDisable.Add(tempScript);
         }
     }
@@ -258,15 +259,18 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         Guard closestGuard = null;
         float closestDistanceSquared = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-        for(int i = 0; i < possibleGuardsToDisable.Count; i++)
+        for (int i = 0; i < possibleGuardsToDisable.Count; i++)
         {
-            Vector3 directionToTarget = possibleGuardsToDisable[i].transform.position - currentPosition;
-            float distanceSquaredToTarget = directionToTarget.sqrMagnitude;
-            if (distanceSquaredToTarget < closestDistanceSquared)
-            {
-                closestDistanceSquared = distanceSquaredToTarget;
-                closestGuard = possibleGuardsToDisable[i];
-            }
+            //if (!possibleGuardsToDisable[i].disabled)
+            //{
+                Vector3 directionToTarget = possibleGuardsToDisable[i].transform.position - currentPosition;
+                float distanceSquaredToTarget = directionToTarget.sqrMagnitude;
+                if (distanceSquaredToTarget < closestDistanceSquared)
+                {
+                    closestDistanceSquared = distanceSquaredToTarget;
+                    closestGuard = possibleGuardsToDisable[i];
+                }
+            //}
         }
         return closestGuard;
     }

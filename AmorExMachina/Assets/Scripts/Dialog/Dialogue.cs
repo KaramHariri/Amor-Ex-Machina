@@ -17,12 +17,16 @@ public class Dialogue : MonoBehaviour
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
 
+    [SerializeField] private Settings settings = null;
 
     private void Start()
     {
         dialogueText = dialogueGameObject.GetComponent<Text>();
         dialogueAudio = dialogueGameObject.GetComponent<AudioSource>();
         dialogueGameObject.SetActive(false);
+        dialogueAudio.volume = settings.voiceVolume * settings.masterVolume;
+        dialogueAudio.loop = false;
+        dialogueAudio.playOnAwake = false;
     }
 
     private void Update()
@@ -37,6 +41,7 @@ public class Dialogue : MonoBehaviour
             dialoguePlayed = true;
             dialogueGameObject.SetActive(true);
             dialogueAudio.clip = sentenceAudio;
+            dialogueAudio.volume = settings.voiceVolume * settings.masterVolume;
             dialogueAudio.Play();
             StopAllCoroutines();
             StartCoroutine(TypeSentence());
@@ -46,13 +51,16 @@ public class Dialogue : MonoBehaviour
     IEnumerator TypeSentence()
     {
         dialogueText.text = "";
-        foreach (char letter in sentence.ToCharArray())
+        if (settings.subtitle)
         {
-            dialogueText.text += letter;
-            yield return null;
+            foreach (char letter in sentence.ToCharArray())
+            {
+                dialogueText.text += letter;
+                yield return null;
+            }
+            Debug.Log("finished typing");
+            finishedTyping = true;
         }
-        Debug.Log("finished typing");
-        finishedTyping = true;
     }
 
     void DeactivateDialogueCheck()

@@ -10,7 +10,6 @@
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.FAILURE;
-        nodeState = NodeState.SUCCESS;
         guard.currentColor = UnityEngine.Color.Lerp(guard.currentColor, guard.guardVariables.patrolColor, UnityEngine.Time.deltaTime);
         guard.meshRenderer.material.color = guard.currentColor;
 

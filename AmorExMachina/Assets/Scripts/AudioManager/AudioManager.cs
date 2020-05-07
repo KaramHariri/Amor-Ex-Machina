@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        //settings.masterVolume = 0.5f;
         foreach (Audio aud in soundFX)
         {
             aud.aS = gameObject.AddComponent<AudioSource>();
@@ -77,6 +78,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
         aud.aS.clip = aud.clip[UnityEngine.Random.Range(0, aud.clip.Length)];
+        SetVolumeFromSettings(aud);
         aud.aS.volume = aud.volume * (1 + UnityEngine.Random.Range(-aud.randomVolume / 2f, aud.randomVolume / 2));
         aud.aS.pitch = aud.pitch * (1 + UnityEngine.Random.Range(-aud.randomPitch / 2f, aud.randomPitch / 2));
         if (!aud.aS.isPlaying)
@@ -93,20 +95,21 @@ public class AudioManager : MonoBehaviour
 
     public void UpdateBackGroundMusic(PlayerState playerState)
     {
+        musicVolume = settings.musicVolume * settings.masterVolume;
         switch (playerState)
         {
             case PlayerState.SPOTTED:
-                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, musicVolume, Time.deltaTime);
-                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime);
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, musicVolume, Time.deltaTime * 2.0f);
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime * 2.0f);
                 break;
             case PlayerState.NOTSPOTTED:
-                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, musicVolume, Time.deltaTime);
-                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime);
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, musicVolume, Time.deltaTime * 2.0f);
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime * 2.0f);
                 break;
             case PlayerState.CAUGHT:
-                gameOver.aS.volume = Mathf.Lerp(gameOver.aS.volume, musicVolume, Time.deltaTime);
-                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime);
-                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime);
+                gameOver.aS.volume = Mathf.Lerp(gameOver.aS.volume, musicVolume, Time.deltaTime * 2.0f);
+                guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime * 2.0f);
+                generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime * 2.0f);
                 break;
             default:
                 break;
@@ -213,7 +216,7 @@ public class AudioManager : MonoBehaviour
                 default:
                     break;
             }
-            musicVolume = audio.volume;
+            musicVolume = settings.musicVolume;
         }
     }
 }

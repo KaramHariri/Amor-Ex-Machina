@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 7934396710864760483}
   - component: {fileID: 4764624099325710479}
   - component: {fileID: 4764624099325711216}
-  - component: {fileID: 2340693448136449134}
+  - component: {fileID: 2326247304965745350}
   - component: {fileID: 4764624099325711217}
   m_Layer: 9
   m_Name: Guard
@@ -312,6 +312,7 @@ MonoBehaviour:
   sensing: {fileID: 0}
   meshRenderer: {fileID: 0}
   currentColor: {r: 0, g: 0, b: 0, a: 0}
+  vC: {fileID: 0}
   disabled: 0
   hacked: 0
   assist: 0
@@ -320,7 +321,6 @@ MonoBehaviour:
     type: 2}
   guardVariables: {fileID: 11400000, guid: 4d8ea77fbb0df3d43b1b8f615dbc090e, type: 2}
   playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
-  vC: {fileID: 0}
   visibleInMiniMap: 0
   raycastCheckLayer:
     serializedVersion: 2
@@ -347,7 +347,6 @@ MonoBehaviour:
   assistPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   idle: 0
-  drawWayPointGizmos: 1
 --- !u!114 &4764624099325710478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +362,8 @@ MonoBehaviour:
   canHear: 0
   suspicious: 0
   distracted: 0
+  playerInRange: 0
+  playerInSight: 0
   showSensingSphere: 0
   showFieldOfView: 0
   fieldOfViewRadius: 20
@@ -427,8 +428,8 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &2340693448136449134
-BoxCollider:
+--- !u!136 &2326247304965745350
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -437,8 +438,9 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3, y: 2, z: 1.3}
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4764624099325711217
 Rigidbody:

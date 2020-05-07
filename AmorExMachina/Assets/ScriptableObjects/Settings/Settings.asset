@@ -16,10 +16,10 @@ MonoBehaviour:
   subtitle: 1
   thirdPersonLookSensitivity: 150
   firstPersonLookSensitivity: 150
-  masterVolume: 0
-  effectsVolume: 0.3
-  footstepsVolume: 0.5
-  voiceVolume: 0.7
+  masterVolume: 1
+  effectsVolume: 0.70000005
+  footstepsVolume: 0.70000005
+  voiceVolume: 0.5999999
   musicVolume: 0.5
   rotatePuzzleArrowKeyboard: 102
   activateButtonInPuzzleKeyboard: 101

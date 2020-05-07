@@ -43,6 +43,7 @@ public class SlidingDoor : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & LayersToDetect) == 0) { return; }
 
+        if (other is SphereCollider) { return; }
         inRange.Add(other.transform);
         state = slidingDoorState.OPEN;
         StartAnimating();

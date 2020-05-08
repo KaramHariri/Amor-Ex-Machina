@@ -24,6 +24,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
     GameObject crossButton = null;
 
     Text hackingTimer = null;
+    GameObject hackingSlider = null;
+    Image hackingSliderFill = null;
+
 
     #region Delegates
     public static Action<Transform> createIndicator = delegate { };
@@ -48,8 +51,11 @@ public class UIManager : MonoBehaviour, IInteractionButton
         crossButton.SetActive(false);
 
         hackingTimer = GameObject.Find("HackingTimer").GetComponent<Text>();
-        Debug.Log(hackingTimer.gameObject.name);
         hackingTimer.gameObject.SetActive(false);
+        hackingSlider = GameObject.Find("HackingSlider");
+        hackingSliderFill = hackingSlider.transform.GetChild(hackingSlider.transform.childCount - 1).GetComponent<Image>();
+        hackingSliderFill.fillAmount = 1.0f;
+        hackingSlider.SetActive(false);
     }
 
     private void OnEnable()
@@ -97,17 +103,22 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         hackingTimer.text = "0.0";
         hackingTimer.gameObject.SetActive(true);
+        hackingSliderFill.fillAmount = 1.0f;
+        hackingSlider.SetActive(true);
     }
 
     void UpdateTimer(float currentTime)
     {
         hackingTimer.text = currentTime.ToString("F1");
+        hackingSliderFill.fillAmount = currentTime / 20.0f;
     }
 
     void DeactivateTimer()
     {
         hackingTimer.text = "";
+        hackingSliderFill.fillAmount = 0.0f;
         hackingTimer.gameObject.SetActive(false);
+        hackingSlider.SetActive(false);
     }
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)

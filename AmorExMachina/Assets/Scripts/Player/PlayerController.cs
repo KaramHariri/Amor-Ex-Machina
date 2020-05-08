@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
         else
         {
-            hackingTimer = 0.0f;
+            hackingTimer = maxHackingTimer;
         }
 
         GetInput();
@@ -117,10 +117,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void UpdateHackingTimer()
     {
-        hackingTimer += Time.deltaTime;
-        if (hackingTimer >= maxHackingTimer)
+        hackingTimer -= Time.deltaTime;
+        if (hackingTimer <= 0.0f)
         {
-            hackingTimer = maxHackingTimer;
+            hackingTimer = 0.0f;
             UIManager.deactivateTimer();
 
             disabledGuard.hacked = false;
@@ -176,10 +176,20 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
+
+        if(Input.GetKey(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.LeftShift))
         {
-            sneaking = !sneaking;
+            sneaking = false;
         }
+        else
+        {
+            sneaking = true;
+        }
+
+        //if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
+        //{
+        //    sneaking = !sneaking;
+        //}
     }
 
     void FirstPersonRotationHandling()
@@ -236,7 +246,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             {
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
+                //if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
+                if (!closestGuard.sensing.Suspicious() && !closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && targetToPlayerDirection.magnitude <= disableDistance)
                 {
                     if (!closestGuard.disabled)
                     {

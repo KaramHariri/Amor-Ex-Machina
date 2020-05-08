@@ -44,6 +44,14 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [Header("Scriptable Objects")]
     public GuardDisabledSubject guardDisabledSubject = null;
 
+    [Header("Distance based values")]
+    public float maxDistanceValue = 0.6f;
+    public float minDistanceValue = 2.0f;
+    private Transform playerTransform;
+    private float distancePercent = 0f;
+    private float valueDifference = 0f;
+    private float distanceFactorAmount = 0f;
+
     public void GuardSensingAwake()
     {
         GetComponents();
@@ -58,6 +66,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         guardScript = GetComponent<Guard>();
+
+        //Added 2020-05-08
+        playerTransform = GameObject.Find("Gabriel").GetComponent<Transform>();
     }
 
     void AssignGuardAndPlayerVariables()
@@ -119,7 +130,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         if (playerInSight)
         {
-            detectionAmount += Time.deltaTime;
+            {   //These are the things changed for the distance to player sensing //Changed 2020-05-08
+                //detectionAmount += Time.deltaTime; 
+                CalculateDistanceFactor();
+                detectionAmount += Time.deltaTime * distanceFactorAmount;
+            }
             if (detectionAmount >= maxDetectionAmount)
                 detectionAmount = maxDetectionAmount;
 
@@ -355,5 +370,20 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     void OnDestroy()
     {
         guardDisabledSubject.RemoveObserver(this);
+    }
+
+    //Added 2020-05-08
+    private void CalculateDistanceFactor()
+    {
+        if(playerTransform == null) { Debug.Log("Can't find player transform"); return; }
+
+        //We probably want to do this in start once we have good values in order to get better preformance, but for now this will allow us to modify the values in real time
+        valueDifference = maxDistanceValue - minDistanceValue;
+
+        //The distance for hearing is a bit different from sight so in order to have a proper one for hearing we'd use different metrics. (Hearing doesn't go through walls)
+        distancePercent = (Vector3.Distance(playerTransform.position, transform.position) / fieldOfViewRadius);
+
+        distanceFactorAmount = minDistanceValue + distancePercent * valueDifference;
+        Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);
     }
 }

@@ -6,11 +6,17 @@ using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
+    SceneHandler sceneHandler = null;
     [SerializeField] OptionsMenu optionsMenu = null;
     [SerializeField] EventSystem eventSystem = null;
     [SerializeField] AudioSource mainMenuAudio = null;
 
     GameObject currentSelectedButton = null;
+
+    private void Awake()
+    {
+        sceneHandler = SceneHandler.instance;    
+    }
 
     private void Start()
     {
@@ -26,7 +32,8 @@ public class MainMenu : MonoBehaviour
 
     public void NewGameButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //sceneHandler.LoadNextScene();
+        sceneHandler.StartLoadNextSceneCoroutine();
     }
 
     public void LoadGame()

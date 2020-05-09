@@ -34,7 +34,7 @@
     SucceederNode disabledGuardFoundSucceeder;
     SequenceNode disabledGuardFound;
     MoveToDisabledGuardPosition moveToDisabledGuardPosition;
-    EnableGuard wakeUpDisabledGuard;
+    EnableGuard enableDisabledGuard;
 
     // Patrol
     SelectorNode movementCheck;
@@ -89,7 +89,7 @@
         disabledGuardFoundSucceeder = new SucceederNode();
         disabledGuardFound = new SequenceNode();
         moveToDisabledGuardPosition = new MoveToDisabledGuardPosition(agent);
-        wakeUpDisabledGuard = new EnableGuard(agent);
+        enableDisabledGuard = new EnableGuard(agent);
 
         // Patrol
         movementCheck = new SelectorNode();
@@ -138,7 +138,7 @@
         disabledGuard.AddChild(disabledGuardFoundSucceeder);
         disabledGuardFoundSucceeder.AddChild(disabledGuardFound);
         disabledGuardFound.AddChild(moveToDisabledGuardPosition);
-        disabledGuardFound.AddChild(wakeUpDisabledGuard);
+        disabledGuardFound.AddChild(enableDisabledGuard);
 
         // Patrol
         rootNode.AddChild(movementCheck);

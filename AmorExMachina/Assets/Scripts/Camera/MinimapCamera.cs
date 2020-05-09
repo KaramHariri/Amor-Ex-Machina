@@ -7,6 +7,7 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 {
     [SerializeField] private PlayerVariables playerVariables = null;
     [SerializeField] private GuardHackedSubject guardHackedSubject = null;
+    [SerializeField] private Settings settings = null;
 
     private Camera mainCamera = null;
     private Camera minimapCamera = null;
@@ -44,7 +45,7 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 
     private void Update()
     {
-        if( Input.GetButtonDown("SwitchingCamera"))
+        if( Input.GetKeyDown(settings.cameraToggleController) || Input.GetKeyDown(settings.cameraToggleKeyboard))
         {
             firstPersonCamera = !firstPersonCamera;
         }

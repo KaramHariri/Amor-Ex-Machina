@@ -24,9 +24,10 @@ public enum GuardState
 
 public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 {
+    [Header("Guard Movement")]
     public GuardType guardType = GuardType.MOVING;
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
-    public GuardState guardState = GuardState.NORMAL;
+    [HideInInspector] public GuardState guardState = GuardState.NORMAL;
 
     [HideInInspector] public GuardMovement guardMovement = null;
     [HideInInspector] public GuardSensing sensing = null;
@@ -36,10 +37,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector] public Color currentColor = Color.white;
     [HideInInspector] public CinemachineVirtualCamera vC;
 
-    /*[HideInInspector]*/ public bool disabled = false;
+    [HideInInspector] public bool disabled = false;
     [HideInInspector] public bool hacked = false;
     [HideInInspector] public bool assist = false;
 
+    [Header("Scriptable Objects")]
     public PlayerSoundSubject playerSoundSubject = null;
     public PlayerSpottedSubject playerSpottedSubject = null;
     public GuardVariables guardVariables = null;
@@ -47,10 +49,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     private GameObject minimapIcon = null;
     private MeshRenderer minimapIconMeshRenderer = null;
-    [SerializeField] private bool visibleInMiniMap = false;
+    private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
 
-    [SerializeField] LayerMask raycastCheckLayer = 0;
+    LayerMask raycastCheckLayer = 0;
+    private AudioManager audioManager = null;
 
     public void Awake()
     {
@@ -61,6 +64,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         sensing.GuardSensingAwake();
         guardMovement.GuardMovementAwake();
 
+        audioManager = FindObjectOfType<AudioManager>();
         currentColor = guardVariables.patrolColor;
         mainCamera = Camera.main;
         raycastCheckLayer = LayerMask.GetMask("Walls");
@@ -184,6 +188,11 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             return true;
         }
         return false;
+    }
+
+    public void PlayEnablingSound(Vector3 position)
+    {
+        audioManager.Play("EnableGuard", position);
     }
 
     bool GuardInCameraFieldOfView()

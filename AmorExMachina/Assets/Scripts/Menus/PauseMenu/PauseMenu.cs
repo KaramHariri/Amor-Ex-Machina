@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -38,7 +39,8 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("Load Game Pressed !");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameHandler.reloadSceneButton();
     }
 
     public void Settings()

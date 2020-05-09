@@ -40,6 +40,8 @@ public class ThirdPersonCinemachine : MonoBehaviour
         cinemachineFreeLook = GetComponent<CinemachineFreeLook>();
         cinemachineFreeLook.m_YAxis.Value = 0.5f;
         cinemachineFreeLook.m_Priority = priority;
+
+        useMouseInput = false;
         
         playerCamerasVariables.thirdPersonCameraTransform = this.transform;
         playerCamerasVariables.thirdPersonCamera = cinemachineFreeLook;
@@ -143,16 +145,16 @@ public class ThirdPersonCinemachine : MonoBehaviour
         cinemachineFreeLook.m_Orbits[2].m_Radius = bottomRingRadius;
 
         ControllerConnectedCheck();
-        //if (useMouseInput)
-        //{
-        //    cinemachineFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-        //    cinemachineFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
-        //}
-        //else
-        //{
-        //    cinemachineFreeLook.m_YAxis.m_InputAxisName = "CameraVerticalAxis";
-        //    cinemachineFreeLook.m_XAxis.m_InputAxisName = "CameraHorizontalAxis";
-        //}
+        if (useMouseInput)
+        {
+            cinemachineFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+            cinemachineFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+        }
+        else
+        {
+            cinemachineFreeLook.m_YAxis.m_InputAxisName = "CameraVerticalAxis";
+            cinemachineFreeLook.m_XAxis.m_InputAxisName = "CameraHorizontalAxis";
+        }
 
         UpdateThirdPersonCameraVariables();
     }

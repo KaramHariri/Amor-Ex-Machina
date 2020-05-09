@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 {
@@ -11,8 +12,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private float verticalInput = 0.0f;
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
-    private bool sneaking = false;
-    private bool controlling = false;
+    private bool sneaking = true;
+    private bool hacking = false;
     
     private Rigidbody rb = null;
     private Guard disabledGuard = null;
@@ -26,6 +27,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public PlayerSpottedSubject playerSpottedSubject = null;
     public InteractionButtonSubject interactionButtonSubject = null;
     #endregion
+
+    [SerializeField] private float hackingTimer = 0.0f;
+    [SerializeField] private float maxHackingTimer = 20.0f;
 
     private GameObject minimapIcon = null;
     private AudioManager audioManager = null;
@@ -62,6 +66,16 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         if (playerVariables.caught)
         {
             GameHandler.currentState = GameState.LOST;
+        }
+
+        if (hacking)
+        {
+            UpdateHackingTimer();
+            UIManager.updateTimer(hackingTimer);
+        }
+        else
+        {
+            hackingTimer = maxHackingTimer;
         }
 
         GetInput();
@@ -101,6 +115,23 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
     }
 
+    void UpdateHackingTimer()
+    {
+        hackingTimer -= Time.deltaTime;
+        if (hackingTimer <= 0.0f)
+        {
+            hackingTimer = 0.0f;
+            UIManager.deactivateTimer();
+
+            disabledGuard.hacked = false;
+            disabledGuard = null;
+            hacking = false;
+            guardHackedSubject.GuardHackedNotify("");
+            audioManager.Play("HackGuard", this.transform.position);
+            GameHandler.currentState = GameState.NORMALGAME;
+        }
+    }
+
     void PlayerIsKinematicCheck()
     {
         if (GameHandler.currentState != GameState.NORMALGAME)
@@ -117,21 +148,23 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if (playerVariables.canHackGuard)
         {
-            if (disabledGuard != null && !controlling && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            if (disabledGuard != null && !hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
-                controlling = true;
+                hacking = true;
                 guardHackedSubject.GuardHackedNotify(disabledGuard.name);
                 audioManager.Play("HackGuard", this.transform.position);
+                UIManager.activateTimer();
                 GameHandler.currentState = GameState.HACKING;
                 return;
             }
-            else if (disabledGuard != null && controlling && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            else if (disabledGuard != null && hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
             {
                 disabledGuard.hacked = false;
-                controlling = false;
+                hacking = false;
                 guardHackedSubject.GuardHackedNotify("");
                 audioManager.Play("HackGuard", this.transform.position);
+                UIManager.deactivateTimer();
                 GameHandler.currentState = GameState.NORMALGAME;
                 disabledGuard = null;
                 return;
@@ -143,10 +176,20 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
+
+        if(Input.GetKey(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.LeftShift))
         {
-            sneaking = !sneaking;
+            sneaking = false;
         }
+        else
+        {
+            sneaking = true;
+        }
+
+        //if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
+        //{
+        //    sneaking = !sneaking;
+        //}
     }
 
     void FirstPersonRotationHandling()
@@ -203,7 +246,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             {
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
+                //if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
+                if (!closestGuard.sensing.Suspicious() && !closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && targetToPlayerDirection.magnitude <= disableDistance)
                 {
                     if (!closestGuard.disabled)
                     {
@@ -283,9 +327,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             disabledGuard.hacked = false;
             disabledGuard = null;
-            controlling = false;
+            hacking = false;
             guardHackedSubject.GuardHackedNotify("");
-            audioManager.Play("HackGuard", this.transform.position);
+            if(hacking)
+                audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }

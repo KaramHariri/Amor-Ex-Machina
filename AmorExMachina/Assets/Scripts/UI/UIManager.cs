@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public enum InteractionButtons
 {
@@ -18,13 +19,23 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private Dictionary<Transform, SpottedIndicator> indicators = new Dictionary<Transform, SpottedIndicator>();
 
     [SerializeField] InteractionButtonSubject InteractionButtonSubject = null;
+
     GameObject circleButton = null;
     GameObject crossButton = null;
+
+    Text hackingTimer = null;
+    GameObject hackingSlider = null;
+    Image hackingSliderFill = null;
+
 
     #region Delegates
     public static Action<Transform> createIndicator = delegate { };
     public static Action<Transform, IndicatorColor> updateIndicator = delegate { };
     public static Action<Transform> removeIndicator = delegate { };
+
+    public static Action activateTimer = delegate { };
+    public static Action<float> updateTimer = delegate { };
+    public static Action deactivateTimer = delegate { };
     #endregion
 
     void Awake()
@@ -38,6 +49,13 @@ public class UIManager : MonoBehaviour, IInteractionButton
         circleButton.SetActive(false);
         crossButton = GameObject.Find("CrossButton");
         crossButton.SetActive(false);
+
+        hackingTimer = GameObject.Find("HackingTimer").GetComponent<Text>();
+        hackingTimer.gameObject.SetActive(false);
+        hackingSlider = GameObject.Find("HackingSlider");
+        hackingSliderFill = hackingSlider.transform.GetChild(hackingSlider.transform.childCount - 1).GetComponent<Image>();
+        hackingSliderFill.fillAmount = 1.0f;
+        hackingSlider.SetActive(false);
     }
 
     private void OnEnable()
@@ -45,14 +63,18 @@ public class UIManager : MonoBehaviour, IInteractionButton
         createIndicator += CreateIndicator;
         removeIndicator += RemoveIndicator;
         updateIndicator += UpdateIndicator;
+
+        activateTimer += ActivateTimer;
+        updateTimer += UpdateTimer;
+        deactivateTimer += DeactivateTimer;
     }
 
-    private void OnDisable()
-    {
-        createIndicator -= CreateIndicator;
-        removeIndicator -= RemoveIndicator;
-        updateIndicator -= UpdateIndicator;
-    }
+    //private void OnDisable()
+    //{
+    //    createIndicator -= CreateIndicator;
+    //    removeIndicator -= RemoveIndicator;
+    //    updateIndicator -= UpdateIndicator;
+    //}
 
     void CreateIndicator(Transform target)
     {
@@ -75,6 +97,28 @@ public class UIManager : MonoBehaviour, IInteractionButton
             indicators[target].UnRegister();
             indicators.Remove(target);
         }
+    }
+
+    void ActivateTimer()
+    {
+        hackingTimer.text = "0.0";
+        hackingTimer.gameObject.SetActive(true);
+        hackingSliderFill.fillAmount = 1.0f;
+        hackingSlider.SetActive(true);
+    }
+
+    void UpdateTimer(float currentTime)
+    {
+        hackingTimer.text = currentTime.ToString("F1");
+        hackingSliderFill.fillAmount = currentTime / 20.0f;
+    }
+
+    void DeactivateTimer()
+    {
+        hackingTimer.text = "";
+        hackingSliderFill.fillAmount = 0.0f;
+        hackingTimer.gameObject.SetActive(false);
+        hackingSlider.SetActive(false);
     }
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)
@@ -118,5 +162,12 @@ public class UIManager : MonoBehaviour, IInteractionButton
     void OnDestroy()
     {
         InteractionButtonSubject.RemoveObserver(this);
+        createIndicator -= CreateIndicator;
+        removeIndicator -= RemoveIndicator;
+        updateIndicator -= UpdateIndicator;
+
+        activateTimer -= ActivateTimer;
+        updateTimer -= UpdateTimer;
+        deactivateTimer -= DeactivateTimer;
     }
 }

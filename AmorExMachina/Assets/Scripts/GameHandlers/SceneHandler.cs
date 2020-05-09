@@ -64,6 +64,23 @@ public class SceneHandler : MonoBehaviour
         StartCoroutine("GetSceneLoadProgress");
     }
 
+    public void StartReloadSceneCoroutine()
+    {
+        StartCoroutine("ReloadScene");
+    }
+
+    IEnumerator ReloadScene()
+    {
+        canvasGroup.alpha = 1.0f;
+        scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
+
+        yield return new WaitForSeconds(0.5f);
+
+        scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
+
+        StartCoroutine("GetSceneLoadProgress");
+    }
+
     public void LoadFromFile()
     {
         canvasGroup.alpha = 1.0f;

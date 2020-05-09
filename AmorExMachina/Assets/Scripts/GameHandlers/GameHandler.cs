@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System;
 
 public enum GameState
 {
@@ -33,6 +34,10 @@ public class GameHandler : MonoBehaviour
     private AudioManager audioManager = null;
     [SerializeField] private PlayerVariables playerVariables = null;
 
+    private SceneHandler sceneHandler = null;
+
+    public static Action reloadSceneButton = delegate { };
+
     private void Awake()
     {
         FindAllGuards();
@@ -40,6 +45,7 @@ public class GameHandler : MonoBehaviour
         previousState = currentState;
         audioManager = FindObjectOfType<AudioManager>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        sceneHandler = SceneHandler.instance;
     }
 
     void Update()
@@ -60,6 +66,37 @@ public class GameHandler : MonoBehaviour
         GuardSpottedPlayerCheck();
         PlayerCaughtCheck();
         audioManager.UpdateBackGroundMusic(playerState);
+    }
+
+    public void StartReloadingSceneCoroutine()
+    {
+
+    }
+
+    IEnumerator ReloadSceneCoroutine()
+    {
+        if(sceneHandler != null)
+        {
+            yield return new WaitForSeconds(3.0f);
+            sceneHandler.StartReloadSceneCoroutine();
+        }
+        else
+        {
+            yield return new WaitForSeconds(3.0f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    void ReloadSceneButton()
+    {
+        if(sceneHandler != null)
+        {
+            sceneHandler.StartReloadSceneCoroutine();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void FindAllGuards()
@@ -104,6 +141,16 @@ public class GameHandler : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
+    }
+
+    private void OnEnable()
+    {
+        reloadSceneButton += ReloadSceneButton;
+    }
+
+    private void OnDestroy()
+    {
+        reloadSceneButton -= ReloadSceneButton;
     }
 
 }

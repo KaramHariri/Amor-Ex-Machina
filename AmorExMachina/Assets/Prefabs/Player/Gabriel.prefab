@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1239064952944826113}
   - component: {fileID: 1239064952944826114}
   - component: {fileID: 1239064952944826115}
+  - component: {fileID: 8917884229722887577}
   m_Layer: 10
   m_Name: Gabriel
   m_TagString: Player

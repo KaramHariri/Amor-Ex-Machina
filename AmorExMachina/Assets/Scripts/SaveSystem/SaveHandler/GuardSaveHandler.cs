@@ -1,31 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Guard))]
 public class GuardSaveHandler : MonoBehaviour
 {
     Guard guardScript;
     GuardData data = new GuardData();
-    int indexInGuardData = 0;
 
     void Start()
     {
-        Debug.Log("Added guard to guardData");
-
         guardScript = GetComponent<Guard>();
+        data.id = SceneManager.GetActiveScene().name + guardScript.transform.GetSiblingIndex();
+        if(!SaveData.current.guards.ContainsKey(data.id))
+        {
+            //SaveData.current.guardData.Add(data);
+            Debug.Log("Added guard to guards");
+            SaveData.current.guards.Add(data.id, data);
 
-        indexInGuardData = SaveData.current.guardData.Count;
-        SaveData.current.guardData.Add(data);
 
-        GameEvents.current.onSaveDataEvent += SaveGuardData;
-        GameEvents.current.onLoadDataEvent += LoadGuardData;
+            GameEvents.current.onSaveDataEvent += SaveGuardData;
+            GameEvents.current.onLoadDataEvent += LoadGuardData;
+        }
+        else 
+        { 
+            Debug.Log("Already have an object with this ID"); 
+        }
+
     }
 
 
     private void SaveGuardData()
     {
-        Debug.Log("Guard updating data");
+        //Debug.Log("Guard updating data");
         //Debug.Log("Position: (" + transform.position.x + ", " + transform.position.y + ", " + transform.position.z + ")");
         //Debug.Log("rotation: " + transform.rotation.eulerAngles);
 
@@ -33,17 +41,21 @@ public class GuardSaveHandler : MonoBehaviour
         //data.rotation = transform.rotation;
         //data.isDisabled = guardScript.disabled;
 
-        SaveData.current.guardData[indexInGuardData].position = transform.position;
-        SaveData.current.guardData[indexInGuardData].rotation = transform.rotation;
-        SaveData.current.guardData[indexInGuardData].isDisabled = guardScript.disabled;
+        //SaveData.current.guardData[indexInGuardData].position = transform.position;
+        //SaveData.current.guardData[indexInGuardData].rotation = transform.rotation;
+        //SaveData.current.guardData[indexInGuardData].isDisabled = guardScript.disabled;
+
+        SaveData.current.guards[data.id].position = transform.position;
+        SaveData.current.guards[data.id].rotation = transform.rotation;
+        SaveData.current.guards[data.id].isDisabled = guardScript.disabled;
     }
 
     private void LoadGuardData()
     {
-        Debug.Log("Guard loading data");
-        transform.position = SaveData.current.guardData[indexInGuardData].position;
-        transform.rotation = SaveData.current.guardData[indexInGuardData].rotation;
-        guardScript.disabled = SaveData.current.guardData[indexInGuardData].isDisabled;
+        //Debug.Log("Guard loading data");
+        transform.position = SaveData.current.guards[data.id].position;
+        transform.rotation = SaveData.current.guards[data.id].rotation;
+        guardScript.disabled = SaveData.current.guards[data.id].isDisabled;
         guardScript.sensing.Reset();
     }
 }

@@ -9,7 +9,7 @@ public class SceneHandler : MonoBehaviour
 {
     public static SceneHandler instance;
     public static int currentLevelIndex = 0;
-    public static bool loadFromFile = false;
+    public static bool shouldLoadFromFile = false;
 
     public GameObject loadingScreen;
     public CanvasGroup canvasGroup;
@@ -20,6 +20,10 @@ public class SceneHandler : MonoBehaviour
 
     public static Action loadNextScene = delegate { };
 
+    //SaveSystem
+    private int currentSaveFileIndex = 0;
+    private int numberOfSaveFiles = 3;
+    [SerializeField] private int loadIndex = 0;
     private void OnEnable()
     {
         //loadNextScene += LoadNextScene;
@@ -32,6 +36,24 @@ public class SceneHandler : MonoBehaviour
         canvasGroup.alpha = 0.0f;
         currentLevelIndex = 0;
         SceneManager.LoadSceneAsync((int)currentLevelIndex, LoadSceneMode.Additive);
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            LoadFromFile();
+        }
+    }
+
+    public int GetCurrentSaveFileIndex()
+    {
+        return currentSaveFileIndex;
+    }
+
+    public void IncreaseSaveFileIndex()
+    {
+        currentSaveFileIndex = (currentSaveFileIndex+1) % numberOfSaveFiles;
     }
 
     //public void LoadNextScene()
@@ -52,6 +74,7 @@ public class SceneHandler : MonoBehaviour
 
     IEnumerator LoadNextLevel()
     {
+        shouldLoadFromFile = false;
         canvasGroup.alpha = 1.0f;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
 
@@ -93,9 +116,16 @@ public class SceneHandler : MonoBehaviour
             }
         }
 
+        if(shouldLoadFromFile == true)
+        {
+            //SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (currentSaveFileIndex - 1) + ".save");
+            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (loadIndex) + ".save");
+            GameEvents.current.LoadDataEvent();
+            yield return new WaitForSeconds(0.5f);
+        }
+
         // Wait half a second to load from file
         // LoadFromFile.instance.loadFromFile(path);    // this is just an example
-        // yield return new WaitForSeconds(0.5f);
 
         canvasGroup.alpha = 0.0f;
     }

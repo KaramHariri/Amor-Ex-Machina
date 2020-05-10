@@ -29,4 +29,7 @@ public class SaveData
 
     public List<GuardData> guardData = new List<GuardData>();
     public PlayerData playerData = new PlayerData();
+    public Dictionary<string, GuardData> guards = new Dictionary<string, GuardData>();
+    public Dictionary<string, CheckpointData> checkpoints = new Dictionary<string, CheckpointData>();
+
 }

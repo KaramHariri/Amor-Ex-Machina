@@ -12,14 +12,14 @@ public class PlayerSaveHandler : MonoBehaviour
 
     void SavePlayerData()
     {
-        Debug.Log("Saving player data");
+        //Debug.Log("Saving player data");
         SaveData.current.playerData.position = transform.position;
         SaveData.current.playerData.rotation = transform.rotation;
     }
 
     void LoadPlayerData()
     {
-        Debug.Log("Loading player data");
+        //Debug.Log("Loading player data");
         transform.position = SaveData.current.playerData.position;
         transform.rotation = SaveData.current.playerData.rotation;
     }

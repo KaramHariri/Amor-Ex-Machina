@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GuardData 
+public class CheckpointData
 {
     public string id;
-    public Vector3 position;
-    public Quaternion rotation;
-    public bool isDisabled;
+    public bool hasUpdated = false;
 }

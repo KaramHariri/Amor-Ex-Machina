@@ -314,6 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061147443}
   - component: {fileID: 1061147444}
+  - component: {fileID: 1061147445}
   m_Layer: 0
   m_Name: SceneHandler
   m_TagString: Untagged
@@ -350,6 +351,20 @@ MonoBehaviour:
   loadingScreen: {fileID: 153052574}
   canvasGroup: {fileID: 1811776092}
   progressBarFill: {fileID: 1267037344}
+  loadIndex: 0
+--- !u!114 &1061147445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061147442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8169e038757d2ea4691238dadb31aa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guards: []
 --- !u!1 &1157493459
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,10 +15,13 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     public Settings settings = null;
     private AudioManager audioManager = null;
 
+    private RadialBlurEffect radialBlurEffect = null;
+
     private void Start()
     {
         Camera mainCamera = Camera.main;
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
+        radialBlurEffect = mainCamera.GetComponent<RadialBlurEffect>();
         switchedToFirstPersonCamera = false;
         playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
         AddGuardVirtualCamerasToDictionary();
@@ -31,6 +34,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     {
         if (GameHandler.currentState != GameState.NORMALGAME) { return; }
         SwitchPlayerCameraCheck();
+        ActivateBlurCheck();
     }
 
     void SwitchPlayerCameraCheck()
@@ -72,6 +76,24 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         {
             guardsVirtualCameras.Add(GameHandler.guards[i].name, GameHandler.guards[i].vC);
         }
+    }
+
+    void ActivateBlurCheck()
+    {
+        if (cinemachineBrain.IsBlending)
+        {
+            radialBlurEffect.blurAmount = Mathf.Lerp(radialBlurEffect.blurAmount, radialBlurEffect.maxBlurAmount, Time.deltaTime * 2.0f);
+        }
+        else
+        {
+            radialBlurEffect.blurAmount = Mathf.Lerp(radialBlurEffect.blurAmount, 0.0f, Time.deltaTime * radialBlurEffect.blurFadeOutSpeed);
+        }
+    }
+
+    IEnumerator StartActivatingBlurEffect()
+    {
+        ActivateBlurCheck();
+        yield return null;
     }
 
     public void GuardHackedNotify(string guardName)

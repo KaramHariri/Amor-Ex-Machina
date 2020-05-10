@@ -6877,7 +6877,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Crouch/Walk
+  m_Text: Sprint
 --- !u!1 &6525059486626720378
 GameObject:
   m_ObjectHideFlags: 0
@@ -13040,7 +13040,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Crouch/Walk
+  m_Text: Sprint
 --- !u!1 &6845697605807740625
 GameObject:
   m_ObjectHideFlags: 0

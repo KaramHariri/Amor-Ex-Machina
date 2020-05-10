@@ -3722,34 +3722,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 444397490}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &446391544 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 963194225, guid: 84593d0c549aabe4e87825e7606b0e1b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1316725720}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &446391550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446391544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7103b184e757daa4487e9db502cc5afc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chromAberrAmountX: 0.004
-  chromAberrAmountY: 0.004
-  rightStripesAmount: 6.18
-  rightStripesFill: 0.84
-  leftStripesAmount: 6.17
-  leftStripesFill: 0.806
-  displacementAmount: {x: 0.03, y: 0.03, z: 0, w: 0}
-  wavyDisplFreq: 22.6
-  glitchEffect: 0
-  activateGlitchEffect: 0
 --- !u!1001 &456951959
 PrefabInstance:
   m_ObjectHideFlags: 0

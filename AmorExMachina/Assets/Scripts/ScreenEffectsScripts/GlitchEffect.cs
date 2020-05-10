@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class GlitchEffect : MonoBehaviour
 {
-    [Range(0.0f, 0.05f)] [SerializeField] private float chromAberrAmountX = 0.004f;
-    [Range(0.0f, 0.05f)] [SerializeField] private float chromAberrAmountY = 0.004f;
-    [Range(0.0f, 10.0f)] [SerializeField] private float rightStripesAmount = 6.18f;
-    [Range(0.0f, 1.0f)] [SerializeField] private float rightStripesFill = 0.84f;
-    [Range(0.0f, 10.0f)] [SerializeField] private float leftStripesAmount = 6.17f;
-    [Range(0.0f, 1.0f)] [SerializeField] private float leftStripesFill = 0.806f;
-    [SerializeField] private Vector4 displacementAmount = new Vector4(0.03f, 0.03f, 0.0f, 0.0f);
-    [Range(0.0f, 30.0f)] [SerializeField] private float wavyDisplFreq = 22.6f;
+    private float chromAberrAmountX = 0.004f;
+    private float chromAberrAmountY = 0.004f;
+    private Vector4 displacementAmount = new Vector4(0.03f, 0.03f, 0.0f, 0.0f);
+    private float wavyDisplFreq = 22.6f;
+    [HideInInspector] public float rightStripesAmount = 6.18f;
+    [HideInInspector] public float rightStripesFill = 0.84f;
+    [HideInInspector] public float leftStripesAmount = 6.17f;
+    [HideInInspector] public float leftStripesFill = 0.806f;
 
-    [Range(0.0f, 1.0f)] [SerializeField] private float glitchEffect = 0.0f;
+    [SerializeField] private float glitchEffect = 0.0f;
     private Material material;
 
-    public bool activateGlitchEffect = false;
+    [HideInInspector] public bool activateGlitchEffect = false;
+    [HideInInspector] public float glitchUpdateSpeed = 0.5f;
+    [HideInInspector] public float minDisplacmentAmount = 0.03f;
+    [HideInInspector] public float maxDisplacmentAmount = 0.08f;
+
+    float timer = 0.0f;
 
     // Creates a private material used to the effect
     void Awake()
@@ -26,12 +31,22 @@ public class GlitchEffect : MonoBehaviour
 
     private void Update()
     {
+        timer += Time.deltaTime;
+        
         if (activateGlitchEffect)
         {
-            glitchEffect += Time.deltaTime * 0.5f;
+            if (timer >= 1.0f)
+            {
+                displacementAmount.x = Random.Range(minDisplacmentAmount, maxDisplacmentAmount);
+                displacementAmount.y = Random.Range(minDisplacmentAmount, maxDisplacmentAmount);
+                timer = 0.0f;
+            }
+            glitchEffect += Time.deltaTime * glitchUpdateSpeed;
             if (glitchEffect >= 1.0f)
                 glitchEffect -= 1.0f;
         }
+        else
+            glitchEffect = 0.0f;
     }
 
     // Postprocess the image

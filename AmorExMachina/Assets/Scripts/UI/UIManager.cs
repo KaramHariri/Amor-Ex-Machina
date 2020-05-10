@@ -132,14 +132,35 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         if(hackingSliderFill.fillAmount <= changeColorToYellow && hackingSliderFill.fillAmount > changeColorToRed)
         {
-            hackingSliderFill.color = Color.Lerp(hackingSliderFill.color, Color.yellow, Time.deltaTime * 0.5f); 
+            hackingSliderFill.color = Color.Lerp(hackingSliderFill.color, Color.yellow, Time.deltaTime * 0.5f);
         }
         else if(hackingSliderFill.fillAmount <= changeColorToRed)
         {
             hackingSliderFill.color = Color.Lerp(hackingSliderFill.color, Color.red, Time.deltaTime * 0.5f);
-            if((hackingSliderFill.fillAmount <= changeColorToRed * 0.5f) && updatingTimer)
+            if(updatingTimer)
             {
-                glitchEffect.activateGlitchEffect = true;
+                if (hackingSliderFill.fillAmount <= (changeColorToRed * 0.5f))
+                {
+                    glitchEffect.activateGlitchEffect = true;
+                    glitchEffect.minDisplacmentAmount = 0.1f;
+                    glitchEffect.maxDisplacmentAmount = 0.3f;
+                    glitchEffect.glitchUpdateSpeed = UnityEngine.Random.Range(0.05f, 0.1f);
+                    glitchEffect.rightStripesAmount = UnityEngine.Random.Range(5.0f, 6.0f);
+                    glitchEffect.rightStripesFill = UnityEngine.Random.Range(0.6f, 0.8f);
+                    glitchEffect.leftStripesAmount = UnityEngine.Random.Range(5.0f, 6.0f);
+                    glitchEffect.leftStripesFill = UnityEngine.Random.Range(0.6f, 0.8f);
+                }
+                else
+                {
+                    glitchEffect.activateGlitchEffect = true;
+                    glitchEffect.minDisplacmentAmount = 0.03f;
+                    glitchEffect.maxDisplacmentAmount = 0.06f;
+                    glitchEffect.glitchUpdateSpeed = 0.8f;
+                    glitchEffect.rightStripesAmount = UnityEngine.Random.Range(6.18f, 6.5f);
+                    glitchEffect.rightStripesFill = UnityEngine.Random.Range(0.7f, 0.8f);
+                    glitchEffect.leftStripesAmount = UnityEngine.Random.Range(6.18f, 6.5f);
+                    glitchEffect.leftStripesFill = UnityEngine.Random.Range(0.7f, 0.8f);
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 6341011417114156589}
+  - component: {fileID: 4360647564004557117}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -135,6 +136,26 @@ MonoBehaviour:
   blurAmount: 0
   blurRadius: 0.75
   blurFadeOutSpeed: 4
+--- !u!114 &4360647564004557117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7103b184e757daa4487e9db502cc5afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightStripesAmount: 5.8
+  rightStripesFill: 0.8
+  leftStripesAmount: 6.4
+  leftStripesFill: 0.84
+  activateGlitchEffect: 0
+  glitchUpdateSpeed: 2
+  minDisplacmentAmount: 0.05
+  maxDisplacmentAmount: 0.1
 --- !u!1 &5276379237382202461
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,8 @@ public class RadialBlurEffect : MonoBehaviour
     // Creates a private material used to the effect
     void Awake()
     {
-        material = new Material(Shader.Find("Custom/RadialBlur"));
+        //material = new Material(Shader.Find("Custom/RadialBlur"));
+        material = new Material(Resources.Load<Shader>("Shaders/RadialBlur"));
     }
 
     // Postprocess the image

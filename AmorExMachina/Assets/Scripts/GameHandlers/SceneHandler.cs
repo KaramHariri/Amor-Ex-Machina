@@ -8,7 +8,7 @@ using System;
 public class SceneHandler : MonoBehaviour
 {
     public static SceneHandler instance;
-    public static int currentLevelIndex = 0;
+    public static int currentLevelIndex = 1;
     public static bool shouldLoadFromFile = false;
 
     public GameObject loadingScreen;
@@ -20,13 +20,10 @@ public class SceneHandler : MonoBehaviour
 
     public static Action loadNextScene = delegate { };
 
-    //SaveSystem
-    private int currentSaveFileIndex = 0;
-    private int numberOfSaveFiles = 3;
-    [SerializeField] private int loadIndex = 0;
+    public static bool hasSaveToAFile = false;
+
     private void OnEnable()
     {
-        //loadNextScene += LoadNextScene;
         loadNextScene += StartLoadNextSceneCoroutine;
     }
 
@@ -34,38 +31,9 @@ public class SceneHandler : MonoBehaviour
     {
         instance = this;
         canvasGroup.alpha = 0.0f;
-        currentLevelIndex = 0;
+        currentLevelIndex = 1;
         SceneManager.LoadSceneAsync((int)currentLevelIndex, LoadSceneMode.Additive);
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            LoadFromFile();
-        }
-    }
-
-    public int GetCurrentSaveFileIndex()
-    {
-        return currentSaveFileIndex;
-    }
-
-    public void IncreaseSaveFileIndex()
-    {
-        currentSaveFileIndex = (currentSaveFileIndex+1) % numberOfSaveFiles;
-    }
-
-    //public void LoadNextScene()
-    //{
-    //    canvasGroup.alpha = 1.0f;
-    //    // Adding the operations that we need until the loading is complete
-    //    scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
-    //    currentLevelIndex++;
-    //    scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
-
-    //    StartCoroutine("GetSceneLoadProgress");
-    //}
 
     public void StartLoadNextSceneCoroutine()
     {
@@ -75,12 +43,12 @@ public class SceneHandler : MonoBehaviour
     IEnumerator LoadNextLevel()
     {
         shouldLoadFromFile = false;
+        hasSaveToAFile = false;
         canvasGroup.alpha = 1.0f;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
 
         yield return new WaitForSeconds(0.5f);
 
-        // Adding the operations that we need until the loading is complete
         currentLevelIndex++;
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
 
@@ -96,7 +64,7 @@ public class SceneHandler : MonoBehaviour
     {
         canvasGroup.alpha = 1.0f;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
-
+        shouldLoadFromFile = false;
         yield return new WaitForSeconds(0.5f);
 
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
@@ -107,12 +75,12 @@ public class SceneHandler : MonoBehaviour
     public void LoadFromFile()
     {
         canvasGroup.alpha = 1.0f;
+        shouldLoadFromFile = true;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
 
         StartCoroutine("GetSceneLoadProgress");
     }
-
    
     IEnumerator GetSceneLoadProgress()
     {
@@ -135,21 +103,16 @@ public class SceneHandler : MonoBehaviour
 
         if(shouldLoadFromFile == true)
         {
-            //SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (currentSaveFileIndex - 1) + ".save");
-            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (loadIndex) + ".save");
+            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
             GameEvents.current.LoadDataEvent();
             yield return new WaitForSeconds(0.5f);
         }
-
-        // Wait half a second to load from file
-        // LoadFromFile.instance.loadFromFile(path);    // this is just an example
 
         canvasGroup.alpha = 0.0f;
     }
 
     private void OnDestroy()
     {
-        //loadNextScene -= LoadNextScene;
         loadNextScene -= StartLoadNextSceneCoroutine;
     }
 }

@@ -330,8 +330,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             {
                 if (raycastHit.collider.transform == target.transform)
                 {
-                    Debug.DrawLine(transform.position, raycastHit.point);
-                    Debug.Break();
+                    //Debug.DrawLine(transform.position, raycastHit.point);
+                    //Debug.Break();
                     return true;   
                 }
             }

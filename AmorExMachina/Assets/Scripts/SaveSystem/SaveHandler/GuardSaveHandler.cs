@@ -16,7 +16,7 @@ public class GuardSaveHandler : MonoBehaviour
         if(!SaveData.current.guards.ContainsKey(data.id))
         {
             //SaveData.current.guardData.Add(data);
-            Debug.Log("Added guard to guards");
+            //Debug.Log("Added guard to guards");
             SaveData.current.guards.Add(data.id, data);
 
 
@@ -25,7 +25,7 @@ public class GuardSaveHandler : MonoBehaviour
         }
         else 
         { 
-            Debug.Log("Already have an object with this ID"); 
+            //Debug.Log("Already have an object with this ID"); 
         }
 
     }

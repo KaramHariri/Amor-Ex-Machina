@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4061586875793988905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4266901134980054005}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Combo_Grungy_DoorFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5450999515883466133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6824946262625653}
   - component: {fileID: 2892361236779657751}
   - component: {fileID: 4229401478438626834}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Floor Variant (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 245313013519580861}
   - component: {fileID: 1088701708573886122}
   - component: {fileID: 4164125672683763398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_WallAboveDoor Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2433253530840172203}
   - component: {fileID: 8157979541456494319}
   - component: {fileID: 170219807838243285}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Floor Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,6 +391,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grungy_Door Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1502827275985622231, guid: b42000c3e69e48b40912b1a4e3dac55b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2486062487358858948, guid: b42000c3e69e48b40912b1a4e3dac55b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -445,6 +450,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590709866265713119, guid: b42000c3e69e48b40912b1a4e3dac55b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916681274620201870, guid: b42000c3e69e48b40912b1a4e3dac55b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b42000c3e69e48b40912b1a4e3dac55b, type: 3}
@@ -520,6 +535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grungy_FloorBelowDoor Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534572480924517247, guid: def5cc6a6a4c0b24d8cb14944a5e2af3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def5cc6a6a4c0b24d8cb14944a5e2af3, type: 3}

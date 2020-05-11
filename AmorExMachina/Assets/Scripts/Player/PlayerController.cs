@@ -147,9 +147,11 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HackingGuardCheck()
     {
+        if (disabledGuard == null || disabledGuard.disabled == false) { return; }
+        
         if (playerVariables.canHackGuard)
         {
-            if (disabledGuard != null && !hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            if (/*disabledGuard != null &&*/ !hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
                 hacking = true;
@@ -159,7 +161,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 GameHandler.currentState = GameState.HACKING;
                 return;
             }
-            else if (disabledGuard != null && hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            else if (/*disabledGuard != null &&*/ hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
             {
                 disabledGuard.hacked = false;
                 hacking = false;

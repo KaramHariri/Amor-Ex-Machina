@@ -66,11 +66,11 @@ public class GuardVirtualCamera : MonoBehaviour
 
     void UpdateCameraSettings()
     {
-        cinemachinePOV.m_VerticalAxis.m_InvertInput = invertVerticalInput;
+        cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
         cinemachinePOV.m_HorizontalAxis.m_InvertInput = invertHorizontalInput;
 
-        cinemachinePOV.m_VerticalAxis.m_MaxSpeed = verticalSpeed;
-        cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = horizontalSpeed;
+        cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
+        cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
 
         cinemachinePOV.m_VerticalAxis.m_MinValue = cameraYMin;
         cinemachinePOV.m_VerticalAxis.m_MaxValue = cameraYMax;
@@ -80,22 +80,22 @@ public class GuardVirtualCamera : MonoBehaviour
 
     void SetCameraSettings()
     {
-        invertVerticalInput = guardCameraVariables.invertVerticalInput;
-        verticalSpeed = guardCameraVariables.verticalSpeed;
+        cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
+        cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
         cameraYMin = guardCameraVariables.cameraYMin;
         cameraYMax = guardCameraVariables.cameraYMax;
 
         invertHorizontalInput = guardCameraVariables.invertHorizontalInput;
-        horizontalSpeed = guardCameraVariables.horizontalSpeed;
+        cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
     }
 
     void UpdateFirstPersonCameraVariables()
     {
-        guardCameraVariables.invertVerticalInput = invertVerticalInput;
+        guardCameraVariables.invertVerticalInput = settings.invertY;
         guardCameraVariables.invertHorizontalInput = invertHorizontalInput;
 
-        guardCameraVariables.verticalSpeed = verticalSpeed;
-        guardCameraVariables.horizontalSpeed = horizontalSpeed;
+        guardCameraVariables.verticalSpeed = settings.firstPersonLookSensitivity;
+        guardCameraVariables.horizontalSpeed = settings.firstPersonLookSensitivity;
 
         guardCameraVariables.cameraYMin = cameraYMin;
         guardCameraVariables.cameraYMax = cameraYMax;

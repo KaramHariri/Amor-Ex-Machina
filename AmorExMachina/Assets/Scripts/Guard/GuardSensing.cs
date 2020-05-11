@@ -21,10 +21,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public SphereCollider sensingCollider;
 
-    [HideInInspector] public List<Guard> disabledGuardsFound = null;
-    private List<Guard> disabledGuardInRange = null;
+    /*[HideInInspector]*/ public List<Guard> disabledGuardsFound = null;
+    private List<Guard> disabledGuards = null;
 
-    private GuardVariables guardVariables = null;
     private PlayerVariables playerVariables = null;
 
     private Guard guardScript = null;
@@ -57,7 +56,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         GetComponents();
         guardDisabledSubject.AddObserver(this);
         InitLists();
-        AssignGuardAndPlayerVariables();
+        AssignPlayerVariable();
         AssignLayerMasks();
     }
 
@@ -71,16 +70,15 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         playerTransform = GameObject.Find("Gabriel").GetComponent<Transform>();
     }
 
-    void AssignGuardAndPlayerVariables()
+    void AssignPlayerVariable()
     {
-        guardVariables = guardScript.guardVariables;
         playerVariables = guardScript.playerVariables;
     }
 
     void InitLists()
     {
         disabledGuardsFound = new List<Guard>();
-        disabledGuardInRange = new List<Guard>();
+        disabledGuards = new List<Guard>();
     }
 
     void AssignLayerMasks()
@@ -111,7 +109,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public void Update()
     {
-        guardDisabledSubject.GuardDisabledNotify(guardScript, guardScript.disabled, guardScript.hacked);
         SpottedIndicatorHandler();
 
         if (guardScript.guardState != GuardState.NORMAL) { return; }
@@ -202,20 +199,49 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     void DisabledGuardInSightCheck()
     {
-        if (disabledGuardInRange.Count > 0)
-        {
-            for (int i = 0; i < disabledGuardInRange.Count; i++)
-            {
-                Vector3 directionToDisabledGuard = disabledGuardInRange[i].transform.position - transform.position;
-                float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
+        //if (disabledGuardInRange.Count > 0)
+        //{
+        //    for (int i = 0; i < disabledGuardInRange.Count; i++)
+        //    {
+        //        Vector3 directionToDisabledGuard = disabledGuardInRange[i].transform.position - transform.position;
+        //        float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
 
-                if (angle < fieldOfViewAngle)
+        //        if (angle < fieldOfViewAngle)
+        //        {
+        //            if (RaycastHitCheckToTarget(disabledGuardInRange[i].transform, raycastDisabledGuardCheckLayer))
+        //            {
+        //                if (!disabledGuardsFound.Contains(disabledGuardInRange[i]))
+        //                {
+        //                    disabledGuardsFound.Add(disabledGuardInRange[i]);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        if(disabledGuards.Count > 0)
+        {
+            for(int i = 0; i < disabledGuards.Count; i++)
+            {
+                if (CalculateLength(disabledGuards[i].transform.position) <= sensingCollider.radius)
                 {
-                    if (RaycastHitCheckToTarget(disabledGuardInRange[i].transform, raycastDisabledGuardCheckLayer))
+                    Vector3 directionToDisabledGuard = disabledGuards[i].transform.position - transform.position;
+                    float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
+
+                    if (angle < fieldOfViewAngle)
                     {
-                        if (!disabledGuardsFound.Contains(disabledGuardInRange[i]))
+                        if (RaycastHitCheckToTarget(disabledGuards[i].transform, raycastDisabledGuardCheckLayer))
                         {
-                            disabledGuardsFound.Add(disabledGuardInRange[i]);
+                            if (disabledGuards[i].disabled && !disabledGuards[i].hacked)
+                            {
+                                if(!disabledGuardsFound.Contains(disabledGuards[i]))
+                                    disabledGuardsFound.Add(disabledGuards[i]);
+                            }
+                            else
+                            {
+                                if (disabledGuardsFound.Contains(disabledGuards[i]))
+                                    disabledGuardsFound.Remove(disabledGuards[i]);
+                            }
                         }
                     }
                 }
@@ -304,6 +330,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             {
                 if (raycastHit.collider.transform == target.transform)
                 {
+                    Debug.DrawLine(transform.position, raycastHit.point);
+                    Debug.Break();
                     return true;   
                 }
             }
@@ -345,25 +373,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         disabledGuardsFound.Clear();
     }
 
-    public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)
+    public void GuardDisabledNotify(Guard disabledGuardScript)
     {
         if (disabledGuardScript != guardScript)
         {
-            Vector3 directionToDisabledGuard = disabledGuardScript.transform.position - transform.position;
-            if(directionToDisabledGuard.magnitude <= sensingCollider.radius && !isHacked && isDisabled)
-            {
-                if(!disabledGuardInRange.Contains(disabledGuardScript))
-                {
-                    disabledGuardInRange.Add(disabledGuardScript);
-                }
-            }
-            else
-            {
-                if(disabledGuardInRange.Contains(disabledGuardScript) || isHacked || !isDisabled)
-                {
-                    disabledGuardInRange.Remove(disabledGuardScript);
-                }
-            }
+            disabledGuards.Add(disabledGuardScript);
         }
     }
 
@@ -384,6 +398,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         distancePercent = (Vector3.Distance(playerTransform.position, transform.position) / fieldOfViewRadius);
 
         distanceFactorAmount = minDistanceValue + distancePercent * valueDifference;
-        Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);
+        //Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);
     }
 }

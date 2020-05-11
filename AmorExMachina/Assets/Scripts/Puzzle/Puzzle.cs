@@ -329,7 +329,7 @@ public class Puzzle : MonoBehaviour
 
             }
         }
-        Debug.Log("Puzzle completed!");
+        //Debug.Log("Puzzle completed!");
         door.UnlockDoor();
 
         if (PA != null)

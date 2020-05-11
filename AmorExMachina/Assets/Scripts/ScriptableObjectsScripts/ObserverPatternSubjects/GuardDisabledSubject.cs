@@ -17,11 +17,11 @@ public class GuardDisabledSubject : ScriptableObject
         observers.Remove(observer);
     }
 
-    public void GuardDisabledNotify(Guard disabledGuardScript, bool isDisabled, bool isHacked)
+    public void GuardDisabledNotify(Guard disabledGuardScript/*, bool isDisabled, bool isHacked*/)
     {
         foreach (IGuardDisabledObserver observer in observers)
         {
-            observer.GuardDisabledNotify(disabledGuardScript, isDisabled, isHacked);
+            observer.GuardDisabledNotify(disabledGuardScript/*, isDisabled, isHacked*/);
         }
     }
 }

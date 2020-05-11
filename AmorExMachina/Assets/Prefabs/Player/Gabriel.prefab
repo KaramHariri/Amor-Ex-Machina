@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 1239064952944826113}
   - component: {fileID: 1239064952944826114}
   - component: {fileID: 1239064952944826115}
-  - component: {fileID: 8917884229722887577}
   m_Layer: 10
   m_Name: Gabriel
   m_TagString: Player
@@ -121,6 +120,8 @@ MonoBehaviour:
   playerSpottedSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
     type: 2}
   interactionButtonSubject: {fileID: 11400000, guid: e91cc55a9b197964a9b8cfa5d5b6a8f3,
+    type: 2}
+  guardDisabledSubject: {fileID: 11400000, guid: 000f8d3cfc3598c4a8f17777c06cc42a,
     type: 2}
   hackingTimer: 0
   maxHackingTimer: 20

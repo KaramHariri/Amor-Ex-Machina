@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public PlayerCamerasVariables cameraVariables = null;
     public PlayerSpottedSubject playerSpottedSubject = null;
     public InteractionButtonSubject interactionButtonSubject = null;
+    public GuardDisabledSubject guardDisabledSubject = null;
     #endregion
 
     [SerializeField] private float hackingTimer = 0.0f;
@@ -257,6 +258,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                             disabledGuard = closestGuard;
                             if (disabledGuard != null)
                             {
+                                guardDisabledSubject.GuardDisabledNotify(disabledGuard);
                                 audioManager.Play("DisableGuard", this.transform.position);
                                 disabledGuard.disabled = true;
                             }

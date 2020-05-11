@@ -8,12 +8,6 @@ public class FirstPersonCinemachine : MonoBehaviour
     private CinemachinePOV cinemachinePOV;
     private Camera mainCamera;
 
-    //[SerializeField]
-    //private float verticalSpeed = 150.0f;
-    //[SerializeField]
-    //private float horizontalSpeed = 150.0f;
-    //[SerializeField]
-    //private bool invertVerticalInput = false;
     [SerializeField]
     private bool invertHorizontalInput = false;
     [SerializeField]
@@ -43,6 +37,11 @@ public class FirstPersonCinemachine : MonoBehaviour
     {
         SetCameraSettings();
         UpdateCameraSettings();
+    }
+
+    private void Update()
+    {
+        UseControllerInputCheck();
     }
 
     private void LateUpdate()
@@ -78,30 +77,14 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void UpdateCameraSettings()
     {
-        //cinemachinePOV.m_VerticalAxis.m_InvertInput = invertVerticalInput;
         cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
         cinemachinePOV.m_HorizontalAxis.m_InvertInput = invertHorizontalInput;
 
-        //cinemachinePOV.m_VerticalAxis.m_MaxSpeed = verticalSpeed;
-        //cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = horizontalSpeed;
         cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
         cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
 
         cinemachinePOV.m_VerticalAxis.m_MinValue = cameraYMin;
         cinemachinePOV.m_VerticalAxis.m_MaxValue = cameraYMax;
-
-        ControllerConnectedCheck();
-
-        if (useMouseInput)
-        {
-            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "Mouse Y";
-            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "Mouse X";
-        }
-        else
-        {
-            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "CameraVerticalAxis";
-            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "CameraHorizontalAxis";
-        }
 
         UpdateFirstPersonCameraVariables();
     }
@@ -110,26 +93,20 @@ public class FirstPersonCinemachine : MonoBehaviour
     {
         cinemachineVirtualCamera.m_Follow = playerCamerasVariables.firstPersonCameraFollowTarget;
 
-        //invertVerticalInput = playerCamerasVariables.firstPersonCameraInvertVerticalInput;
         cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
-        //verticalSpeed = playerCamerasVariables.firstPersonCameraVerticalSpeed;
         cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
         cameraYMin = playerCamerasVariables.firstPersonCameraYMin;
         cameraYMax = playerCamerasVariables.firstPersonCameraYMax;
 
         invertHorizontalInput = playerCamerasVariables.firstPersonCameraInvertHorizontalInput;
-        //horizontalSpeed = playerCamerasVariables.firstPersonCameraHorizontalSpeed;
         cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
     }
 
     void UpdateFirstPersonCameraVariables()
     {
-        //playerCamerasVariables.firstPersonCameraInvertVerticalInput = invertVerticalInput;
         playerCamerasVariables.firstPersonCameraInvertVerticalInput = settings.invertY;
         playerCamerasVariables.firstPersonCameraInvertHorizontalInput = invertHorizontalInput;
 
-        //playerCamerasVariables.firstPersonCameraVerticalSpeed = verticalSpeed;
-        //playerCamerasVariables.firstPersonCameraHorizontalSpeed = horizontalSpeed;
         playerCamerasVariables.firstPersonCameraVerticalSpeed = settings.firstPersonLookSensitivity;
         playerCamerasVariables.firstPersonCameraHorizontalSpeed = settings.firstPersonLookSensitivity;
 
@@ -137,20 +114,17 @@ public class FirstPersonCinemachine : MonoBehaviour
         playerCamerasVariables.firstPersonCameraYMax = cameraYMax;
     }
 
-    void ControllerConnectedCheck()
+    void UseControllerInputCheck()
     {
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        if (settings.useControllerInput)
         {
-            if (Input.GetJoystickNames().Length == 1 && Input.GetJoystickNames()[i] == "")
-            {
-                cinemachinePOV.m_VerticalAxis.m_InputAxisName = "Mouse Y";
-                cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "Mouse X";
-            }
-            else
-            {
-                cinemachinePOV.m_VerticalAxis.m_InputAxisName = "CameraVerticalAxis";
-                cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "CameraHorizontalAxis";
-            }
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "CameraVerticalAxis";
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "CameraHorizontalAxis";
+        }
+        else
+        {
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "Mouse Y";
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "Mouse X";
         }
     }
 }

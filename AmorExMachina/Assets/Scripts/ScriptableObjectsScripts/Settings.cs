@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Settings", menuName = "Settings/Settings", order = 60)]
 public class Settings : ScriptableObject
 {
+    public bool useControllerInput;
     public bool invertY;
     public bool subtitle;
     [Range(50.0f, 300.0f)]

@@ -89,6 +89,7 @@ MonoBehaviour:
   cameraYMax: 70
   guardCameraVariables: {fileID: 11400000, guid: 7182d19278142e44c9f14a4f26401533,
     type: 2}
+  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &7191248304762785859
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,8 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         guardHackedSubject.AddObserver(this);
 
         audioManager = FindObjectOfType<AudioManager>();
+
+        StartCoroutine("ControllerCheck");
     }
 
     private void Update()
@@ -87,6 +89,30 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         else
         {
             radialBlurEffect.blurAmount = Mathf.Lerp(radialBlurEffect.blurAmount, 0.0f, Time.deltaTime * radialBlurEffect.blurFadeOutSpeed);
+        }
+    }
+
+    IEnumerator ControllerCheck()
+    {
+        while (true)
+        {
+            string[] temp = Input.GetJoystickNames();
+
+            if (temp.Length > 0)
+            {
+                for (int i = 0; i < temp.Length; ++i)
+                {
+                    if (!string.IsNullOrEmpty(temp[i]))
+                    {
+                        settings.useControllerInput = true;
+                    }
+                    else
+                    {
+                        settings.useControllerInput = false;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(2.0f);
         }
     }
 

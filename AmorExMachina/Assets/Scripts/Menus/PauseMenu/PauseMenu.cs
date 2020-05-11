@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] PauseMenuSettings PauseMenuSettings = null;
+    [SerializeField] LoadGameMenu loadGameMenu = null;
     private GameObject pauseMenuObject = null;
     private EventSystem eventSystem = null;
 
@@ -40,7 +41,8 @@ public class PauseMenu : MonoBehaviour
     public void LoadGame()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        GameHandler.reloadSceneButton();
+        //GameHandler.reloadSceneButton();
+        StartCoroutine("SwitchToLoad");
     }
 
     public void Settings()
@@ -60,6 +62,17 @@ public class PauseMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(PauseMenuSettings.firstSelectedButtonInOptions);
+        switchedToSettings = true;
+        pauseMenuObject.gameObject.SetActive(false);
+    }
+
+    IEnumerator SwitchToLoad()
+    {
+        loadGameMenu.gameObject.SetActive(true);
+        currentSelectedButton = eventSystem.currentSelectedGameObject;
+        eventSystem.SetSelectedGameObject(null);
+        yield return null;
+        eventSystem.SetSelectedGameObject(loadGameMenu.firstSelectedButtonInLoadMenu);
         switchedToSettings = true;
         pauseMenuObject.gameObject.SetActive(false);
     }

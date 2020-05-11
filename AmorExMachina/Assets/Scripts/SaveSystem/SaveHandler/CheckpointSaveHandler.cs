@@ -40,6 +40,7 @@ public class CheckpointSaveHandler : MonoBehaviour
             SaveData.current.checkpoints[data.id].hasUpdated = true;
             Save();
             SceneHandler.shouldLoadFromFile = true;
+            SceneHandler.hasSaveToAFile = true;
         }
     }
 
@@ -50,9 +51,9 @@ public class CheckpointSaveHandler : MonoBehaviour
 
     private void SaveToFile()
     {
-        Debug.Log("Saving to file number: " + SceneHandler.instance.GetCurrentSaveFileIndex());
-        SerializationManager.Save("test" + SceneHandler.instance.GetCurrentSaveFileIndex() , SaveData.current);
-        SceneHandler.instance.IncreaseSaveFileIndex();
+        //Debug.Log("Saving to file number: " + SceneHandler.instance.GetCurrentSaveFileIndex());
+        SerializationManager.Save("test" /*+ SceneHandler.instance.GetCurrentSaveFileIndex()*/ , SaveData.current);
+        //SceneHandler.instance.IncreaseSaveFileIndex();
     }
 
     IEnumerator SaveGame()

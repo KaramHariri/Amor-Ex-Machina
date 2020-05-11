@@ -20,10 +20,8 @@ public class SceneHandler : MonoBehaviour
 
     public static Action loadNextScene = delegate { };
 
-    //SaveSystem
-    private int currentSaveFileIndex = 0;
-    private int numberOfSaveFiles = 3;
-    [SerializeField] private int loadIndex = 0;
+    public static bool hasSaveToAFile = false;
+
     private void OnEnable()
     {
         //loadNextScene += LoadNextScene;
@@ -38,23 +36,15 @@ public class SceneHandler : MonoBehaviour
         SceneManager.LoadSceneAsync((int)currentLevelIndex, LoadSceneMode.Additive);
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            LoadFromFile();
-        }
-    }
+    //public int GetCurrentSaveFileIndex()
+    //{
+    //    return currentSaveFileIndex;
+    //}
 
-    public int GetCurrentSaveFileIndex()
-    {
-        return currentSaveFileIndex;
-    }
-
-    public void IncreaseSaveFileIndex()
-    {
-        currentSaveFileIndex = (currentSaveFileIndex+1) % numberOfSaveFiles;
-    }
+    //public void IncreaseSaveFileIndex()
+    //{
+    //    currentSaveFileIndex = (currentSaveFileIndex+1) % numberOfSaveFiles;
+    //}
 
     //public void LoadNextScene()
     //{
@@ -96,7 +86,7 @@ public class SceneHandler : MonoBehaviour
     {
         canvasGroup.alpha = 1.0f;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
-
+        shouldLoadFromFile = false;
         yield return new WaitForSeconds(0.5f);
 
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
@@ -107,12 +97,12 @@ public class SceneHandler : MonoBehaviour
     public void LoadFromFile()
     {
         canvasGroup.alpha = 1.0f;
+        shouldLoadFromFile = true;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
 
         StartCoroutine("GetSceneLoadProgress");
     }
-
    
     IEnumerator GetSceneLoadProgress()
     {
@@ -136,7 +126,7 @@ public class SceneHandler : MonoBehaviour
         if(shouldLoadFromFile == true)
         {
             //SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (currentSaveFileIndex - 1) + ".save");
-            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + (loadIndex) + ".save");
+            SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
             GameEvents.current.LoadDataEvent();
             yield return new WaitForSeconds(0.5f);
         }

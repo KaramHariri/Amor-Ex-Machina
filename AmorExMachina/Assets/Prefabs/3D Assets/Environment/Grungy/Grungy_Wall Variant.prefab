@@ -92,7 +92,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 100872aad5e01bb4c916fa35caa0ec0b,
         type: 3}
       propertyPath: m_Name
-      value: Grungy_Wall Variant10
+      value: Grungy_Wall Variant
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 100872aad5e01bb4c916fa35caa0ec0b,
         type: 3}

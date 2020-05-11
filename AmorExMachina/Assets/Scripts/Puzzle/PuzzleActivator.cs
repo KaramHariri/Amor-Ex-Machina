@@ -14,7 +14,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
     public float duration = 1.5f;
     public float animationCooldown = 0f;
-    private float deactivationDelay = 1.0f;
+    private float deactivationDelay = 0.2f;
 
     private bool canBeActivated = false;
 

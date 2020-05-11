@@ -38,6 +38,13 @@ public class UIManager : MonoBehaviour, IInteractionButton
     public static Action deactivateTimer = delegate { };
     #endregion
 
+    private float changeColorToYellow = 0.0f;
+    private float changeColorToRed = 0.0f;
+
+    private bool updatingTimer = false;
+
+    private GlitchEffect glitchEffect = null;
+
     void Awake()
     {
         InteractionButtonSubject.AddObserver(this);
@@ -45,6 +52,8 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     void Start()
     {
+        glitchEffect = Camera.main.GetComponent<GlitchEffect>();
+
         circleButton = GameObject.Find("CircleButton");
         circleButton.SetActive(false);
         crossButton = GameObject.Find("CrossButton");
@@ -104,6 +113,11 @@ public class UIManager : MonoBehaviour, IInteractionButton
         hackingTimer.text = "0.0";
         hackingTimer.gameObject.SetActive(true);
         hackingSliderFill.fillAmount = 1.0f;
+        hackingSliderFill.color = Color.white;
+        changeColorToYellow = hackingSliderFill.fillAmount * 0.75f;
+        changeColorToRed = hackingSliderFill.fillAmount * 0.5f;
+        glitchEffect.activateGlitchEffect = false;
+        updatingTimer = true;
         hackingSlider.SetActive(true);
     }
 
@@ -111,12 +125,54 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         hackingTimer.text = currentTime.ToString("F1");
         hackingSliderFill.fillAmount = currentTime / 20.0f;
+        UpdateTimerColor();
+    }
+
+    void UpdateTimerColor()
+    {
+        if(hackingSliderFill.fillAmount <= changeColorToYellow && hackingSliderFill.fillAmount > changeColorToRed)
+        {
+            hackingSliderFill.color = Color.Lerp(hackingSliderFill.color, Color.yellow, Time.deltaTime * 0.5f);
+        }
+        else if(hackingSliderFill.fillAmount <= changeColorToRed)
+        {
+            hackingSliderFill.color = Color.Lerp(hackingSliderFill.color, Color.red, Time.deltaTime * 0.5f);
+            if(updatingTimer)
+            {
+                if (hackingSliderFill.fillAmount <= (changeColorToRed * 0.25f))
+                {
+                    glitchEffect.activateGlitchEffect = true;
+                    glitchEffect.minDisplacmentAmount = 0.05f;
+                    glitchEffect.maxDisplacmentAmount = 0.15f;
+                    glitchEffect.glitchUpdateSpeed = UnityEngine.Random.Range(0.05f, 0.1f);
+                    glitchEffect.rightStripesAmount = UnityEngine.Random.Range(5.0f, 6.0f);
+                    glitchEffect.rightStripesFill = UnityEngine.Random.Range(0.6f, 0.8f);
+                    glitchEffect.leftStripesAmount = UnityEngine.Random.Range(5.0f, 6.0f);
+                    glitchEffect.leftStripesFill = UnityEngine.Random.Range(0.6f, 0.8f);
+                }
+                else
+                {
+                    glitchEffect.activateGlitchEffect = true;
+                    glitchEffect.minDisplacmentAmount = 0.03f;
+                    glitchEffect.maxDisplacmentAmount = 0.06f;
+                    glitchEffect.glitchUpdateSpeed = 0.4f;
+                    glitchEffect.rightStripesAmount = UnityEngine.Random.Range(6.3f, 6.5f);
+                    glitchEffect.rightStripesFill = UnityEngine.Random.Range(0.75f, 0.8f);
+                    glitchEffect.leftStripesAmount = UnityEngine.Random.Range(6.3f, 6.5f);
+                    glitchEffect.leftStripesFill = UnityEngine.Random.Range(0.75f, 0.8f);
+                }
+            }
+        }
     }
 
     void DeactivateTimer()
     {
         hackingTimer.text = "";
         hackingSliderFill.fillAmount = 0.0f;
+        changeColorToYellow = hackingSliderFill.fillAmount;
+        changeColorToRed = hackingSliderFill.fillAmount;
+        glitchEffect.activateGlitchEffect = false;
+        updatingTimer = false;
         hackingTimer.gameObject.SetActive(false);
         hackingSlider.SetActive(false);
     }

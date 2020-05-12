@@ -39,20 +39,28 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
 
+    //ANIMATIONS
+    private Animator anim;
+    private Transform modelTransform;
+
     void Awake()
     {
+        anim = GetComponent<Animator>();
+        modelTransform = transform.Find("character_gabriel");
+        if (anim == null) { Debug.Log("Can't find the animator"); Debug.Break(); }
+        if(modelTransform == null) { Debug.Log("Can't find the model transform"); Debug.Break(); }
         possibleGuardsToDisable = new List<Guard>();
         playerVariables.playerTransform = transform;
         playerVariables.caught = false;
         playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
-        cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
-        cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
+        cameraVariables.firstPersonCameraFollowTarget = gameObject.transform.Find("FirstPersonAim");
+        cameraVariables.thirdPersonCameraFollowTarget = gameObject.transform.Find("ThirdPersonAim");
         playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         rb.isKinematic = false;
-        minimapIcon = transform.GetChild(transform.childCount - 1).gameObject;
+        minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
     }
 
     void Update()
@@ -220,11 +228,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             Vector3 dir = transform.right * horizontalInput + transform.forward * verticalInput;
             v = dir;
+            modelTransform.LookAt(transform.position + dir);
         }
         else
         {
             Vector3 dir = cameraVariables.thirdPersonCameraTransform.transform.right * horizontalInput + cameraVariables.thirdPersonCameraTransform.forward * verticalInput;
             v = dir;
+            modelTransform.LookAt(transform.position + dir);
         }
 
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
@@ -237,6 +247,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         else
             playerSoundSubject.NotifyObservers(SoundType.CROUCHING, transform.position);
 
+        anim.SetFloat("Velocity", v.magnitude);
+        anim.SetBool("Crouching", sneaking);
     }
 
     void DisableGuardCheck()

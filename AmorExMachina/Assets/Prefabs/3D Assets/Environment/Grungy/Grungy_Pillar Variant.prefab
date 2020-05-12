@@ -94,6 +94,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grungy_Pillar Variant
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f2f59f4e69f5b5344928b7e99e2e04ad,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f2f59f4e69f5b5344928b7e99e2e04ad,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2f59f4e69f5b5344928b7e99e2e04ad, type: 3}
 --- !u!1 &6613043146488516541 stripped

@@ -49,7 +49,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [Header("Distance based values")]
     public float maxDistanceValue = 0.6f;
     public float minDistanceValue = 2.0f;
-    private Transform playerTransform;
     private float distancePercent = 0f;
     private float valueDifference = 0f;
     private float distanceFactorAmount = 0f;
@@ -68,9 +67,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         guardScript = GetComponent<Guard>();
-
-        //Added 2020-05-08
-        playerTransform = GameObject.Find("Gabriel").GetComponent<Transform>();
     }
 
     void AssignPlayerVariable()
@@ -390,13 +386,13 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     //Added 2020-05-08
     private void CalculateDistanceFactor()
     {
-        if(playerTransform == null) { Debug.Log("Can't find player transform"); return; }
+        if(playerVariables.playerTransform == null) { Debug.Log("Can't find player transform"); return; }
 
         //We probably want to do this in start once we have good values in order to get better preformance, but for now this will allow us to modify the values in real time
         valueDifference = maxDistanceValue - minDistanceValue;
 
         //The distance for hearing is a bit different from sight so in order to have a proper one for hearing we'd use different metrics. (Hearing doesn't go through walls)
-        distancePercent = (Vector3.Distance(playerTransform.position, transform.position) / fieldOfViewRadius);
+        distancePercent = (Vector3.Distance(playerVariables.playerTransform.position, transform.position) / fieldOfViewRadius);
 
         distanceFactorAmount = minDistanceValue + distancePercent * valueDifference;
         //Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);

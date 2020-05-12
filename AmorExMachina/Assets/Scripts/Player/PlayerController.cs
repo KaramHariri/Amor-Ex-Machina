@@ -46,13 +46,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         playerVariables.caught = false;
         playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
-        cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
-        cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
+        cameraVariables.firstPersonCameraFollowTarget = gameObject.transform.Find("FirstPersonAim");
+        cameraVariables.thirdPersonCameraFollowTarget = gameObject.transform.Find("ThirdPersonAim");
         playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         rb.isKinematic = false;
-        minimapIcon = transform.GetChild(transform.childCount - 1).gameObject;
+        minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
     }
 
     void Update()

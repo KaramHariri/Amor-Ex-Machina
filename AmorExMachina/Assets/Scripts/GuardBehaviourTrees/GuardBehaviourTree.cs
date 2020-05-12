@@ -6,10 +6,19 @@
     Disabled disabled;
 
     // Player in sight
+    // player is in sight
+    SelectorNode playerInSight;
     SequenceNode playerDetection;
     PlayerInSightCheck playerInSightCheck;
     SucceederNode playerInSightSucceeder;
     ChasePlayer chasePlayer;
+    // player was in sight
+    SequenceNode playerWasDetected;
+    PlayerWasInSightCheck playerWasInSightCheck;
+    SucceederNode playerWasInSightSucceeder;
+    SequenceNode playerWasInSight;
+    MoveToLastSightPosition moveToLastSightPosition;
+    LastSightPositionLookAround lastSightPositionLookAround;
 
     // Assist
     SequenceNode assistCheck;
@@ -28,6 +37,14 @@
     SequenceNode investigate;
     Investigate moveToInvestigationPosition;
     LookAround lookAround;
+    // Distracted.
+    SequenceNode distractedSequence;
+    DistractionCheck distractedCheck;
+    SucceederNode distractedSucceeder;
+    SequenceNode distracted;
+    InvestigateDistraction moveToDistractionPosition;
+    LookAround distractionLookAround;
+    
     // Knockedout Guard
     SequenceNode disabledGuard;
     DisabledGuardCheck disabledGuardCheck;
@@ -61,10 +78,19 @@
         disabled = new Disabled(agent);
 
         // Player in sight
+        playerInSight = new SelectorNode();
+
         playerDetection = new SequenceNode();
         playerInSightCheck = new PlayerInSightCheck(agent);
         playerInSightSucceeder = new SucceederNode();
         chasePlayer = new ChasePlayer(agent);
+        // Player was in sight
+        playerWasDetected = new SequenceNode();
+        playerWasInSightCheck = new PlayerWasInSightCheck(agent);
+        playerWasInSightSucceeder = new SucceederNode();
+        playerWasInSight = new SequenceNode();
+        moveToLastSightPosition = new MoveToLastSightPosition(agent);
+        lastSightPositionLookAround = new LastSightPositionLookAround(agent);
 
         // Assist
         assistCheck = new SequenceNode();
@@ -83,6 +109,15 @@
         investigate = new SequenceNode();
         moveToInvestigationPosition = new Investigate(agent);
         lookAround = new LookAround(agent);
+
+        // Distracted.
+        distractedSequence = new SequenceNode();
+        distractedCheck = new DistractionCheck(agent);
+        distractedSucceeder = new SucceederNode();
+        distracted = new SequenceNode();
+        moveToDistractionPosition = new InvestigateDistraction(agent);
+        distractionLookAround = new LookAround(agent);
+
         // Knockedout Guard
         disabledGuard = new SequenceNode();
         disabledGuardCheck = new DisabledGuardCheck(agent);
@@ -113,7 +148,13 @@
         playerDetection.AddChild(playerInSightCheck);
         playerDetection.AddChild(playerInSightSucceeder);
         playerInSightSucceeder.AddChild(chasePlayer);
-        //playerDetection.AddChild(chasePlayer);
+        // Player Was Detected.
+        rootNode.AddChild(playerWasDetected);
+        playerWasDetected.AddChild(playerWasInSightCheck);
+        playerWasDetected.AddChild(playerWasInSightSucceeder);
+        playerWasInSightSucceeder.AddChild(playerWasInSight);
+        playerWasInSight.AddChild(moveToLastSightPosition);
+        playerWasInSight.AddChild(lastSightPositionLookAround);
 
         // Assist
         rootNode.AddChild(assistCheck);
@@ -132,6 +173,13 @@
         suspicious.AddChild(investigate);
         investigate.AddChild(moveToInvestigationPosition);
         investigate.AddChild(lookAround);
+
+        suspiciousCheck.AddChild(distractedSequence);
+        distractedSequence.AddChild(distractedCheck);
+        distractedSequence.AddChild(distractedSucceeder);
+        distractedSucceeder.AddChild(distracted);
+        distracted.AddChild(moveToDistractionPosition);
+        distracted.AddChild(distractionLookAround);
 
         suspiciousCheck.AddChild(disabledGuard);
         disabledGuard.AddChild(disabledGuardCheck);

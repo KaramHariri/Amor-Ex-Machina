@@ -222,7 +222,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             if (sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
             {
                 sensing.distracted = true;
-                guardMovement.SetInvestigationPosition(position);
+                //guardMovement.SetInvestigationPosition(position);
+                guardMovement.SetDistractionInvestigationPosition(position);
                 guardMovement.ResetIdleTimer();
             }
         }

@@ -80,18 +80,11 @@ public class UIManager : MonoBehaviour, IInteractionButton
         deactivateTimer += DeactivateTimer;
     }
 
-    //private void OnDisable()
-    //{
-    //    createIndicator -= CreateIndicator;
-    //    removeIndicator -= RemoveIndicator;
-    //    updateIndicator -= UpdateIndicator;
-    //}
-
     void CreateIndicator(Transform target)
     {
         if (!indicators.ContainsKey(target))
         {
-            //audioManager.Play("GuardNotice");
+            audioManager.Play("GettingDetected");
             SpottedIndicator spottedIndicator = SpottedIndicatorPool.instance.GetIndicator();
             indicators.Add(target, spottedIndicator);
         }
@@ -106,6 +99,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         if (indicators.ContainsKey(target))
         {
+            audioManager.Stop("GettingDetected");
             indicators[target].UnRegister();
             indicators.Remove(target);
         }

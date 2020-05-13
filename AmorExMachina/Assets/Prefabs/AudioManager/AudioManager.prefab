@@ -279,6 +279,32 @@ MonoBehaviour:
     playOnAwake: 0
     threeDimensionalSound: 1
     aS: {fileID: 0}
+  - name: GettingDetected
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 16258cafa602a69429f1b504084d35e7, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: Alarm
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 9183416fcc2931b478eeaeedc6c4d6a6, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &2494282343061126050
 GameObject:

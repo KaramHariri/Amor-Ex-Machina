@@ -289,6 +289,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard = guard;
             if (disabledGuard != null)
             {
+                // Added 20-05-13.
+                disabledGuard.PlayDisableVFX();
+                /////
+
                 guardDisabledSubject.GuardDisabledNotify(disabledGuard);
                 audioManager.Play("DisableGuard", this.transform.position);
                 disabledGuard.disabled = true;

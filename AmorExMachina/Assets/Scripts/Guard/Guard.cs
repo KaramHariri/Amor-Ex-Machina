@@ -55,6 +55,10 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     LayerMask raycastCheckLayer = 0;
     private AudioManager audioManager = null;
 
+    // Added 20-05-13.
+    [SerializeField] private ParticleSystem disableParticleSystem = null;
+    /////
+    
     public void Awake()
     {
         GuardGetComponents();
@@ -233,6 +237,13 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 sensing.suspicious = false;
         }
     }
+
+    // Added 20-05-13.
+    public void PlayDisableVFX()
+    {
+        disableParticleSystem.Play();
+    }
+    /////
 
     public void PlayerSpottedNotify(Vector3 position)
     {

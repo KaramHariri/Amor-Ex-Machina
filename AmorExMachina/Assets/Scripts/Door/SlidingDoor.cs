@@ -22,6 +22,10 @@ public class SlidingDoor : MonoBehaviour
     [SerializeField] float closetXPos = 0.0f;
     [SerializeField] float openXPos = 0.0f;
 
+    // Added 20-05-13.
+    [SerializeField] private ParticleSystem doorOpeningParticleSystem;
+    /////
+    
     #region private
     private bool animating = false;
     private slidingDoorState animatingState = slidingDoorState.NONE;
@@ -48,6 +52,10 @@ public class SlidingDoor : MonoBehaviour
         state = slidingDoorState.OPEN;
         audioManager.Play("DoorOpen", this.transform.position);
         StartAnimating();
+
+        // Added 20-05-13.
+        doorOpeningParticleSystem.Play();
+        /////
     }
 
     private void OnTriggerExit(Collider other)

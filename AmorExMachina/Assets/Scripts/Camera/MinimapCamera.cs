@@ -45,9 +45,12 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 
     private void Update()
     {
-        if( Input.GetKeyDown(settings.cameraToggleController) || Input.GetKeyDown(settings.cameraToggleKeyboard))
+        if (GameHandler.currentState == GameState.NORMALGAME)
         {
-            firstPersonCamera = !firstPersonCamera;
+            if (Input.GetKeyDown(settings.cameraToggleController) || Input.GetKeyDown(settings.cameraToggleKeyboard))
+            {
+                firstPersonCamera = !firstPersonCamera;
+            }
         }
 
         if (firstPersonCamera || switchedToGuardCamera)

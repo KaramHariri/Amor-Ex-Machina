@@ -12154,11 +12154,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6341011417114156589, guid: 84593d0c549aabe4e87825e7606b0e1b,
-        type: 3}
-      propertyPath: blurFadeOutSpeed
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 7254304266613648427, guid: 84593d0c549aabe4e87825e7606b0e1b,
         type: 3}
       propertyPath: invertHorizontalInput

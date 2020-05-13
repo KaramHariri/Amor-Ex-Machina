@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6410a3e664b0ba4a9267a4fa80c9aed, type: 3}
   m_Name: GuardVariables
   m_EditorClassIdentifier: 
-  fieldOfViewAngle: 70
-  fieldOfViewRadius: 20
-  maxBackupRadius: 10
+  maxBackupRadius: 20
   patrolSpeed: 2
   chaseSpeed: 5
   suspiciousSpeed: 3.5

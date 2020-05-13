@@ -44,10 +44,12 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private bool updatingTimer = false;
 
     private GlitchEffect glitchEffect = null;
+    private AudioManager audioManager = null;
 
     void Awake()
     {
         InteractionButtonSubject.AddObserver(this);
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Start()
@@ -89,6 +91,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         if (!indicators.ContainsKey(target))
         {
+            //audioManager.Play("GuardNotice");
             SpottedIndicator spottedIndicator = SpottedIndicatorPool.instance.GetIndicator();
             indicators.Add(target, spottedIndicator);
         }

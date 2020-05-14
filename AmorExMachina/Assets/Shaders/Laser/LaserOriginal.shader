@@ -1,4 +1,4 @@
-﻿Shader "Custom/Laser"
+﻿Shader "Custom/Laser/LaserOriginal"
 {
 	Properties
 	{
@@ -6,11 +6,11 @@
 		_Color("Color", COLOR) = (0,0,0,0)
 		_MainTex("Hex Texture", 2D) = "white" {}
 
-		//Hex pulse properties
-		_PulseIntensity("Hex Pulse Intensity", float) = 3.0
-		_PulseTimeScale("Hex Pulse Time Scale", float) = 2.0
-		_PulsePosScale("Hex Pulse Position Scale", float) = 50.0
-		_PulseTexOffsetScale("Hex Pulse Texture Offset Scale", float) = 1.5
+	//Hex pulse properties
+	_PulseIntensity("Hex Pulse Intensity", float) = 3.0
+	_PulseTimeScale("Hex Pulse Time Scale", float) = 2.0
+	_PulsePosScale("Hex Pulse Position Scale", float) = 50.0
+	_PulseTexOffsetScale("Hex Pulse Texture Offset Scale", float) = 1.5
 
 		//Hex edge pulse properties
 		_HexEdgeIntensity("Hex Edge Intensity", float) = 2.0

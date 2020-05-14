@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Laser
-  m_Shader: {fileID: 4800000, guid: 899c9ab68aab2fc47b98911af9a0fdd3, type: 3}
+  m_Name: LaserShapedEdgesHorizontalCenter
+  m_Shader: {fileID: 4800000, guid: 3fd84eedf20ecea4884cdba5a64ab4ab, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -68,7 +68,7 @@ Material:
     - _HexEdgeIntensity: 8
     - _HexEdgePosScale: 50
     - _HexEdgeTimeScale: 3
-    - _HexEdgeWidthModifier: 0.93
+    - _HexEdgeWidthModifier: 0.81
     - _IntersectExponent: 30
     - _IntersectIntensity: 80
     - _Metallic: 0
@@ -87,4 +87,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 0.11576586, b: 0, a: 0.05882353}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HexEdgeColor: {r: 1, g: 0, b: 0.01845169, a: 1}
+    - _HexEdgeColor: {r: 0.7075472, g: 0, b: 0.020782566, a: 1}

@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             hackingTimer = maxHackingTimer;
         }
 
-        if (cameraVariables.switchedCameraToFirstPerson)
+        if (cameraVariables.switchedCameraToFirstPerson && !hacking)
         {
             playerMeshRenderer.enabled = false;
         }
@@ -238,6 +238,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HandleMovement()
     {
+        if (GameHandler.currentState == GameState.HACKING) { return; }
+
         Vector3 v = transform.forward;
         if (cameraVariables.switchedCameraToFirstPerson)
         {
@@ -250,6 +252,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             v = dir;
         }
 
+        v.Normalize();
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
 
         v.y = rb.velocity.y;

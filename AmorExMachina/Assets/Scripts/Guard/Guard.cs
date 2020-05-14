@@ -143,7 +143,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         int index = transform.GetSiblingIndex();
         guardMovement.pathHolder = GameObject.Find("GuardsPathsHolder").transform.GetChild(index);
         vC = GameObject.Find("GuardsCamerasHolder").transform.GetChild(index).GetComponent<CinemachineVirtualCamera>();
-        vC.m_Follow = transform.GetChild(transform.childCount - 1);
+        vC.m_Follow = transform.Find("Aim");
     }
 
     void InitMiniMap()

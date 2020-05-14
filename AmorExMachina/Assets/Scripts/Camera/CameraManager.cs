@@ -46,6 +46,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         {
             switching = true;
         }
+
         if (switching)
         {
             if (playerCameras.thirdPersonCamera.m_Priority == 22)

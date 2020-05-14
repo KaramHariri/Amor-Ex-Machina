@@ -104,6 +104,8 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void UpdateFirstPersonCameraVariables()
     {
+        cinemachineVirtualCamera.m_Follow = playerCamerasVariables.firstPersonCameraFollowTarget;
+
         playerCamerasVariables.firstPersonCameraInvertVerticalInput = settings.invertY;
         playerCamerasVariables.firstPersonCameraInvertHorizontalInput = invertHorizontalInput;
 

@@ -207,6 +207,7 @@ MonoBehaviour:
   hackingTimer: 0
   maxHackingTimer: 20
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
+  playerMeshRenderer: {fileID: 8656541516008358879}
 --- !u!114 &6588145092540544496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8121676584117144408, guid: c3e1cabb4ecd26e42a5d4208baa4ea22,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7814399351481547898, guid: c3e1cabb4ecd26e42a5d4208baa4ea22,
         type: 3}
@@ -623,6 +629,12 @@ PrefabInstance:
 --- !u!4 &3608087294505311341 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: c3e1cabb4ecd26e42a5d4208baa4ea22,
+    type: 3}
+  m_PrefabInstance: {fileID: 8604184853825419127}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8656541516008358879 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8121676584117144408, guid: c3e1cabb4ecd26e42a5d4208baa4ea22,
     type: 3}
   m_PrefabInstance: {fileID: 8604184853825419127}
   m_PrefabAsset: {fileID: 0}

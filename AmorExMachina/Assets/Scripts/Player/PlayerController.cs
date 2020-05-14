@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private Guard disabledGuard = null;
     [SerializeField] List<Guard> possibleGuardsToDisable = null;
 
-    #region Observer pattern subjects
+    #region Scriptable Objects
     public PlayerSoundSubject playerSoundSubject = null;
     public GuardHackedSubject guardHackedSubject = null;
     public PlayerVariables playerVariables = null;
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private GameObject minimapIcon = null;
     private AudioManager audioManager = null;
     [SerializeField] private Settings settings = null;
+
+    [SerializeField] private SkinnedMeshRenderer playerMeshRenderer = null;
 
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
@@ -77,6 +79,26 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         else
         {
             hackingTimer = maxHackingTimer;
+        }
+
+        if (cameraVariables.switchedCameraToFirstPerson)
+        {
+            playerMeshRenderer.enabled = false;
+        }
+        else
+        {
+            playerMeshRenderer.enabled = true;
+        }
+
+        if (sneaking)
+        {
+            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.14f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
+            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
+        }
+        else
+        {
+            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.65f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
+            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
         }
 
         GetInput();
@@ -199,6 +221,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if(cameraVariables.switchedCameraToFirstPerson)
         {
+            Debug.Log("First person rotation");
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
             Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.firstPersonCameraTransform.eulerAngles.y , 0.0f);

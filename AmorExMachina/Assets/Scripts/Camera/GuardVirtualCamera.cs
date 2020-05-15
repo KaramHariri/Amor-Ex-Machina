@@ -10,15 +10,7 @@ public class GuardVirtualCamera : MonoBehaviour
     private Camera mainCamera;
 
     [SerializeField]
-    private float verticalSpeed = 150.0f;
-    [SerializeField]
-    private float horizontalSpeed = 150.0f;
-    [SerializeField]
-    private bool invertVerticalInput = false;
-    [SerializeField]
     private bool invertHorizontalInput = false;
-    [SerializeField]
-    private bool useMouseInput = false;
     [SerializeField]
     [Range(-70, 0)]
     private float cameraYMin = -70.0f;

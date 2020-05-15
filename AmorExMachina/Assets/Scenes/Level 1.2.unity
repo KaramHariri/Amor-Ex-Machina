@@ -1468,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1517389396963966928, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
@@ -3532,7 +3532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &422850130
 Transform:
   m_ObjectHideFlags: 0
@@ -6684,7 +6684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &689383423
 Transform:
   m_ObjectHideFlags: 0
@@ -6702,7 +6702,7 @@ Transform:
   - {fileID: 1210322609}
   - {fileID: 1372005298}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &707605305
 PrefabInstance:
@@ -7845,7 +7845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &767210593
 Transform:
   m_ObjectHideFlags: 0
@@ -13561,6 +13561,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604184855125432447, guid: 32c2ca59a3db32f44909b173e2998588,
+        type: 3}
+      propertyPath: stepDistance
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604184855125432447, guid: 32c2ca59a3db32f44909b173e2998588,
+        type: 3}
+      propertyPath: walkingStepDistance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8604184855125432450, guid: 32c2ca59a3db32f44909b173e2998588,
         type: 3}

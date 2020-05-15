@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     [SerializeField] private SkinnedMeshRenderer playerMeshRenderer = null;
 
     float accumulateDistance = 0.0f;
-    float stepDistance = 0.2f;
+    [SerializeField] float sneakingStepDistance = 0.75f;
+    [SerializeField] float walkingStepDistance = 0.5f;
 
     void Awake()
     {
@@ -126,9 +127,14 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         accumulateDistance += Time.deltaTime;
         if (rb.velocity.sqrMagnitude > 0.0f)
         {
-            if (accumulateDistance > stepDistance)
+            if (accumulateDistance > sneakingStepDistance && sneaking)
             {
-                audioManager.Play("Movement");
+                audioManager.Play("PlayerWalking");
+                accumulateDistance = 0.0f;
+            }
+            else if(accumulateDistance > walkingStepDistance && !sneaking)
+            {
+                audioManager.Play("PlayerWalking");
                 accumulateDistance = 0.0f;
             }
         }
@@ -257,6 +263,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         else
             playerSoundSubject.NotifyObservers(SoundType.CROUCHING, transform.position);
 
+        PlaySound();
     }
 
     void DisableGuardCheck()

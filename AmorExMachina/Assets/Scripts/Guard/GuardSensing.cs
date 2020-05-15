@@ -262,9 +262,18 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public bool playerWasDetectedCheck()
     {
-        if (playerWasInSight && !suspicious)
+        if (playerWasInSight)
         {
-            return true;
+            Vector3 lastSightPos = new Vector3(playerLastSightPosition.x, 1.0f, playerLastSightPosition.z);
+            float distanceToLastSightPosition = Vector3.Distance(transform.position, lastSightPos);
+            if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         return false;
     }

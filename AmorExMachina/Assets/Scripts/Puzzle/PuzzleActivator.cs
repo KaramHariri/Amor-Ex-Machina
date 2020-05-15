@@ -24,9 +24,12 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     [SerializeField] PlayerVariables playerVariables = null;
     [SerializeField] Settings settings = null;
 
+    private Transform player = null;
+
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        player = playerVariables.playerTransform.Find("character_gabriel");
         if (PlayerSpottedSubject != null)
         {
             PlayerSpottedSubject.AddObserver(this);
@@ -50,6 +53,18 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
+            Vector3 directionToLockFromPlayer = transform.position - playerVariables.playerTransform.position;
+            directionToLockFromPlayer.y = 0;
+            directionToLockFromPlayer.Normalize();
+            Vector3 playerForwardDirection = player.transform.forward;
+            playerForwardDirection.y = 0;
+            //Debug.Log("DirToLock" + directionToLockFromPlayer);
+            Debug.DrawRay(playerVariables.playerTransform.position, directionToLockFromPlayer, Color.red);
+            Debug.DrawRay(playerVariables.playerTransform.position, playerForwardDirection, Color.blue);
+            Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
+
+            if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
+
             //if(angleToPlayer > 180.0f || angleToPlayer < 90.0f) { return; }
             if (!activated)
             {

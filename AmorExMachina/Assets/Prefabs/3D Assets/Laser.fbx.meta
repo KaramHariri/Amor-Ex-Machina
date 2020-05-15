@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 8279c5e2613da78428595406a702a628
+guid: 595c63948b8cfe6439a27193ff9808ea
 ModelImporter:
   serializedVersion: 19300
-  internalIDToNameTable:
-  - first:
-      74: 5680103300541289934
-    second: animation_gabriel_crouching
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1

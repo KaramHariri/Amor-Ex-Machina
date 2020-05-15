@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 963194229}
   - component: {fileID: 6341011417114156589}
   - component: {fileID: 4360647564004557117}
+  - component: {fileID: 2428082521299924208}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -157,6 +158,18 @@ MonoBehaviour:
   glitchUpdateSpeed: 2
   minDisplacmentAmount: 0.05
   maxDisplacmentAmount: 0.1
+--- !u!114 &2428082521299924208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489d67e4ddbae8146b2d660288c41add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5276379237382202461
 GameObject:
   m_ObjectHideFlags: 0

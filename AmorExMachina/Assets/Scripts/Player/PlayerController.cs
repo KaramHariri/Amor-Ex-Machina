@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
@@ -8,7 +9,6 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     [Range(1.3f, 2.5f)] [SerializeField] private float disableDistance = 1.8f;
     [Range(1.0f, 6.0f)] [SerializeField] private float sneakSpeed = 4.0f;
     [Range(5.0f, 10.0f)] [SerializeField] private float walkSpeed = 7.5f;
-    //[Range(50.0f, 150.0f)] [SerializeField] private float rotateVelocity = 100.0f;
     private float verticalInput = 0.0f;
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private Guard disabledGuard = null;
     [SerializeField] List<Guard> possibleGuardsToDisable = null;
 
-    #region Observer pattern subjects
+    #region Scriptable Objects
     public PlayerSoundSubject playerSoundSubject = null;
     public GuardHackedSubject guardHackedSubject = null;
     public PlayerVariables playerVariables = null;
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private AudioManager audioManager = null;
     [SerializeField] private Settings settings = null;
 
+    [SerializeField] private SkinnedMeshRenderer playerMeshRenderer = null;
+
     float accumulateDistance = 0.0f;
     float stepDistance = 0.2f;
 
@@ -46,13 +48,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         playerVariables.caught = false;
         playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
-        cameraVariables.firstPersonCameraFollowTarget = transform.GetChild(1);
-        cameraVariables.thirdPersonCameraFollowTarget = transform.GetChild(2);
+        cameraVariables.firstPersonCameraFollowTarget = gameObject.transform.Find("FirstPersonAim");
+        cameraVariables.thirdPersonCameraFollowTarget = gameObject.transform.Find("ThirdPersonAim");
         playerSpottedSubject.AddObserver(this);
         audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         rb.isKinematic = false;
-        minimapIcon = transform.GetChild(transform.childCount - 1).gameObject;
+        minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
     }
 
     void Update()
@@ -77,6 +79,26 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         else
         {
             hackingTimer = maxHackingTimer;
+        }
+
+        if (cameraVariables.switchedCameraToFirstPerson && !hacking)
+        {
+            playerMeshRenderer.enabled = false;
+        }
+        else
+        {
+            playerMeshRenderer.enabled = true;
+        }
+
+        if (sneaking)
+        {
+            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.14f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
+            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
+        }
+        else
+        {
+            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.65f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
+            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
         }
 
         GetInput();
@@ -180,7 +202,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Input.GetKey(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetKey(settings.movementToggleController) || Input.GetKey(settings.movementToggleKeyboard))
         {
             sneaking = false;
         }
@@ -199,6 +221,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if(cameraVariables.switchedCameraToFirstPerson)
         {
+            Debug.Log("First person rotation");
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
             Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.firstPersonCameraTransform.eulerAngles.y , 0.0f);
@@ -215,6 +238,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void HandleMovement()
     {
+        if (GameHandler.currentState == GameState.HACKING) { return; }
+
         Vector3 v = transform.forward;
         if (cameraVariables.switchedCameraToFirstPerson)
         {
@@ -227,6 +252,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             v = dir;
         }
 
+        v.Normalize();
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
 
         v.y = rb.velocity.y;
@@ -241,7 +267,6 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void DisableGuardCheck()
     {
-        // If there is a possible guard to disable, we get the closest one and check if we're in a specific angle and distance to the guard to disable it.
         if (possibleGuardsToDisable.Count > 0)
         {
             Guard closestGuard = GetClosestGuard();
@@ -249,32 +274,54 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             {
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                //if (angleToTarget < 180.0f && angleToTarget > 110.0f && targetToPlayerDirection.magnitude <= disableDistance)
-                if (!closestGuard.sensing.Suspicious() && !closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && targetToPlayerDirection.magnitude <= disableDistance)
+                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && !closestGuard.disabled)
                 {
-                    if (!closestGuard.disabled)
+                    if (!closestGuard.sensing.Suspicious())
                     {
                         interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                        if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
+                        DisableGuardInputCheck(closestGuard);
+                    }
+                    else if (closestGuard.sensing.Suspicious() || closestGuard.sensing.playerWasDetectedCheck())
+                    {
+                        if (angleToTarget < 180.0f && angleToTarget > 105.0f)
                         {
-                            disabledGuard = closestGuard;
-                            if (disabledGuard != null)
-                            {
-                                guardDisabledSubject.GuardDisabledNotify(disabledGuard);
-                                audioManager.Play("DisableGuard", this.transform.position);
-                                disabledGuard.disabled = true;
-                            }
+                            interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                            DisableGuardInputCheck(closestGuard);
                         }
+                        else
+                            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
                     }
                     else
                     {
                         interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
                     }
                 }
+                else
+                {
+                    interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+                }
             }
             else
             {
                 interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+            }
+        }
+    }
+
+    void DisableGuardInputCheck(Guard guard)
+    {
+        if (Input.GetKeyDown(settings.disableGuardKeyboard) || Input.GetKeyDown(settings.disableGuardController))
+        {
+            disabledGuard = guard;
+            if (disabledGuard != null)
+            {
+                // Added 20-05-13.
+                disabledGuard.PlayDisableVFX();
+                /////
+
+                guardDisabledSubject.GuardDisabledNotify(disabledGuard);
+                audioManager.Play("DisableGuard", this.transform.position);
+                disabledGuard.disabled = true;
             }
         }
     }
@@ -285,9 +332,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         if (other.CompareTag("Guard"))
         {
             Guard tempScript = other.GetComponent<Guard>();
-            //if(!possibleGuardsToDisable.Contains(tempScript))
-            //if(!tempScript.disabled)
-                possibleGuardsToDisable.Add(tempScript);
+            possibleGuardsToDisable.Add(tempScript);
         }
     }
 
@@ -295,11 +340,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         // Remove the guard when he exits from the list of possible guards to disable.
         Guard tempScript = other.GetComponent<Guard>();
-        //if (possibleGuardsToDisable.Contains(tempScript))
-        //{
         possibleGuardsToDisable.Remove(tempScript);
         interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
-        //}
     }
 
     Guard GetClosestGuard()
@@ -309,16 +351,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         Vector3 currentPosition = transform.position;
         for (int i = 0; i < possibleGuardsToDisable.Count; i++)
         {
-            //if (!possibleGuardsToDisable[i].disabled)
-            //{
-                Vector3 directionToTarget = possibleGuardsToDisable[i].transform.position - currentPosition;
-                float distanceSquaredToTarget = directionToTarget.sqrMagnitude;
-                if (distanceSquaredToTarget < closestDistanceSquared)
-                {
-                    closestDistanceSquared = distanceSquaredToTarget;
-                    closestGuard = possibleGuardsToDisable[i];
-                }
-            //}
+            Vector3 directionToTarget = possibleGuardsToDisable[i].transform.position - currentPosition;
+            float distanceSquaredToTarget = directionToTarget.sqrMagnitude;
+            if (distanceSquaredToTarget < closestDistanceSquared)
+            {
+                closestDistanceSquared = distanceSquaredToTarget;
+                closestGuard = possibleGuardsToDisable[i];
+            }
         }
         return closestGuard;
     }

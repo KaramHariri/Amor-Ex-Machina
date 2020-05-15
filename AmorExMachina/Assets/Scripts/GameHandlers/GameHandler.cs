@@ -46,6 +46,9 @@ public class GameHandler : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         sceneHandler = SceneHandler.instance;
+
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

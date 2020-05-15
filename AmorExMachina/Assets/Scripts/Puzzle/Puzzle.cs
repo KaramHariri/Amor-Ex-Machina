@@ -31,6 +31,11 @@ public class Puzzle : MonoBehaviour
     public SlidingDoor door;
     private AudioManager audioManager = null;
 
+    // Added 20-05-13
+    [SerializeField] private ParticleSystem puzzleCompleteVFX;
+    [SerializeField] private ParticleSystem activateButtonVFX;
+    ///
+
     private void Start()
     {
         foreach(PuzzleButton b in buttons)
@@ -330,6 +335,11 @@ public class Puzzle : MonoBehaviour
             }
         }
         //Debug.Log("Puzzle completed!");
+
+        // Added 20-05-13
+        puzzleCompleteVFX.Play();
+        ///
+
         door.UnlockDoor();
 
         if (PA != null)
@@ -366,6 +376,11 @@ public class Puzzle : MonoBehaviour
 
         if (Input.GetKeyDown(settings.activateButtonInPuzzleKeyboard) && buttonActivateCooldown == 0.0f)
         {
+            // Added 20-05-13
+            activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.Play();
+            ///
+
             selectedButton.Select();
             GenerateFlipTileList();
             buttonActivateCooldown = (flipButtons.Count * timeBetweenFlips) + 0.2f;
@@ -374,6 +389,11 @@ public class Puzzle : MonoBehaviour
 
         if (Input.GetKeyDown(settings.rotatePuzzleArrowKeyboard) && buttonRotateCooldown == 0.0f)
         {
+            // Added 20-05-13
+            activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.Play();
+            ///
+
             audioManager.Play("ActivateButton");
             selectedButton.RotateDirection();
             buttonRotateCooldown = buttonRotateCooldownTime;
@@ -406,6 +426,11 @@ public class Puzzle : MonoBehaviour
 
         if (Input.GetKeyDown(settings.rotatePuzzleArrowController) && buttonRotateCooldown == 0.0f)
         {
+            // Added 20-05-13
+            activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.Play();
+            ///
+
             audioManager.Play("ActivateButton");
             selectedButton.RotateDirection();
             buttonRotateCooldown = buttonRotateCooldownTime;
@@ -415,6 +440,11 @@ public class Puzzle : MonoBehaviour
         //if (Input.GetButtonDown("X") && buttonActivateCooldown == 0.0f)
         if (Input.GetKeyDown(settings.activateButtonInPuzzleController) && buttonActivateCooldown == 0.0f)
         {
+            // Added 20-05-13
+            activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.Play();
+            ///
+
             audioManager.Play("ActivateButton");
             selectedButton.Select();
             GenerateFlipTileList();

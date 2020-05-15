@@ -15,7 +15,9 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        sceneHandler = SceneHandler.instance;    
+        sceneHandler = SceneHandler.instance;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Start()

@@ -147,7 +147,7 @@ MonoBehaviour:
     maxSoundDistance: 100
     loop: 0
     playOnAwake: 0
-    threeDimensionalSound: 1
+    threeDimensionalSound: 0
     aS: {fileID: 0}
   - name: HackGuard
     audioType: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
     randomVolume: 0.163
     randomPitch: 0
     maxSoundDistance: 300
-    loop: 1
+    loop: 0
     playOnAwake: 0
     threeDimensionalSound: 0
     aS: {fileID: 0}
@@ -270,6 +270,32 @@ MonoBehaviour:
     audioType: 0
     clip:
     - {fileID: 8300000, guid: ebd0faf5405bdb94d8cd6594b2e14b01, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 1
+    aS: {fileID: 0}
+  - name: GettingDetected
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 16258cafa602a69429f1b504084d35e7, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
+  - name: Alarm
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 9183416fcc2931b478eeaeedc6c4d6a6, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

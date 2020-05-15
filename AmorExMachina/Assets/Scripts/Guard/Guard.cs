@@ -55,6 +55,10 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     LayerMask raycastCheckLayer = 0;
     private AudioManager audioManager = null;
 
+    // Added 20-05-13.
+    [SerializeField] private ParticleSystem disableParticleSystem = null;
+    /////
+    
     public void Awake()
     {
         GuardGetComponents();
@@ -139,7 +143,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         int index = transform.GetSiblingIndex();
         guardMovement.pathHolder = GameObject.Find("GuardsPathsHolder").transform.GetChild(index);
         vC = GameObject.Find("GuardsCamerasHolder").transform.GetChild(index).GetComponent<CinemachineVirtualCamera>();
-        vC.m_Follow = transform.GetChild(transform.childCount - 1);
+        vC.m_Follow = transform.Find("Aim");
     }
 
     void InitMiniMap()
@@ -222,7 +226,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             if (sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
             {
                 sensing.distracted = true;
-                guardMovement.SetInvestigationPosition(position);
+                //guardMovement.SetInvestigationPosition(position);
+                guardMovement.SetDistractionInvestigationPosition(position);
                 guardMovement.ResetIdleTimer();
             }
         }
@@ -232,6 +237,13 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 sensing.suspicious = false;
         }
     }
+
+    // Added 20-05-13.
+    public void PlayDisableVFX()
+    {
+        disableParticleSystem.Play();
+    }
+    /////
 
     public void PlayerSpottedNotify(Vector3 position)
     {

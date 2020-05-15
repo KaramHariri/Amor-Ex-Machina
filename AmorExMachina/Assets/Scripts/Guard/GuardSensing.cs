@@ -7,6 +7,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [HideInInspector] public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
+    /*[HideInInspector]*/ public bool playerWasInSight = false;
     private bool playerInRange = false;
     private bool playerInSight = false;
 
@@ -28,6 +29,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     private Guard guardScript = null;
 
+    /*[HideInInspector]*/ public Vector3 playerLastSightPosition = Vector3.zero;
+
     #region Layer masks
     private LayerMask raycastCheckLayer = 0;
     private LayerMask raycastCheckLayerWithSmoke = 0;
@@ -46,7 +49,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [Header("Distance based values")]
     public float maxDistanceValue = 0.6f;
     public float minDistanceValue = 2.0f;
-    private Transform playerTransform;
     private float distancePercent = 0f;
     private float valueDifference = 0f;
     private float distanceFactorAmount = 0f;
@@ -65,9 +67,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         sensingCollider = GetComponent<SphereCollider>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         guardScript = GetComponent<Guard>();
-
-        //Added 2020-05-08
-        playerTransform = GameObject.Find("Gabriel").GetComponent<Transform>();
     }
 
     void AssignPlayerVariable()
@@ -125,7 +124,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     void SpottedIndicatorHandler()
     {
-        if (playerInSight)
+        if (playerInSight || playerWasInSight)
         {
             {   //These are the things changed for the distance to player sensing //Changed 2020-05-08
                 //detectionAmount += Time.deltaTime; 
@@ -199,26 +198,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     void DisabledGuardInSightCheck()
     {
-        //if (disabledGuardInRange.Count > 0)
-        //{
-        //    for (int i = 0; i < disabledGuardInRange.Count; i++)
-        //    {
-        //        Vector3 directionToDisabledGuard = disabledGuardInRange[i].transform.position - transform.position;
-        //        float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
-
-        //        if (angle < fieldOfViewAngle)
-        //        {
-        //            if (RaycastHitCheckToTarget(disabledGuardInRange[i].transform, raycastDisabledGuardCheckLayer))
-        //            {
-        //                if (!disabledGuardsFound.Contains(disabledGuardInRange[i]))
-        //                {
-        //                    disabledGuardsFound.Add(disabledGuardInRange[i]);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
         if(disabledGuards.Count > 0)
         {
             for(int i = 0; i < disabledGuards.Count; i++)
@@ -274,6 +253,17 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         if (playerInSight && detectionAmount >= maxDetectionAmount)
         {
+            playerWasInSight = true;
+            playerLastSightPosition = playerVariables.playerTransform.position;
+            return true;
+        }
+        return false;
+    }
+
+    public bool playerWasDetectedCheck()
+    {
+        if (playerWasInSight && !suspicious)
+        {
             return true;
         }
         return false;
@@ -281,7 +271,16 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public bool Suspicious()
     {
-        if ((suspicious && detectionAmount >= maxDetectionAmount) || distracted)
+        if (suspicious && detectionAmount >= maxDetectionAmount)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool Distracted()
+    {
+        if(distracted)
         {
             return true;
         }
@@ -330,8 +329,6 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             {
                 if (raycastHit.collider.transform == target.transform)
                 {
-                    //Debug.DrawLine(transform.position, raycastHit.point);
-                    //Debug.Break();
                     return true;   
                 }
             }
@@ -389,13 +386,13 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     //Added 2020-05-08
     private void CalculateDistanceFactor()
     {
-        if(playerTransform == null) { Debug.Log("Can't find player transform"); return; }
+        if(playerVariables.playerTransform == null) { Debug.Log("Can't find player transform"); return; }
 
         //We probably want to do this in start once we have good values in order to get better preformance, but for now this will allow us to modify the values in real time
         valueDifference = maxDistanceValue - minDistanceValue;
 
         //The distance for hearing is a bit different from sight so in order to have a proper one for hearing we'd use different metrics. (Hearing doesn't go through walls)
-        distancePercent = (Vector3.Distance(playerTransform.position, transform.position) / fieldOfViewRadius);
+        distancePercent = (Vector3.Distance(playerVariables.playerTransform.position, transform.position) / fieldOfViewRadius);
 
         distanceFactorAmount = minDistanceValue + distancePercent * valueDifference;
         //Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);

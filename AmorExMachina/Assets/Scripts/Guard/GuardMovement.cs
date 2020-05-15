@@ -12,6 +12,7 @@ public class GuardMovement : MonoBehaviour
 
     [HideInInspector] public NavMeshAgent navMeshAgent = null;
     [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
+    [HideInInspector] public Vector3 distractionInvestigationPosition = Vector3.zero;
     [HideInInspector] public Vector3 assistPosition = Vector3.zero;
 
     [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
@@ -107,6 +108,15 @@ public class GuardMovement : MonoBehaviour
         }
     }
 
+    public void MoveToLastSightPosition(Vector3 target)
+    {
+        Vector3 targetPosition = new Vector3(target.x, 1.0f, target.z);
+        navMeshAgent.SetDestination(targetPosition);
+        navMeshAgent.speed = guardVariables.chaseSpeed;
+        navMeshAgent.stoppingDistance = 0.5f;
+        navMeshAgent.autoBraking = true;
+    }
+
     public void MoveTowardsKnockedOutGuard(Vector3 target)
     {
         Vector3 targetPosition = new Vector3(target.x, 1.0f, target.z);
@@ -125,6 +135,30 @@ public class GuardMovement : MonoBehaviour
     {
         idle = false;
         Vector3 investigationPos = new Vector3(investigationPosition.x, 1.0f, investigationPosition.z);
+
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(investigationPos, newPath);
+        }
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(investigationPos);
+            navMeshAgent.stoppingDistance = 3.0f;
+            navMeshAgent.speed = guardVariables.suspiciousSpeed;
+            navMeshAgent.autoBraking = true;
+        }
+    }
+
+    public void SetDistractionInvestigationPosition(Vector3 position)
+    {
+        distractionInvestigationPosition = position;
+    }
+
+    public void DistractionInvestigate()
+    {
+        idle = false;
+        Vector3 investigationPos = new Vector3(distractionInvestigationPosition.x, 1.0f, distractionInvestigationPosition.z);
 
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)

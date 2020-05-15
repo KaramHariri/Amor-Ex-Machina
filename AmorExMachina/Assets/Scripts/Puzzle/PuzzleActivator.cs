@@ -50,6 +50,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
+            //if(angleToPlayer > 180.0f || angleToPlayer < 90.0f) { return; }
             if (!activated)
             {
                 audioManager.Play("ActivateDoorPuzzle");

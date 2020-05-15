@@ -378,6 +378,8 @@ public class Puzzle : MonoBehaviour
         {
             // Added 20-05-13
             activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.gameObject.transform.position = new Vector3(activateButtonVFX.gameObject.transform.position.x, activateButtonVFX.gameObject.transform.position.y, activateButtonVFX.gameObject.transform.position.z - 100);
+
             activateButtonVFX.Play();
             ///
 
@@ -391,6 +393,8 @@ public class Puzzle : MonoBehaviour
         {
             // Added 20-05-13
             activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.gameObject.transform.position = new Vector3(activateButtonVFX.gameObject.transform.position.x, activateButtonVFX.gameObject.transform.position.y, activateButtonVFX.gameObject.transform.position.z - 100);
+
             activateButtonVFX.Play();
             ///
 
@@ -428,6 +432,8 @@ public class Puzzle : MonoBehaviour
         {
             // Added 20-05-13
             activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.gameObject.transform.position = new Vector3(activateButtonVFX.gameObject.transform.position.x, activateButtonVFX.gameObject.transform.position.y, activateButtonVFX.gameObject.transform.position.z - 100);
+
             activateButtonVFX.Play();
             ///
 
@@ -442,6 +448,8 @@ public class Puzzle : MonoBehaviour
         {
             // Added 20-05-13
             activateButtonVFX.gameObject.transform.position = selectedButton.transform.position;
+            activateButtonVFX.gameObject.transform.position = new Vector3(activateButtonVFX.gameObject.transform.position.x, activateButtonVFX.gameObject.transform.position.y, activateButtonVFX.gameObject.transform.position.z - 100);
+
             activateButtonVFX.Play();
             ///
 

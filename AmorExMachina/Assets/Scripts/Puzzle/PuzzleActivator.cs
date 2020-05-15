@@ -8,13 +8,13 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     public Vector3 onScreenPosition;
     public GameObject objectToMove;
     public AnimationCurve animationCurve;
-    [HideInInspector]
+    //[HideInInspector]
     public bool activated = false;
     private bool puzzleSolved = false;
 
     public float duration = 1.5f;
     public float animationCooldown = 0f;
-    private float deactivationDelay = 0.2f;
+    [SerializeField] private float deactivationDelay = 0.2f;
 
     private bool canBeActivated = false;
 
@@ -26,6 +26,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
     private void Awake()
     {
+        activated = false;
         audioManager = FindObjectOfType<AudioManager>();
         if (PlayerSpottedSubject != null)
         {
@@ -46,6 +47,18 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             animationCooldown = 0;
 
         if (!canBeActivated) { return; }
+
+        Vector3 directionToLockFromPlayer = transform.position - playerVariables.playerTransform.position;
+        directionToLockFromPlayer.y = 0;
+        directionToLockFromPlayer.Normalize();
+        Vector3 playerForwardDirection = playerVariables.playerTransform.GetChild(0).transform.forward;
+        playerForwardDirection.y = 0;
+        //Debug.Log("DirToLock" + directionToLockFromPlayer);
+        Debug.DrawRay(playerVariables.playerTransform.position, directionToLockFromPlayer, Color.red);
+        Debug.DrawRay(playerVariables.playerTransform.position, playerForwardDirection, Color.blue);
+        Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
+
+        if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
 
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)

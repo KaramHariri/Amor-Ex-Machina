@@ -227,6 +227,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             v = dir;
         }
 
+        v.Normalize();
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
 
         v.y = rb.velocity.y;

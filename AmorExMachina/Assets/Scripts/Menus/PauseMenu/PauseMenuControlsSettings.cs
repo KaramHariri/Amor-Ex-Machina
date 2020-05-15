@@ -23,6 +23,8 @@ public class PauseMenuControlsSettings : MonoBehaviour
 
     [SerializeField]
     private Button controllerControlsButton = null;
+    //[SerializeField]
+    //private Button keyboardControlsButton = null;
 
     private void Awake()
     {
@@ -50,22 +52,20 @@ public class PauseMenuControlsSettings : MonoBehaviour
             settingsMenuInstance.StartSwitchingFromControlsCoroutine();
             return;
         }
-
-        ControllerConnectedCheck();
+        SetButtonsInteractable();
     }
 
-    void ControllerConnectedCheck()
+    void SetButtonsInteractable()
     {
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        if (!settingsMenuInstance.settings.useControllerInput)
         {
-            if (Input.GetJoystickNames().Length == 1 && Input.GetJoystickNames()[i] == "")
-            {
-                controllerControlsButton.interactable = false;
-            }
-            else
-            {
-                controllerControlsButton.interactable = true;
-            }
+            //keyboardControlsButton.interactable = true;
+            controllerControlsButton.interactable = false;
+        }
+        else
+        {
+            //keyboardControlsButton.interactable = false;
+            controllerControlsButton.interactable = true;
         }
     }
 

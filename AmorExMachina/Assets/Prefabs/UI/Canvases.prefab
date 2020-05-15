@@ -1657,6 +1657,7 @@ MonoBehaviour:
   firstSelectedButtonInControls: {fileID: 2173388315435429633}
   fadingSpeed: 4
   controllerControlsButton: {fileID: 2173388314318881916}
+  keyboardControlsButton: {fileID: 2173388315435429638}
 --- !u!1 &2173388314318881918
 GameObject:
   m_ObjectHideFlags: 0

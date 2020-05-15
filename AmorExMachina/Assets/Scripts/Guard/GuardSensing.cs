@@ -124,7 +124,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     void SpottedIndicatorHandler()
     {
-        if (playerInSight || playerWasInSight)
+        if ((playerInSight || playerWasInSight) && !guardScript.disabled)
         {
             {   //These are the things changed for the distance to player sensing //Changed 2020-05-08
                 //detectionAmount += Time.deltaTime; 
@@ -137,7 +137,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             UIManager.createIndicator(this.transform);
             UIManager.updateIndicator(this.transform, IndicatorColor.Red);
         }
-        else if (suspicious)
+        else if (suspicious && !guardScript.disabled)
         {
             detectionAmount += Time.deltaTime * 2.0f;
             if (detectionAmount >= maxDetectionAmount)

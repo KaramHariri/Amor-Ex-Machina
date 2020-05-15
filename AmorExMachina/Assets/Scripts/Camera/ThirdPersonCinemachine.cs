@@ -108,6 +108,7 @@ public class ThirdPersonCinemachine : MonoBehaviour
     void UpdateThirdPersonCameraVariables()
     {
         playerCamerasVariables.thirdPersonCameraInvertVerticalInput = settings.invertY;
+        playerCamerasVariables.thirdPersonCameraInvertVerticalInput = settings.invertY;
         playerCamerasVariables.thirdPersonCameraInvertHorizontalInput = invertHorizontalInput;
 
         playerCamerasVariables.thirdPersonCameraTopRingHeight = topRingHeight;
@@ -123,7 +124,11 @@ public class ThirdPersonCinemachine : MonoBehaviour
 
     void UpdateCameraSettings()
     {
-        cinemachineFreeLook.m_YAxis.m_InvertInput = settings.invertY;
+        if (settings.useControllerInput)
+            cinemachineFreeLook.m_YAxis.m_InvertInput = settings.invertY;
+        else
+            cinemachineFreeLook.m_YAxis.m_InvertInput = !settings.invertY;
+
         cinemachineFreeLook.m_XAxis.m_InvertInput = invertHorizontalInput;
 
         cinemachineFreeLook.m_YAxis.m_MaxSpeed = settings.thirdPersonLookSensitivity * 0.01f;

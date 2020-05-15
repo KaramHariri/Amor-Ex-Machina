@@ -127,7 +127,7 @@ public class GameplaySettingsMenu : MonoBehaviour
     {
         if (optionsMenuInstance.eventSystem.currentSelectedGameObject == slider)
         {
-            float input = Input.GetAxis("Horizontal");
+            float input = Input.GetAxisRaw("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
                 imageFill.fillAmount += 0.1f;

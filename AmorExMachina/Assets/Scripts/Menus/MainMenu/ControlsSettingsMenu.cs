@@ -23,6 +23,8 @@ public class ControlsSettingsMenu : MonoBehaviour
 
     [SerializeField]
     private Button controllerControlsButton = null;
+    //[SerializeField]
+    //private Button keyboardControlsButton = null;
 
     private void Awake()
     {
@@ -51,21 +53,20 @@ public class ControlsSettingsMenu : MonoBehaviour
             return;
         }
 
-        ControllerConnectedCheck();
+        SetButtonsInteractable();
     }
 
-    void ControllerConnectedCheck()
+    void SetButtonsInteractable()
     {
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        if (!optionsMenuInstance.settings.useControllerInput)
         {
-            if (Input.GetJoystickNames().Length == 1 && Input.GetJoystickNames()[i] == "")
-            {
-                controllerControlsButton.interactable = false;
-            }
-            else
-            {
-                controllerControlsButton.interactable = true;
-            }
+            //keyboardControlsButton.interactable = true;
+            controllerControlsButton.interactable = false;
+        }
+        else
+        {
+            //keyboardControlsButton.interactable = false;
+            controllerControlsButton.interactable = true;
         }
     }
 

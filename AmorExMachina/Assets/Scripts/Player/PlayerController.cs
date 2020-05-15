@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         
         if (playerVariables.canHackGuard)
         {
-            if (/*disabledGuard != null &&*/ !hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
+            if (!hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
                 hacking = true;
@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 GameHandler.currentState = GameState.HACKING;
                 return;
             }
-            else if (/*disabledGuard != null &&*/ hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
+            else if (hacking && (Input.GetKeyDown(settings.hackGuardKeyboard) || Input.GetKeyDown(settings.hackGuardController)))
             {
                 disabledGuard.hacked = false;
                 hacking = false;
@@ -210,18 +210,12 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             sneaking = true;
         }
-
-        //if (Input.GetKeyDown(settings.movementToggleKeyboard) || Input.GetKeyDown(settings.movementToggleController))
-        //{
-        //    sneaking = !sneaking;
-        //}
     }
 
     void FirstPersonRotationHandling()
     {
         if(cameraVariables.switchedCameraToFirstPerson)
         {
-            Debug.Log("First person rotation");
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
             Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.firstPersonCameraTransform.eulerAngles.y , 0.0f);

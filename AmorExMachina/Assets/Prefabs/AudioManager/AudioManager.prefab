@@ -282,7 +282,7 @@ MonoBehaviour:
   - name: GettingDetected
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 16258cafa602a69429f1b504084d35e7, type: 3}
+    - {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

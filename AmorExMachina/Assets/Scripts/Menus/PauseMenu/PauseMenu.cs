@@ -15,12 +15,15 @@ public class PauseMenu : MonoBehaviour
 
     GameObject currentSelectedButton = null;
 
+    private bool canTakeInput = false;
+
     private void Start()
     {
         Cursor.visible = false;
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         pauseMenuObject = transform.GetChild(0).gameObject;
         pauseMenuObject.SetActive(false);
+        canTakeInput = true;
     }
 
     private void Update()
@@ -29,6 +32,11 @@ public class PauseMenu : MonoBehaviour
         {
             if(!switchedToSettings)
                 pauseMenuObject.SetActive(true);
+        }
+
+        if(Input.GetButtonDown("Cancel") && canTakeInput)
+        {
+            Resume();
         }
     }
 
@@ -64,6 +72,7 @@ public class PauseMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(PauseMenuSettings.firstSelectedButtonInOptions);
         switchedToSettings = true;
         pauseMenuObject.gameObject.SetActive(false);
+        canTakeInput = false;
     }
 
     IEnumerator SwitchToLoad()
@@ -75,6 +84,7 @@ public class PauseMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(loadGameMenu.firstSelectedButtonInLoadMenu);
         switchedToSettings = true;
         pauseMenuObject.gameObject.SetActive(false);
+        canTakeInput = false;
     }
 
     public void StartSetSelectedButtonEnumerator()
@@ -87,5 +97,6 @@ public class PauseMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(currentSelectedButton);
+        canTakeInput = true;
     }
 }

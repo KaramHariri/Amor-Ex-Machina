@@ -376,6 +376,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         playerInSight = false;
         suspicious = false;
+        playerWasInSight = false;
         disabledGuardsFound.Clear();
     }
 

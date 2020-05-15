@@ -40,9 +40,13 @@ public class SpottedIndicator : MonoBehaviour
     [SerializeField] private Image image = null;
     private GuardSensing guardSensing = null;
 
+    private AudioManager audioManager = null;
+    //private bool
+
     private void Awake()
     {
         image.color = new Color(1.0f, 0.92f, 0.016f, 0.8f);
+        audioManager = FindObjectOfType<AudioManager>();
         image.fillAmount = 0.0f;
     }
 

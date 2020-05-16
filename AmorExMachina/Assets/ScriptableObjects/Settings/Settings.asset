@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c96acfd0c5e4f943b97ae010c329, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
+  useControllerInput: 1
   invertY: 0
   subtitle: 1
   thirdPersonLookSensitivity: 150
   firstPersonLookSensitivity: 150
   masterVolume: 1
-  effectsVolume: 0.839
-  footstepsVolume: 0.70000005
-  voiceVolume: 0.5999999
-  musicVolume: 0.334
+  effectsVolume: 0.3
+  footstepsVolume: 0.4
+  voiceVolume: 0.6
+  musicVolume: 0.3
   rotatePuzzleArrowKeyboard: 102
   activateButtonInPuzzleKeyboard: 101
   activatePuzzleKeyboard: 114

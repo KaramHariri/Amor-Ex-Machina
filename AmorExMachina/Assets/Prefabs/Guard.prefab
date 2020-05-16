@@ -730,6 +730,11 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8402385956039104579, guid: 14ba9b120028a804ba6e8bdcd8366f7a,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8526595145704124961, guid: 14ba9b120028a804ba6e8bdcd8366f7a,
         type: 3}
       propertyPath: m_LocalPosition.x

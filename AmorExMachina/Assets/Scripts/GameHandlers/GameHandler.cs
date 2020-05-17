@@ -24,7 +24,7 @@ public enum PlayerState
 public class GameHandler : MonoBehaviour
 {
     static public GameState currentState;
-    private PlayerState playerState = PlayerState.NOTSPOTTED;
+    [SerializeField] private PlayerState playerState = PlayerState.NOTSPOTTED;
     static public GameState previousState;
 
     private EventSystem eventSystem = null;
@@ -37,6 +37,8 @@ public class GameHandler : MonoBehaviour
     private SceneHandler sceneHandler = null;
 
     public static Action reloadSceneButton = delegate { };
+
+    private float inputDelay = 0.0f;
 
     private void Awake()
     {
@@ -53,11 +55,21 @@ public class GameHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Options") && currentState != GameState.MENU)
+        if (Input.GetButtonDown("Options") && currentState != GameState.MENU && inputDelay >= 0.2f)
         {
             StartCoroutine("SetPauseMenuSelectedButton");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             currentState = GameState.MENU;
+        }
+
+        if(currentState == GameState.MENU)
+        {
+            inputDelay = 0.0f;
+        }
+        else
+        {
+            inputDelay += Time.deltaTime;
+            inputDelay = Mathf.Clamp(inputDelay, 0.0f, 5.0f);
         }
 
         if(previousState != currentState && currentState != GameState.MENU)

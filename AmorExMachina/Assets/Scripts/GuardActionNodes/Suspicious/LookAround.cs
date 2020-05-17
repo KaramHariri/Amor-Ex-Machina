@@ -11,6 +11,7 @@
     {
         NodeState nodeState = NodeState.RUNNING;
         guard.guardMovement.idleTimer -= UnityEngine.Time.deltaTime;
+        
         if (guard.guardMovement.idleTimer <= 0)
         {
             guard.guardMovement.idle = false;

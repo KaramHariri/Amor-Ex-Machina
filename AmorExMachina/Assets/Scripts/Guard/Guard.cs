@@ -56,7 +56,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     private AudioManager audioManager = null;
 
     // Added 20-05-13.
-    [SerializeField] private ParticleSystem disableParticleSystem = null;
+    private ParticleSystem disableParticleSystem = null;
     /////
     
     public void Awake()
@@ -72,6 +72,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         currentColor = guardVariables.patrolColor;
         mainCamera = Camera.main;
         raycastCheckLayer = LayerMask.GetMask("Walls");
+
+        disableParticleSystem = transform.Find("VFX").Find("Guard Disable 1.0 Variant").GetComponent<ParticleSystem>();
     }
 
     public void Start()
@@ -213,7 +215,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         {
             if (sensing.canHear)
             {
-                if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.sensingCollider.radius)
+                if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.hearingRadius)
                 {
                     sensing.suspicious = true;
                     guardMovement.SetInvestigationPosition(position);

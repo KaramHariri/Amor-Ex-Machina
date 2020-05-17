@@ -526,11 +526,6 @@ PrefabInstance:
       propertyPath: movementType
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1672198640}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
@@ -3105,11 +3100,6 @@ PrefabInstance:
       propertyPath: movementType
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1672198640}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
@@ -5613,11 +5603,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 422850130}
     m_Modifications:
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1672198640}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
@@ -8699,11 +8684,6 @@ PrefabInstance:
       propertyPath: showSensingSphere
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1672198640}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
@@ -13341,11 +13321,6 @@ PrefabInstance:
       propertyPath: guardType
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1475938399}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder
@@ -13355,6 +13330,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hearingRadius
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764624099325710478, guid: bad67e32d80fc274bb3a286950307329,
+        type: 3}
+      propertyPath: showHearingRadius
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4764624099325711218, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
@@ -14557,12 +14537,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
     type: 3}
   m_PrefabInstance: {fileID: 1455253680}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1475938399 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 410582135448154767, guid: bad67e32d80fc274bb3a286950307329,
-    type: 3}
-  m_PrefabInstance: {fileID: 1386896117}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1485784043
 PrefabInstance:
@@ -16623,12 +16597,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1671443845}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1672198640 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 410582135448154767, guid: bad67e32d80fc274bb3a286950307329,
-    type: 3}
-  m_PrefabInstance: {fileID: 59761383}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1672696466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16641,11 +16609,6 @@ PrefabInstance:
       propertyPath: movementType
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4764624099325710476, guid: bad67e32d80fc274bb3a286950307329,
-        type: 3}
-      propertyPath: disableParticleSystem
-      value: 
-      objectReference: {fileID: 1672198640}
     - target: {fileID: 4764624099325710477, guid: bad67e32d80fc274bb3a286950307329,
         type: 3}
       propertyPath: pathHolder

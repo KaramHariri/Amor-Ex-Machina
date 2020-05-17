@@ -41,7 +41,7 @@ public class SpottedIndicator : MonoBehaviour
     private GuardSensing guardSensing = null;
 
     private AudioManager audioManager = null;
-    //private bool
+    private bool detectionSoundPlayed = false;
 
     private void Awake()
     {
@@ -63,7 +63,14 @@ public class SpottedIndicator : MonoBehaviour
         }
 
         if (indicatorColor == IndicatorColor.Red)
+        {
+            if(!detectionSoundPlayed)
+            {
+                audioManager.Play("GettingDetected");
+                detectionSoundPlayed = true;
+            }
             image.color = Color.Lerp(image.color, new Color(1.0f, 0.0f, 0.0f, 0.8f), Time.deltaTime * 2.0f);
+        }
         else
             image.color = Color.Lerp(image.color, new Color(1.0f, 0.92f, 0.016f, 0.8f), Time.deltaTime);
 
@@ -76,7 +83,10 @@ public class SpottedIndicator : MonoBehaviour
     {
         unRegister();
         if (gameObject.activeInHierarchy)
+        {
+            detectionSoundPlayed = false;
             gameObject.SetActive(false);
+        }
     }
 
     void RotateToTheTarget()

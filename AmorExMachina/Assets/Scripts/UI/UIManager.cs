@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         if (!indicators.ContainsKey(target))
         {
-            audioManager.Play("GettingDetected");
+            //audioManager.Play("GettingDetected");
             SpottedIndicator spottedIndicator = SpottedIndicatorPool.instance.GetIndicator();
             indicators.Add(target, spottedIndicator);
         }
@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         if (indicators.ContainsKey(target))
         {
-            audioManager.Stop("GettingDetected");
+            //audioManager.Stop("GettingDetected");
             indicators[target].UnRegister();
             indicators.Remove(target);
         }

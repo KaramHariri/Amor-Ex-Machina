@@ -113,7 +113,7 @@ MonoBehaviour:
   - name: DoorOpen
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 04784ad299970ca4fb99165f42829a42, type: 3}
+    - {fileID: 8300000, guid: 6d7c602ac3321b343a7f576631ef17d5, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -147,7 +147,7 @@ MonoBehaviour:
     maxSoundDistance: 100
     loop: 0
     playOnAwake: 0
-    threeDimensionalSound: 0
+    threeDimensionalSound: 1
     aS: {fileID: 0}
   - name: HackGuard
     audioType: 0
@@ -289,9 +289,9 @@ MonoBehaviour:
   - name: GettingDetected
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 23d207a2e9e5a4244b2c6797a1c755a9, type: 3}
+    - {fileID: 8300000, guid: 9b376b9186373e0499edc57c444f6977, type: 3}
     volume: 1
-    pitch: 0.9
+    pitch: 0.6
     randomVolume: 0.163
     randomPitch: 0
     maxSoundDistance: 300

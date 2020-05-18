@@ -208,6 +208,8 @@ MonoBehaviour:
   maxHackingTimer: 20
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
   playerMeshRenderer: {fileID: 8656541516008358879}
+  sneakingStepDistance: 0.75
+  walkingStepDistance: 0.5
 --- !u!114 &6588145092540544496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,13 +247,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8604184855125432450}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8c7f2d1788029ea40a2ef00a4fc4eb92, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.20843267
   m_Height: 1.822546
   m_Direction: 1
-  m_Center: {x: 0, y: 0.838727, z: 0}
+  m_Center: {x: 0.015631199, y: 0.838727, z: 0}
 --- !u!95 &8604184855125432445
 Animator:
   serializedVersion: 3

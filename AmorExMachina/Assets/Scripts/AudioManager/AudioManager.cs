@@ -101,15 +101,33 @@ public class AudioManager : MonoBehaviour
             case PlayerState.SPOTTED:
                 guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, musicVolume, Time.deltaTime * 2.0f);
                 generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime * 2.0f);
+                if (generalAmbience.aS.volume <= 0.0f)
+                {
+                    generalAmbience.aS.Pause();
+                    generalAmbience.aS.volume = 0.0f;
+                }
+                guardsChasingPlayer.aS.UnPause();
                 break;
             case PlayerState.NOTSPOTTED:
                 generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, musicVolume, Time.deltaTime * 2.0f);
                 guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime * 2.0f);
+                if (guardsChasingPlayer.aS.volume <= 0.0f)
+                {
+                    guardsChasingPlayer.aS.Pause();
+                    guardsChasingPlayer.aS.volume = 0.0f;
+                }
+                generalAmbience.aS.UnPause();
                 break;
             case PlayerState.CAUGHT:
                 gameOver.aS.volume = Mathf.Lerp(gameOver.aS.volume, musicVolume, Time.deltaTime * 2.0f);
                 guardsChasingPlayer.aS.volume = Mathf.Lerp(guardsChasingPlayer.aS.volume, 0.0f, Time.deltaTime * 2.0f);
                 generalAmbience.aS.volume = Mathf.Lerp(generalAmbience.aS.volume, 0.0f, Time.deltaTime * 2.0f);
+                gameOver.aS.UnPause();
+                if (guardsChasingPlayer.aS.volume <= 0.0f && generalAmbience.aS.volume <= 0.0f)
+                {
+                    guardsChasingPlayer.aS.Stop();
+                    generalAmbience.aS.Stop();
+                }
                 break;
             default:
                 break;
@@ -206,12 +224,14 @@ public class AudioManager : MonoBehaviour
                     guardsChasingPlayer.aS.clip = guardsChasingPlayer.clip[0];
                     guardsChasingPlayer.aS.volume = 0.0f;
                     guardsChasingPlayer.aS.Play();
+                    guardsChasingPlayer.aS.Pause();
                     break;
                 case "GameOver":
                     gameOver = audio;
                     gameOver.aS.clip = gameOver.clip[0];
                     gameOver.aS.volume = 0.0f;
                     gameOver.aS.Play();
+                    gameOver.aS.Pause();
                     break;
                 default:
                     break;

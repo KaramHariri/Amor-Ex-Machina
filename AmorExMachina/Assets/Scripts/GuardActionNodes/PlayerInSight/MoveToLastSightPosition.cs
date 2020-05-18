@@ -17,6 +17,7 @@ public class MoveToLastSightPosition : Node
         float distance = Vector3.Distance(guard.transform.position, lastSightPosition);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.1f)
         {
+            guard.UpdateLookingAroundAngle();
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

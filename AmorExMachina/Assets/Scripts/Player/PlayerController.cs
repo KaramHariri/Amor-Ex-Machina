@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                     }
                     else if (closestGuard.sensing.Suspicious() || closestGuard.sensing.playerWasDetectedCheck())
                     {
-                        if (angleToTarget < 180.0f && angleToTarget > 105.0f)
+                        if (angleToTarget < 180.0f && angleToTarget > 120.0f)
                         {
                             interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
                             DisableGuardInputCheck(closestGuard);

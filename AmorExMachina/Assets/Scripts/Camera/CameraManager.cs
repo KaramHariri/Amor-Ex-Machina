@@ -51,13 +51,13 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         {
             if (playerCameras.thirdPersonCamera.m_Priority == 22)
             {
-                //audioManager.Play("SwitchCameraToFirstPerson");
+                audioManager.Play("SwitchCameraToFirstPerson");
                 playerCameras.thirdPersonCamera.m_Priority = 18;
                 StartCoroutine("ResetCamera");
             }
             else if (playerCameras.thirdPersonCamera.m_Priority == 18)
             {
-                //audioManager.Play("SwitchCameraToThirdPerson");
+                audioManager.Play("SwitchCameraToThirdPerson");
                 playerCameras.thirdPersonCamera.m_Priority = 22;
                 switchedToFirstPersonCamera = false;
                 playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
@@ -112,6 +112,10 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
                         settings.useControllerInput = false;
                     }
                 }
+            }
+            else if(temp.Length <= 0)
+            {
+                settings.useControllerInput = false;
             }
             yield return new WaitForSeconds(2.0f);
         }

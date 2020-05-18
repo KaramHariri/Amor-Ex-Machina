@@ -58,6 +58,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     private AudioManager audioManager = null;
 
+    public bool updatedRotation = false;
+
     public void GuardSensingAwake()
     {
         GetComponents();
@@ -181,6 +183,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayer))
                 {
                     timerSincePlayerWasSpotted = 0.0f;
+                    // Added
+                    suspicious = false;
+                    //
                     playerInSight = true;
                 }
                 else
@@ -287,19 +292,19 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     }
 
     public bool playerWasDetectedCheck()
-    {
-        if (playerWasInSight)
-        {
+    {                           // Added
+        if (playerWasInSight && !suspicious)
+        {                       //
             Vector3 lastSightPos = new Vector3(playerLastSightPosition.x, 1.0f, playerLastSightPosition.z);
             float distanceToLastSightPosition = Vector3.Distance(transform.position, lastSightPos);
-            if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
-            {
-                return false;
-            }
-            else
-            {
+            //if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
                 return true;
-            }
+            //}
         }
         return false;
     }

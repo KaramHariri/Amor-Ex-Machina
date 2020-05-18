@@ -323,7 +323,10 @@ MonoBehaviour:
     type: 2}
   guardVariables: {fileID: 11400000, guid: 4d8ea77fbb0df3d43b1b8f615dbc090e, type: 2}
   playerVariables: {fileID: 11400000, guid: 5d7de71abe9bf3348a22f70e35d6d29a, type: 2}
-  disableParticleSystem: {fileID: 562003267754490088}
+  positiveVector: {x: 0, y: 0, z: 0}
+  negativeVector: {x: 0, y: 0, z: 0}
+  m_frequency: 1
+  lookingAroundAngle: 60
 --- !u!114 &4764624099325710477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +384,7 @@ MonoBehaviour:
     type: 2}
   maxDistanceValue: 0.6
   minDistanceValue: 2
+  updatedRotation: 0
 --- !u!114 &7934396710864760483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,12 +766,6 @@ PrefabInstance:
 --- !u!4 &361249386760491658 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7785572004251222737, guid: 03b4d783893400341b292d0c0ceb285d,
-    type: 3}
-  m_PrefabInstance: {fileID: 7568442229689225307}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &562003267754490088 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7981540609048209587, guid: 03b4d783893400341b292d0c0ceb285d,
     type: 3}
   m_PrefabInstance: {fileID: 7568442229689225307}
   m_PrefabAsset: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +17,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     [Header("Sensing Variables")]
     [SerializeField] private float fieldOfViewRadius = 20.0f;
-    [SerializeField] private float hearingRadius = 20.0f;
+    [HideInInspector] public float hearingRadius = 20.0f;
+    [SerializeField] private float minHearingRadius = 5.0f;
+    [SerializeField] private float maxHearingRadius = 10.0f;
     [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -53,6 +56,10 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     private float valueDifference = 0f;
     private float distanceFactorAmount = 0f;
 
+    private AudioManager audioManager = null;
+
+    public bool updatedRotation = false;
+
     public void GuardSensingAwake()
     {
         GetComponents();
@@ -60,6 +67,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         InitLists();
         AssignPlayerVariable();
         AssignLayerMasks();
+        StartCoroutine("GuardHearingRangeHandler");
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void GetComponents()
@@ -174,6 +183,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayer))
                 {
                     timerSincePlayerWasSpotted = 0.0f;
+                    // Added
+                    suspicious = false;
+                    //
                     playerInSight = true;
                 }
                 else
@@ -193,6 +205,25 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                     playerInSight = false;
                 }
             }
+        }
+    }
+
+    IEnumerator GuardHearingRangeHandler()
+    {
+        while (true)
+        {
+            if (!Suspicious() && !playerWasDetectedCheck() && !PlayerDetectedCheck() && !guardScript.disabled && !guardScript.hacked)
+            {
+                if (HearingSenseRaycastCheck())
+                {
+                    hearingRadius = maxHearingRadius;
+                }
+                else
+                {
+                    hearingRadius = minHearingRadius;
+                }
+            }
+            yield return new WaitForSeconds(2.0f);
         }
     }
 
@@ -261,19 +292,19 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     }
 
     public bool playerWasDetectedCheck()
-    {
-        if (playerWasInSight)
-        {
+    {                           // Added
+        if (playerWasInSight && !suspicious)
+        {                       //
             Vector3 lastSightPos = new Vector3(playerLastSightPosition.x, 1.0f, playerLastSightPosition.z);
             float distanceToLastSightPosition = Vector3.Distance(transform.position, lastSightPos);
-            if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
-            {
-                return false;
-            }
-            else
-            {
+            //if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
                 return true;
-            }
+            //}
         }
         return false;
     }
@@ -340,6 +371,23 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 {
                     return true;   
                 }
+            }
+        }
+        return false;
+    }
+
+    bool HearingSenseRaycastCheck()
+    {
+        Vector3 playerPosition = new Vector3(playerVariables.playerTransform.position.x, playerVariables.playerTransform.position.y + 0.5f, playerVariables.playerTransform.position.z);
+        Vector3 directionToTarget = playerPosition - transform.position;
+        float angle = Vector3.Angle(directionToTarget, transform.forward);
+
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
+        {
+            if (raycastHit.collider.transform == playerVariables.playerTransform)
+            {
+                return true;
             }
         }
         return false;

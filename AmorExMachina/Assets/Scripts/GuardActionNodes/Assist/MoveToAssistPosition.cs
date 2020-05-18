@@ -21,6 +21,7 @@
         }
         else
         {
+            guard.UpdateLookingAroundAngle();
             guard.guardMovement.idle = true;
             nodeState = NodeState.SUCCESS;
         }

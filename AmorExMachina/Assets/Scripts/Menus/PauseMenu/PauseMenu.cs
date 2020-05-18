@@ -36,7 +36,8 @@ public class PauseMenu : MonoBehaviour
 
         if(Input.GetButtonDown("Cancel") && canTakeInput)
         {
-            Resume();
+            //Resume();
+            StartCoroutine("ResumeGame");
         }
     }
 
@@ -97,6 +98,14 @@ public class PauseMenu : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(currentSelectedButton);
+        canTakeInput = true;
+    }
+
+    IEnumerator ResumeGame()
+    {
+        canTakeInput = false;
+        Resume();
+        yield return null;
         canTakeInput = true;
     }
 }

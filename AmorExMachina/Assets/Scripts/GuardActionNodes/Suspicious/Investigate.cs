@@ -1,4 +1,6 @@
-﻿public class Investigate : Node
+﻿using UnityEngine;
+
+public class Investigate : Node
 {
     Guard guard;
 
@@ -11,9 +13,10 @@
     {
         NodeState nodeState = NodeState.RUNNING;
         guard.guardMovement.Investigate();
-        float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.guardMovement.investigationPosition);
+        float distance = Vector3.Distance(guard.transform.position, guard.guardMovement.investigationPosition);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.1f)
         {
+            guard.UpdateLookingAroundAngle();
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

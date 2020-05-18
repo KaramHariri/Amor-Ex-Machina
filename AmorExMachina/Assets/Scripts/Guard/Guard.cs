@@ -56,8 +56,12 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     private AudioManager audioManager = null;
 
     // Added 20-05-13.
-    [SerializeField] private ParticleSystem disableParticleSystem = null;
+    private ParticleSystem disableParticleSystem = null;
     /////
+    [HideInInspector] public Vector3 positiveVector = Vector3.zero;
+    [HideInInspector] public Vector3 negativeVector = Vector3.zero;
+    public float m_frequency = 1.0f;
+    public float lookingAroundAngle = 45.0f;
     
     public void Awake()
     {
@@ -72,6 +76,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         currentColor = guardVariables.patrolColor;
         mainCamera = Camera.main;
         raycastCheckLayer = LayerMask.GetMask("Walls");
+
+        disableParticleSystem = transform.Find("VFX").Find("Guard Disable 1.0 Variant").GetComponent<ParticleSystem>();
     }
 
     public void Start()
@@ -213,9 +219,10 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         {
             if (sensing.canHear)
             {
-                if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.sensingCollider.radius)
+                if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.hearingRadius)
                 {
                     sensing.suspicious = true;
+                    sensing.updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
                     guardMovement.ResetIdleTimer();
                 }
@@ -235,6 +242,35 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         {
             if(sensing.detectionAmount < sensing.maxDetectionAmount)
                 sensing.suspicious = false;
+        }
+    }
+
+    public void UpdateLookingAroundAngle()
+    {
+        if (!sensing.updatedRotation)
+        {
+            float positiveAngle = transform.eulerAngles.y + lookingAroundAngle;
+            if (positiveAngle > 180.0f)
+            {
+                positiveAngle -= 360.0f;
+            }
+            else if (positiveAngle < -180.0f) // this is not necessary but just for safety
+            {
+                positiveAngle += 360.0f;
+            }
+
+            float negativeAngle = transform.eulerAngles.y - lookingAroundAngle;
+            if (negativeAngle > 180.0f) // this is not necessary but just for safety
+            {
+                negativeAngle -= 360.0f;
+            }
+            else if (negativeAngle < -180.0f)
+            {
+                negativeAngle += 360.0f;
+            }
+            positiveVector = new Vector3(0.0f, positiveAngle, 0.0f);
+            negativeVector = new Vector3(0.0f, negativeAngle, 0.0f);
+            sensing.updatedRotation = true;
         }
     }
 

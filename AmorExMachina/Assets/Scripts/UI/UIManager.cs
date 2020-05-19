@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public enum InteractionButtons
 {
@@ -21,8 +22,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
     GameObject circleButton = null;
     GameObject crossButton = null;
 
-    Text hackingTimer = null;
+    TextMeshProUGUI hackingTimer = null;
     GameObject hackingSlider = null;
+    GameObject hackingTimerBackground = null;
     Image hackingSliderFill = null;
 
 
@@ -67,8 +69,14 @@ public class UIManager : MonoBehaviour, IInteractionButton
         crossButton = GameObject.Find("CrossButton");
         crossButton.SetActive(false);
 
-        hackingTimer = GameObject.Find("HackingTimer").GetComponent<Text>();
+        hackingTimer = GameObject.Find("HackingTimer").GetComponent<TextMeshProUGUI>();
+        if(hackingTimer == null)
+        {
+            Debug.Log("Can't find TextMeshPro");
+        }
         hackingTimer.gameObject.SetActive(false);
+        hackingTimerBackground = GameObject.Find("HackingTimerBackground");
+        hackingTimerBackground.SetActive(false);
         hackingSlider = GameObject.Find("HackingSlider");
         hackingSliderFill = hackingSlider.transform.GetChild(hackingSlider.transform.childCount - 1).GetComponent<Image>();
         hackingSliderFill.fillAmount = 1.0f;
@@ -115,6 +123,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     {
         hackingTimer.text = "0.0";
         hackingTimer.gameObject.SetActive(true);
+        hackingTimerBackground.SetActive(true);
         hackingSliderFill.fillAmount = 1.0f;
         hackingSliderFill.color = Color.white;
         changeColorToYellow = hackingSliderFill.fillAmount * 0.75f;
@@ -178,6 +187,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
         updatingTimer = false;
         hackingTimer.gameObject.SetActive(false);
         hackingSlider.SetActive(false);
+        hackingTimerBackground.SetActive(false);
     }
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)

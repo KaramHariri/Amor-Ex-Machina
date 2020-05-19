@@ -32,6 +32,7 @@ public class GuardVirtualCamera : MonoBehaviour
     private void Start()
     {
         GetStatiReferencesFromGameHandler();
+        vC.m_Priority = 15;
     }
 
     void GetStatiReferencesFromGameHandler()
@@ -57,12 +58,18 @@ public class GuardVirtualCamera : MonoBehaviour
     private void LateUpdate()
     {
         UpdateCameraSettings();
-        RotateCinemachineTransform();
-
         if (vC.m_Priority == 15)
         {
             cinemachinePOV.m_HorizontalAxis.Value = vC.m_Follow.eulerAngles.y;
         }
+
+        if (GameHandler.currentState != GameState.HACKING)
+        {
+            cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = 0.0f;
+            cinemachinePOV.m_VerticalAxis.m_MaxSpeed = 0.0f;
+            return;
+        }
+        RotateCinemachineTransform();
     }
 
     void RotateCinemachineTransform()
@@ -73,7 +80,10 @@ public class GuardVirtualCamera : MonoBehaviour
 
     void UpdateCameraSettings()
     {
-        cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
+        if (settings.useControllerInput)
+            cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
+        else
+            cinemachinePOV.m_VerticalAxis.m_InvertInput = !settings.invertY;
         cinemachinePOV.m_HorizontalAxis.m_InvertInput = invertHorizontalInput;
 
         cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;

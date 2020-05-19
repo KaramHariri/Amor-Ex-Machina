@@ -90,7 +90,10 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void UpdateCameraSettings()
     {
-        cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
+        if (settings.useControllerInput)
+            cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
+        else
+            cinemachinePOV.m_VerticalAxis.m_InvertInput = !settings.invertY;
         cinemachinePOV.m_HorizontalAxis.m_InvertInput = invertHorizontalInput;
 
         cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf7c96acfd0c5e4f943b97ae010c329, type: 3}
   m_Name: StaticSettings
   m_EditorClassIdentifier: 
-  useControllerInput: 0
+  useControllerInput: 1
   invertY: 0
   subtitle: 1
   thirdPersonLookSensitivity: 150
@@ -42,7 +42,7 @@ MonoBehaviour:
   activateButtonInPuzzleController: 331
   activatePuzzleController: 330
   cameraToggleController: 341
-  movementToggleController: 340
+  movementToggleController: 337
   disableGuardController: 331
   hackGuardController: 330
   distractGuardWhileHackingController: 331
@@ -50,7 +50,7 @@ MonoBehaviour:
   defaultActivateButtonInPuzzleController: 331
   defaultActivatePuzzleController: 330
   defaultCameraToggleController: 341
-  defaultMovementToggleController: 340
+  defaultMovementToggleController: 337
   defaultDisableGuardController: 331
   defaultHackGuardController: 330
   defaultDistractGuardWhileHackingController: 331

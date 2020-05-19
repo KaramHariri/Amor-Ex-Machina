@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
@@ -9,12 +7,13 @@ public class MainMenu : MonoBehaviour
     SceneHandler sceneHandler = null;
     [SerializeField] OptionsMenu optionsMenu = null;
     [SerializeField] EventSystem eventSystem = null;
-    [SerializeField] AudioSource mainMenuAudio = null;
+    AudioSource mainMenuAudio = null;
 
     GameObject currentSelectedButton = null;
 
     private void Awake()
     {
+        mainMenuAudio = GetComponent<AudioSource>();
         sceneHandler = SceneHandler.instance;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -23,8 +22,6 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        StartCoroutine("DeactivateBackground");
-        mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
     }
 
     private void Update()
@@ -34,13 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGameButton()
     {
-        //sceneHandler.LoadNextScene();
         sceneHandler.StartLoadNextSceneCoroutine();
-    }
-
-    public void LoadGame()
-    {
-        Debug.Log("Load Game Pressed !");
     }
 
     public void OptionsButton()
@@ -51,12 +42,6 @@ public class MainMenu : MonoBehaviour
     public void QuitButton()
     {
         Application.Quit();
-    }
-
-    IEnumerator DeactivateBackground()
-    {
-        yield return new WaitForSeconds(1.0f);
-            transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
     }
 
     IEnumerator SwitchToOptions()

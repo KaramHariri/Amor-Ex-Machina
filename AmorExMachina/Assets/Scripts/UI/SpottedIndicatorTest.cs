@@ -50,6 +50,7 @@ public class SpottedIndicatorTest : MonoBehaviour
 
     [SerializeField] private Image image = null;
     private GuardSensing guardSensing = null;
+    private Guard guard = null;
 
     private void Awake()
     {

@@ -17,8 +17,6 @@ public class StationaryIdle : Node
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.1f && guard.guardMovement.idle)
         {
             guard.transform.rotation = Quaternion.Lerp(guard.transform.rotation, guard.guardMovement.targetRotation, 5.0f * Time.deltaTime);
-            guard.currentColor = Color.Lerp(guard.currentColor, guard.guardVariables.stationaryColor, Time.deltaTime);
-            guard.meshRenderer.material.color = guard.currentColor;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

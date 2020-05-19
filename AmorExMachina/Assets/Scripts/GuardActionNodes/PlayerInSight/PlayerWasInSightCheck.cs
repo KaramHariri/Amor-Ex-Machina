@@ -15,8 +15,6 @@ public class PlayerWasInSightCheck : Node
         if (guard.sensing.playerWasDetectedCheck())
         {
             guard.assist = false;
-            guard.currentColor = Color.Lerp(guard.currentColor, guard.guardVariables.chasingColor, Time.deltaTime);
-            guard.meshRenderer.material.color = guard.currentColor;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

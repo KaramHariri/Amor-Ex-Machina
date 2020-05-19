@@ -17,8 +17,9 @@ public class GuardVirtualCamera : MonoBehaviour
     [SerializeField]
     [Range(0, 70)]
     private float cameraYMax = 70.0f;
-    public GuardCameraVariables guardCameraVariables;
-    public Settings settings = null;
+
+    private GuardCameraVariables guardCameraVariables;
+    private Settings settings = null;
 
     private void Awake()
     {
@@ -30,8 +31,22 @@ public class GuardVirtualCamera : MonoBehaviour
 
     private void Start()
     {
-        SetCameraSettings();
-        UpdateCameraSettings();
+        GetStatiReferencesFromGameHandler();
+    }
+
+    void GetStatiReferencesFromGameHandler()
+    {
+        guardCameraVariables = GameHandler.guardCameraVariables;
+        if(guardCameraVariables == null)
+        {
+            Debug.Log("GuardVirtualCamera can't find GuardCameraVariables in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("GuardVirtualCamera can't find Settings in GameHandler");
+        }
     }
 
     private void Update()
@@ -68,17 +83,6 @@ public class GuardVirtualCamera : MonoBehaviour
         cinemachinePOV.m_VerticalAxis.m_MaxValue = cameraYMax;
 
         UpdateFirstPersonCameraVariables();
-    }
-
-    void SetCameraSettings()
-    {
-        cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
-        cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
-        cameraYMin = guardCameraVariables.cameraYMin;
-        cameraYMax = guardCameraVariables.cameraYMax;
-
-        invertHorizontalInput = guardCameraVariables.invertHorizontalInput;
-        cinemachinePOV.m_HorizontalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
     }
 
     void UpdateFirstPersonCameraVariables()

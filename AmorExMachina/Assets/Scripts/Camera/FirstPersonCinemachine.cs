@@ -17,11 +17,13 @@ public class FirstPersonCinemachine : MonoBehaviour
     [SerializeField][Range(0, 70)]
     private float cameraYMax = 70.0f;
 
-    [Header("ScriptableObjects")]
-    public PlayerCamerasVariables playerCamerasVariables = null;
-    public Settings settings = null;
+    private PlayerCamerasVariables playerCamerasVariables = null;
+    private Settings settings = null;
 
     int priority = 20;
+
+    public static Transform firstPersonCameraTransform = null;
+    public static CinemachineVirtualCamera firstPersonCamera = null;
 
     private void Awake()
     {
@@ -29,14 +31,23 @@ public class FirstPersonCinemachine : MonoBehaviour
         cinemachineVirtualCamera.m_Priority = priority;
         cinemachinePOV = cinemachineVirtualCamera.GetCinemachineComponent<CinemachinePOV>();
         mainCamera = Camera.main;
-        playerCamerasVariables.firstPersonCameraTransform = this.transform;
-        playerCamerasVariables.firstPersonCamera = cinemachineVirtualCamera;
+        firstPersonCameraTransform = this.transform;
+        firstPersonCamera = cinemachineVirtualCamera;
     }
 
     private void Start()
     {
-        SetCameraSettings();
-        UpdateCameraSettings();
+        playerCamerasVariables = GameHandler.playerCamerasVariables;
+        if(playerCamerasVariables == null)
+        {
+            Debug.Log("FirstPersonCinemachine can't find PlayerCamerasVariables in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("FirstPersonCinemachine can't find Settings in GameHandler");
+        }
     }
 
     private void Update()
@@ -72,7 +83,9 @@ public class FirstPersonCinemachine : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0.0f, mainCamera.transform.eulerAngles.y, 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }
-        playerCamerasVariables.firstPersonCameraTransform = this.transform;
+
+        firstPersonCameraTransform = this.transform;
+        firstPersonCamera = cinemachineVirtualCamera;
     }
 
     void UpdateCameraSettings()
@@ -91,7 +104,7 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void SetCameraSettings()
     {
-        cinemachineVirtualCamera.m_Follow = playerCamerasVariables.firstPersonCameraFollowTarget;
+        cinemachineVirtualCamera.m_Follow = PlayerController.firstPersonCameraAim;
 
         cinemachinePOV.m_VerticalAxis.m_InvertInput = settings.invertY;
         cinemachinePOV.m_VerticalAxis.m_MaxSpeed = settings.firstPersonLookSensitivity;
@@ -104,7 +117,7 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void UpdateFirstPersonCameraVariables()
     {
-        cinemachineVirtualCamera.m_Follow = playerCamerasVariables.firstPersonCameraFollowTarget;
+        cinemachineVirtualCamera.m_Follow = PlayerController.firstPersonCameraAim;
 
         playerCamerasVariables.firstPersonCameraInvertVerticalInput = settings.invertY;
         playerCamerasVariables.firstPersonCameraInvertHorizontalInput = invertHorizontalInput;

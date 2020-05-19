@@ -10,9 +10,6 @@ public class PlayerCamerasVariables : ScriptableObject
     public bool switchedCameraToFirstPerson;
 
     [Header("Third Person Camera")]
-    public CinemachineFreeLook thirdPersonCamera;
-    public Transform thirdPersonCameraTransform;
-    public Transform thirdPersonCameraFollowTarget;
     public float thirdPersonCameraVerticalSpeed = 1.5f;
     public float thirdPersonCameraHorizontalSpeed = 150.0f;
     public float thirdPersonCameraTopRingHeight = 5.0f;
@@ -25,9 +22,6 @@ public class PlayerCamerasVariables : ScriptableObject
     public bool thirdPersonCameraInvertHorizontalInput = false;
 
     [Header("First Person Camera")]
-    public CinemachineVirtualCamera firstPersonCamera;
-    public Transform firstPersonCameraTransform;
-    public Transform firstPersonCameraFollowTarget;
     public float firstPersonCameraVerticalSpeed = 150.0f;
     public float firstPersonCameraHorizontalSpeed = 150.0f;
     public float firstPersonCameraYMin = -70.0f;

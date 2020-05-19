@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf7c96acfd0c5e4f943b97ae010c329, type: 3}
+  m_Name: StaticSettings
+  m_EditorClassIdentifier: 
+  useControllerInput: 0
+  invertY: 0
+  subtitle: 1
+  thirdPersonLookSensitivity: 150
+  firstPersonLookSensitivity: 150
+  masterVolume: 1
+  effectsVolume: 0.3
+  footstepsVolume: 0.4
+  voiceVolume: 0.6
+  musicVolume: 0.3
+  rotatePuzzleArrowKeyboard: 102
+  activateButtonInPuzzleKeyboard: 101
+  activatePuzzleKeyboard: 114
+  cameraToggleKeyboard: 113
+  movementToggleKeyboard: 304
+  disableGuardKeyboard: 101
+  hackGuardKeyboard: 114
+  distractGuardWhileHackingKeyboard: 101
+  defaultRotatePuzzleArrowKeyboard: 102
+  defaultActivateButtonInPuzzleKeyboard: 101
+  defaultActivatePuzzleKeyboard: 114
+  defaultCameraToggleKeyboard: 113
+  defaultMovementToggleKeyboard: 304
+  defaultDisableGuardKeyboard: 101
+  defaultHackGuardKeyboard: 114
+  defaultDistractGuardWhileHackingKeyboard: 101
+  rotatePuzzleArrowController: 333
+  activateButtonInPuzzleController: 331
+  activatePuzzleController: 330
+  cameraToggleController: 341
+  movementToggleController: 340
+  disableGuardController: 331
+  hackGuardController: 330
+  distractGuardWhileHackingController: 331
+  defaultRotatePuzzleArrowController: 333
+  defaultActivateButtonInPuzzleController: 331
+  defaultActivatePuzzleController: 330
+  defaultCameraToggleController: 341
+  defaultMovementToggleController: 340
+  defaultDisableGuardController: 331
+  defaultHackGuardController: 330
+  defaultDistractGuardWhileHackingController: 331
+  rotatePuzzleArrow: RotatePuzzleArrow
+  activateButtonInPuzzle: ActivateButtonInPuzzle
+  activatePuzzle: ActivatePuzzle
+  cameraToggle: CameraToggle
+  movementToggle: MovementToggle
+  disableGuard: DisableGuard
+  hackGuard: HackGuard
+  distractGuardWhileHacking: DistactGuardWhileHacking

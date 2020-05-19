@@ -12,7 +12,7 @@ public class OptionsMenu : MonoBehaviour
 
     public EventSystem eventSystem = null;
     public CanvasGroup buttonsCanvasGroup = null;
-    public Settings settings = null;
+    [HideInInspector] public Settings settings = null;
 
     private AudioSettingsMenu audioSettingsMenuInstance = null;
     private GameplaySettingsMenu gameplaySettingsMenuInstance = null;
@@ -26,6 +26,7 @@ public class OptionsMenu : MonoBehaviour
     {
         instance = this;
         transform.gameObject.SetActive(false);
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
     }
 
     private void Start()

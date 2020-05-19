@@ -11,7 +11,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     private GameObject currentSelectedGameObject = null;
 
     [HideInInspector] public CanvasGroup controllerControlsCanvasGroup = null;
-    [SerializeField] Settings settings = null;
+    private Settings settings = null;
     private EventSystem eventSystem = null;
 
     public static PauseMenuControllerControlsKeybinding instance = null;
@@ -50,6 +50,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
 
     private void Awake()
     {
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
         InitPossibleKeyCodesList();
 
         LoadSprites();

@@ -149,6 +149,17 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
     }
 
+    // Added 20-05-18
+    public void SetInitialHovered()
+    {
+        if (onButtonHovered != null)
+        {
+            onButtonHovered.Invoke();
+            SetSelectedImage();
+        }
+    }
+    //
+
     public void RotateDirection()
     {
         if(type != ButtonType.RotatableArrow) { return; }

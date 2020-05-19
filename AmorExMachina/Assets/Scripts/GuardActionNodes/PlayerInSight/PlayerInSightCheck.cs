@@ -13,8 +13,6 @@
         if (guard.sensing.PlayerDetectedCheck())
         {
             guard.assist = false;
-            guard.currentColor = UnityEngine.Color.Lerp(guard.currentColor, guard.guardVariables.chasingColor, UnityEngine.Time.deltaTime);
-            guard.meshRenderer.material.color = guard.currentColor;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

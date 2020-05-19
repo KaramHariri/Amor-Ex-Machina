@@ -19,7 +19,7 @@ public class AudioSourcePool : MonoBehaviour
         holder = this.transform;
     }
 
-    void Start()
+    public void InstantiateAudioPool()
     {
         pooledAudioSources = new List<AudioSource>();
         for (int i = 0; i < numberOfAudioSources; i++)
@@ -29,6 +29,17 @@ public class AudioSourcePool : MonoBehaviour
             pooledAudioSources.Add(audioSource);
         }
     }
+
+    //void Start()
+    //{
+    //    pooledAudioSources = new List<AudioSource>();
+    //    for (int i = 0; i < numberOfAudioSources; i++)
+    //    {
+    //        AudioSource audioSource = Instantiate(audioSourcePrefab, holder);
+    //        audioSource.playOnAwake = false;
+    //        pooledAudioSources.Add(audioSource);
+    //    }
+    //}
 
     public AudioSource GetAudioSource()
     {

@@ -13,16 +13,38 @@ public class GuardController : MonoBehaviour
     private Rigidbody rb = null;
     private Camera mainCamera = null;
     private Guard guard = null;
-    [SerializeField] PlayerSoundSubject playerSoundSubject = null;
-    [SerializeField] Settings settings = null;
+
+    private PlayerSoundSubject playerSoundSubject = null;
+    private Settings settings = null;
 
     private AudioManager audioManager = null;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         guard = GetComponent<Guard>();
         audioManager = FindObjectOfType<AudioManager>();
         mainCamera = Camera.main;
+    }
+
+    private void Start()
+    {
+        GetStaticReferencesFromGameHandler();
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        playerSoundSubject = GameHandler.playerSoundSubject;
+        if (playerSoundSubject == null)
+        {
+            Debug.Log("GuardController can't find PlayerSoundSubject in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if (settings == null)
+        {
+            Debug.Log("GuardController can't find Settings in GameHandler");
+        }
     }
 
     void Update()

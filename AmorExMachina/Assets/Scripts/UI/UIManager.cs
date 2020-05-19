@@ -14,11 +14,9 @@ public enum InteractionButtons
 
 public class UIManager : MonoBehaviour, IInteractionButton
 {
-    [SerializeField] private PlayerVariables playerVariables = null;
-
     private Dictionary<Transform, SpottedIndicator> indicators = new Dictionary<Transform, SpottedIndicator>();
 
-    [SerializeField] InteractionButtonSubject InteractionButtonSubject = null;
+    private InteractionButtonSubject interactionButtonSubject = null;
 
     GameObject circleButton = null;
     GameObject crossButton = null;
@@ -44,16 +42,24 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private bool updatingTimer = false;
 
     private GlitchEffect glitchEffect = null;
-    private AudioManager audioManager = null;
+
+    private Transform playerTransform = null;
 
     void Awake()
     {
-        InteractionButtonSubject.AddObserver(this);
-        audioManager = FindObjectOfType<AudioManager>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Start()
     {
+        interactionButtonSubject = GameHandler.interactionButtonSubject;
+        if(interactionButtonSubject == null)
+        {
+            Debug.Log("UIManager can't find InteractionButtonSubject in GameHandler");
+        }
+        interactionButtonSubject.AddObserver(this);
+
+
         glitchEffect = Camera.main.GetComponent<GlitchEffect>();
 
         circleButton = GameObject.Find("CircleButton");
@@ -92,7 +98,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     void UpdateIndicator(Transform target, IndicatorColor indicatorColor)
     {
-        indicators[target].Register(target, playerVariables.playerTransform, new Action(() => { indicators.Remove(target); }), indicatorColor);
+        indicators[target].Register(target, playerTransform, new Action(() => { indicators.Remove(target); }), indicatorColor);
     }
 
     void RemoveIndicator(Transform target)
@@ -214,7 +220,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     void OnDestroy()
     {
-        InteractionButtonSubject.RemoveObserver(this);
+        interactionButtonSubject.RemoveObserver(this);
         createIndicator -= CreateIndicator;
         removeIndicator -= RemoveIndicator;
         updateIndicator -= UpdateIndicator;

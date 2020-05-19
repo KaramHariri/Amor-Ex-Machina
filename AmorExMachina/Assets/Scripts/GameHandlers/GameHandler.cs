@@ -31,8 +31,7 @@ public class GameHandler : MonoBehaviour
 
     public static Guard[] guards;
 
-    private AudioManager audioManager = null;
-    [SerializeField] private PlayerVariables playerVariables = null;
+    public static bool playerIsCaught = false;
 
     private SceneHandler sceneHandler = null;
 
@@ -40,15 +39,24 @@ public class GameHandler : MonoBehaviour
 
     private float inputDelay = 0.0f;
 
+    public static AudioManager audioManager = null;
+    public static GuardCameraVariables guardCameraVariables = null;
+    public static PlayerCamerasVariables playerCamerasVariables = null;
+    public static GuardDisabledSubject guardDisabledSubject = null;
+    public static PlayerSoundSubject playerSoundSubject = null;
+    public static PlayerSpottedSubject playerSpottedSubject = null;
+    public static GuardHackedSubject guardHackedSubject = null;
+    public static InteractionButtonSubject interactionButtonSubject = null;
+    public static Settings settings = null;
+
     private void Awake()
     {
         FindAllGuards();
         currentState = GameState.NORMALGAME;
         previousState = currentState;
-        audioManager = FindObjectOfType<AudioManager>();
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         sceneHandler = SceneHandler.instance;
-
+        LoadResources();
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
     }
@@ -143,7 +151,7 @@ public class GameHandler : MonoBehaviour
 
     bool PlayerCaughtCheck()
     {
-        if(playerVariables.caught)
+        if(playerIsCaught)
         {
             playerState = PlayerState.CAUGHT;
             return true;
@@ -156,6 +164,19 @@ public class GameHandler : MonoBehaviour
         eventSystem.SetSelectedGameObject(null);
         yield return null;
         eventSystem.SetSelectedGameObject(eventSystem.firstSelectedGameObject);
+    }
+
+    void LoadResources()
+    {
+        guardCameraVariables = Resources.Load<GuardCameraVariables>("References/Camera/StaticGuardCameraVariables");
+        playerCamerasVariables = Resources.Load<PlayerCamerasVariables>("References/Camera/StaticPlayerCamerasVariables");
+        guardDisabledSubject = Resources.Load<GuardDisabledSubject>("References/Guard/StaticGuardDisabledSubject");
+        guardHackedSubject = Resources.Load<GuardHackedSubject>("References/Guard/StaticGuardHackedSubject");
+        playerSoundSubject = Resources.Load<PlayerSoundSubject>("References/Player/StaticPlayerSoundSubject");
+        playerSpottedSubject = Resources.Load<PlayerSpottedSubject>("References/Player/StaticPlayerSpottedSubject");
+        interactionButtonSubject = Resources.Load<InteractionButtonSubject>("References/UI/StaticInteractionButtonSubject");
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void OnEnable()

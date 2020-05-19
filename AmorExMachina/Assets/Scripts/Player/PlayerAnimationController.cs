@@ -9,12 +9,17 @@ public class PlayerAnimationController : MonoBehaviour
 
     private Vector3 inputDirection = new Vector3();
 
-    [SerializeField] private Settings settings = null;
-    [SerializeField] private PlayerCamerasVariables cameraVariables = null;
+    //[SerializeField] private Settings settings = null;
+    //[SerializeField] private PlayerCamerasVariables cameraVariables = null;
+
+    private Settings settings = null;
+    private PlayerCamerasVariables cameraVariables = null;
 
     float verticalInput = 0.0f;
     float horizontalInput = 0.0f;
     bool sneaking = false;
+
+    private Transform thirdPersonCameraTransform = null;
 
     void Start()
     {
@@ -22,6 +27,20 @@ public class PlayerAnimationController : MonoBehaviour
         modelTransform = transform.Find("character_gabriel");
         if (anim == null) { Debug.Log("Can't find the animator"); Debug.Break(); }
         if (modelTransform == null) { Debug.Log("Can't find the model transform"); Debug.Break(); }
+
+        thirdPersonCameraTransform = GameObject.FindGameObjectWithTag("ThirdPersonCamera").transform;
+
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("PlayerAnimationController can't find Settings in GameHandler");
+        }
+
+        cameraVariables = GameHandler.playerCamerasVariables;
+        if(cameraVariables == null)
+        {
+            Debug.Log("PlayerAnimationController can't find PlayerCamerasVariables in GameHanlder");
+        }
     }
 
     void Update()
@@ -34,7 +53,7 @@ public class PlayerAnimationController : MonoBehaviour
         }
         else
         {
-            inputDirection = cameraVariables.thirdPersonCameraTransform.transform.right * horizontalInput + cameraVariables.thirdPersonCameraTransform.forward * verticalInput;
+            inputDirection = thirdPersonCameraTransform.transform.right * horizontalInput + thirdPersonCameraTransform.forward * verticalInput;
         }
 
         if (GameHandler.currentState == GameState.NORMALGAME)

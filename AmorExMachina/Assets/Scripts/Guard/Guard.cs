@@ -24,72 +24,126 @@ public enum GuardState
 
 public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 {
-    [Header("Guard Movement")]
+    [Header("Guard Movement Type")]
     public GuardType guardType = GuardType.MOVING;
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
-    [HideInInspector] public GuardState guardState = GuardState.NORMAL;
 
+    [Header("Speed")]
+    public float patrolSpeed = 2.0f;
+    public float chaseSpeed = 5.0f;
+    public float suspiciousSpeed = 3.5f;
+
+    [Header("Sensing")]
+    public float fieldOfViewRadius = 20.0f;
+    public float fieldOfViewAngle = 70.0f;
+    public float maxAssistRadius = 10.0f;
+    public float minHearingRadius = 5.0f;
+    public float maxHearingRadius = 10.0f;
+    public float alertedHearingRadius = 15.0f;
+
+    [Header("Looking Around")]
+    public float lookingAroundFrequency = 1.0f;
+    public float lookingAroundAngle = 45.0f;
+
+    [Header("Distance based values")]
+    public float maxDistanceValue = 0.6f;
+    public float minDistanceValue = 2.0f;
+
+    [Header("Timers")]
+    public float maxPatrolIdleTimer = 5.0f;
+    public float maxLookingAroundTimer = 5.0f;
+    public float maxDetectionBarAmount = 2.0f;
+    public float maxTimerSincePlayerWasSpotted = 5.0f;
+
+    [Header("Sensing Gizmos")]
+    public bool showHearingRadius = true;
+    public bool showFieldOfView = true;
+
+    [HideInInspector] public float hearingRadius = 20.0f;
+
+    #region GuardScriptsReferences
     [HideInInspector] public GuardMovement guardMovement = null;
     [HideInInspector] public GuardSensing sensing = null;
-    
+    #endregion
+
+    [HideInInspector] public GuardState guardState = GuardState.NORMAL;
     private GuardBehaviourTree guardBehavioralTree = null;
-    [HideInInspector] public MeshRenderer meshRenderer = null;
-    [HideInInspector] public Color currentColor = Color.white;
     [HideInInspector] public CinemachineVirtualCamera vC;
+    private AudioManager audioManager = null;
 
     [HideInInspector] public bool disabled = false;
     [HideInInspector] public bool hacked = false;
     [HideInInspector] public bool assist = false;
+    [HideInInspector] public bool updatedRotation = false;
 
-    [Header("Scriptable Objects")]
-    public PlayerSoundSubject playerSoundSubject = null;
-    public PlayerSpottedSubject playerSpottedSubject = null;
-    public GuardVariables guardVariables = null;
-    public PlayerVariables playerVariables = null;
+    #region ObserverSubjects
+    private PlayerSoundSubject playerSoundSubject = null;
+    private PlayerSpottedSubject playerSpottedSubject = null;
+    #endregion
 
+    #region Minimap
     private GameObject minimapIcon = null;
     private MeshRenderer minimapIconMeshRenderer = null;
     private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
+    private LayerMask minimapRaycastCheckLayer = 0;
+    #endregion
 
-    LayerMask raycastCheckLayer = 0;
-    private AudioManager audioManager = null;
-
-    // Added 20-05-13.
     private ParticleSystem disableParticleSystem = null;
-    /////
-    [HideInInspector] public Vector3 positiveVector = Vector3.zero;
-    [HideInInspector] public Vector3 negativeVector = Vector3.zero;
-    public float m_frequency = 1.0f;
-    public float lookingAroundAngle = 45.0f;
+    private ParticleSystem enableParticleSystem = null;
     
+    // Looking around helping vectors.
+    [HideInInspector] public Vector3 lookingAroundPositiveVector = Vector3.zero;
+    [HideInInspector] public Vector3 lookingAroundNegativeVector = Vector3.zero;
+
+    [HideInInspector] public Transform playerTransform = null;
+    public Transform guardNeckTransform = null;
+
     public void Awake()
     {
         GuardGetComponents();
         InitGuardCameraAndPath();
-        AddGuardAsObserver();
         InitMiniMap();
-        sensing.GuardSensingAwake();
-        guardMovement.GuardMovementAwake();
-
-        audioManager = FindObjectOfType<AudioManager>();
-        currentColor = guardVariables.patrolColor;
+        guardMovement.GuardMovementInit();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         mainCamera = Camera.main;
-        raycastCheckLayer = LayerMask.GetMask("Walls");
-
+        minimapRaycastCheckLayer = LayerMask.GetMask("Walls");
         disableParticleSystem = transform.Find("VFX").Find("Guard Disable 1.0 Variant").GetComponent<ParticleSystem>();
+        enableParticleSystem = transform.Find("VFX").Find("Guard Reactivated").GetComponent<ParticleSystem>();
+
     }
 
     public void Start()
     {
+        GetStaticReferencesFromGameHandler();
+        AddGuardAsObserver();
         guardBehavioralTree = new GuardBehaviourTree(this);
         StartCoroutine("Run");
+    }
+
+    void OnDrawGizmos()
+    {
+        if (showHearingRadius)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, hearingRadius);
+        }
+
+        Vector3 fovLine1 = Quaternion.AngleAxis(fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
+        Vector3 fovLine2 = Quaternion.AngleAxis(-fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
+
+        if (showFieldOfView)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, fovLine1);
+            Gizmos.DrawRay(transform.position, fovLine2);
+        }
     }
 
     public void Update()
     {
         MinimapCamera.updateIconSize(minimapIcon.transform);
-        ActivateMinimapIconCheck();
+        ActivateMinimapIcon();
         UpdateMinimapIconColor();
         UpdateGuardState();
 
@@ -97,7 +151,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
         if (sensing.PlayerDetectedCheck())
         {
-            playerSpottedSubject.NotifyObservers(playerVariables.playerTransform.position);
+            playerSpottedSubject.NotifyObservers(playerTransform.position);
         }
     }
 
@@ -137,11 +191,31 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
     }
 
+    void GetStaticReferencesFromGameHandler()
+    {
+        playerSoundSubject = GameHandler.playerSoundSubject;
+        if (playerSoundSubject == null)
+        {
+            Debug.Log("Guard can't find PlayerSoundSubject in GameHandler");
+        }
+
+        playerSpottedSubject = GameHandler.playerSpottedSubject;
+        if (playerSpottedSubject == null)
+        {
+            Debug.Log("Guard can't find PlayerSpottedSubject in GameHandler");
+        }
+
+        audioManager = GameHandler.audioManager;
+        if (audioManager == null)
+        {
+            Debug.Log("Guard can't find AudioManager in GameHandler");
+        }
+    }
+
     void GuardGetComponents()
     {
         guardMovement = GetComponent<GuardMovement>();
         sensing = GetComponent<GuardSensing>();
-        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     void InitGuardCameraAndPath()
@@ -154,7 +228,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     void InitMiniMap()
     {
-        minimapIcon = transform.GetChild(0).gameObject;
+        minimapIcon = transform.Find("MinimapIcon").gameObject;
         minimapIconMeshRenderer = minimapIcon.GetComponent<MeshRenderer>();
         minimapIcon.SetActive(false);
         visibleInMiniMap = false;
@@ -166,6 +240,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         playerSpottedSubject.AddObserver(this);
     }
 
+    // Updating the minimap icon depending on the guard state.
     void UpdateMinimapIconColor()
     {
         if(disabled)
@@ -178,26 +253,35 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
     }
     
-    bool ActivateMinimapIconCheck()
+    // Activate minimap icon if the guard is visible to the camera and there is no walls in between.
+    void ActivateMinimapIcon()
     {
+        if(visibleInMiniMap) { return; }
         RaycastHit raycastHit;
-        if (!visibleInMiniMap && GuardInCameraFieldOfView())
+        if (GuardInCameraFieldOfView())
         {
             Vector3 directionToCamera = mainCamera.transform.position - transform.position;
-            if(!Physics.Raycast(transform.position, directionToCamera.normalized, out raycastHit, directionToCamera.magnitude, raycastCheckLayer))
+            // Raycast from the guard towards the camera to check if it hits a wall.
+            if(!Physics.Raycast(transform.position, directionToCamera.normalized, out raycastHit, directionToCamera.magnitude, minimapRaycastCheckLayer))
             {
                 minimapIcon.SetActive(true);
                 visibleInMiniMap = true;
-                return true;
+                return;
             }
         }
         else if(sensing.PlayerDetectedCheck())
         {
             minimapIcon.SetActive(true);
             visibleInMiniMap = true;
-            return true;
+            return;
         }
-        return false;
+    }
+
+    // Checking if the guard is in field of view of the camera.
+    bool GuardInCameraFieldOfView()
+    {
+        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
+        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.y > 0 && screenPoint.x < 1 && screenPoint.y < 1;
     }
 
     public void PlayEnablingSound(Vector3 position)
@@ -205,24 +289,42 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         audioManager.Play("EnableGuard", position);
     }
 
-    bool GuardInCameraFieldOfView()
+    // Update looking around vectors depending on the current Y eulerAngle.
+    public void UpdateLookingAroundAngle()
     {
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
-        return screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.y > 0 && screenPoint.x < 1 && screenPoint.y < 1;
+        if (!updatedRotation)
+        {
+            lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
+            lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
+            updatedRotation = true;
+        }
     }
 
+    // Play getting disabled particle system.
+    public void PlayDisableVFX()
+    {
+        disableParticleSystem.Play();
+    }
+
+    // Play getting enabled particle system.
+    public void PlayerEnableVFX()
+    {
+        enableParticleSystem.Play();
+    }
+
+    // Get Sound notification from the player.
     public void PlayerSoundNotify(SoundType soundType, Vector3 position)
     {
-        if(guardState != GuardState.NORMAL) { return; }
+        if (guardState != GuardState.NORMAL) { return; }
 
         if (soundType == SoundType.WALKING)
         {
             if (sensing.canHear)
             {
-                if (sensing.CalculateLength(playerVariables.playerTransform.position) <= sensing.hearingRadius)
+                if (sensing.CalculateLength(playerTransform.position) <= hearingRadius)
                 {
                     sensing.suspicious = true;
-                    sensing.updatedRotation = false;
+                    updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
                     guardMovement.ResetIdleTimer();
                 }
@@ -233,65 +335,30 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             if (sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
             {
                 sensing.distracted = true;
-                //guardMovement.SetInvestigationPosition(position);
                 guardMovement.SetDistractionInvestigationPosition(position);
                 guardMovement.ResetIdleTimer();
             }
         }
-        else if(soundType == SoundType.CROUCHING)
+        else if (soundType == SoundType.CROUCHING)
         {
-            if(sensing.detectionAmount < sensing.maxDetectionAmount)
+            if (sensing.detectionAmount < maxDetectionBarAmount)
                 sensing.suspicious = false;
         }
     }
 
-    public void UpdateLookingAroundAngle()
-    {
-        if (!sensing.updatedRotation)
-        {
-            float positiveAngle = transform.eulerAngles.y + lookingAroundAngle;
-            if (positiveAngle > 180.0f)
-            {
-                positiveAngle -= 360.0f;
-            }
-            else if (positiveAngle < -180.0f) // this is not necessary but just for safety
-            {
-                positiveAngle += 360.0f;
-            }
-
-            float negativeAngle = transform.eulerAngles.y - lookingAroundAngle;
-            if (negativeAngle > 180.0f) // this is not necessary but just for safety
-            {
-                negativeAngle -= 360.0f;
-            }
-            else if (negativeAngle < -180.0f)
-            {
-                negativeAngle += 360.0f;
-            }
-            positiveVector = new Vector3(0.0f, positiveAngle, 0.0f);
-            negativeVector = new Vector3(0.0f, negativeAngle, 0.0f);
-            sensing.updatedRotation = true;
-        }
-    }
-
-    // Added 20-05-13.
-    public void PlayDisableVFX()
-    {
-        disableParticleSystem.Play();
-    }
-    /////
-
+    // Get notified about player got spotted.
     public void PlayerSpottedNotify(Vector3 position)
     {
         if (guardState != GuardState.NORMAL) { return; }
 
-        if (sensing.CalculateLength(position) <= guardVariables.maxBackupRadius)
+        if (sensing.CalculateLength(position) <= maxAssistRadius)
         {
             assist = true;
             guardMovement.SetAssistPosition(position);
         }
     }
 
+    // Destroy observers subjects.
     void OnDestroy()
     {
         playerSoundSubject.RemoveObserver(this);

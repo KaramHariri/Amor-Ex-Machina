@@ -5,23 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Settings", menuName = "Settings/Settings", order = 60)]
 public class Settings : ScriptableObject
 {
-    public bool useControllerInput;
-    public bool invertY;
-    public bool subtitle;
+    public bool useControllerInput = false;
+    public bool invertY = false;
+    public bool subtitle = true;
     [Range(50.0f, 300.0f)]
-    public float thirdPersonLookSensitivity;
+    public float thirdPersonLookSensitivity = 150.0f;
     [Range(50.0f, 300.0f)]
-    public float firstPersonLookSensitivity;
+    public float firstPersonLookSensitivity = 150.0f;
     [Range(0.0f, 1.0f)]
-    public float masterVolume;
+    public float masterVolume = 1.0f;
     [Range(0.0f, 1.0f)]
-    public float effectsVolume;
+    public float effectsVolume = 0.3f;
     [Range(0.0f, 1.0f)]
-    public float footstepsVolume;
+    public float footstepsVolume = 0.4f;
     [Range(0.0f, 1.0f)]
-    public float voiceVolume;
+    public float voiceVolume = 0.6f;
     [Range(0.0f, 1.0f)]
-    public float musicVolume;
+    public float musicVolume = 0.3f;
 
 
     [Header("Controls")]

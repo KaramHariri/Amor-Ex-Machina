@@ -55,7 +55,8 @@ public class Puzzle : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
 
         selectedButton = activateableButtons[0];
-        SetHover(activateableButtons[0].transform.GetSiblingIndex());
+        //SetHover(activateableButtons[0].transform.GetSiblingIndex());
+        SetInitialHover(activateableButtons[0].transform.GetSiblingIndex());
     }
 
     private void Update()
@@ -136,6 +137,19 @@ public class Puzzle : MonoBehaviour
         selectedButton = buttons[index];
         selectedButton.Hovered();
     }
+
+    // Added 20-05-18   // this was giving an error since it plays a sound and the audioManager hasn't been initialized yet.
+    void SetInitialHover(int index)
+    {
+        if (buttons[index].type == PuzzleButton.ButtonType.Empty)
+            return;
+
+        //Debug.Log("Set Active - Index " + index);
+        selectedButton.Deselect();
+        selectedButton = buttons[index];
+        selectedButton.SetInitialHovered();
+    }
+    //
 
     public void GenerateFlipTileList()
     {

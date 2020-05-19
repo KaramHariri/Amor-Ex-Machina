@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.15272148, y: 0.000000015649858, z: 0.000000006138417, w: 0.98826927}
-  m_LocalPosition: {x: -8.01, y: 2.24, z: -29.039999}
+  m_LocalPosition: {x: 0, y: 2.24, z: -19.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5276379237898172634}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 366947854}
   m_Layer: 0
   m_Name: ThirdPersonCamera
-  m_TagString: Untagged
+  m_TagString: ThirdPersonCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5276379237382202461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 13}
+  m_LocalPosition: {x: 0, y: 2.24, z: -19.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5276379237530013088}
@@ -329,9 +329,6 @@ MonoBehaviour:
   middleRingRadius: 7
   bottomRingHeight: -0.7
   bottomRingRadius: 4
-  playerCamerasVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166,
-    type: 2}
-  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!114 &366947854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,9 +467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc4f4686bc5af14cb7721a8a518c125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCameras: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166, type: 2}
-  guardHackedSubject: {fileID: 11400000, guid: ddda057fc03953a4bba3164ee12e9282, type: 2}
-  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &5276379237964430837
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,7 +800,7 @@ GameObject:
   - component: {fileID: 7254304266613648427}
   m_Layer: 0
   m_Name: FirstPersonCamera
-  m_TagString: Untagged
+  m_TagString: FirstPersonCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -819,7 +813,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5276379238555668798}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.94, y: 1.65, z: 20.228}
+  m_LocalPosition: {x: 0, y: 1.65, z: -17.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5276379237964430836}
@@ -877,9 +871,6 @@ MonoBehaviour:
   useMouseInput: 0
   cameraYMin: -70
   cameraYMax: 70
-  playerCamerasVariables: {fileID: 11400000, guid: e7869cd1c00c12a4bae358a9e34ba166,
-    type: 2}
-  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &5276379238820037884
 GameObject:
   m_ObjectHideFlags: 0

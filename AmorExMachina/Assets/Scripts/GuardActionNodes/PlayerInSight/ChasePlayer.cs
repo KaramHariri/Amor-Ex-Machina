@@ -11,11 +11,11 @@
     {
         NodeState nodeState = NodeState.RUNNING;
         guard.guardMovement.ChasePlayer();
-        float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.playerVariables.playerTransform.position);
+        float distance = UnityEngine.Vector3.Distance(guard.transform.position, guard.playerTransform.position);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance)
         {
             guard.guardMovement.navMeshAgent.isStopped = true;
-            guard.playerVariables.caught = true;
+            GameHandler.playerIsCaught = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

@@ -28,10 +28,13 @@ public class ThirdPersonCinemachine : MonoBehaviour
     private float bottomRingRadius = 4.0f;
 
     [Header("ScriptableObjects")]
-    public PlayerCamerasVariables playerCamerasVariables = null;
-    public Settings settings = null;
+    private PlayerCamerasVariables playerCamerasVariables = null;
+    private Settings settings = null;
 
     private int priority = 22;
+
+    public static Transform thirdPersonCameraTransform = null;
+    public static CinemachineFreeLook thirdPersonCamera = null;
 
     private void Awake()
     {
@@ -40,14 +43,23 @@ public class ThirdPersonCinemachine : MonoBehaviour
         cinemachineFreeLook.m_YAxis.Value = 0.5f;
         cinemachineFreeLook.m_Priority = priority;
 
-        playerCamerasVariables.thirdPersonCameraTransform = this.transform;
-        playerCamerasVariables.thirdPersonCamera = cinemachineFreeLook;
+        thirdPersonCameraTransform = this.transform;
+        thirdPersonCamera = cinemachineFreeLook;
     }
 
     private void Start()
     {
-        SetCameraSettings();
-        UpdateCameraSettings();
+        playerCamerasVariables = GameHandler.playerCamerasVariables;
+        if(playerCamerasVariables == null)
+        {
+            Debug.Log("ThirdPersonCinemachine can't find PlayerCamerasVariables in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("ThirdPersonCinemachine can't find Settings in GameHandler");
+        }
     }
 
     private void Update()
@@ -83,26 +95,7 @@ public class ThirdPersonCinemachine : MonoBehaviour
             cinemachineFreeLook.m_XAxis.Value = playerYAngle;
             cinemachineFreeLook.m_YAxis.Value = 0.5f;
         }
-        playerCamerasVariables.thirdPersonCameraTransform = this.transform;
-    }
-
-    void SetCameraSettings()
-    {
-        cinemachineFreeLook.m_Follow = playerCamerasVariables.thirdPersonCameraFollowTarget;
-        cinemachineFreeLook.m_LookAt = playerCamerasVariables.thirdPersonCameraFollowTarget;
-
-        invertVerticalInput = settings.invertY;
-        verticalSpeed = settings.thirdPersonLookSensitivity * 0.01f;
-
-        topRingHeight = playerCamerasVariables.thirdPersonCameraTopRingHeight;
-        topRingRadius = playerCamerasVariables.thirdPersonCameraTopRingRadius;
-        middleRingHeight = playerCamerasVariables.thirdPersonCameraMiddleRingHeight;
-        middleRingRadius = playerCamerasVariables.thirdPersonCameraMiddleRingRadius;
-        bottomRingHeight = playerCamerasVariables.thirdPersonCameraBottomRingHeight;
-        bottomRingRadius = playerCamerasVariables.thirdPersonCameraBottomRingRadius;
-
-        invertHorizontalInput = playerCamerasVariables.thirdPersonCameraInvertHorizontalInput;
-        horizontalSpeed = playerCamerasVariables.thirdPersonCameraHorizontalSpeed;
+        thirdPersonCameraTransform = this.transform;
     }
 
     void UpdateThirdPersonCameraVariables()
@@ -128,6 +121,15 @@ public class ThirdPersonCinemachine : MonoBehaviour
             cinemachineFreeLook.m_YAxis.m_InvertInput = settings.invertY;
         else
             cinemachineFreeLook.m_YAxis.m_InvertInput = !settings.invertY;
+
+        if (cinemachineFreeLook.m_Follow == null)
+        {
+            cinemachineFreeLook.m_Follow = PlayerController.thirdPersonCameraAim;
+        }
+        if (cinemachineFreeLook.m_LookAt == null)
+        {
+            cinemachineFreeLook.m_LookAt = PlayerController.thirdPersonCameraAim;
+        }
 
         cinemachineFreeLook.m_XAxis.m_InvertInput = invertHorizontalInput;
 

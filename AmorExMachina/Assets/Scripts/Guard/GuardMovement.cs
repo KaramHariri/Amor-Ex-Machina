@@ -7,8 +7,8 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector] public Vector3 currentWayPoint = Vector3.zero;
     [HideInInspector] public int wayPointIndex = 0;
 
-    //[HideInInspector]
-    public float idleTimer = 5.0f;
+    [HideInInspector] public float patrolIdleTimer = 5.0f;
+    [HideInInspector] public float lookingAroundTimer = 5.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent = null;
     [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
@@ -17,8 +17,6 @@ public class GuardMovement : MonoBehaviour
 
     [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
 
-    private GuardVariables guardVariables = null;
-    private PlayerVariables playerVariables = null;
     private Guard guardScript = null;
 
     [HideInInspector] public bool idle = false;
@@ -26,11 +24,13 @@ public class GuardMovement : MonoBehaviour
     private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     private GuardType guardType = GuardType.MOVING;
 
-    public void GuardMovementAwake()
+    private Transform playerTransform = null;
+
+    public void GuardMovementInit()
     {
         SetPath();
         GetComponents();
-        AssignPlayerAndGuardVariables();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         SetMovementVariables();
     }
 
@@ -40,18 +40,13 @@ public class GuardMovement : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    void AssignPlayerAndGuardVariables()
-    {
-        guardVariables = guardScript.guardVariables;
-        playerVariables = guardScript.playerVariables;
-    }
-
     void SetMovementVariables()
     {
         guardType = guardScript.guardType;
         movementType = guardScript.movementType;
         targetRotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
-        idleTimer = guardVariables.maxIdletimer;
+        patrolIdleTimer = guardScript.maxPatrolIdleTimer;
+        lookingAroundTimer = guardScript.maxLookingAroundTimer;
     }
 
     public void FollowPath()
@@ -101,27 +96,26 @@ public class GuardMovement : MonoBehaviour
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
             currentWayPoint = path[wayPointIndex];
-            Vector3 currentWayPointPosition = new Vector3(currentWayPoint.x, 1.0f, currentWayPoint.z);
+            Vector3 currentWayPointPosition = currentWayPoint;
+
             navMeshAgent.SetDestination(currentWayPointPosition);
-            navMeshAgent.speed = guardVariables.patrolSpeed;
+            navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.autoBraking = true;
         }
     }
 
     public void MoveToLastSightPosition(Vector3 target)
     {
-        Vector3 targetPosition = new Vector3(target.x, 1.0f, target.z);
-        navMeshAgent.SetDestination(targetPosition);
-        navMeshAgent.speed = guardVariables.chaseSpeed;
+        navMeshAgent.SetDestination(target);
+        navMeshAgent.speed = guardScript.chaseSpeed;
         navMeshAgent.stoppingDistance = 0.5f;
         navMeshAgent.autoBraking = true;
     }
 
     public void MoveTowardsKnockedOutGuard(Vector3 target)
     {
-        Vector3 targetPosition = new Vector3(target.x, 1.0f, target.z);
-        navMeshAgent.SetDestination(targetPosition);
-        navMeshAgent.speed = guardVariables.suspiciousSpeed;
+        navMeshAgent.SetDestination(target);
+        navMeshAgent.speed = guardScript.suspiciousSpeed;
         navMeshAgent.stoppingDistance = 2.5f;
         navMeshAgent.autoBraking = true;
     }
@@ -134,18 +128,17 @@ public class GuardMovement : MonoBehaviour
     public void Investigate()
     {
         idle = false;
-        Vector3 investigationPos = new Vector3(investigationPosition.x, 1.0f, investigationPosition.z);
 
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)
         {
-            navMeshAgent.CalculatePath(investigationPos, newPath);
+            navMeshAgent.CalculatePath(investigationPosition, newPath);
         }
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(investigationPos);
+            navMeshAgent.SetDestination(investigationPosition);
             navMeshAgent.stoppingDistance = 3.0f;
-            navMeshAgent.speed = guardVariables.suspiciousSpeed;
+            navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;
         }
     }
@@ -158,18 +151,17 @@ public class GuardMovement : MonoBehaviour
     public void DistractionInvestigate()
     {
         idle = false;
-        Vector3 investigationPos = new Vector3(distractionInvestigationPosition.x, 1.0f, distractionInvestigationPosition.z);
 
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)
         {
-            navMeshAgent.CalculatePath(investigationPos, newPath);
+            navMeshAgent.CalculatePath(distractionInvestigationPosition, newPath);
         }
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(investigationPos);
+            navMeshAgent.SetDestination(distractionInvestigationPosition);
             navMeshAgent.stoppingDistance = 3.0f;
-            navMeshAgent.speed = guardVariables.suspiciousSpeed;
+            navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;
         }
     }
@@ -177,18 +169,17 @@ public class GuardMovement : MonoBehaviour
     public void ChasePlayer()
     {
         idle = false;
-        Vector3 playerPos = new Vector3(playerVariables.playerTransform.position.x, 1.0f, playerVariables.playerTransform.position.z);
 
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)
         {
-            navMeshAgent.CalculatePath(playerPos, newPath);
+            navMeshAgent.CalculatePath(playerTransform.position, newPath);
         }
 
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(playerPos);
-            navMeshAgent.speed = guardVariables.chaseSpeed;
+            navMeshAgent.SetDestination(playerTransform.position);
+            navMeshAgent.speed = guardScript.chaseSpeed;
             navMeshAgent.stoppingDistance = 2.5f;
             navMeshAgent.autoBraking = false;
         }
@@ -201,10 +192,9 @@ public class GuardMovement : MonoBehaviour
 
     public void Assist()
     {
-        Vector3 assistPos = new Vector3(assistPosition.x, 1.0f, assistPosition.z);
-        navMeshAgent.SetDestination(assistPos);
+        navMeshAgent.SetDestination(assistPosition);
         navMeshAgent.stoppingDistance = 2.5f;
-        navMeshAgent.speed = guardVariables.chaseSpeed;
+        navMeshAgent.speed = guardScript.chaseSpeed;
         navMeshAgent.autoBraking = true;
     }
 
@@ -213,7 +203,7 @@ public class GuardMovement : MonoBehaviour
         path = new Vector3[pathHolder.childCount];
         for (int i = 0; i < path.Length; i++)
         {
-            Vector3 wayPointPosition = new Vector3(pathHolder.GetChild(i).position.x, 1.0f, pathHolder.GetChild(i).position.z);
+            Vector3 wayPointPosition = pathHolder.GetChild(i).position;
             path[i] = wayPointPosition;
         }
         currentWayPoint = path[wayPointIndex];
@@ -221,6 +211,7 @@ public class GuardMovement : MonoBehaviour
 
     public void ResetIdleTimer()
     {
-        idleTimer = guardVariables.maxIdletimer;
+        patrolIdleTimer = guardScript.maxPatrolIdleTimer;
+        lookingAroundTimer = guardScript.maxLookingAroundTimer;
     }
 }

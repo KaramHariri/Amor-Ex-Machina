@@ -10,9 +10,14 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     private bool switchedToFirstPersonCamera = false;
     private CinemachineBrain cinemachineBrain = null;
 
-    public PlayerCamerasVariables playerCameras = null;
-    public GuardHackedSubject guardHackedSubject = null;
-    public Settings settings = null;
+    //public PlayerCamerasVariables playerCamerasVariables = null;
+    //public GuardHackedSubject guardHackedSubject = null;
+    //public Settings settings = null;
+    //private AudioManager audioManager = null;
+
+    private PlayerCamerasVariables playerCamerasVariables = null;
+    private GuardHackedSubject guardHackedSubject = null;
+    private Settings settings = null;
     private AudioManager audioManager = null;
 
     private RadialBlurEffect radialBlurEffect = null;
@@ -23,11 +28,36 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
         radialBlurEffect = mainCamera.GetComponent<RadialBlurEffect>();
         switchedToFirstPersonCamera = false;
-        playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
+        //playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
         AddGuardVirtualCamerasToDictionary();
+        //guardHackedSubject.AddObserver(this);
+
+        //audioManager = FindObjectOfType<AudioManager>();
+
+        //Added 20-05-18
+        playerCamerasVariables = GameHandler.playerCamerasVariables;
+        if(playerCamerasVariables == null)
+        {
+            Debug.Log("CameraManager can't find PlayerCamerasVariables in GameHandler");
+        }
+        playerCamerasVariables.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
+        audioManager = GameHandler.audioManager;
+        if(audioManager == null)
+        {
+            Debug.Log("CameraManager can't find AudioManager in GameHandler");
+        }
+        guardHackedSubject = GameHandler.guardHackedSubject;
+        if(guardHackedSubject == null)
+        {
+            Debug.Log("CameraManager can't find GuardHackedSubject in GameHandler");
+        }
         guardHackedSubject.AddObserver(this);
 
-        audioManager = FindObjectOfType<AudioManager>();
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("CameraManager can't find Settings in GameHandler");
+        }
 
         StartCoroutine("ControllerCheck");
     }
@@ -49,18 +79,18 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
 
         if (switching)
         {
-            if (playerCameras.thirdPersonCamera.m_Priority == 22)
+            if (ThirdPersonCinemachine.thirdPersonCamera.m_Priority == 22)
             {
                 audioManager.Play("SwitchCameraToFirstPerson");
-                playerCameras.thirdPersonCamera.m_Priority = 18;
+                ThirdPersonCinemachine.thirdPersonCamera.m_Priority = 18;
                 StartCoroutine("ResetCamera");
             }
-            else if (playerCameras.thirdPersonCamera.m_Priority == 18)
+            else if (ThirdPersonCinemachine.thirdPersonCamera.m_Priority == 18)
             {
                 audioManager.Play("SwitchCameraToThirdPerson");
-                playerCameras.thirdPersonCamera.m_Priority = 22;
+                ThirdPersonCinemachine.thirdPersonCamera.m_Priority = 22;
                 switchedToFirstPersonCamera = false;
-                playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
+                playerCamerasVariables.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
                 StopCoroutine("ResetCamera");
             }
         }
@@ -70,7 +100,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
     {
         yield return new WaitForSeconds(cinemachineBrain.m_DefaultBlend.m_Time);
         switchedToFirstPersonCamera = true;
-        playerCameras.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
+        playerCamerasVariables.switchedCameraToFirstPerson = switchedToFirstPersonCamera;
     }
 
     void AddGuardVirtualCamerasToDictionary()

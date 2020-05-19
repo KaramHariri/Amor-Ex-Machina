@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 {
@@ -14,27 +12,16 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private float moveAmount = 0.0f;
     private bool sneaking = true;
     private bool hacking = false;
+    public static bool canHackGuard = true;
     
     private Rigidbody rb = null;
     private Guard disabledGuard = null;
     [SerializeField] List<Guard> possibleGuardsToDisable = null;
 
-    #region Scriptable Objects
-    public PlayerSoundSubject playerSoundSubject = null;
-    public GuardHackedSubject guardHackedSubject = null;
-    public PlayerVariables playerVariables = null;
-    public PlayerCamerasVariables cameraVariables = null;
-    public PlayerSpottedSubject playerSpottedSubject = null;
-    public InteractionButtonSubject interactionButtonSubject = null;
-    public GuardDisabledSubject guardDisabledSubject = null;
-    #endregion
-
     [SerializeField] private float hackingTimer = 0.0f;
     [SerializeField] private float maxHackingTimer = 20.0f;
 
     private GameObject minimapIcon = null;
-    private AudioManager audioManager = null;
-    [SerializeField] private Settings settings = null;
 
     [SerializeField] private SkinnedMeshRenderer playerMeshRenderer = null;
 
@@ -42,20 +29,84 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     [SerializeField] float sneakingStepDistance = 0.75f;
     [SerializeField] float walkingStepDistance = 0.5f;
 
+    private PlayerSoundSubject playerSoundSubject = null;
+    private GuardHackedSubject guardHackedSubject = null;
+    private PlayerCamerasVariables cameraVariables = null;
+    private PlayerSpottedSubject playerSpottedSubject = null;
+    private InteractionButtonSubject interactionButtonSubject = null;
+    private GuardDisabledSubject guardDisabledSubject = null;
+    private AudioManager audioManager = null;
+    private Settings settings = null;
+
+    public static Transform thirdPersonCameraAim = null;
+    public static Transform firstPersonCameraAim = null;
+
     void Awake()
     {
+        thirdPersonCameraAim = transform.Find("ThirdPersonAim");
+        firstPersonCameraAim = transform.Find("FirstPersonAim");
         possibleGuardsToDisable = new List<Guard>();
-        playerVariables.playerTransform = transform;
-        playerVariables.caught = false;
-        playerVariables.canHackGuard = true;
         rb = GetComponent<Rigidbody>();
-        cameraVariables.firstPersonCameraFollowTarget = gameObject.transform.Find("FirstPersonAim");
-        cameraVariables.thirdPersonCameraFollowTarget = gameObject.transform.Find("ThirdPersonAim");
-        playerSpottedSubject.AddObserver(this);
-        audioManager = FindObjectOfType<AudioManager>();
         Cursor.visible = false;
         rb.isKinematic = false;
         minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
+    }
+
+    void Start()
+    {
+        GetStaticReferencesFromGameHandler();
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        playerSoundSubject = GameHandler.playerSoundSubject;
+        if (playerSoundSubject == null)
+        {
+            Debug.Log("PlayerController can't find PlayerSoundSubject in GameHandler");
+        }
+
+        guardHackedSubject = GameHandler.guardHackedSubject;
+        if (guardHackedSubject == null)
+        {
+            Debug.Log("PlayerController can't find GuardHackedSubject in GameHandler");
+        }
+
+        cameraVariables = GameHandler.playerCamerasVariables;
+        if (cameraVariables == null)
+        {
+            Debug.Log("PlayerController can't find PlayerCamerasVariables in GameHandler");
+        }
+
+        playerSpottedSubject = GameHandler.playerSpottedSubject;
+        if (playerSpottedSubject == null)
+        {
+            Debug.Log("PlayerController can't find PlayerSpottedSubject in GameHandler");
+        }
+        playerSpottedSubject.AddObserver(this);
+
+        interactionButtonSubject = GameHandler.interactionButtonSubject;
+        if (interactionButtonSubject == null)
+        {
+            Debug.Log("PlayerController can't find InteractionButtonSubject in GameHandler");
+        }
+
+        guardDisabledSubject = GameHandler.guardDisabledSubject;
+        if (guardDisabledSubject == null)
+        {
+            Debug.Log("PlayerController can't find GuardDisabledSubject in GameHandler");
+        }
+
+        audioManager = GameHandler.audioManager;
+        if (audioManager == null)
+        {
+            Debug.Log("PlayerController can't find AudioManager in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if (settings == null)
+        {
+            Debug.Log("PlayerController can't find Settings in GameHandler");
+        }
     }
 
     void Update()
@@ -67,7 +118,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         MinimapCamera.updateIconSize(minimapIcon.transform);
         HackingGuardCheck();
 
-        if (playerVariables.caught)
+        if (GameHandler.playerIsCaught)
         {
             GameHandler.currentState = GameState.LOST;
         }
@@ -93,13 +144,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         if (sneaking)
         {
-            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.14f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
-            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
+            Vector3 newCameraPosition = new Vector3(firstPersonCameraAim.localPosition.x, 1.14f, firstPersonCameraAim.localPosition.z);
+            firstPersonCameraAim.localPosition = Vector3.Lerp(firstPersonCameraAim.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
         }
         else
         {
-            Vector3 newCameraPosition = new Vector3(cameraVariables.firstPersonCameraFollowTarget.localPosition.x, 1.65f, cameraVariables.firstPersonCameraFollowTarget.localPosition.z);
-            cameraVariables.firstPersonCameraFollowTarget.localPosition = Vector3.Lerp(cameraVariables.firstPersonCameraFollowTarget.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
+            Vector3 newCameraPosition = new Vector3(firstPersonCameraAim.localPosition.x, 1.65f, firstPersonCameraAim.localPosition.z);
+            firstPersonCameraAim.localPosition = Vector3.Lerp(firstPersonCameraAim.localPosition, newCameraPosition, Time.deltaTime * 5.0f);
         }
 
         GetInput();
@@ -177,7 +228,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     {
         if (disabledGuard == null || disabledGuard.disabled == false) { return; }
         
-        if (playerVariables.canHackGuard)
+        if (canHackGuard)
         {
             if (!hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
@@ -224,7 +275,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         {
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
-            Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.firstPersonCameraTransform.eulerAngles.y , 0.0f);
+            Quaternion targetRotation = Quaternion.Euler(0.0f, FirstPersonCinemachine.firstPersonCameraTransform.eulerAngles.y , 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }
     }
@@ -232,7 +283,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     void ThirdPersonRotationHandling()
     {
         moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
-        Quaternion targetRotation = Quaternion.Euler(0.0f, cameraVariables.thirdPersonCameraTransform.eulerAngles.y, 0.0f);
+        Quaternion targetRotation = Quaternion.Euler(0.0f, ThirdPersonCinemachine.thirdPersonCameraTransform.eulerAngles.y, 0.0f);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
     }
 
@@ -248,7 +299,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
         else
         {
-            Vector3 dir = cameraVariables.thirdPersonCameraTransform.transform.right * horizontalInput + cameraVariables.thirdPersonCameraTransform.forward * verticalInput;
+            Vector3 dir = ThirdPersonCinemachine.thirdPersonCameraTransform.transform.right * horizontalInput 
+                        + ThirdPersonCinemachine.thirdPersonCameraTransform.forward * verticalInput;
             v = dir;
         }
 

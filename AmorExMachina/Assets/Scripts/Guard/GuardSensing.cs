@@ -5,70 +5,59 @@ using UnityEngine.AI;
 
 public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 {
+    // Sensing Variables.
     [HideInInspector] public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
-    /*[HideInInspector]*/ public bool playerWasInSight = false;
+    [HideInInspector] public bool playerWasInSight = false;
     private bool playerInRange = false;
     private bool playerInSight = false;
-
-    public bool showHearingRadius = true;
-    public bool showFieldOfView = true;
-
-    [Header("Sensing Variables")]
-    [SerializeField] private float fieldOfViewRadius = 20.0f;
-    [HideInInspector] public float hearingRadius = 20.0f;
-    [SerializeField] private float minHearingRadius = 5.0f;
-    [SerializeField] private float maxHearingRadius = 10.0f;
-    [SerializeField] private float fieldOfViewAngle = 70.0f;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public SphereCollider sensingCollider;
 
-    /*[HideInInspector]*/ public List<Guard> disabledGuardsFound = null;
+    // Disabled Guard lists.
+    [HideInInspector] public List<Guard> disabledGuardsFound = null;
     private List<Guard> disabledGuards = null;
-
-    private PlayerVariables playerVariables = null;
 
     private Guard guardScript = null;
 
-    /*[HideInInspector]*/ public Vector3 playerLastSightPosition = Vector3.zero;
+    [HideInInspector] public Vector3 playerLastSightPosition = Vector3.zero;
 
     #region Layer masks
     private LayerMask raycastCheckLayer = 0;
     private LayerMask raycastCheckLayerWithSmoke = 0;
     private LayerMask raycastDisabledGuardCheckLayer = 0;
     #endregion
-
-    [Header("Timers")]
-    public float maxDetectionAmount = 2.0f;
-    [SerializeField] private float maxTimerSincePlayerWasSpotted = 5.0f;
+    
+    // Timers.
     [HideInInspector] public float detectionAmount = 0.0f;
+    [HideInInspector] public float maxDetectionAmount = 0.0f;
     private float timerSincePlayerWasSpotted = 0.0f;
 
-    [Header("Scriptable Objects")]
-    public GuardDisabledSubject guardDisabledSubject = null;
+    private GuardDisabledSubject guardDisabledSubject = null;
 
-    [Header("Distance based values")]
-    public float maxDistanceValue = 0.6f;
-    public float minDistanceValue = 2.0f;
+    // Variables for modifying the indicator fill speed.
     private float distancePercent = 0f;
     private float valueDifference = 0f;
     private float distanceFactorAmount = 0f;
 
     private AudioManager audioManager = null;
 
-    public bool updatedRotation = false;
+    private Transform playerTransform;
 
-    public void GuardSensingAwake()
+    void Awake()
     {
         GetComponents();
-        guardDisabledSubject.AddObserver(this);
         InitLists();
-        AssignPlayerVariable();
         AssignLayerMasks();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    void Start()
+    {
+        GetStaticReferencesFromGameHandler();
         StartCoroutine("GuardHearingRangeHandler");
-        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void GetComponents()
@@ -78,15 +67,26 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         guardScript = GetComponent<Guard>();
     }
 
-    void AssignPlayerVariable()
-    {
-        playerVariables = guardScript.playerVariables;
-    }
-
     void InitLists()
     {
         disabledGuardsFound = new List<Guard>();
         disabledGuards = new List<Guard>();
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        guardDisabledSubject = GameHandler.guardDisabledSubject;
+        if (guardDisabledSubject == null)
+        {
+            Debug.Log("GuardSensing can't find GuardDisabledSubject in GameHandler");
+        }
+        guardDisabledSubject.AddObserver(this);
+
+        audioManager = GameHandler.audioManager;
+        if (audioManager == null)
+        {
+            Debug.Log("GuardSensing can't find AudioManager in GameHandler");
+        }
     }
 
     void AssignLayerMasks()
@@ -96,32 +96,13 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         raycastDisabledGuardCheckLayer = LayerMask.GetMask("Walls", "Guards");
     }
 
-    void OnDrawGizmos()
-    {
-        if (showHearingRadius)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, hearingRadius);
-        }
-
-        Vector3 fovLine1 = Quaternion.AngleAxis(fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
-        Vector3 fovLine2 = Quaternion.AngleAxis(-fieldOfViewAngle, transform.up) * transform.forward * fieldOfViewRadius;
-
-        if (showFieldOfView)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawRay(transform.position, fovLine1);
-            Gizmos.DrawRay(transform.position, fovLine2);
-        }
-    }
-
     public void Update()
     {
         SpottedIndicatorHandler();
 
         if (guardScript.guardState != GuardState.NORMAL) { return; }
 
-        sensingCollider.radius = fieldOfViewRadius;
+        sensingCollider.radius = guardScript.fieldOfViewRadius;
 
         UpdateTimerSincePlayerWasSpotted();
 
@@ -131,8 +112,10 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         DisabledGuardInSightCheck();
     }
 
+    // Update the fill of the bar depending on the guard state.
     void SpottedIndicatorHandler()
     {
+        // Check if the player is or was in the sight of the guard and the guard is not disabled.
         if ((playerInSight || playerWasInSight) && !guardScript.disabled)
         {
             {   //These are the things changed for the distance to player sensing //Changed 2020-05-08
@@ -140,19 +123,24 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 CalculateDistanceFactor();
                 detectionAmount += Time.deltaTime * distanceFactorAmount;
             }
-            if (detectionAmount >= maxDetectionAmount)
-                detectionAmount = maxDetectionAmount;
+            if (detectionAmount >= guardScript.maxDetectionBarAmount)
+                detectionAmount = guardScript.maxDetectionBarAmount;
 
+            // Activate an indicator from the pool of indicators if there is no indicator activated for this guard.
             UIManager.createIndicator(this.transform);
+            // Update the indicator fill value and color. ( Increase the fill)
             UIManager.updateIndicator(this.transform, IndicatorColor.Red);
         }
+        // Check if the guard heard something (Player made noise) and the guard is not disabled.
         else if (suspicious && !guardScript.disabled)
         {
             detectionAmount += Time.deltaTime * 2.0f;
-            if (detectionAmount >= maxDetectionAmount)
-                detectionAmount = maxDetectionAmount;
+            if (detectionAmount >= guardScript.maxDetectionBarAmount)
+                detectionAmount = guardScript.maxDetectionBarAmount;
 
+            // Activate an indicator from the pool of indicators if there is no indicator activated for this guard.
             UIManager.createIndicator(this.transform);
+            // Update the indicator fill value and color. (Increase the fill)
             UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
         }
         else
@@ -161,10 +149,14 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             if (detectionAmount <= 0.0f)
             {
                 detectionAmount = 0.0f;
+                // Remove an indicator if there is an indicator is activated for this guard.
                 UIManager.removeIndicator(this.transform);
             }
             else
+            {
+                // Update the fill of the indicator. (Decrease the fill)
                 UIManager.updateIndicator(this.transform, IndicatorColor.Yellow);
+            }
         }
     }
 
@@ -178,14 +170,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         if (!guardScript.hacked && !guardScript.disabled)
         {
-            if(timerSincePlayerWasSpotted < maxTimerSincePlayerWasSpotted)
+            if(timerSincePlayerWasSpotted < guardScript.maxTimerSincePlayerWasSpotted)
             {
-                if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayer))
+                if (RaycastHitCheckToTarget(playerTransform, raycastCheckLayer))
                 {
                     timerSincePlayerWasSpotted = 0.0f;
-                    // Added
-                    suspicious = false;
-                    //
                     playerInSight = true;
                 }
                 else
@@ -195,7 +184,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             }
             else
             {
-                if (RaycastHitCheckToTarget(playerVariables.playerTransform, raycastCheckLayerWithSmoke))
+                if (RaycastHitCheckToTarget(playerTransform, raycastCheckLayerWithSmoke))
                 {
                     timerSincePlayerWasSpotted = 0.0f;
                     playerInSight = true;
@@ -208,6 +197,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         }
     }
 
+    // Increase/Decrease the guard hearing range depending if the guard is visible to the player.
     IEnumerator GuardHearingRangeHandler()
     {
         while (true)
@@ -216,14 +206,18 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             {
                 if (HearingSenseRaycastCheck())
                 {
-                    hearingRadius = maxHearingRadius;
+                    guardScript.hearingRadius = guardScript.maxHearingRadius;
                 }
                 else
                 {
-                    hearingRadius = minHearingRadius;
+                    guardScript.hearingRadius = guardScript.minHearingRadius;
                 }
             }
-            yield return new WaitForSeconds(2.0f);
+            else if(Suspicious() || playerWasDetectedCheck() || PlayerDetectedCheck())
+            {
+                guardScript.hearingRadius = guardScript.alertedHearingRadius;
+            }
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -236,9 +230,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                 if (CalculateLength(disabledGuards[i].transform.position) <= sensingCollider.radius)
                 {
                     Vector3 directionToDisabledGuard = disabledGuards[i].transform.position - transform.position;
-                    float angle = Vector3.Angle(directionToDisabledGuard, transform.forward);
+                    float angle = Vector3.Angle(directionToDisabledGuard, guardScript.guardNeckTransform.forward);
 
-                    if (angle < fieldOfViewAngle)
+                    if (angle < guardScript.fieldOfViewAngle)
                     {
                         if (RaycastHitCheckToTarget(disabledGuards[i].transform, raycastDisabledGuardCheckLayer))
                         {
@@ -264,10 +258,11 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         disabledGuardsFound.Sort(SortByDistance);
     }
 
+    // Sort the disabled guard that are found by distance to this guard position.
     int SortByDistance(Guard guard1Pos, Guard guard2Pos)
     {
-        float distance1 = Vector3.Distance(guard1Pos.transform.position, playerVariables.playerTransform.position);
-        float distance2 = Vector3.Distance(guard2Pos.transform.position, playerVariables.playerTransform.position);
+        float distance1 = Vector3.Distance(guard1Pos.transform.position, transform.position);
+        float distance2 = Vector3.Distance(guard2Pos.transform.position, transform.position);
 
         if (distance1 < distance2)
         {
@@ -282,36 +277,28 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     public bool PlayerDetectedCheck()
     {
-        if (playerInSight && detectionAmount >= maxDetectionAmount)
+        if (playerInSight && detectionAmount >= guardScript.maxDetectionBarAmount)
         {
             playerWasInSight = true;
-            playerLastSightPosition = playerVariables.playerTransform.position;
+            suspicious = false;
+            playerLastSightPosition = playerTransform.position;
             return true;
         }
         return false;
     }
 
     public bool playerWasDetectedCheck()
-    {                           // Added
+    {
         if (playerWasInSight && !suspicious)
-        {                       //
-            Vector3 lastSightPos = new Vector3(playerLastSightPosition.x, 1.0f, playerLastSightPosition.z);
-            float distanceToLastSightPosition = Vector3.Distance(transform.position, lastSightPos);
-            //if (distanceToLastSightPosition <= navMeshAgent.stoppingDistance + 2.0f && suspicious)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-                return true;
-            //}
+        {
+            return true;
         }
         return false;
     }
 
     public bool Suspicious()
     {
-        if (suspicious && detectionAmount >= maxDetectionAmount)
+        if (suspicious && detectionAmount >= guardScript.maxDetectionBarAmount)
         {
             return true;
         }
@@ -360,9 +347,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 0.5f, target.position.z);
         Vector3 directionToTarget = targetPosition - transform.position;
-        float angle = Vector3.Angle(directionToTarget, transform.forward);
+        float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
 
-        if (angle < fieldOfViewAngle)
+        if (angle < guardScript.fieldOfViewAngle)
         {
             RaycastHit raycastHit;
             if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))
@@ -378,14 +365,14 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
 
     bool HearingSenseRaycastCheck()
     {
-        Vector3 playerPosition = new Vector3(playerVariables.playerTransform.position.x, playerVariables.playerTransform.position.y + 0.5f, playerVariables.playerTransform.position.z);
+        Vector3 playerPosition = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
         Vector3 directionToTarget = playerPosition - transform.position;
-        float angle = Vector3.Angle(directionToTarget, transform.forward);
+        float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
 
         RaycastHit raycastHit;
         if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, raycastCheckLayer))
         {
-            if (raycastHit.collider.transform == playerVariables.playerTransform)
+            if (raycastHit.collider.transform == playerTransform)
             {
                 return true;
             }
@@ -444,15 +431,15 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     //Added 2020-05-08
     private void CalculateDistanceFactor()
     {
-        if(playerVariables.playerTransform == null) { Debug.Log("Can't find player transform"); return; }
+        if(playerTransform == null) { Debug.Log("Can't find player transform"); return; }
 
         //We probably want to do this in start once we have good values in order to get better preformance, but for now this will allow us to modify the values in real time
-        valueDifference = maxDistanceValue - minDistanceValue;
+        valueDifference = guardScript.maxDistanceValue - guardScript.minDistanceValue;
 
         //The distance for hearing is a bit different from sight so in order to have a proper one for hearing we'd use different metrics. (Hearing doesn't go through walls)
-        distancePercent = (Vector3.Distance(playerVariables.playerTransform.position, transform.position) / fieldOfViewRadius);
+        distancePercent = (Vector3.Distance(playerTransform.position, transform.position) / guardScript.fieldOfViewRadius);
 
-        distanceFactorAmount = minDistanceValue + distancePercent * valueDifference;
+        distanceFactorAmount = guardScript.minDistanceValue + distancePercent * valueDifference;
         //Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);
     }
 }

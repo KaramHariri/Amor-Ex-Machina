@@ -18,25 +18,50 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
     private bool canBeActivated = false;
 
-    AudioManager audioManager;
-    [SerializeField] PlayerSpottedSubject PlayerSpottedSubject = null;
-    [SerializeField] InteractionButtonSubject interactionButtonSubject = null;
-    [SerializeField] PlayerVariables playerVariables = null;
-    [SerializeField] Settings settings = null;
+    private AudioManager audioManager;
+    private PlayerSpottedSubject playerSpottedSubject = null;
+    private InteractionButtonSubject interactionButtonSubject = null;
+    private Settings settings = null;
 
     private Transform player = null;
+    private Transform playerTransform = null;
 
     private void Awake()
     {
-        audioManager = FindObjectOfType<AudioManager>();
-        player = playerVariables.playerTransform.Find("character_gabriel");
-        if (PlayerSpottedSubject != null)
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        player = playerTransform.Find("character_gabriel");
+    }
+
+    private void Start()
+    {
+        GetStaticReferencesFromGameHandler();
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        audioManager = GameHandler.audioManager;
+        if (audioManager == null)
         {
-            PlayerSpottedSubject.AddObserver(this);
+            Debug.Log("PuzzleActivator can't find AudioManager in GameHandler");
         }
-        else
+
+        playerSpottedSubject = GameHandler.playerSpottedSubject;
+        if (playerSpottedSubject == null)
         {
-            Debug.Log("Could not find PlayerLastSightPositionSubject, add it in the inspector");
+            Debug.Log("PuzzleActivator can't find PlayerSpottedSubject in GameHandler");
+        }
+        playerSpottedSubject.AddObserver(this);
+
+        interactionButtonSubject = GameHandler.interactionButtonSubject;
+        if (interactionButtonSubject == null)
+        {
+            Debug.Log("PuzzleActivator can't find InteractionButtonSubject in GameHandler");
+        }
+
+        settings = GameHandler.settings;
+        if (settings == null)
+        {
+            Debug.Log("PuzzleActivator can't find Settings in GameHandler");
         }
     }
 
@@ -53,14 +78,14 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
-            Vector3 directionToLockFromPlayer = transform.position - playerVariables.playerTransform.position;
+            Vector3 directionToLockFromPlayer = transform.position - playerTransform.position;
             directionToLockFromPlayer.y = 0;
             directionToLockFromPlayer.Normalize();
             Vector3 playerForwardDirection = player.transform.forward;
             playerForwardDirection.y = 0;
             //Debug.Log("DirToLock" + directionToLockFromPlayer);
-            Debug.DrawRay(playerVariables.playerTransform.position, directionToLockFromPlayer, Color.red);
-            Debug.DrawRay(playerVariables.playerTransform.position, playerForwardDirection, Color.blue);
+            Debug.DrawRay(playerTransform.position, directionToLockFromPlayer, Color.red);
+            Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
             Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
 
             if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
@@ -91,7 +116,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
-            playerVariables.canHackGuard = false;
+            PlayerController.canHackGuard = false;
             if(interactionButtonSubject == null)
             {
                 Debug.Log("Interaction subject is null");
@@ -104,7 +129,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
-            playerVariables.canHackGuard = true;
+            PlayerController.canHackGuard = true;
             interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = false;
         }

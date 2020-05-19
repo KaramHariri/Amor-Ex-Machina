@@ -5,9 +5,9 @@ using System;
 
 public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 {
-    [SerializeField] private PlayerVariables playerVariables = null;
-    [SerializeField] private GuardHackedSubject guardHackedSubject = null;
-    [SerializeField] private Settings settings = null;
+    //private PlayerVariables playerVariables = null;
+    private GuardHackedSubject guardHackedSubject = null;
+    private Settings settings = null;
 
     private Camera mainCamera = null;
     private Camera minimapCamera = null;
@@ -24,13 +24,20 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 
     public static Action<Transform> updateIconSize = delegate { };
 
+    private Transform playerTransform = null;
+
     private void Awake()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         mainCamera = Camera.main;
         minimapCamera = GetComponent<Camera>();
-        guardHackedSubject.AddObserver(this);
         switchedToGuardCamera = false;
         firstPersonCamera = false;
+    }
+
+    void Start()
+    {
+        GetStaticReferencesFromGameHandler();
     }
 
     void OnEnable()
@@ -41,6 +48,28 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
     void OnDisable()
     {
         updateIconSize -= UpdateIconSize;
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        //playerVariables = GameHandler.playerVariables;
+        //if(playerVariables == null)
+        //{
+        //    Debug.Log("MinimapCamera can't find PlayerVariables in GameHandler");
+        //}
+
+        guardHackedSubject = GameHandler.guardHackedSubject;
+        if(guardHackedSubject == null)
+        {
+            Debug.Log("MinimapCamera can't find GuardHackedSubject in GameHandler");
+        }
+        guardHackedSubject.AddObserver(this);
+
+        settings = GameHandler.settings;
+        if (settings == null)
+        {
+            Debug.Log("MinimapCamera can't find Settings in GameHandler");
+        }
     }
 
     private void Update()
@@ -67,7 +96,7 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
     {
         if(!switchedToGuardCamera)
         {
-            minimapCameraPosition = playerVariables.playerTransform.position;
+            minimapCameraPosition = playerTransform.position;
             minimapCameraPosition.y = transform.position.y;
         }
         else

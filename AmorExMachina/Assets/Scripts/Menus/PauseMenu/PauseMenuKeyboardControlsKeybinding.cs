@@ -12,7 +12,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     private GameObject currentSelectedGameObject = null;
 
     private EventSystem eventSystem = null;
-    [SerializeField] private Settings settings = null;
+    private Settings settings = null;
 
     private PauseMenuControlsSettings controlsSettingsMenuInstance = null;
     public static PauseMenuKeyboardControlsKeybinding instance = null;
@@ -37,6 +37,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
 
     private void Awake()
     {
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         instance = this;
         keyboardControlsCanvasGroup = GetComponent<CanvasGroup>();

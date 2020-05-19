@@ -12,7 +12,7 @@ public class PauseMenuSettings : MonoBehaviour
 
     [HideInInspector] public EventSystem eventSystem = null;
     public CanvasGroup buttonsCanvasGroup = null;
-    public Settings settings = null;
+    [HideInInspector] public Settings settings = null;
 
     private PauseMenuAudioSettings audioSettingsMenuInstance = null;
     private PauseMenuGameplaySettings gameplaySettingsMenuInstance = null;
@@ -25,6 +25,7 @@ public class PauseMenuSettings : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
         //transform.gameObject.SetActive(false);
     }
 

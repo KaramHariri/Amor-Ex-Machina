@@ -49,7 +49,8 @@ public class Settings : ScriptableObject
     public KeyCode activateButtonInPuzzleController = KeyCode.JoystickButton1;
     public KeyCode activatePuzzleController = KeyCode.JoystickButton0;
     public KeyCode cameraToggleController = KeyCode.JoystickButton11;
-    public KeyCode movementToggleController = KeyCode.JoystickButton10;
+    public KeyCode movementToggleController = KeyCode.JoystickButton7;
+    //public KeyCode movementToggleController = KeyCode.JoystickButton10;
     public KeyCode disableGuardController = KeyCode.JoystickButton1;
     public KeyCode hackGuardController = KeyCode.JoystickButton0;
     public KeyCode distractGuardWhileHackingController = KeyCode.JoystickButton1;

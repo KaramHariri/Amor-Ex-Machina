@@ -17,10 +17,17 @@ public class Dialogue : MonoBehaviour
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
 
-    [SerializeField] private Settings settings = null;
+    //[SerializeField] private Settings settings = null;
+    private Settings settings = null;
 
     private void Start()
     {
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("Dialogue can't find Settings in GameHandler");
+        }
+
         dialogueText = dialogueGameObject.GetComponent<Text>();
         dialogueAudio = dialogueGameObject.GetComponent<AudioSource>();
         dialogueGameObject.SetActive(false);

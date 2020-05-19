@@ -12,8 +12,6 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.FoundKnockedOutGuard())
         {
-            guard.currentColor = UnityEngine.Color.Lerp(guard.currentColor, guard.guardVariables.suspiciousColor, UnityEngine.Time.deltaTime);
-            guard.meshRenderer.material.color = guard.currentColor;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

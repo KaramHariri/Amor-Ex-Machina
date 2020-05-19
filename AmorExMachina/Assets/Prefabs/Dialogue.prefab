@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f103446e9e55b6144b688c0010d4237b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sentence: Screw you guuuys i'm going howwwme.
+  sentence: 
   sentenceAudio: {fileID: 8300000, guid: 9d3e7750f7aef65428b8daefe5f799ea, type: 3}
   dialogueGameObject: {fileID: 9202409028929382068}
   settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}

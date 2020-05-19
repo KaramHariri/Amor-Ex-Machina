@@ -14,8 +14,6 @@ public class DistractionCheck : Node
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.Distracted())
         {
-            guard.currentColor = Color.Lerp(guard.currentColor, guard.guardVariables.suspiciousColor, Time.deltaTime);
-            guard.meshRenderer.material.color = guard.currentColor;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

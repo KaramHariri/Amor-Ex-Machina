@@ -12,19 +12,26 @@ public class LastSightPositionLookAround : Node
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.RUNNING;
-        guard.guardMovement.idleTimer -= Time.deltaTime;
-        Quaternion from = Quaternion.Euler(guard.positiveVector);
-        Quaternion to = Quaternion.Euler(guard.negativeVector);
+        guard.guardMovement.lookingAroundTimer -= Time.deltaTime;
 
-        float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * guard.m_frequency));
-        guard.transform.localRotation = Quaternion.Lerp(from, to, lerp);
-        if (guard.guardMovement.idleTimer <= 0)
+        RotateGuardNeck();
+
+        if (guard.guardMovement.lookingAroundTimer <= 0)
         {
             guard.sensing.playerWasInSight = false;
-            guard.sensing.updatedRotation = false;
-            guard.guardMovement.idleTimer = 5.0f;
+            guard.updatedRotation = false;
+            guard.guardMovement.lookingAroundTimer = guard.maxLookingAroundTimer;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;
+    }
+
+    void RotateGuardNeck()
+    {
+        Quaternion from = Quaternion.Euler(guard.lookingAroundPositiveVector);
+        Quaternion to = Quaternion.Euler(guard.lookingAroundNegativeVector);
+
+        float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * guard.lookingAroundFrequency));
+        guard.guardNeckTransform.localRotation = Quaternion.Lerp(from, to, lerp);
     }
 }

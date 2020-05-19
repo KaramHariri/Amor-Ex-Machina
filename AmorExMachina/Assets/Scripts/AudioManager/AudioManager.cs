@@ -37,16 +37,24 @@ public class Audio
 public class AudioManager : MonoBehaviour
 {
     public Audio[] soundFX;
-    [SerializeField] private Settings settings = null;
+    private Settings settings = null;
 
     private Audio generalAmbience = null;
     private Audio guardsChasingPlayer = null;
     private Audio gameOver = null;
     private float musicVolume = 0.0f;
 
-    void Awake()
+    private AudioSourcePool audioSourcePoolInstance = null;
+
+    private void Start()
     {
-        //settings.masterVolume = 0.5f;
+        audioSourcePoolInstance = AudioSourcePool.instance;
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("AudioManager can't find settings in the GameHandler");
+        }
+
         foreach (Audio aud in soundFX)
         {
             aud.aS = gameObject.AddComponent<AudioSource>();
@@ -67,6 +75,8 @@ public class AudioManager : MonoBehaviour
 
             InitBackgroundMusic(aud);
         }
+
+        audioSourcePoolInstance.InstantiateAudioPool();
     }
 
     public void Play(string name, Vector3 position = default)

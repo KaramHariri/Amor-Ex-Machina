@@ -325,7 +325,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                     sensing.suspicious = true;
                     updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
-                    guardMovement.ResetIdleTimer();
                 }
             }
         }
@@ -336,6 +335,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 sensing.distracted = true;
                 guardMovement.SetDistractionInvestigationPosition(position);
                 guardMovement.ResetIdleTimer();
+                Debug.Log("Resetitting from player sound Distraction");
             }
         }
         else if (soundType == SoundType.CROUCHING)

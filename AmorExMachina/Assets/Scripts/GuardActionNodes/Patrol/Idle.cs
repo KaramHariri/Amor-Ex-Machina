@@ -20,7 +20,7 @@ public class Idle : Node
         {
             distance = Vector3.Distance(guard.transform.position, guard.guardMovement.path[guard.guardMovement.wayPointIndex]);
         }
-        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance && guard.guardMovement.patrolIdleTimer > 0 && guard.guardMovement.idle)
+        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f && guard.guardMovement.patrolIdleTimer > 0 && guard.guardMovement.idle)
         {
             guard.guardMovement.patrolIdleTimer -= Time.deltaTime;
             nodeState = NodeState.SUCCESS;

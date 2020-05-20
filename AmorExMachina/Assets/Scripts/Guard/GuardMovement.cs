@@ -52,7 +52,7 @@ public class GuardMovement : MonoBehaviour
     public void FollowPath()
     {
         float distance = Vector3.Distance(transform.position, currentWayPoint);
-        if (distance <= navMeshAgent.stoppingDistance)
+        if (distance <= navMeshAgent.stoppingDistance + 0.2f)
         {
             if (guardType == GuardType.STATIONARY)
             {
@@ -213,5 +213,6 @@ public class GuardMovement : MonoBehaviour
     {
         patrolIdleTimer = guardScript.maxPatrolIdleTimer;
         lookingAroundTimer = guardScript.maxLookingAroundTimer;
+        Debug.Log("Resetting Time");
     }
 }

@@ -1001,6 +1001,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 422850130}
     m_Modifications:
+    - target: {fileID: 502555296296357736, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: isWalking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5243,6 +5248,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 54.8
       objectReference: {fileID: 0}
+    - target: {fileID: 590791366438921375, guid: 7a7aad165c6ca894995673ff4abd868e,
+        type: 3}
+      propertyPath: pulseFrequency
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3557888907300789495, guid: 7a7aad165c6ca894995673ff4abd868e,
         type: 3}
       propertyPath: m_Name
@@ -6072,7 +6082,7 @@ Transform:
   m_Children:
   - {fileID: 443583908}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &623315461 stripped
 Transform:
@@ -6679,6 +6689,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 422850130}
     m_Modifications:
+    - target: {fileID: 502555296296357736, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: isWalking
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6753,6 +6768,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780141918056802981, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
@@ -11910,7 +11930,7 @@ PrefabInstance:
     - target: {fileID: 7709416568116017464, guid: e09b4ce5518ea8c47afe526a8a7f7ebd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7709416568116017464, guid: e09b4ce5518ea8c47afe526a8a7f7ebd,
         type: 3}

@@ -22,8 +22,13 @@ public class Idle : Node
         }
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f && guard.guardMovement.patrolIdleTimer > 0 && guard.guardMovement.idle)
         {
+            guard.guardMovement.isWalking = false;
             guard.guardMovement.patrolIdleTimer -= Time.deltaTime;
             nodeState = NodeState.SUCCESS;
+        }
+        else
+        {
+            guard.guardMovement.isWalking = true;
         }
         return nodeState;
     }

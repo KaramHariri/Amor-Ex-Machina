@@ -16,8 +16,13 @@ public class StationaryIdle : Node
         
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f && guard.guardMovement.idle)
         {
+            guard.guardMovement.isWalking = false;
             guard.transform.rotation = Quaternion.Lerp(guard.transform.rotation, guard.guardMovement.targetRotation, 5.0f * Time.deltaTime);
             nodeState = NodeState.SUCCESS;
+        }
+        else
+        {
+            guard.guardMovement.isWalking = true;
         }
         return nodeState;
     }

@@ -9,6 +9,7 @@ public class Laser : MonoBehaviour
     private Material material = null;
     private float timer = 0.0f;
     [SerializeField] private float maxPulseTimer = 5.0f;
+    [SerializeField] private float pulseFrequency = 0.5f;
 
     private void Start()
     {
@@ -32,14 +33,14 @@ public class Laser : MonoBehaviour
         if(timer > 0.0f)
         {
             timer -= Time.deltaTime;
-            material.SetFloat("_HexEdgeTimeScale", 5.0f);
+            material.SetFloat("_HexEdgeTimeScale", pulseFrequency);
             material.SetFloat("_HexEdgePosScale", 50.0f);
         }
         else
         {
             timer = 0.0f;
-            material.SetFloat("_HexEdgeTimeScale", 0.0f);
-            material.SetFloat("_HexEdgePosScale", 0.0f);
+            material.SetFloat("_HexEdgeTimeScale", 5.0f);
+            material.SetFloat("_HexEdgePosScale", 50.0f);
         }
     }
 

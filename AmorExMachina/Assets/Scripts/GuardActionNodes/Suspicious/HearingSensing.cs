@@ -12,6 +12,7 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.Suspicious())
         {
+            guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

@@ -35,7 +35,7 @@ public class CheckpointSaveHandler : MonoBehaviour
     {
         if(hasBeenInitialized && !data.hasUpdated && other.CompareTag("Player"))
         {
-            Debug.Log("Collided with player, saving game");
+            //Debug.Log("Collided with player, saving game");
             data.hasUpdated = true;
             SaveData.current.checkpoints[data.id].hasUpdated = true;
             Save();

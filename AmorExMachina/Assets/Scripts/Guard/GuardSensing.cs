@@ -342,26 +342,48 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             canHear = false;
         }
     }
-
     bool RaycastHitCheckToTarget(Transform target, LayerMask layerMask)
     {
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 0.5f, target.position.z);
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
         Vector3 directionToTarget = targetPosition - transform.position;
+        directionToTarget.y = 0;
+        Vector3 raycastOrigin = new Vector3(transform.position.x, 1.0f, transform.position.z);
         float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
 
         if (angle < guardScript.fieldOfViewAngle)
         {
             RaycastHit raycastHit;
-            if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))
+            if (Physics.Raycast(raycastOrigin, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))
             {
                 if (raycastHit.collider.transform == target.transform)
                 {
-                    return true;   
+                    Debug.DrawRay(raycastOrigin, directionToTarget);
+                    return true;
                 }
             }
         }
         return false;
     }
+
+    //bool RaycastHitCheckToTarget(Transform target, LayerMask layerMask)
+    //{
+    //    Vector3 targetPosition = new Vector3(target.position.x, target.position.y + 0.5f, target.position.z);
+    //    Vector3 directionToTarget = targetPosition - transform.position;
+    //    float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
+
+    //    if (angle < guardScript.fieldOfViewAngle)
+    //    {
+    //        RaycastHit raycastHit;
+    //        if (Physics.Raycast(transform.position, directionToTarget.normalized, out raycastHit, sensingCollider.radius, layerMask))
+    //        {
+    //            if (raycastHit.collider.transform == target.transform)
+    //            {
+    //                return true;   
+    //            }
+    //        }
+    //    }
+    //    return false;
+    //}
 
     bool HearingSenseRaycastCheck()
     {

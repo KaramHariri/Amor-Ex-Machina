@@ -21,7 +21,6 @@ public class FollowPath : Node
     void RotateGuardNeck()
     {
         float guardAngleY = guard.transform.eulerAngles.y;
-        Debug.Log(guardAngleY);
         if(guardAngleY > 180.0f)
         {
             guardAngleY -= 360.0f;

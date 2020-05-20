@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3336698009101163584}
   - component: {fileID: 9039529579990065337}
   - component: {fileID: 8765373765734111263}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5986783184274417270
 Transform:

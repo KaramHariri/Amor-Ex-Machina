@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     float accumulateDistance = 0.0f;
     [SerializeField] float sneakingStepDistance = 0.75f;
     [SerializeField] float walkingStepDistance = 0.5f;
+    private float stepDistanceModifier = 0.0f;
 
     private PlayerSoundSubject playerSoundSubject = null;
     private GuardHackedSubject guardHackedSubject = null;
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void PlaySound()
     {
-        accumulateDistance += Time.deltaTime;
+        accumulateDistance += (Time.deltaTime * stepDistanceModifier);
         if (rb.velocity.sqrMagnitude > 0.0f)
         {
             if (accumulateDistance > sneakingStepDistance && sneaking)
@@ -303,6 +304,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                         + ThirdPersonCinemachine.thirdPersonCameraTransform.forward * verticalInput;
             v = dir;
         }
+
+        stepDistanceModifier = v.magnitude;
 
         v.Normalize();
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;

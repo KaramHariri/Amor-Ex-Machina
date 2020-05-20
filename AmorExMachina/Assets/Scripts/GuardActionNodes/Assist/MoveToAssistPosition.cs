@@ -11,7 +11,7 @@
     {
         NodeState nodeState = NodeState.FAILURE;
         float distance = UnityEngine.Vector3.Distance(guard.guardMovement.assistPosition, guard.transform.position);
-        if (distance > guard.guardMovement.navMeshAgent.stoppingDistance + 0.1f)
+        if (distance > guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f)
         {
             guard.guardMovement.Assist();
             nodeState = NodeState.RUNNING;

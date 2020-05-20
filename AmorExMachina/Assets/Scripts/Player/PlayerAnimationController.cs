@@ -61,6 +61,7 @@ public class PlayerAnimationController : MonoBehaviour
             modelTransform.LookAt(transform.position + inputDirection);
         }
 
+        
         anim.SetFloat("Velocity", inputDirection.magnitude);
         anim.SetBool("Crouching", sneaking);
     }

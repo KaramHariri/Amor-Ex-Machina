@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    //[SerializeField] PlayerSpottedSubject playerSpottedSubject = null;
-    //private AudioManager audioManager = null;
-
     private PlayerSpottedSubject playerSpottedSubject = null;
     private AudioManager audioManager = null;
     private Material material = null;

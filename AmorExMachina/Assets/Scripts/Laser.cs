@@ -9,6 +9,9 @@ public class Laser : MonoBehaviour
 
     private PlayerSpottedSubject playerSpottedSubject = null;
     private AudioManager audioManager = null;
+    private Material material = null;
+    private float timer = 0.0f;
+    [SerializeField] private float maxPulseTimer = 5.0f;
 
     private void Start()
     {
@@ -23,13 +26,31 @@ public class Laser : MonoBehaviour
         {
             Debug.Log("Laser can't find AudioManager in GameHandler");
         }
-        //audioManager = FindObjectOfType<AudioManager>();
+
+        material = GetComponent<MeshRenderer>().material;
+    }
+
+    private void Update()
+    {
+        if(timer > 0.0f)
+        {
+            timer -= Time.deltaTime;
+            material.SetFloat("_HexEdgeTimeScale", 5.0f);
+            material.SetFloat("_HexEdgePosScale", 50.0f);
+        }
+        else
+        {
+            timer = 0.0f;
+            material.SetFloat("_HexEdgeTimeScale", 0.0f);
+            material.SetFloat("_HexEdgePosScale", 0.0f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
+            timer = maxPulseTimer;
             audioManager.Play("Alarm", transform.position);
             playerSpottedSubject.NotifyObservers(transform.position);
         }

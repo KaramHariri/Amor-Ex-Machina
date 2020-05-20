@@ -213,6 +213,5 @@ public class GuardMovement : MonoBehaviour
     {
         patrolIdleTimer = guardScript.maxPatrolIdleTimer;
         lookingAroundTimer = guardScript.maxLookingAroundTimer;
-        Debug.Log("Resetting Time");
     }
 }

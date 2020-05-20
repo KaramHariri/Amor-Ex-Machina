@@ -1940,6 +1940,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9054185797726527951, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9054185797745959029, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -3823,7 +3828,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4722,22 +4727,22 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2105353407}
+  - {fileID: 207754066}
+  - {fileID: 490168954}
+  - {fileID: 673213292}
+  - {fileID: 719838992}
+  - {fileID: 874138874}
+  - {fileID: 932860686}
+  - {fileID: 1029843053}
+  - {fileID: 1040519371}
+  - {fileID: 1081641713}
   - {fileID: 1158413591}
   - {fileID: 1359085131}
-  - {fileID: 207754066}
-  - {fileID: 1040519371}
-  - {fileID: 122328115}
-  - {fileID: 1081641713}
-  - {fileID: 490168954}
-  - {fileID: 874138874}
-  - {fileID: 1029843053}
   - {fileID: 1633518944}
-  - {fileID: 673213292}
-  - {fileID: 1848762810}
-  - {fileID: 932860686}
-  - {fileID: 719838992}
   - {fileID: 1827518084}
+  - {fileID: 1848762810}
+  - {fileID: 2105353407}
+  - {fileID: 122328115}
   m_Father: {fileID: 1251540023}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7676,6 +7681,11 @@ PrefabInstance:
     - target: {fileID: 9054185797626856187, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054185797726527951, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9054185797745959029, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
@@ -10658,90 +10668,90 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 384465592}
-  - {fileID: 209106541}
-  - {fileID: 1817549271}
-  - {fileID: 1719335608}
-  - {fileID: 2074369862}
-  - {fileID: 359565310}
-  - {fileID: 946950293}
-  - {fileID: 2069075814}
-  - {fileID: 1941545889}
-  - {fileID: 1068634543}
-  - {fileID: 1764723208}
-  - {fileID: 326295777}
-  - {fileID: 1262614146}
-  - {fileID: 638592295}
-  - {fileID: 103497847}
-  - {fileID: 1884930921}
-  - {fileID: 1214712982}
-  - {fileID: 1832510838}
-  - {fileID: 1169964103}
-  - {fileID: 1155199897}
-  - {fileID: 1538450031}
-  - {fileID: 2208533}
-  - {fileID: 497960321}
-  - {fileID: 1716390183}
-  - {fileID: 1803672172}
-  - {fileID: 1173714089}
-  - {fileID: 1207503111}
-  - {fileID: 571120232}
-  - {fileID: 1964099081}
-  - {fileID: 1917475284}
-  - {fileID: 2094314826}
-  - {fileID: 1324293285}
-  - {fileID: 1212400117}
-  - {fileID: 1839446915}
-  - {fileID: 445287806}
-  - {fileID: 2044620460}
-  - {fileID: 165764817}
-  - {fileID: 99180567}
-  - {fileID: 2099524078}
-  - {fileID: 2025382358}
-  - {fileID: 1465385349}
-  - {fileID: 935328823}
   - {fileID: 10529968}
-  - {fileID: 2101937637}
-  - {fileID: 503038348}
-  - {fileID: 1059600372}
-  - {fileID: 1207086266}
-  - {fileID: 311804506}
-  - {fileID: 1765274618}
-  - {fileID: 1079935081}
+  - {fileID: 99180567}
+  - {fileID: 103497847}
+  - {fileID: 165764817}
+  - {fileID: 209106541}
   - {fileID: 276334493}
-  - {fileID: 984351830}
-  - {fileID: 783598347}
-  - {fileID: 1510338714}
-  - {fileID: 1646827506}
-  - {fileID: 656641447}
-  - {fileID: 1099052753}
-  - {fileID: 1495191148}
-  - {fileID: 1037050490}
-  - {fileID: 1262166258}
-  - {fileID: 1259107418}
-  - {fileID: 1401719335}
-  - {fileID: 1794672043}
-  - {fileID: 1430282654}
-  - {fileID: 832559438}
-  - {fileID: 1465776811}
-  - {fileID: 1814520748}
-  - {fileID: 1758211847}
-  - {fileID: 1208733301}
-  - {fileID: 394557497}
-  - {fileID: 1933295112}
-  - {fileID: 494383851}
-  - {fileID: 1217581984}
-  - {fileID: 477964107}
   - {fileID: 297529915}
-  - {fileID: 1548237208}
-  - {fileID: 1032071229}
-  - {fileID: 1425214194}
-  - {fileID: 1433846286}
-  - {fileID: 1341509259}
-  - {fileID: 269022484}
-  - {fileID: 1318860505}
-  - {fileID: 1112745486}
+  - {fileID: 311804506}
+  - {fileID: 326295777}
+  - {fileID: 359565310}
+  - {fileID: 394557497}
+  - {fileID: 445287806}
+  - {fileID: 477964107}
+  - {fileID: 494383851}
+  - {fileID: 497960321}
+  - {fileID: 503038348}
+  - {fileID: 571120232}
+  - {fileID: 638592295}
+  - {fileID: 656641447}
+  - {fileID: 783598347}
+  - {fileID: 832559438}
   - {fileID: 841202252}
+  - {fileID: 935328823}
+  - {fileID: 946950293}
+  - {fileID: 984351830}
+  - {fileID: 1032071229}
+  - {fileID: 1037050490}
+  - {fileID: 1059600372}
   - {fileID: 1067291109}
+  - {fileID: 1068634543}
+  - {fileID: 1079935081}
+  - {fileID: 1099052753}
+  - {fileID: 1112745486}
+  - {fileID: 1155199897}
+  - {fileID: 1169964103}
+  - {fileID: 1207086266}
+  - {fileID: 1207503111}
+  - {fileID: 1208733301}
+  - {fileID: 1212400117}
+  - {fileID: 1214712982}
+  - {fileID: 1217581984}
+  - {fileID: 1259107418}
+  - {fileID: 1262166258}
+  - {fileID: 1262614146}
+  - {fileID: 1318860505}
+  - {fileID: 1324293285}
+  - {fileID: 1341509259}
+  - {fileID: 1401719335}
+  - {fileID: 1425214194}
+  - {fileID: 1430282654}
+  - {fileID: 1433846286}
+  - {fileID: 1465385349}
+  - {fileID: 1465776811}
+  - {fileID: 1495191148}
+  - {fileID: 1510338714}
+  - {fileID: 1538450031}
+  - {fileID: 1548237208}
+  - {fileID: 1646827506}
+  - {fileID: 1716390183}
+  - {fileID: 1719335608}
+  - {fileID: 1758211847}
+  - {fileID: 1764723208}
+  - {fileID: 1765274618}
+  - {fileID: 1794672043}
+  - {fileID: 1803672172}
+  - {fileID: 1814520748}
+  - {fileID: 1817549271}
+  - {fileID: 1832510838}
+  - {fileID: 1839446915}
+  - {fileID: 1884930921}
+  - {fileID: 1917475284}
+  - {fileID: 1933295112}
+  - {fileID: 1941545889}
+  - {fileID: 1964099081}
+  - {fileID: 2025382358}
+  - {fileID: 2044620460}
+  - {fileID: 2069075814}
+  - {fileID: 2074369862}
+  - {fileID: 2094314826}
+  - {fileID: 2099524078}
+  - {fileID: 2101937637}
+  - {fileID: 269022484}
+  - {fileID: 2208533}
+  - {fileID: 1173714089}
   m_Father: {fileID: 25530408}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11903,30 +11913,30 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1418187298}
-  - {fileID: 1608825849}
-  - {fileID: 740671168}
-  - {fileID: 282897248}
-  - {fileID: 1850000539}
-  - {fileID: 478343389}
-  - {fileID: 277964742}
-  - {fileID: 478498135}
-  - {fileID: 788530835}
-  - {fileID: 785759982}
-  - {fileID: 1441085168}
-  - {fileID: 1519554171}
   - {fileID: 181932902}
-  - {fileID: 1647792500}
-  - {fileID: 1824990516}
+  - {fileID: 187010974}
+  - {fileID: 277964742}
+  - {fileID: 282897248}
+  - {fileID: 478343389}
+  - {fileID: 478498135}
+  - {fileID: 732911846}
+  - {fileID: 740671168}
+  - {fileID: 785759982}
+  - {fileID: 788530835}
   - {fileID: 1043543881}
-  - {fileID: 1616978704}
-  - {fileID: 139557481}
-  - {fileID: 1592696689}
   - {fileID: 1192512715}
   - {fileID: 1328649453}
-  - {fileID: 187010974}
-  - {fileID: 732911846}
+  - {fileID: 1418187298}
+  - {fileID: 1441085168}
+  - {fileID: 1519554171}
+  - {fileID: 1592696689}
+  - {fileID: 1616978704}
+  - {fileID: 1647792500}
+  - {fileID: 1824990516}
+  - {fileID: 1850000539}
+  - {fileID: 1608825849}
   - {fileID: 2030186709}
+  - {fileID: 139557481}
   m_Father: {fileID: 1082463561}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11965,6 +11975,11 @@ PrefabInstance:
     - target: {fileID: 9054185797626856187, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054185797726527951, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9054185797745959029, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
@@ -17481,6 +17496,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard8
       objectReference: {fileID: 0}
+    - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &1574787729 stripped
@@ -21208,43 +21248,43 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1330046445}
-  - {fileID: 68892120}
-  - {fileID: 2076645909}
-  - {fileID: 237620564}
-  - {fileID: 955732868}
-  - {fileID: 182495780}
-  - {fileID: 118667668}
-  - {fileID: 554885278}
-  - {fileID: 779438840}
-  - {fileID: 1744549092}
-  - {fileID: 819536740}
-  - {fileID: 821779388}
-  - {fileID: 1708901323}
-  - {fileID: 1510607744}
-  - {fileID: 1558330577}
-  - {fileID: 943428387}
-  - {fileID: 62642527}
-  - {fileID: 684911950}
-  - {fileID: 1982956304}
-  - {fileID: 559203462}
   - {fileID: 184563160}
-  - {fileID: 1823137153}
-  - {fileID: 1461981943}
+  - {fileID: 559203462}
+  - {fileID: 565226059}
   - {fileID: 600931617}
-  - {fileID: 1078337720}
-  - {fileID: 1555981422}
-  - {fileID: 1834146582}
-  - {fileID: 1412947336}
-  - {fileID: 1334734548}
-  - {fileID: 1658640848}
+  - {fileID: 684911950}
   - {fileID: 761868493}
+  - {fileID: 819536740}
+  - {fileID: 943428387}
   - {fileID: 971493989}
   - {fileID: 1025960719}
-  - {fileID: 1359862660}
-  - {fileID: 565226059}
-  - {fileID: 1983123202}
+  - {fileID: 1078337720}
   - {fileID: 1113707302}
+  - {fileID: 1334734548}
+  - {fileID: 1359862660}
+  - {fileID: 1412947336}
+  - {fileID: 1461981943}
+  - {fileID: 1510607744}
+  - {fileID: 1330046445}
+  - {fileID: 1555981422}
+  - {fileID: 68892120}
+  - {fileID: 2076645909}
+  - {fileID: 1558330577}
+  - {fileID: 237620564}
+  - {fileID: 1658640848}
+  - {fileID: 955732868}
+  - {fileID: 182495780}
+  - {fileID: 1708901323}
+  - {fileID: 118667668}
+  - {fileID: 1823137153}
+  - {fileID: 554885278}
+  - {fileID: 1834146582}
+  - {fileID: 779438840}
+  - {fileID: 1982956304}
+  - {fileID: 1744549092}
+  - {fileID: 1983123202}
+  - {fileID: 62642527}
+  - {fileID: 821779388}
   m_Father: {fileID: 419906766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

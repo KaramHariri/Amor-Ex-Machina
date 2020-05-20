@@ -2867,7 +2867,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3431,47 +3431,47 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2111066626}
-  - {fileID: 907186757}
-  - {fileID: 439065082}
-  - {fileID: 159301217}
-  - {fileID: 728792724}
-  - {fileID: 1813544962}
-  - {fileID: 1757223394}
-  - {fileID: 1980278582}
-  - {fileID: 97181549}
-  - {fileID: 1399494567}
-  - {fileID: 576392632}
-  - {fileID: 1629450522}
-  - {fileID: 1765418496}
-  - {fileID: 628346420}
-  - {fileID: 2127916097}
   - {fileID: 11775898}
-  - {fileID: 814140719}
-  - {fileID: 1668616068}
-  - {fileID: 426822266}
-  - {fileID: 2088598979}
-  - {fileID: 1111484}
-  - {fileID: 1753358150}
-  - {fileID: 1751423906}
-  - {fileID: 276261079}
-  - {fileID: 642835733}
-  - {fileID: 1012799841}
-  - {fileID: 987604983}
-  - {fileID: 376304576}
-  - {fileID: 133054667}
-  - {fileID: 412412292}
-  - {fileID: 1851389750}
-  - {fileID: 417587932}
-  - {fileID: 1096071657}
-  - {fileID: 551074810}
-  - {fileID: 640234168}
-  - {fileID: 1139621673}
   - {fileID: 22306296}
-  - {fileID: 1077333458}
+  - {fileID: 97181549}
+  - {fileID: 133054667}
+  - {fileID: 159301217}
+  - {fileID: 276261079}
+  - {fileID: 376304576}
+  - {fileID: 412412292}
+  - {fileID: 417587932}
+  - {fileID: 426822266}
+  - {fileID: 439065082}
+  - {fileID: 551074810}
+  - {fileID: 576392632}
+  - {fileID: 628346420}
+  - {fileID: 640234168}
+  - {fileID: 642835733}
+  - {fileID: 728792724}
+  - {fileID: 814140719}
+  - {fileID: 907186757}
+  - {fileID: 987604983}
+  - {fileID: 1012799841}
+  - {fileID: 1096071657}
+  - {fileID: 1139621673}
+  - {fileID: 1399494567}
+  - {fileID: 1629450522}
+  - {fileID: 1668616068}
   - {fileID: 1670577303}
+  - {fileID: 1751423906}
+  - {fileID: 1753358150}
+  - {fileID: 1757223394}
+  - {fileID: 1765418496}
   - {fileID: 1770028514}
+  - {fileID: 1813544962}
+  - {fileID: 1851389750}
+  - {fileID: 1980278582}
   - {fileID: 2041141903}
+  - {fileID: 2088598979}
+  - {fileID: 2111066626}
+  - {fileID: 2127916097}
+  - {fileID: 1111484}
+  - {fileID: 1077333458}
   m_Father: {fileID: 1251540023}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4115,6 +4115,11 @@ PrefabInstance:
     - target: {fileID: 9054185797626856187, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054185797726527951, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9054185797745959029, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
@@ -4857,7 +4862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 422180123}
   m_Layer: 0
-  m_Name: PuzzleDoorHolder
+  m_Name: PuzzleDoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6744,6 +6749,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -8341,7 +8351,7 @@ PrefabInstance:
     - target: {fileID: 8191232193140946441, guid: ba465bad381f00e418976a5a1d4b4ff3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -29.105
+      value: -29.11
       objectReference: {fileID: 0}
     - target: {fileID: 8191232193140946441, guid: ba465bad381f00e418976a5a1d4b4ff3,
         type: 3}
@@ -9644,64 +9654,64 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 473784145}
-  - {fileID: 489430475}
-  - {fileID: 456870809}
-  - {fileID: 987518758}
-  - {fileID: 1661877203}
-  - {fileID: 211992960}
-  - {fileID: 975542963}
-  - {fileID: 953974497}
-  - {fileID: 951600655}
-  - {fileID: 1426139653}
-  - {fileID: 207144311}
-  - {fileID: 1598167694}
-  - {fileID: 1267095987}
-  - {fileID: 1055287339}
-  - {fileID: 1776792676}
-  - {fileID: 2072608178}
-  - {fileID: 37714659}
-  - {fileID: 1344489810}
-  - {fileID: 625670286}
-  - {fileID: 1952257964}
   - {fileID: 49206221}
-  - {fileID: 809921398}
-  - {fileID: 1171087753}
-  - {fileID: 266651357}
-  - {fileID: 1068699860}
-  - {fileID: 1066391810}
-  - {fileID: 2138619269}
-  - {fileID: 633195822}
-  - {fileID: 1153693311}
-  - {fileID: 1522620008}
-  - {fileID: 1392578377}
-  - {fileID: 1608137529}
-  - {fileID: 1482964011}
-  - {fileID: 795835915}
-  - {fileID: 1779626537}
-  - {fileID: 191787312}
-  - {fileID: 1962035930}
-  - {fileID: 1772376534}
-  - {fileID: 1456214552}
-  - {fileID: 180142146}
-  - {fileID: 1963965632}
-  - {fileID: 255874430}
-  - {fileID: 1209005735}
-  - {fileID: 478449806}
   - {fileID: 144899106}
+  - {fileID: 180142146}
+  - {fileID: 191787312}
+  - {fileID: 207144311}
+  - {fileID: 211992960}
+  - {fileID: 255874430}
+  - {fileID: 266651357}
   - {fileID: 396503454}
+  - {fileID: 456870809}
+  - {fileID: 473784145}
+  - {fileID: 478449806}
+  - {fileID: 489430475}
+  - {fileID: 625670286}
+  - {fileID: 633195822}
+  - {fileID: 795835915}
+  - {fileID: 809921398}
+  - {fileID: 953974497}
+  - {fileID: 975542963}
+  - {fileID: 987518758}
+  - {fileID: 1055287339}
+  - {fileID: 1066391810}
+  - {fileID: 1068699860}
+  - {fileID: 1153693311}
+  - {fileID: 1159835267}
+  - {fileID: 1171087753}
+  - {fileID: 1209005735}
+  - {fileID: 1260328270}
+  - {fileID: 1267095987}
+  - {fileID: 1344489810}
+  - {fileID: 1347063576}
+  - {fileID: 1382565749}
+  - {fileID: 1392578377}
+  - {fileID: 1426139653}
+  - {fileID: 1456214552}
+  - {fileID: 1482964011}
+  - {fileID: 1500318863}
+  - {fileID: 1522620008}
+  - {fileID: 1548649476}
+  - {fileID: 1598167694}
+  - {fileID: 1608137529}
+  - {fileID: 1661877203}
   - {fileID: 1704887029}
   - {fileID: 1756921960}
-  - {fileID: 1548649476}
-  - {fileID: 1500318863}
-  - {fileID: 1382565749}
-  - {fileID: 1347063576}
-  - {fileID: 1260328270}
+  - {fileID: 1772376534}
+  - {fileID: 1776792676}
+  - {fileID: 1779626537}
   - {fileID: 1816158325}
+  - {fileID: 1952257964}
   - {fileID: 1956377789}
-  - {fileID: 2099409487}
-  - {fileID: 1159835267}
+  - {fileID: 1962035930}
   - {fileID: 1963225960}
+  - {fileID: 1963965632}
+  - {fileID: 2072608178}
+  - {fileID: 2099409487}
+  - {fileID: 2138619269}
+  - {fileID: 37714659}
+  - {fileID: 951600655}
   m_Father: {fileID: 25530408}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9978,7 +9988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 971104740}
   m_Layer: 0
-  m_Name: AlwaysOpenDoorHolder
+  m_Name: AlwaysOpenDoors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11089,25 +11099,25 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1444415926}
-  - {fileID: 363441066}
-  - {fileID: 1250535200}
-  - {fileID: 427785913}
-  - {fileID: 262007083}
-  - {fileID: 211207706}
-  - {fileID: 1646460029}
-  - {fileID: 1711136432}
-  - {fileID: 1066521814}
-  - {fileID: 534065933}
-  - {fileID: 1689464376}
-  - {fileID: 1031837877}
   - {fileID: 159565652}
-  - {fileID: 1554673509}
-  - {fileID: 65386669}
+  - {fileID: 211207706}
+  - {fileID: 262007083}
+  - {fileID: 363441066}
+  - {fileID: 427785913}
+  - {fileID: 534065933}
+  - {fileID: 1031837877}
+  - {fileID: 1066521814}
+  - {fileID: 1145149215}
   - {fileID: 1197183160}
+  - {fileID: 1250535200}
+  - {fileID: 1444415926}
+  - {fileID: 1554673509}
+  - {fileID: 1646460029}
+  - {fileID: 1689464376}
+  - {fileID: 1711136432}
   - {fileID: 1891445162}
   - {fileID: 74649841}
-  - {fileID: 1145149215}
+  - {fileID: 65386669}
   m_Father: {fileID: 1082463561}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12398,7 +12408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214064058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.71, y: 0, z: -35.81}
+  m_LocalPosition: {x: 17.14, y: 0, z: -24.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1902807738}
@@ -14222,6 +14232,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GuardCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15606,6 +15621,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9054185797726527951, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9054185797745959029, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -15764,7 +15784,7 @@ PrefabInstance:
     - target: {fileID: 9054185798070498445, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.11
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 9054185798070498445, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
@@ -16879,12 +16899,12 @@ PrefabInstance:
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -33.36
+      value: -24.74
       objectReference: {fileID: 0}
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
@@ -16894,7 +16914,7 @@ PrefabInstance:
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1467681558514617995, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
@@ -17943,7 +17963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1731764163}
   m_Layer: 0
-  m_Name: PuzzleDoorHolder
+  m_Name: DoorsHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19629,18 +19649,18 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 18173929}
-  - {fileID: 1604900496}
-  - {fileID: 1761514332}
-  - {fileID: 2095263368}
-  - {fileID: 1378913023}
+  - {fileID: 142923592}
   - {fileID: 252924499}
   - {fileID: 951651499}
   - {fileID: 1205210450}
-  - {fileID: 1864695854}
-  - {fileID: 1758448559}
+  - {fileID: 1378913023}
   - {fileID: 1533276173}
-  - {fileID: 142923592}
+  - {fileID: 1604900496}
+  - {fileID: 1758448559}
+  - {fileID: 1761514332}
+  - {fileID: 1864695854}
+  - {fileID: 2095263368}
+  - {fileID: 18173929}
   m_Father: {fileID: 419906766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20676,25 +20696,25 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 223091465}
-  - {fileID: 1935785525}
-  - {fileID: 702815169}
-  - {fileID: 940631768}
-  - {fileID: 785177156}
-  - {fileID: 1287399402}
-  - {fileID: 1816344904}
-  - {fileID: 2102385118}
-  - {fileID: 153496742}
-  - {fileID: 728138179}
-  - {fileID: 1751432790}
-  - {fileID: 1635822287}
-  - {fileID: 916908655}
-  - {fileID: 750272618}
   - {fileID: 347685282}
   - {fileID: 629026123}
-  - {fileID: 1540978442}
-  - {fileID: 1523241475}
+  - {fileID: 728138179}
   - {fileID: 740769487}
+  - {fileID: 750272618}
+  - {fileID: 916908655}
+  - {fileID: 1287399402}
+  - {fileID: 1523241475}
+  - {fileID: 223091465}
+  - {fileID: 1540978442}
+  - {fileID: 1935785525}
+  - {fileID: 1635822287}
+  - {fileID: 702815169}
+  - {fileID: 1751432790}
+  - {fileID: 940631768}
+  - {fileID: 785177156}
+  - {fileID: 2102385118}
+  - {fileID: 153496742}
+  - {fileID: 1816344904}
   m_Father: {fileID: 867787770}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

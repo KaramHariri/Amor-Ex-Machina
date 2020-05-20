@@ -183,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   rotateVelocity: 100
+  distractionCooldown: 5
+  distractionTimer: 0
 --- !u!114 &1666655225300581629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +216,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.1
+  m_BaseOffset: -0.3
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!135 &9207456565565230823

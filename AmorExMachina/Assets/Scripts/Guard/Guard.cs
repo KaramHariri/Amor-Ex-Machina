@@ -110,7 +110,6 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         minimapRaycastCheckLayer = LayerMask.GetMask("Walls");
         disableParticleSystem = transform.Find("VFX").Find("Guard Disable 1.0 Variant").GetComponent<ParticleSystem>();
         enableParticleSystem = transform.Find("VFX").Find("Guard Reactivated").GetComponent<ParticleSystem>();
-
     }
 
     public void Start()

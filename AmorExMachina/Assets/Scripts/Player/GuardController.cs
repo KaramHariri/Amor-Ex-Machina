@@ -19,12 +19,14 @@ public class GuardController : MonoBehaviour
 
     private AudioManager audioManager = null;
 
+    private ParticleSystem distractionParticleSystem = null;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         guard = GetComponent<Guard>();
-        audioManager = FindObjectOfType<AudioManager>();
         mainCamera = Camera.main;
+        distractionParticleSystem = transform.Find("VFX").Find("Guard Distraction").GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -44,6 +46,12 @@ public class GuardController : MonoBehaviour
         if (settings == null)
         {
             Debug.Log("GuardController can't find Settings in GameHandler");
+        }
+
+        audioManager = GameHandler.audioManager;
+        if(audioManager == null)
+        {
+            Debug.Log("GuardController can't find AudioManager in GameHandler");
         }
     }
 
@@ -84,6 +92,7 @@ public class GuardController : MonoBehaviour
         if(Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard))
         {
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
+            PlayDistractionParticleSystem();
             audioManager.Play("DistractGuard", this.transform.position);
         }
     }
@@ -106,5 +115,10 @@ public class GuardController : MonoBehaviour
 
         v.y = rb.velocity.y;
         rb.velocity = v;
+    }
+
+    void PlayDistractionParticleSystem()
+    {
+        distractionParticleSystem.Play();
     }
 }

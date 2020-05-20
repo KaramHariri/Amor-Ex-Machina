@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Puzzle : MonoBehaviour
 {
-    [SerializeField] Settings settings = null;
+    private Settings settings = null;
     //public List<PuzzleButton> buttons;
     public PuzzleButton[] buttons;
     private PuzzleButton selectedButton;
@@ -38,6 +38,8 @@ public class Puzzle : MonoBehaviour
 
     private void Start()
     {
+        GetStaticReferencesFromGameHandler();
+
         foreach(PuzzleButton b in buttons)
         {
             if(b.type != PuzzleButton.ButtonType.Empty)
@@ -52,11 +54,24 @@ public class Puzzle : MonoBehaviour
             return;
         }
 
-        audioManager = FindObjectOfType<AudioManager>();
-
         selectedButton = activateableButtons[0];
         //SetHover(activateableButtons[0].transform.GetSiblingIndex());
         SetInitialHover(activateableButtons[0].transform.GetSiblingIndex());
+    }
+
+    void GetStaticReferencesFromGameHandler()
+    {
+        settings = GameHandler.settings;
+        if(settings == null)
+        {
+            Debug.Log("Puzzle can't find Settings in GameHandler");
+        }
+
+        audioManager = GameHandler.audioManager;
+        if(audioManager == null)
+        {
+            Debug.Log("Puzzle can't find settings in GameHandler");
+        }
     }
 
     private void Update()

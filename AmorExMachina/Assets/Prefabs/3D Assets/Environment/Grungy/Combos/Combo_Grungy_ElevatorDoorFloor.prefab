@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 25021760019150313}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Combo_Grungy_ElevatorDoorFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4037600430320496801}
   - component: {fileID: 3779697382363662518}
   - component: {fileID: 190845452173490394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_WallAboveDoor Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4285115197056779113}
   - component: {fileID: 1390572050891318283}
   - component: {fileID: 134594438129412110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grungy_Floor Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8127345843769811849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,6 +320,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grungy_Elevator_DoorFrame Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7939410840493539662, guid: a2cfe58f2a81d6a4d8c1b0415560b84c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2cfe58f2a81d6a4d8c1b0415560b84c, type: 3}
 --- !u!4 &5598893083023812312 stripped
@@ -394,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grungy_FloorBelowDoor Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534572480924517247, guid: def5cc6a6a4c0b24d8cb14944a5e2af3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: def5cc6a6a4c0b24d8cb14944a5e2af3, type: 3}

@@ -21,6 +21,11 @@ public class GuardController : MonoBehaviour
 
     private ParticleSystem distractionParticleSystem = null;
 
+    //Added 2020-05-20
+    [Header("Distraction")]
+    [SerializeField] private float distractionCooldown = 5.0f;
+    [SerializeField] private float distractionTimer = 0.0f;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,6 +62,10 @@ public class GuardController : MonoBehaviour
 
     void Update()
     {
+        distractionTimer -= Time.deltaTime;
+        if (distractionTimer < 0)
+            distractionTimer = 0;
+
         if(guard.hacked)
         {
             rb.isKinematic = false;
@@ -89,11 +98,12 @@ public class GuardController : MonoBehaviour
     {
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        if(Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard))
+        if(distractionTimer <= 0 && (Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard)))
         {
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
             PlayDistractionParticleSystem();
             audioManager.Play("DistractGuard", this.transform.position);
+            distractionTimer = distractionCooldown;
         }
     }
 

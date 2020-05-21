@@ -22,9 +22,10 @@ public class SlidingDoor : MonoBehaviour
     [SerializeField] float closetXPos = 0.0f;
     [SerializeField] float openXPos = 0.0f;
 
+    [HideInInspector] public bool isUnlocked = false;
+
     // Added 20-05-13.
     [SerializeField] private ParticleSystem doorOpeningParticleSystem;
-    /////
     
     #region private
     private bool animating = false;
@@ -150,6 +151,7 @@ public class SlidingDoor : MonoBehaviour
 
     public void UnlockDoor()
     {
+        isUnlocked = true;
         LayersToDetect |= (1 << LayerMask.NameToLayer("Player"));
     }
 }

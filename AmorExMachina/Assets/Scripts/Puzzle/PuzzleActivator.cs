@@ -10,7 +10,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     public AnimationCurve animationCurve;
     [HideInInspector]
     public bool activated = false;
-    private bool puzzleSolved = false;
+    [HideInInspector] public bool puzzleSolved = false;
 
     public float duration = 1.5f;
     public float animationCooldown = 0f;

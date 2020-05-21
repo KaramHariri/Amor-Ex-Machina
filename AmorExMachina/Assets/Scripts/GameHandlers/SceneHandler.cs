@@ -104,8 +104,8 @@ public class SceneHandler : MonoBehaviour
         if(shouldLoadFromFile == true)
         {
             SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
-            GameEvents.current.LoadDataEvent();
             yield return new WaitForSeconds(0.5f);
+            GameEvents.current.LoadDataEvent();
         }
 
         canvasGroup.alpha = 0.0f;

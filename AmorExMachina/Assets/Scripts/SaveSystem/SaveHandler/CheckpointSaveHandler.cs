@@ -25,7 +25,7 @@ public class CheckpointSaveHandler : MonoBehaviour
         else
         {
             //Debug.Log("Already have a checkpoint with this ID");
-            LoadCheckpointData();
+            //LoadCheckpointData();
         }
         hasBeenInitialized = true;
         GameEvents.current.onLoadDataEvent += LoadCheckpointData;

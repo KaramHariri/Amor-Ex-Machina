@@ -32,4 +32,6 @@ public class SaveData
     public Dictionary<string, GuardData> guards = new Dictionary<string, GuardData>();
     public Dictionary<string, CheckpointData> checkpoints = new Dictionary<string, CheckpointData>();
 
+    public Dictionary<string, DoorData> doors = new Dictionary<string, DoorData>();
+
 }

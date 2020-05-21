@@ -428,7 +428,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             disabledGuard = null;
             hacking = false;
             guardHackedSubject.GuardHackedNotify("");
-            if(hacking)
+            //Added 2020-05-20
+            UIManager.deactivateTimer(); 
+            if (hacking)
                 audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
         }

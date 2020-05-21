@@ -18,16 +18,15 @@ public class GuardSaveHandler : MonoBehaviour
             //SaveData.current.guardData.Add(data);
             //Debug.Log("Added guard to guards");
             SaveData.current.guards.Add(data.id, data);
-
-
-            GameEvents.current.onSaveDataEvent += SaveGuardData;
-            GameEvents.current.onLoadDataEvent += LoadGuardData;
         }
         else 
-        { 
+        {
+            //LoadGuardData();
             //Debug.Log("Already have an object with this ID"); 
         }
 
+        GameEvents.current.onSaveDataEvent += SaveGuardData;
+        GameEvents.current.onLoadDataEvent += LoadGuardData;
     }
 
 

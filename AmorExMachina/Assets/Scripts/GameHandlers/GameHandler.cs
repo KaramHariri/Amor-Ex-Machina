@@ -57,8 +57,12 @@ public class GameHandler : MonoBehaviour
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         sceneHandler = SceneHandler.instance;
         LoadResources();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+
+        //Added 2020-05-21
+        playerState = PlayerState.NOTSPOTTED;
+        playerIsCaught = false;
     }
 
     void Update()

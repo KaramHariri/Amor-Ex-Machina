@@ -15786,6 +15786,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4665583014531059463, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b45fb4e373db6794998557e9d8d6c430,
+        type: 3}
     - target: {fileID: 5473891252009971236, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
       propertyPath: m_textInfo.characterCount

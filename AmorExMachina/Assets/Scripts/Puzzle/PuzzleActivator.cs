@@ -75,21 +75,24 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
         if (!canBeActivated) { return; }
 
+        Vector3 directionToLockFromPlayer = transform.position - playerTransform.position;
+        directionToLockFromPlayer.y = 0;
+        directionToLockFromPlayer.Normalize();
+        Vector3 playerForwardDirection = player.transform.forward;
+        playerForwardDirection.y = 0;
+        //Debug.Log("DirToLock" + directionToLockFromPlayer);
+        Debug.DrawRay(playerTransform.position, directionToLockFromPlayer, Color.red);
+        Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
+        Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
+
+        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
+
+        if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
+
+        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CIRCLE);
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
-            Vector3 directionToLockFromPlayer = transform.position - playerTransform.position;
-            directionToLockFromPlayer.y = 0;
-            directionToLockFromPlayer.Normalize();
-            Vector3 playerForwardDirection = player.transform.forward;
-            playerForwardDirection.y = 0;
-            //Debug.Log("DirToLock" + directionToLockFromPlayer);
-            Debug.DrawRay(playerTransform.position, directionToLockFromPlayer, Color.red);
-            Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
-            Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
-
-            if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
-
             //if(angleToPlayer > 180.0f || angleToPlayer < 90.0f) { return; }
             if (!activated)
             {
@@ -121,7 +124,6 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             {
                 Debug.Log("Interaction subject is null");
             }
-            interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CIRCLE);
             canBeActivated = true;
         }
     }

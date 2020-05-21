@@ -14,6 +14,7 @@ public class LookAround : Node
         NodeState nodeState = NodeState.RUNNING;
         guard.guardMovement.lookingAroundTimer -= Time.deltaTime;
         RotateGuardNeck();
+
         if (guard.guardMovement.lookingAroundTimer <= 0)
         {
             guard.guardMovement.idle = false;

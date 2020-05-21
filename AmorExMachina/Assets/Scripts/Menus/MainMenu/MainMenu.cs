@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] EventSystem eventSystem = null;
     AudioSource mainMenuAudio = null;
 
+    GameObject lastSelectedButton = null;
     GameObject currentSelectedButton = null;
 
     private void Awake()
@@ -27,6 +28,14 @@ public class MainMenu : MonoBehaviour
     private void Update()
     {
         mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
+        }
     }
 
     public void NewGameButton()

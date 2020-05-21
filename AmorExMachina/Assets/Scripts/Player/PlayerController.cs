@@ -205,6 +205,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             UIManager.deactivateTimer();
 
             disabledGuard.hacked = false;
+            //Added 2020-05-21
+            disabledGuard.guardMovement.isDisabled = true;
             disabledGuard = null;
             hacking = false;
             guardHackedSubject.GuardHackedNotify("");
@@ -234,7 +236,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             if (!hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
-                hacking = true;
+                hacking = true;            
+                //Added 2020-05-21
+                disabledGuard.guardMovement.isDisabled = false;
                 guardHackedSubject.GuardHackedNotify(disabledGuard.name);
                 audioManager.Play("HackGuard", this.transform.position);
                 UIManager.activateTimer();
@@ -245,6 +249,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             {
                 disabledGuard.hacked = false;
                 hacking = false;
+                //Added 2020-05-21
+                disabledGuard.guardMovement.isDisabled = true;
                 guardHackedSubject.GuardHackedNotify("");
                 audioManager.Play("HackGuard", this.transform.position);
                 UIManager.deactivateTimer();
@@ -378,6 +384,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 guardDisabledSubject.GuardDisabledNotify(disabledGuard);
                 audioManager.Play("DisableGuard", this.transform.position);
                 disabledGuard.disabled = true;
+                //Added 2020-05-21
+                disabledGuard.guardMovement.isDisabled = true;
+
             }
         }
     }
@@ -425,11 +434,14 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         if (disabledGuard != null)
         {
             disabledGuard.hacked = false;
+            //Added 2020-05-21
+            disabledGuard.guardMovement.isDisabled = true;
             disabledGuard = null;
             hacking = false;
             guardHackedSubject.GuardHackedNotify("");
             //Added 2020-05-20
-            UIManager.deactivateTimer(); 
+            UIManager.deactivateTimer();
+
             if (hacking)
                 audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;

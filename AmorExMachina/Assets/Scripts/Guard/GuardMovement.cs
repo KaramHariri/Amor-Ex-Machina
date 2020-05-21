@@ -29,6 +29,7 @@ public class GuardMovement : MonoBehaviour
     //Added 2020-05-20
     private Animator anim;
     [HideInInspector] public bool isWalking = false;
+    [HideInInspector] public bool isDisabled = false;
 
     public void GuardMovementInit()
     {
@@ -57,6 +58,7 @@ public class GuardMovement : MonoBehaviour
     private void Update()
     {
         anim.SetBool("IsWalking", isWalking);
+        anim.SetBool("IsDisabled", isDisabled);
     }
 
     public void FollowPath()

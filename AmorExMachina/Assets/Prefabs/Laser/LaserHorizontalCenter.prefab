@@ -107,5 +107,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a88978334dcb07468f93d16e82a5ed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpottedSubject: {fileID: 11400000, guid: a7e376c1a193b6547a17e096d290826e,
-    type: 2}
+  maxPulseTimer: 5
+  pulseFrequency: 15

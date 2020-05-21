@@ -65,10 +65,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HexEdgeIntensity: 8
+    - _HexEdgeIntensity: 20
     - _HexEdgePosScale: 50
     - _HexEdgeTimeScale: 5
-    - _HexEdgeWidthModifier: 0.82
+    - _HexEdgeWidthModifier: 0.9
     - _IntersectExponent: 30
     - _IntersectIntensity: 80
     - _Metallic: 0

@@ -119,7 +119,10 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController.canHackGuard = false;
+            if (!puzzleSolved)
+            {
+                PlayerController.canHackGuard = false;
+            }
             if(interactionButtonSubject == null)
             {
                 Debug.Log("Interaction subject is null");

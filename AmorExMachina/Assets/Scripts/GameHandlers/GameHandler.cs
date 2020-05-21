@@ -49,6 +49,8 @@ public class GameHandler : MonoBehaviour
     public static InteractionButtonSubject interactionButtonSubject = null;
     public static Settings settings = null;
 
+    [SerializeField] private bool lockCursor = true;
+
     private void Awake()
     {
         FindAllGuards();
@@ -67,6 +69,17 @@ public class GameHandler : MonoBehaviour
 
     void Update()
     {
+        if(lockCursor)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         if (Input.GetButtonDown("Options") && currentState != GameState.MENU && inputDelay >= 0.2f)
         {
             StartCoroutine("SetPauseMenuSelectedButton");

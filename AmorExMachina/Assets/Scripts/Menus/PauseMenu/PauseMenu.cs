@@ -23,15 +23,19 @@ public class PauseMenu : MonoBehaviour
         eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         pauseMenuObject = transform.GetChild(0).gameObject;
         pauseMenuObject.SetActive(false);
-        canTakeInput = true;
+        canTakeInput = false;
     }
 
     private void Update()
     {
         if(GameHandler.currentState == GameState.MENU)
         {
-            if(!switchedToSettings)
+            if (!switchedToSettings && !pauseMenuObject.activeInHierarchy)
+            {
                 pauseMenuObject.SetActive(true);
+                canTakeInput = true;
+                return;
+            }
         }
 
         if(Input.GetButtonDown("Cancel") && canTakeInput)

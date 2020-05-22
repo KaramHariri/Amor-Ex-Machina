@@ -33,8 +33,12 @@ public class AudioSettingsMenu : MonoBehaviour
 
     private float slidingDelay = 0.0f;
     private float maxSlidingDelay = 0.1f;
+
+    [SerializeField] AudioSource buttonAudio = null;
+    private Settings settings = null;
     private void Awake()
     {
+        settings = Resources.Load<Settings>("References/Settings/StaticSettings");
         instance = this;
         audioCanvasGroup = GetComponent<CanvasGroup>();
         audioCanvasGroup.alpha = 0.0f;
@@ -61,6 +65,7 @@ public class AudioSettingsMenu : MonoBehaviour
             optionsMenuInstance.StartSwitchingFromAudioCoroutine();
             return;
         }
+        buttonAudio.volume = settings.effectsVolume * settings.masterVolume;
 
         UpdateSlidersCheck();
         UpdateSettingsValues();
@@ -142,10 +147,12 @@ public class AudioSettingsMenu : MonoBehaviour
             float input = Input.GetAxisRaw("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
+                buttonAudio.Play();
                 imageFill.fillAmount += 0.1f;
             }
             else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
+                buttonAudio.Play();
                 imageFill.fillAmount -= 0.1f;
             }
 

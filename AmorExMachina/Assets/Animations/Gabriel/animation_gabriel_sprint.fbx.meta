@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 039e539bcfa37654e87b62044036fcd2
+guid: 511b7dfbead10f944ba82a04cf989be8
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
-      74: 5768281350029916479
-    second: animation_guard_idle
+      74: 1003664228073384885
+    second: animation_gabriel_running
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: animation_guard_idle
-      takeName: animation_guard_idle
+      name: animation_gabriel_running
+      takeName: animation_gabriel_running
       internalID: 0
-      firstFrame: 0
-      lastFrame: 120
+      firstFrame: 1
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

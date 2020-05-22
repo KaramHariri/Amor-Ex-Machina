@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenuControlsSettings : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class PauseMenuControlsSettings : MonoBehaviour
     private Button controllerControlsButton = null;
     //[SerializeField]
     //private Button keyboardControlsButton = null;
+
+    private GameObject lastSelectedButton = null;
 
     private void Awake()
     {
@@ -52,6 +55,16 @@ public class PauseMenuControlsSettings : MonoBehaviour
             settingsMenuInstance.StartSwitchingFromControlsCoroutine();
             return;
         }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
+        }
+
         SetButtonsInteractable();
     }
 

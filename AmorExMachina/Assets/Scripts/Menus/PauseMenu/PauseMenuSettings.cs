@@ -9,6 +9,7 @@ public class PauseMenuSettings : MonoBehaviour
 
     public GameObject firstSelectedButtonInOptions = null;
     private GameObject currentSelectedButton = null;
+    private GameObject lastSelectedButton = null;
 
     [HideInInspector] public EventSystem eventSystem = null;
     public CanvasGroup buttonsCanvasGroup = null;
@@ -43,6 +44,15 @@ public class PauseMenuSettings : MonoBehaviour
         if (Input.GetButtonDown("Cancel") && canTakeInput)
         {
             ExitSettingsMenu();
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
     }
 

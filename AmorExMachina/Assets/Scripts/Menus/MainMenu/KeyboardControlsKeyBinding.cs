@@ -34,6 +34,8 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
     private bool canTakeInput = true;
     private bool changedKey = true;
 
+    [SerializeField] AudioSource buttonAudio;
+
 
     private void Awake()
     {
@@ -62,6 +64,8 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
             controlsSettingsMenuInstance.StartSwitchingFromKeyboardControlsCoroutine();
             return;
         }
+
+        buttonAudio.volume = settings.effectsVolume * settings.masterVolume;
 
         if (!changedKey)
         {
@@ -130,6 +134,7 @@ public class KeyboardControlsKeyBinding : MonoBehaviour
 
     public void ChangeButton(Text buttonText)
     {
+        buttonAudio.Play();
         StartCoroutine("ActivateChangeButtonPanel");
         changedKeyText = buttonText;
     }

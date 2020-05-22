@@ -9,7 +9,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] EventSystem eventSystem = null;
     AudioSource mainMenuAudio = null;
 
-    GameObject currentSelectedButton = null;
+    public GameObject lastSelectedButton = null;
+    public GameObject currentSelectedButton = null;
+    [SerializeField] AudioSource buttonAudio = null;
 
     private void Awake()
     {
@@ -17,6 +19,8 @@ public class MainMenu : MonoBehaviour
         sceneHandler = SceneHandler.instance;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        currentSelectedButton = eventSystem.firstSelectedGameObject;
+        lastSelectedButton = currentSelectedButton;
     }
 
     private void Start()
@@ -27,6 +31,24 @@ public class MainMenu : MonoBehaviour
     private void Update()
     {
         mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
+        buttonAudio.volume = optionsMenu.settings.effectsVolume * optionsMenu.settings.masterVolume;
+
+        if (lastSelectedButton != eventSystem.currentSelectedGameObject)
+        {
+            if (!buttonAudio.isPlaying)
+                buttonAudio.Play();
+
+            lastSelectedButton = eventSystem.currentSelectedGameObject;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
+        }
     }
 
     public void NewGameButton()

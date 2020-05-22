@@ -312,6 +312,19 @@ MonoBehaviour:
     playOnAwake: 0
     threeDimensionalSound: 1
     aS: {fileID: 0}
+  - name: SwitchMenuButton
+    audioType: 0
+    clip:
+    - {fileID: 8300000, guid: 60c5f8838d64ad24ba243bdc315a57b2, type: 3}
+    volume: 1
+    pitch: 0.9
+    randomVolume: 0.163
+    randomPitch: 0
+    maxSoundDistance: 300
+    loop: 0
+    playOnAwake: 0
+    threeDimensionalSound: 0
+    aS: {fileID: 0}
 --- !u!1 &2494282343061126050
 GameObject:
   m_ObjectHideFlags: 0

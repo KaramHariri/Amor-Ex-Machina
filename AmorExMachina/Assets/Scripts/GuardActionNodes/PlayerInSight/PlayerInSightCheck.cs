@@ -12,6 +12,8 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.PlayerDetectedCheck())
         {
+            guard.guardMovement.animEnabled = true;
+            guard.guardMovement.isWalking = true;
             guard.assist = false;
             nodeState = NodeState.SUCCESS;
         }

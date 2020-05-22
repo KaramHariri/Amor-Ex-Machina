@@ -35,6 +35,8 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     private bool canTakeInput = true;
     private bool changedKey = true;
 
+    [SerializeField] AudioSource buttonAudio = null;
+
     #region Resources Sprites
     private Sprite squareSprite;
     private Sprite corssSprite;
@@ -79,6 +81,8 @@ public class ControllerControlsKeyBinding : MonoBehaviour
             controlsSettingsMenuInstance.StartSwitchingFromControllerControlsCoroutine();
             return;
         }
+
+        buttonAudio.volume = settings.effectsVolume * settings.masterVolume;
 
         for (int i = 0; i < possibleKeyCodes.Count; i++)
         {
@@ -197,6 +201,7 @@ public class ControllerControlsKeyBinding : MonoBehaviour
     {
         if (changedKey)
         {
+            buttonAudio.Play();
             StartCoroutine("ActivateChangeButtonPanel");
             changedKeyImage = buttonImage;
         }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuGameplaySettings : MonoBehaviour
 {
@@ -14,19 +16,22 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     private Image firstPersonLookSensitivityFillImage = null;
     private Toggle invertYToggle = null;
     private Toggle subtitleToggle = null;
-    private Text thirdPersonLookSensitivityAmountText = null;
-    private Text firstPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI thirdPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI firstPersonLookSensitivityAmountText = null;
 
     public static PauseMenuGameplaySettings instance;
     [HideInInspector]
     public CanvasGroup gameplayCanvasGroup = null;
     [HideInInspector]
     public GameObject firstSelectedButtonInGameplay = null;
+    private GameObject lastSelectedButton = null;
 
     private PauseMenuSettings settingsMenuInstance = null;
 
     private float slidingDelay = 0.0f;
     private float maxSlidingDelay = 0.1f;
+
+    private AudioManager audioManager = null;
 
     private void Awake()
     {
@@ -47,6 +52,7 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         settingsMenuInstance = PauseMenuSettings.instance;
         SetSettingsValues();
         slidingDelay = maxSlidingDelay;
+        audioManager = GameHandler.audioManager;
     }
 
     private void Update()
@@ -55,6 +61,15 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         {
             settingsMenuInstance.StartSwitchingFromGameplayCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         UpdateSlidersCheck();
@@ -92,8 +107,8 @@ public class PauseMenuGameplaySettings : MonoBehaviour
 
     private void InitSlidersAmountText()
     {
-        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
-        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
+        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitToggles()
@@ -120,6 +135,7 @@ public class PauseMenuGameplaySettings : MonoBehaviour
 
     public void ToggleButton(Toggle toggle)
     {
+        audioManager.Play("SwitchMenuButton");
         toggle.isOn = !toggle.isOn;
     }
 
@@ -130,10 +146,12 @@ public class PauseMenuGameplaySettings : MonoBehaviour
             float input = Input.GetAxisRaw("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
+                audioManager.Play("SwitchMenuButton");
                 imageFill.fillAmount += 0.1f;
             }
             else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
+                audioManager.Play("SwitchMenuButton");
                 imageFill.fillAmount -= 0.1f;
             }
 

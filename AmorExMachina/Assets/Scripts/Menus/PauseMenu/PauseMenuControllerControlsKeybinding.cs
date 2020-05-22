@@ -17,6 +17,8 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     public static PauseMenuControllerControlsKeybinding instance = null;
     private PauseMenuControlsSettings controlsSettingsMenuInstance = null;
 
+    private GameObject lastSelectedButton = null;
+
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
     List<KeyCode> possibleKeyCodes = new List<KeyCode>();
 
@@ -48,6 +50,8 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     private Sprite R3Sprite;
     #endregion
 
+    private AudioManager audioManager = null;
+
     private void Awake()
     {
         settings = Resources.Load<Settings>("References/Settings/StaticSettings");
@@ -70,6 +74,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     void Start()
     {
         controlsSettingsMenuInstance = PauseMenuControlsSettings.instance;
+        audioManager = GameHandler.audioManager;
     }
 
     void Update()
@@ -78,6 +83,15 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
         {
             controlsSettingsMenuInstance.StartSwitchingFromControllerControlsCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         for (int i = 0; i < possibleKeyCodes.Count; i++)
@@ -197,6 +211,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     {
         if (changedKey)
         {
+            audioManager.Play("SwitchMenuButton");
             StartCoroutine("ActivateChangeButtonPanel");
             changedKeyImage = buttonImage;
         }

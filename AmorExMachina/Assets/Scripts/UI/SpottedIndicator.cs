@@ -69,10 +69,10 @@ public class SpottedIndicator : MonoBehaviour
                 audioManager.Play("GettingDetected");
                 detectionSoundPlayed = true;
             }
-            image.color = Color.Lerp(image.color, new Color(1.0f, 0.0f, 0.0f, 0.8f), Time.deltaTime * 2.0f);
+            image.color = Color.Lerp(image.color, new Color(1.0f, 0.08627451f, 0.08627451f, 1.0f), Time.deltaTime * 2.0f);
         }
         else
-            image.color = Color.Lerp(image.color, new Color(1.0f, 0.92f, 0.016f, 0.8f), Time.deltaTime);
+            image.color = Color.Lerp(image.color, new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f), Time.deltaTime);
 
         image.fillAmount = guardSensing.detectionAmount / guardSensing.maxDetectionAmount;
 

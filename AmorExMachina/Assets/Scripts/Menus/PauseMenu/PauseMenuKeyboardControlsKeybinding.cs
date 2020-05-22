@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
 {
     [HideInInspector] public CanvasGroup keyboardControlsCanvasGroup = null;
     [HideInInspector] public GameObject firstSelectedButtonInKeyboard = null;
+    private GameObject lastSelectedButton = null;
     [SerializeField] private GameObject pressAKeyCanvas = null;
     private GameObject currentSelectedGameObject = null;
 
@@ -20,20 +22,21 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
 
     #region Buttons Text
-    [SerializeField] private Text rotatePuzzleArrow = null;
-    [SerializeField] private Text activateButtonInPuzzle = null;
-    [SerializeField] private Text activatePuzzle = null;
-    [SerializeField] private Text cameraToggle = null;
-    [SerializeField] private Text movementToggle = null;
-    [SerializeField] private Text disableGuard = null;
-    [SerializeField] private Text hackGuard = null;
-    [SerializeField] private Text distractGuardWhileHacking = null;
-    private Text changedKeyText = null;
+    [SerializeField] private TextMeshProUGUI rotatePuzzleArrow = null;
+    [SerializeField] private TextMeshProUGUI activateButtonInPuzzle = null;
+    [SerializeField] private TextMeshProUGUI activatePuzzle = null;
+    [SerializeField] private TextMeshProUGUI cameraToggle = null;
+    [SerializeField] private TextMeshProUGUI movementToggle = null;
+    [SerializeField] private TextMeshProUGUI disableGuard = null;
+    [SerializeField] private TextMeshProUGUI hackGuard = null;
+    [SerializeField] private TextMeshProUGUI distractGuardWhileHacking = null;
+    private TextMeshProUGUI changedKeyText = null;
     #endregion
 
     private bool canTakeInput = true;
     private bool changedKey = true;
 
+    private AudioManager audioManager = null;
 
     private void Awake()
     {
@@ -53,6 +56,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     void Start()
     {
         controlsSettingsMenuInstance = PauseMenuControlsSettings.instance;
+        audioManager = GameHandler.audioManager;
     }
 
     void Update()
@@ -61,6 +65,15 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
         {
             controlsSettingsMenuInstance.StartSwitchingFromKeyboardControlsCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         if (!changedKey)
@@ -128,7 +141,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
         SetButtonKeyText();
     }
 
-    public void ChangeButton(Text buttonText)
+    public void ChangeButton(TextMeshProUGUI buttonText)
     {
         StartCoroutine("ActivateChangeButtonPanel");
         changedKeyText = buttonText;
@@ -147,6 +160,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     {
         if (changedKey)
         {
+            audioManager.Play("SwitchMenuButton");
             canTakeInput = false;
             yield return new WaitForSeconds(0.1f);
             pressAKeyCanvas.SetActive(false);

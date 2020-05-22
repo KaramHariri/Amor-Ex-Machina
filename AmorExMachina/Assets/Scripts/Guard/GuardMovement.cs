@@ -26,6 +26,12 @@ public class GuardMovement : MonoBehaviour
 
     private Transform playerTransform = null;
 
+    //Added 2020-05-20
+    private Animator anim;
+    [HideInInspector] public bool isWalking = false;
+    [HideInInspector] public bool isDisabled = false;
+    [HideInInspector] public bool animEnabled = false;
+
     public void GuardMovementInit()
     {
         SetPath();
@@ -38,6 +44,7 @@ public class GuardMovement : MonoBehaviour
     {
         guardScript = GetComponent<Guard>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     void SetMovementVariables()
@@ -47,6 +54,13 @@ public class GuardMovement : MonoBehaviour
         targetRotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, 0.0f);
         patrolIdleTimer = guardScript.maxPatrolIdleTimer;
         lookingAroundTimer = guardScript.maxLookingAroundTimer;
+    }
+
+    private void Update()
+    {
+        anim.enabled = animEnabled;
+        anim.SetBool("IsWalking", isWalking);
+        anim.SetBool("IsDisabled", isDisabled);
     }
 
     public void FollowPath()

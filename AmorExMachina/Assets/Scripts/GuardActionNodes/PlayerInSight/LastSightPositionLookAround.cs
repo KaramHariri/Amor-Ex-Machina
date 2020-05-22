@@ -15,9 +15,12 @@ public class LastSightPositionLookAround : Node
         guard.guardMovement.lookingAroundTimer -= Time.deltaTime;
 
         RotateGuardNeck();
-
+        guard.guardMovement.isWalking = false;
+        guard.guardMovement.animEnabled = false;
         if (guard.guardMovement.lookingAroundTimer <= 0)
         {
+            guard.guardMovement.animEnabled = true;
+            guard.guardMovement.isWalking = true;
             guard.sensing.playerWasInSight = false;
             guard.updatedRotation = false;
             guard.guardMovement.lookingAroundTimer = guard.maxLookingAroundTimer;

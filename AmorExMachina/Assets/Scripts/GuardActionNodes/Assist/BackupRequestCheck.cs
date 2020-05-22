@@ -12,6 +12,8 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.assist)
         {
+            guard.guardMovement.animEnabled = true;
+            guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

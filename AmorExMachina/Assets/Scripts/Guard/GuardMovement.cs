@@ -66,7 +66,7 @@ public class GuardMovement : MonoBehaviour
     public void FollowPath()
     {
         float distance = Vector3.Distance(transform.position, currentWayPoint);
-        if (distance <= navMeshAgent.stoppingDistance + 0.2f)
+        if (distance <= navMeshAgent.stoppingDistance + 0.3f)
         {
             if (guardType == GuardType.STATIONARY)
             {
@@ -120,6 +120,10 @@ public class GuardMovement : MonoBehaviour
                 Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.rotationSpeed * Time.deltaTime);
+                if(navMeshAgent.destination != null) 
+                {
+                    navMeshAgent.ResetPath();
+                }
                 navMeshAgent.Move(transform.forward * 0.02f);
             }
 

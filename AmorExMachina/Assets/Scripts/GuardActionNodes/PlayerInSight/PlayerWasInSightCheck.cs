@@ -14,6 +14,7 @@ public class PlayerWasInSightCheck : Node
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.playerWasDetectedCheck())
         {
+            guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             guard.assist = false;
             nodeState = NodeState.SUCCESS;

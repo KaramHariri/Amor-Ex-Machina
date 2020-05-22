@@ -12,6 +12,7 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.FoundKnockedOutGuard())
         {
+            guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }

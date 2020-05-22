@@ -14,6 +14,7 @@ public class DistractionCheck : Node
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.Distracted())
         {
+            guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }

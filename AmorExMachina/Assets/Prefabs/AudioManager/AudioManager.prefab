@@ -48,7 +48,7 @@ MonoBehaviour:
   - name: ActivateButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: e61c91c4306f48f45b8776d2e43631bd, type: 3}
+    - {fileID: 8300000, guid: 1ef96d3e262f1b649ab57540ce477351, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -312,7 +312,6 @@ MonoBehaviour:
     playOnAwake: 0
     threeDimensionalSound: 1
     aS: {fileID: 0}
-  settings: {fileID: 11400000, guid: 6b80652a4ed5b7a428d4c2abfc188c9b, type: 2}
 --- !u!1 &2494282343061126050
 GameObject:
   m_ObjectHideFlags: 0

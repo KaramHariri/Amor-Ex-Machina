@@ -31,6 +31,8 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     private float slidingDelay = 0.0f;
     private float maxSlidingDelay = 0.1f;
 
+    private AudioManager audioManager = null;
+
     private void Awake()
     {
         instance = this;
@@ -50,6 +52,7 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         settingsMenuInstance = PauseMenuSettings.instance;
         SetSettingsValues();
         slidingDelay = maxSlidingDelay;
+        audioManager = GameHandler.audioManager;
     }
 
     private void Update()
@@ -132,6 +135,7 @@ public class PauseMenuGameplaySettings : MonoBehaviour
 
     public void ToggleButton(Toggle toggle)
     {
+        audioManager.Play("SwitchMenuButton");
         toggle.isOn = !toggle.isOn;
     }
 
@@ -142,10 +146,12 @@ public class PauseMenuGameplaySettings : MonoBehaviour
             float input = Input.GetAxisRaw("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
+                audioManager.Play("SwitchMenuButton");
                 imageFill.fillAmount += 0.1f;
             }
             else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
+                audioManager.Play("SwitchMenuButton");
                 imageFill.fillAmount -= 0.1f;
             }
 

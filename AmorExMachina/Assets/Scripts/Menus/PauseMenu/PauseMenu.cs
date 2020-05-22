@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class PauseMenu : MonoBehaviour
 
     private bool canTakeInput = false;
 
+    private AudioManager audioManager = null;
+
     private void Start()
     {
         Cursor.visible = false;
@@ -25,6 +26,14 @@ public class PauseMenu : MonoBehaviour
         pauseMenuObject = transform.GetChild(0).gameObject;
         pauseMenuObject.SetActive(false);
         canTakeInput = false;
+        currentSelectedButton = eventSystem.firstSelectedGameObject;
+        lastSelectedButton = currentSelectedButton;
+
+        audioManager = GameHandler.audioManager;
+        if(audioManager == null)
+        {
+            Debug.Log("PauseMenu can't find AudioManager in GameHandler");
+        }
     }
 
     private void Update()
@@ -39,6 +48,11 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
+        if(eventSystem.currentSelectedGameObject != lastSelectedButton)
+        {
+            audioManager.Play("SwitchMenuButton");
+        }
+
         if (EventSystem.current.currentSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(lastSelectedButton);
@@ -47,6 +61,7 @@ public class PauseMenu : MonoBehaviour
         {
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
+
 
         if (Input.GetButtonDown("Cancel") && canTakeInput)
         {
@@ -58,6 +73,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuObject.SetActive(false);
+        //audioManager.Play("MenuButtonPressed");
         GameHandler.currentState = GameHandler.previousState;
     }
 
@@ -65,16 +81,19 @@ public class PauseMenu : MonoBehaviour
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //GameHandler.reloadSceneButton();
+        //audioManager.Play("MenuButtonPressed");
         StartCoroutine("SwitchToLoad");
     }
 
     public void Settings()
     {
+        //audioManager.Play("MenuButtonPressed");
         StartCoroutine("SwitchToSettings");
     }
 
     public void Quit()
     {
+        //audioManager.Play("MenuButtonPressed");
         Application.Quit();
     }
 

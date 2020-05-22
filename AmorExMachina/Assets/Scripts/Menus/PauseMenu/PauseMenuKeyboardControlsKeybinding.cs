@@ -36,6 +36,8 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     private bool canTakeInput = true;
     private bool changedKey = true;
 
+    private AudioManager audioManager = null;
+
     private void Awake()
     {
         settings = Resources.Load<Settings>("References/Settings/StaticSettings");
@@ -54,6 +56,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     void Start()
     {
         controlsSettingsMenuInstance = PauseMenuControlsSettings.instance;
+        audioManager = GameHandler.audioManager;
     }
 
     void Update()
@@ -157,6 +160,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     {
         if (changedKey)
         {
+            audioManager.Play("SwitchMenuButton");
             canTakeInput = false;
             yield return new WaitForSeconds(0.1f);
             pressAKeyCanvas.SetActive(false);

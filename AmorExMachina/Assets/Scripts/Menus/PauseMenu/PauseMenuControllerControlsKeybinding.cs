@@ -50,6 +50,8 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     private Sprite R3Sprite;
     #endregion
 
+    private AudioManager audioManager = null;
+
     private void Awake()
     {
         settings = Resources.Load<Settings>("References/Settings/StaticSettings");
@@ -72,6 +74,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     void Start()
     {
         controlsSettingsMenuInstance = PauseMenuControlsSettings.instance;
+        audioManager = GameHandler.audioManager;
     }
 
     void Update()
@@ -208,6 +211,7 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     {
         if (changedKey)
         {
+            audioManager.Play("SwitchMenuButton");
             StartCoroutine("ActivateChangeButtonPanel");
             changedKeyImage = buttonImage;
         }

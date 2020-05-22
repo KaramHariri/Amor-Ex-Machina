@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guardType: 1
   movementType: 1
+  rotationSpeed: 2
   patrolSpeed: 2
   chaseSpeed: 5
   suspiciousSpeed: 3.5
@@ -149,6 +150,8 @@ MonoBehaviour:
   targetRotation: {x: 0, y: 0, z: 0, w: 1}
   idle: 0
   isWalking: 0
+  isDisabled: 0
+  animEnabled: 0
 --- !u!114 &6251880395322041266
 MonoBehaviour:
   m_ObjectHideFlags: 0

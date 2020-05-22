@@ -29,6 +29,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
 
     [Header("Speed")]
+    public float rotationSpeed = 2.5f;
     public float patrolSpeed = 2.0f;
     public float chaseSpeed = 5.0f;
     public float suspiciousSpeed = 3.5f;

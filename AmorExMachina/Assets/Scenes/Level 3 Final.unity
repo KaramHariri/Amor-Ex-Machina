@@ -12459,6 +12459,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 803925708600308372, guid: 99a0224031472024193c4fa794bb9204,
+        type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 444881409}
     - target: {fileID: 803925708600308375, guid: 99a0224031472024193c4fa794bb9204,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23503,6 +23508,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 442219542}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &444881409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 264910617611986001, guid: ddb91fba7cb17d443bcf70e31bb72531,
+    type: 3}
+  m_PrefabInstance: {fileID: 258250233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &444996557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25674,9 +25685,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 955071025}
+  - {fileID: 1798282871}
   - {fileID: 1830147254}
   - {fileID: 209449740}
-  - {fileID: 1798282871}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

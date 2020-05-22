@@ -315,7 +315,7 @@ MonoBehaviour:
   - name: SwitchMenuButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 9183416fcc2931b478eeaeedc6c4d6a6, type: 3}
+    - {fileID: 8300000, guid: 9123fa4ffcc9e67498e6d804b91bf521, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

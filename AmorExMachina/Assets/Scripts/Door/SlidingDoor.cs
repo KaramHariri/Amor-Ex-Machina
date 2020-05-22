@@ -52,11 +52,11 @@ public class SlidingDoor : MonoBehaviour
 
         inRange.Add(other.transform);
         state = slidingDoorState.OPEN;
-        audioManager.Play("DoorOpen", this.transform.position);
+        //audioManager.Play("DoorOpen", this.transform.position);
         StartAnimating();
 
         // Added 20-05-13.
-        doorOpeningParticleSystem.Play();
+        //doorOpeningParticleSystem.Play();
         /////
     }
 
@@ -68,7 +68,7 @@ public class SlidingDoor : MonoBehaviour
         inRange.Remove(other.transform);
         if (inRange.Count <= 0)
         {
-            audioManager.Play("DoorOpen", this.transform.position);
+            //audioManager.Play("DoorOpen", this.transform.position);
             state = slidingDoorState.CLOSE;
             StartAnimating();
         }
@@ -114,7 +114,11 @@ public class SlidingDoor : MonoBehaviour
         IE_RightDoor = Move(rightDoor, -xPos);
         IE_LeftDoor = Move(leftDoor, xPos);
 
-        //audioManager.Play(state.Equals(slidingDoorState.OPEN) ? "OpenDoor" : "CloseDoor");
+        audioManager.Play(state.Equals(slidingDoorState.OPEN) ? "DoorOpen" : "DoorOpen", transform.position);
+        if(state.Equals(slidingDoorState.OPEN))
+        {
+            doorOpeningParticleSystem.Play();
+        }
 
         StartCoroutine(IE_RightDoor);
         StartCoroutine(IE_LeftDoor);

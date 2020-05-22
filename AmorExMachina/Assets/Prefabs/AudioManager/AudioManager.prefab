@@ -118,7 +118,7 @@ MonoBehaviour:
     pitch: 0.9
     randomVolume: 0.163
     randomPitch: 0
-    maxSoundDistance: 100
+    maxSoundDistance: 45
     loop: 0
     playOnAwake: 0
     threeDimensionalSound: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
 {
@@ -21,20 +22,19 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
 
     #region Buttons Text
-    [SerializeField] private Text rotatePuzzleArrow = null;
-    [SerializeField] private Text activateButtonInPuzzle = null;
-    [SerializeField] private Text activatePuzzle = null;
-    [SerializeField] private Text cameraToggle = null;
-    [SerializeField] private Text movementToggle = null;
-    [SerializeField] private Text disableGuard = null;
-    [SerializeField] private Text hackGuard = null;
-    [SerializeField] private Text distractGuardWhileHacking = null;
-    private Text changedKeyText = null;
+    [SerializeField] private TextMeshProUGUI rotatePuzzleArrow = null;
+    [SerializeField] private TextMeshProUGUI activateButtonInPuzzle = null;
+    [SerializeField] private TextMeshProUGUI activatePuzzle = null;
+    [SerializeField] private TextMeshProUGUI cameraToggle = null;
+    [SerializeField] private TextMeshProUGUI movementToggle = null;
+    [SerializeField] private TextMeshProUGUI disableGuard = null;
+    [SerializeField] private TextMeshProUGUI hackGuard = null;
+    [SerializeField] private TextMeshProUGUI distractGuardWhileHacking = null;
+    private TextMeshProUGUI changedKeyText = null;
     #endregion
 
     private bool canTakeInput = true;
     private bool changedKey = true;
-
 
     private void Awake()
     {
@@ -138,7 +138,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
         SetButtonKeyText();
     }
 
-    public void ChangeButton(Text buttonText)
+    public void ChangeButton(TextMeshProUGUI buttonText)
     {
         StartCoroutine("ActivateChangeButtonPanel");
         changedKeyText = buttonText;

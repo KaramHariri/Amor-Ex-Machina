@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuGameplaySettings : MonoBehaviour
 {
@@ -15,8 +16,8 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     private Image firstPersonLookSensitivityFillImage = null;
     private Toggle invertYToggle = null;
     private Toggle subtitleToggle = null;
-    private Text thirdPersonLookSensitivityAmountText = null;
-    private Text firstPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI thirdPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI firstPersonLookSensitivityAmountText = null;
 
     public static PauseMenuGameplaySettings instance;
     [HideInInspector]
@@ -103,8 +104,8 @@ public class PauseMenuGameplaySettings : MonoBehaviour
 
     private void InitSlidersAmountText()
     {
-        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
-        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
+        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitToggles()

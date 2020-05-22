@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuAudioSettings : MonoBehaviour
 {
@@ -18,11 +19,11 @@ public class PauseMenuAudioSettings : MonoBehaviour
     private Image voiceAudioFillImage = null;
     private Image musicAudioFillImage = null;
 
-    private Text masterAudioAmountText = null;
-    private Text effectAudioAmountText = null;
-    private Text footstepsAudioAmountText = null;
-    private Text voiceAudioAmountText = null;
-    private Text musicAudioAmountText = null;
+    private TextMeshProUGUI masterAudioAmountText = null;
+    private TextMeshProUGUI effectAudioAmountText = null;
+    private TextMeshProUGUI footstepsAudioAmountText = null;
+    private TextMeshProUGUI voiceAudioAmountText = null;
+    private TextMeshProUGUI musicAudioAmountText = null;
 
     public static PauseMenuAudioSettings instance = null;
     [HideInInspector]
@@ -113,11 +114,11 @@ public class PauseMenuAudioSettings : MonoBehaviour
 
     private void InitSlidersAmountText()
     {
-        masterAudioAmountText = masterAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        effectAudioAmountText = effectAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        footstepsAudioAmountText = footstepsAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        voiceAudioAmountText = voiceAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        musicAudioAmountText = musicAudioSlider.transform.GetChild(2).GetComponent<Text>();
+        masterAudioAmountText = masterAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        effectAudioAmountText = effectAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        footstepsAudioAmountText = footstepsAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        voiceAudioAmountText = voiceAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        musicAudioAmountText = musicAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitSlidersFill()

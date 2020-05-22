@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenuGameplaySettings : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     public CanvasGroup gameplayCanvasGroup = null;
     [HideInInspector]
     public GameObject firstSelectedButtonInGameplay = null;
+    private GameObject lastSelectedButton = null;
 
     private PauseMenuSettings settingsMenuInstance = null;
 
@@ -55,6 +57,15 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         {
             settingsMenuInstance.StartSwitchingFromGameplayCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         UpdateSlidersCheck();

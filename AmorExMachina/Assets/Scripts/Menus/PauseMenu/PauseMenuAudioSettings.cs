@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenuAudioSettings : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class PauseMenuAudioSettings : MonoBehaviour
     public GameObject firstSelectedButtonInAudio = null;
 
     private PauseMenuSettings optionsMenuInstance = null;
+
+    private GameObject lastSelectedButton = null;
 
     private float slidingDelay = 0.0f;
     private float maxSlidingDelay = 0.1f;
@@ -60,6 +63,15 @@ public class PauseMenuAudioSettings : MonoBehaviour
         {
             optionsMenuInstance.StartSwitchingFromAudioCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         UpdateSlidersCheck();

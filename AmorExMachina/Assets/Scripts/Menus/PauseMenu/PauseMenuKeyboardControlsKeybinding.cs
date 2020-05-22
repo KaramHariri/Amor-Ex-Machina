@@ -8,6 +8,7 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
 {
     [HideInInspector] public CanvasGroup keyboardControlsCanvasGroup = null;
     [HideInInspector] public GameObject firstSelectedButtonInKeyboard = null;
+    private GameObject lastSelectedButton = null;
     [SerializeField] private GameObject pressAKeyCanvas = null;
     private GameObject currentSelectedGameObject = null;
 
@@ -61,6 +62,15 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
         {
             controlsSettingsMenuInstance.StartSwitchingFromKeyboardControlsCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         if (!changedKey)

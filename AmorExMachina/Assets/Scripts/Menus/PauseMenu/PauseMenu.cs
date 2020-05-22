@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     [HideInInspector] public bool switchedToSettings = false;
 
     GameObject currentSelectedButton = null;
+    GameObject lastSelectedButton = null;
 
     private bool canTakeInput = false;
 
@@ -38,7 +39,16 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("Cancel") && canTakeInput)
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
+        }
+
+        if (Input.GetButtonDown("Cancel") && canTakeInput)
         {
             //Resume();
             StartCoroutine("ResumeGame");

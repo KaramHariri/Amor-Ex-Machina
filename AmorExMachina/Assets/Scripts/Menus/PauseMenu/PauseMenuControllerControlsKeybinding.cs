@@ -17,6 +17,8 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
     public static PauseMenuControllerControlsKeybinding instance = null;
     private PauseMenuControlsSettings controlsSettingsMenuInstance = null;
 
+    private GameObject lastSelectedButton = null;
+
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
     List<KeyCode> possibleKeyCodes = new List<KeyCode>();
 
@@ -78,6 +80,15 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
         {
             controlsSettingsMenuInstance.StartSwitchingFromControllerControlsCoroutine();
             return;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(lastSelectedButton);
+        }
+        else
+        {
+            lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
         for (int i = 0; i < possibleKeyCodes.Count; i++)

@@ -28,6 +28,8 @@ public class GameplaySettingsMenu : MonoBehaviour
     private float slidingDelay = 0.0f;
     private float maxSlidingDelay = 0.1f;
 
+    [SerializeField] AudioSource buttonAudio;
+
     private void Awake()
     {
         instance = this;
@@ -56,6 +58,8 @@ public class GameplaySettingsMenu : MonoBehaviour
             optionsMenuInstance.StartSwitchingFromGameplayCoroutine();
             return;
         }
+
+        buttonAudio.volume = optionsMenuInstance.settings.effectsVolume * optionsMenuInstance.settings.masterVolume;
 
         UpdateSlidersCheck();
         UpdateSettingsValues();
@@ -120,6 +124,7 @@ public class GameplaySettingsMenu : MonoBehaviour
 
     public void ToggleButton(Toggle toggle)
     {
+        buttonAudio.Play();
         toggle.isOn = !toggle.isOn;
     }
 
@@ -130,10 +135,12 @@ public class GameplaySettingsMenu : MonoBehaviour
             float input = Input.GetAxisRaw("Horizontal");
             if (input >= 0.6f && slidingDelay >= maxSlidingDelay)
             {
+                buttonAudio.Play();
                 imageFill.fillAmount += 0.1f;
             }
             else if (input <= -0.6f && slidingDelay >= maxSlidingDelay)
             {
+                buttonAudio.Play();
                 imageFill.fillAmount -= 0.1f;
             }
 

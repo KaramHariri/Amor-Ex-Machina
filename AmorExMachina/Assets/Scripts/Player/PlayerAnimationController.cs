@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator anim;
+    private PlayerController PC;
     private Transform modelTransform;
 
     private Vector3 inputDirection = new Vector3();
@@ -24,6 +25,7 @@ public class PlayerAnimationController : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        PC = GetComponent<PlayerController>();
         modelTransform = transform.Find("character_gabriel");
         if (anim == null) { Debug.Log("Can't find the animator"); Debug.Break(); }
         if (modelTransform == null) { Debug.Log("Can't find the model transform"); Debug.Break(); }
@@ -61,9 +63,9 @@ public class PlayerAnimationController : MonoBehaviour
             modelTransform.LookAt(transform.position + inputDirection);
         }
 
-        
         anim.SetFloat("Velocity", inputDirection.magnitude);
         anim.SetBool("Crouching", sneaking);
+        anim.SetBool("IsHacking", PC.hacking);
     }
 
     private void GetInput()

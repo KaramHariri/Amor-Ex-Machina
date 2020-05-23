@@ -14,6 +14,7 @@
         {
             guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
+            guard.guardMovement.isChasingPlayer = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

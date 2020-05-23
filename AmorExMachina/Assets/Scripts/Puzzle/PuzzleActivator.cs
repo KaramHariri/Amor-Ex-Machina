@@ -81,9 +81,9 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         Vector3 playerForwardDirection = player.transform.forward;
         playerForwardDirection.y = 0;
         //Debug.Log("DirToLock" + directionToLockFromPlayer);
-        Debug.DrawRay(playerTransform.position, directionToLockFromPlayer, Color.red);
-        Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
-        Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
+        //Debug.DrawRay(playerTransform.position, directionToLockFromPlayer, Color.red);
+        //Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
+        //Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
 
         interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
 

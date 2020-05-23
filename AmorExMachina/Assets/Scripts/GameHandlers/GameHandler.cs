@@ -50,6 +50,7 @@ public class GameHandler : MonoBehaviour
     public static Settings settings = null;
 
     [SerializeField] private bool lockCursor = true;
+    private bool restartingLevel = false;
 
     private void Awake()
     {
@@ -65,11 +66,24 @@ public class GameHandler : MonoBehaviour
         //Added 2020-05-21
         playerState = PlayerState.NOTSPOTTED;
         playerIsCaught = false;
+
+        restartingLevel = false;
     }
 
     void Update()
     {
-        if(lockCursor)
+        if (currentState == GameState.LOST)
+        {
+            UIManager.activateGameOverPanel();
+            if (!restartingLevel)
+            {
+                restartingLevel = true;
+                StartCoroutine("ReloadSceneCoroutine");
+            }
+            return;
+        }
+        
+        if (lockCursor)
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -97,6 +111,8 @@ public class GameHandler : MonoBehaviour
             inputDelay = Mathf.Clamp(inputDelay, 0.0f, 5.0f);
         }
 
+       
+
         if(previousState != currentState && currentState != GameState.MENU)
         {
             //Debug.Log("Switching state from :" + previousState + " to " + currentState);
@@ -112,12 +128,12 @@ public class GameHandler : MonoBehaviour
     {
         if(sceneHandler != null)
         {
-            yield return new WaitForSeconds(3.0f);
-            sceneHandler.StartReloadSceneCoroutine();
+            yield return new WaitForSeconds(5.0f);
+            SceneHandler.reloadScene();
         }
         else
         {
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(5.0f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -126,7 +142,8 @@ public class GameHandler : MonoBehaviour
     {
         if(sceneHandler != null)
         {
-            sceneHandler.StartReloadSceneCoroutine();
+            //sceneHandler.StartReloadSceneCoroutine();
+            SceneHandler.reloadScene();
         }
         else
         {

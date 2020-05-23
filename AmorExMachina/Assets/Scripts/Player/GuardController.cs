@@ -62,11 +62,7 @@ public class GuardController : MonoBehaviour
 
     void Update()
     {
-        distractionTimer -= Time.deltaTime;
-        if (distractionTimer < 0)
-            distractionTimer = 0;
-
-        if(guard.hacked)
+        if (guard.hacked)
         {
             rb.isKinematic = false;
         }
@@ -74,6 +70,11 @@ public class GuardController : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+
+        if (GameHandler.currentState != GameState.HACKING) { return; }
+        distractionTimer -= Time.deltaTime;
+        if (distractionTimer < 0)
+            distractionTimer = 0;
 
         if(GameHandler.currentState == GameState.MENU) { return; }
 

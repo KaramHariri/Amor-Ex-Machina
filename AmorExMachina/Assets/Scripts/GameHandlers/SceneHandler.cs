@@ -19,12 +19,15 @@ public class SceneHandler : MonoBehaviour
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     public static Action loadNextScene = delegate { };
+    public static Action reloadScene = delegate { };
 
     public static bool hasSaveToAFile = false;
+    private bool reloadFromFile = false;
 
     private void OnEnable()
     {
         loadNextScene += StartLoadNextSceneCoroutine;
+        reloadScene += StartReloadAfterGameOverCoroutine;
     }
 
     private void Awake()
@@ -33,6 +36,32 @@ public class SceneHandler : MonoBehaviour
         canvasGroup.alpha = 0.0f;
         currentLevelIndex = 1;
         SceneManager.LoadSceneAsync((int)currentLevelIndex, LoadSceneMode.Additive);
+    }
+
+    void StartReloadAfterGameOverCoroutine()
+    {
+        StartCoroutine("ReloadAfterGameOver");
+    }
+
+    IEnumerator ReloadAfterGameOver()
+    {
+        canvasGroup.alpha = 1.0f;
+        scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
+
+        if (hasSaveToAFile)
+        {
+            reloadFromFile = true;
+        }
+        else
+        {
+            reloadFromFile = false;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
+
+        StartCoroutine("GetSceneLoadProgress");
     }
 
     public void StartLoadNextSceneCoroutine()
@@ -65,6 +94,7 @@ public class SceneHandler : MonoBehaviour
         canvasGroup.alpha = 1.0f;
         scenesLoading.Add(SceneManager.UnloadSceneAsync(currentLevelIndex));
         shouldLoadFromFile = false;
+        hasSaveToAFile = false;
         yield return new WaitForSeconds(0.5f);
 
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
@@ -101,11 +131,13 @@ public class SceneHandler : MonoBehaviour
             }
         }
 
-        if(shouldLoadFromFile == true)
+        if(shouldLoadFromFile || reloadFromFile)
         {
+            Debug.Log("Loading from file...");
             SaveData.current = (SaveData)SerializationManager.Load(Application.persistentDataPath + "/saves/" + "test" + ".save");
             yield return new WaitForSeconds(0.5f);
             GameEvents.current.LoadDataEvent();
+            reloadFromFile = false;
         }
 
         canvasGroup.alpha = 0.0f;
@@ -114,5 +146,6 @@ public class SceneHandler : MonoBehaviour
     private void OnDestroy()
     {
         loadNextScene -= StartLoadNextSceneCoroutine;
+        reloadScene -= StartReloadAfterGameOverCoroutine;
     }
 }

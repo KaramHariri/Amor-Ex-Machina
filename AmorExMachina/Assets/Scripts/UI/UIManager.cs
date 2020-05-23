@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour, IInteractionButton
     public static Action activateTimer = delegate { };
     public static Action<float> updateTimer = delegate { };
     public static Action deactivateTimer = delegate { };
+
+    public static Action activateGameOverPanel = delegate { };
     #endregion
 
     private float changeColorToYellow = 0.0f;
@@ -46,10 +48,13 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private GlitchEffect glitchEffect = null;
 
     private Transform playerTransform = null;
+    private CanvasGroup gameOverCanvasGroup = null;
 
     void Awake()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        gameOverCanvasGroup = GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>();
+        gameOverCanvasGroup.alpha = 0.0f;
     }
 
     void Start()
@@ -92,6 +97,8 @@ public class UIManager : MonoBehaviour, IInteractionButton
         activateTimer += ActivateTimer;
         updateTimer += UpdateTimer;
         deactivateTimer += DeactivateTimer;
+
+        activateGameOverPanel += ActivateGameOverPanel;
     }
 
     void CreateIndicator(Transform target)
@@ -117,6 +124,14 @@ public class UIManager : MonoBehaviour, IInteractionButton
             indicators[target].UnRegister();
             indicators.Remove(target);
         }
+    }
+
+    void ActivateGameOverPanel()
+    {
+        if (gameOverCanvasGroup.alpha < 1.0f)
+            gameOverCanvasGroup.alpha += Time.deltaTime;
+        else
+            gameOverCanvasGroup.alpha = 1.0f;
     }
 
     void ActivateTimer()
@@ -238,5 +253,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
         activateTimer -= ActivateTimer;
         updateTimer -= UpdateTimer;
         deactivateTimer -= DeactivateTimer;
+
+        activateGameOverPanel -= ActivateGameOverPanel;
     }
 }

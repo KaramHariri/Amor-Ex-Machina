@@ -17,6 +17,7 @@ public class PlayerWasInSightCheck : Node
             guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             guard.assist = false;
+            guard.guardMovement.isChasingPlayer = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

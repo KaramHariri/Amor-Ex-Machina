@@ -19,7 +19,6 @@ public class PlayerAnimationController : MonoBehaviour
     float verticalInput = 0.0f;
     float horizontalInput = 0.0f;
     bool sneaking = false;
-    public bool isDisabled = false;
 
     private Transform thirdPersonCameraTransform = null;
 

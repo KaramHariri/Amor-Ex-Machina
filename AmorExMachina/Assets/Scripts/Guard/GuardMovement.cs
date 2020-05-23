@@ -30,6 +30,7 @@ public class GuardMovement : MonoBehaviour
     private Animator anim;
     [HideInInspector] public bool isWalking = false;
     [HideInInspector] public bool isDisabled = false;
+    [HideInInspector] public bool isChasingPlayer = false;
     [HideInInspector] public bool animEnabled = false;
 
     public void GuardMovementInit()
@@ -61,6 +62,7 @@ public class GuardMovement : MonoBehaviour
         anim.enabled = animEnabled;
         anim.SetBool("IsWalking", isWalking);
         anim.SetBool("IsDisabled", isDisabled);
+        anim.SetBool("IsChasingPlayer", isChasingPlayer);
     }
 
     public void FollowPath()

@@ -14,6 +14,7 @@ public class FollowPath : Node
         NodeState nodeState = NodeState.FAILURE;
         guard.guardMovement.ResetIdleTimer();
         guard.guardMovement.FollowPath();
+        guard.guardMovement.isChasingPlayer = false;
         RotateGuardNeck();
         return nodeState;
     }

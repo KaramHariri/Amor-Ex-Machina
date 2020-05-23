@@ -111,7 +111,7 @@ public class MinimapCamera : MonoBehaviour, IGuardHackedObserver
 
     private void UpdateIconSize(Transform target)
     {
-        if(!firstPersonCamera)
+        if(!firstPersonCamera && !switchedToGuardCamera)
         {
             target.localScale = Vector3.Lerp(target.localScale, Vector3.one * 5.0f, Time.deltaTime * zoomSpeed);
         }

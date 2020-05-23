@@ -123,10 +123,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuObject.SetActive(false);
-        backgroundImage.enabled = false;
-        //audioManager.Play("MenuButtonPressed");
-        GameHandler.currentState = GameHandler.previousState;
+        //pauseMenuObject.SetActive(false);
+        //backgroundImage.enabled = false;
+        //GameHandler.currentState = GameHandler.previousState;
+        StartCoroutine("ResumeGame");
     }
 
     public void LoadGame()
@@ -188,8 +188,11 @@ public class PauseMenu : MonoBehaviour
 
     IEnumerator ResumeGame()
     {
+        yield return null;
         canTakeInput = false;
-        Resume();
+        pauseMenuObject.SetActive(false);
+        backgroundImage.enabled = false;
+        GameHandler.currentState = GameHandler.previousState;
         yield return null;
         canTakeInput = true;
     }

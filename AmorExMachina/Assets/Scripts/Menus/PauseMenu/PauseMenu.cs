@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -18,6 +20,17 @@ public class PauseMenu : MonoBehaviour
     private bool canTakeInput = false;
 
     private AudioManager audioManager = null;
+    private Image backgroundImage = null;
+
+    private GameObject resumeGameObject = null;
+    private GameObject loadGameObject = null;
+    private GameObject settingsGameObject = null;
+    private GameObject quitGameObject = null;
+
+    private TextMeshProUGUI resumeText = null;
+    private TextMeshProUGUI loadText = null;
+    private TextMeshProUGUI settingsText = null;
+    private TextMeshProUGUI quitText = null;
 
     private void Start()
     {
@@ -29,11 +42,16 @@ public class PauseMenu : MonoBehaviour
         currentSelectedButton = eventSystem.firstSelectedGameObject;
         lastSelectedButton = currentSelectedButton;
 
+        backgroundImage = GetComponent<Image>();
+        backgroundImage.enabled = false;
+
         audioManager = GameHandler.audioManager;
         if(audioManager == null)
         {
             Debug.Log("PauseMenu can't find AudioManager in GameHandler");
         }
+        InitButtonsGameObject();
+        InitButtonsText();
     }
 
     private void Update()
@@ -43,6 +61,7 @@ public class PauseMenu : MonoBehaviour
             if (!switchedToSettings && !pauseMenuObject.activeInHierarchy)
             {
                 pauseMenuObject.SetActive(true);
+                backgroundImage.enabled = true; ;
                 canTakeInput = true;
                 return;
             }
@@ -62,6 +81,7 @@ public class PauseMenu : MonoBehaviour
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
+        SelectedButton();
 
         if (Input.GetButtonDown("Cancel") && canTakeInput)
         {
@@ -70,9 +90,41 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    void SelectedButton()
+    {
+        resumeText.color = Color.white;
+        loadText.color = Color.white;
+        settingsText.color = Color.white;
+        quitText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == resumeGameObject)
+        {
+            resumeText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == loadGameObject)
+        {
+            loadText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == settingsGameObject)
+        {
+            settingsText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == quitGameObject)
+        {
+            quitText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+    }
+
     public void Resume()
     {
         pauseMenuObject.SetActive(false);
+        backgroundImage.enabled = false;
         //audioManager.Play("MenuButtonPressed");
         GameHandler.currentState = GameHandler.previousState;
     }
@@ -140,5 +192,21 @@ public class PauseMenu : MonoBehaviour
         Resume();
         yield return null;
         canTakeInput = true;
+    }
+
+    void InitButtonsGameObject()
+    {
+        resumeGameObject = pauseMenuObject.transform.GetChild(0).gameObject;
+        loadGameObject = pauseMenuObject.transform.GetChild(1).gameObject;
+        settingsGameObject = pauseMenuObject.transform.GetChild(2).gameObject;
+        quitGameObject = pauseMenuObject.transform.GetChild(3).gameObject;
+    }
+
+    void InitButtonsText()
+    {
+        resumeText = resumeGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        loadText = loadGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        settingsText = settingsGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        quitText = quitGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 }

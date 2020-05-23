@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -23,11 +24,26 @@ public class PauseMenuSettings : MonoBehaviour
     public float fadingSpeed = 4.0f;
     private bool canTakeInput = true;
 
+    [SerializeField] private GameObject cameraSettings = null;
+    [SerializeField] private GameObject audioSettings = null;
+    [SerializeField] private GameObject controlsSettings = null;
+    [SerializeField] private GameObject back = null;
+
+    private TextMeshProUGUI cameraSettingsText = null;
+    private TextMeshProUGUI audioSettingsText = null;
+    private TextMeshProUGUI controlsSettingsText = null;
+    private TextMeshProUGUI backText = null;
+
     private void Awake()
     {
         instance = this;
         settings = Resources.Load<Settings>("References/Settings/StaticSettings");
         //transform.gameObject.SetActive(false);
+
+        cameraSettingsText = cameraSettings.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        audioSettingsText = audioSettings.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        controlsSettingsText = controlsSettings.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = back.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -46,6 +62,8 @@ public class PauseMenuSettings : MonoBehaviour
             ExitSettingsMenu();
         }
 
+        SelectedButton();
+
         if (EventSystem.current.currentSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(lastSelectedButton);
@@ -53,6 +71,37 @@ public class PauseMenuSettings : MonoBehaviour
         else
         {
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
+        }
+    }
+
+    void SelectedButton()
+    {
+        cameraSettingsText.color = Color.white;
+        audioSettingsText.color = Color.white;
+        controlsSettingsText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == cameraSettings.gameObject)
+        {
+            cameraSettingsText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == audioSettings.gameObject)
+        {
+            audioSettingsText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == controlsSettings.gameObject)
+        {
+            controlsSettingsText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == back.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
         }
     }
 

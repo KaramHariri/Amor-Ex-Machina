@@ -6826,29 +6826,9 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+    - target: {fileID: 7651510278143552788, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

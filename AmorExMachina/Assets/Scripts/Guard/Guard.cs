@@ -83,7 +83,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     #region Minimap
     private GameObject minimapIcon = null;
-    private MeshRenderer minimapIconMeshRenderer = null;
+    private SpriteRenderer minimapIconSpriteRenderer = null;
     private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
     private LayerMask minimapRaycastCheckLayer = 0;
@@ -143,7 +143,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         MinimapCamera.updateIconSize(minimapIcon.transform);
         ActivateMinimapIcon();
-        UpdateMinimapIconColor();
+        UpdateMinimapIcon();
         UpdateGuardState();
 
         if(guardState != GuardState.NORMAL) { return; }
@@ -228,7 +228,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     void InitMiniMap()
     {
         minimapIcon = transform.Find("MinimapIcon").gameObject;
-        minimapIconMeshRenderer = minimapIcon.GetComponent<MeshRenderer>();
+        minimapIconSpriteRenderer = minimapIcon.GetComponent<SpriteRenderer>();
         minimapIcon.SetActive(false);
         visibleInMiniMap = false;
     }
@@ -240,15 +240,19 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     }
 
     // Updating the minimap icon depending on the guard state.
-    void UpdateMinimapIconColor()
+    void UpdateMinimapIcon()
     {
-        if(disabled)
+        if(hacked)
         {
-            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.black, Time.deltaTime);
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.white, Time.deltaTime);
+        }
+        else if(disabled)
+        {
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.black, Time.deltaTime);
         }
         else
         {
-            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.red, Time.deltaTime);
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.red, Time.deltaTime);
         }
     }
     

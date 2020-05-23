@@ -21,15 +21,39 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
 
     private Dictionary<string, KeyCode> keybindings = new Dictionary<string, KeyCode>();
 
+    #region GameObjects
+    private GameObject cameraToggleGameObject = null;
+    private GameObject movementToggleGameObject = null;
+    private GameObject disableGuardGameObject = null;
+    private GameObject hackGuardGameObject = null;
+    private GameObject distractGuardGameObject = null;
+    private GameObject activatePuzzleGameObject = null;
+    private GameObject activateButtonInPuzzleGameObject = null;
+    private GameObject rotateArrowInPuzzleGameObject = null;
+    private GameObject useDefaultGameObject = null;
+    private GameObject backGameObject = null;
+
+    private TextMeshProUGUI cameraToggleActionText = null;
+    private TextMeshProUGUI movementToggleActionText = null;
+    private TextMeshProUGUI disableGuardActionText = null;
+    private TextMeshProUGUI hackGuardActionText = null;
+    private TextMeshProUGUI distractGuardActionText = null;
+    private TextMeshProUGUI activatePuzzleActionText = null;
+    private TextMeshProUGUI activateButtonInPuzzleActionText = null;
+    private TextMeshProUGUI rotateArrowInPuzzleActionText = null;
+    private TextMeshProUGUI useDefaultText = null;
+    private TextMeshProUGUI backText = null;
+    #endregion
+
     #region Buttons Text
-    [SerializeField] private TextMeshProUGUI rotatePuzzleArrow = null;
-    [SerializeField] private TextMeshProUGUI activateButtonInPuzzle = null;
-    [SerializeField] private TextMeshProUGUI activatePuzzle = null;
-    [SerializeField] private TextMeshProUGUI cameraToggle = null;
-    [SerializeField] private TextMeshProUGUI movementToggle = null;
-    [SerializeField] private TextMeshProUGUI disableGuard = null;
-    [SerializeField] private TextMeshProUGUI hackGuard = null;
-    [SerializeField] private TextMeshProUGUI distractGuardWhileHacking = null;
+    private TextMeshProUGUI cameraToggle = null;
+    private TextMeshProUGUI movementToggle = null;
+    private TextMeshProUGUI disableGuard = null;
+    private TextMeshProUGUI hackGuard = null;
+    private TextMeshProUGUI distractGuardWhileHacking = null;
+    private TextMeshProUGUI activatePuzzle = null;
+    private TextMeshProUGUI activateButtonInPuzzle = null;
+    private TextMeshProUGUI rotatePuzzleArrow = null;
     private TextMeshProUGUI changedKeyText = null;
     #endregion
 
@@ -50,6 +74,9 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
         firstSelectedButtonInKeyboard = transform.GetChild(0).gameObject;
 
         InitDictionaryKeys();
+        InitButtonsGameObject();
+        InitActionsText();
+        InitButtonText();
         SetButtonKeyText();
     }
 
@@ -57,6 +84,46 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
     {
         controlsSettingsMenuInstance = PauseMenuControlsSettings.instance;
         audioManager = GameHandler.audioManager;
+    }
+
+    void InitButtonsGameObject()
+    {
+        cameraToggleGameObject = transform.GetChild(0).gameObject;
+        movementToggleGameObject = transform.GetChild(1).gameObject;
+        disableGuardGameObject = transform.GetChild(2).gameObject;
+        hackGuardGameObject = transform.GetChild(3).gameObject;
+        distractGuardGameObject = transform.GetChild(4).gameObject;
+        activatePuzzleGameObject = transform.GetChild(5).gameObject;
+        activateButtonInPuzzleGameObject = transform.GetChild(6).gameObject;
+        rotateArrowInPuzzleGameObject = transform.GetChild(7).gameObject;
+        useDefaultGameObject = transform.GetChild(8).gameObject;
+        backGameObject = transform.GetChild(9).gameObject;
+    }
+
+    void InitActionsText()
+    {
+        cameraToggleActionText = cameraToggleGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        movementToggleActionText = movementToggleGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        disableGuardActionText = disableGuardGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        hackGuardActionText = hackGuardGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        distractGuardActionText = distractGuardGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        activatePuzzleActionText = activatePuzzleGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        activateButtonInPuzzleActionText = activateButtonInPuzzleGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        rotateArrowInPuzzleActionText = rotateArrowInPuzzleGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        useDefaultText = useDefaultGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = backGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+    }
+
+    void InitButtonText()
+    {
+        cameraToggle = cameraToggleGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        movementToggle = movementToggleGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        disableGuard = disableGuardGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        hackGuard = hackGuardGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        distractGuardWhileHacking = distractGuardGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        activatePuzzle = activatePuzzleGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        activateButtonInPuzzle = activateButtonInPuzzleGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        rotatePuzzleArrow = rotateArrowInPuzzleGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
@@ -99,8 +166,75 @@ public class PauseMenuKeyboardControlsKeybinding : MonoBehaviour
                 }
             }
         }
-
+        SelectedButton();
         UpdateSettings();
+    }
+
+    void SelectedButton()
+    {
+        cameraToggleActionText.color = Color.white;
+        movementToggleActionText.color = Color.white;
+        disableGuardActionText.color = Color.white;
+        hackGuardActionText.color = Color.white;
+        distractGuardActionText.color = Color.white;
+        activatePuzzleActionText.color = Color.white;
+        activateButtonInPuzzleActionText.color = Color.white;
+        rotateArrowInPuzzleActionText.color = Color.white;
+        useDefaultText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == cameraToggleGameObject.gameObject)
+        {
+            cameraToggleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == movementToggleGameObject.gameObject)
+        {
+            movementToggleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == disableGuardGameObject.gameObject)
+        {
+            disableGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == hackGuardGameObject.gameObject)
+        {
+            hackGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == distractGuardGameObject.gameObject)
+        {
+            distractGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == activatePuzzleGameObject.gameObject)
+        {
+            activatePuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == activateButtonInPuzzleGameObject.gameObject)
+        {
+            activateButtonInPuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == rotateArrowInPuzzleGameObject.gameObject)
+        {
+            rotateArrowInPuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == useDefaultGameObject.gameObject)
+        {
+            useDefaultText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == backGameObject.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
     }
 
     void InitDictionaryKeys()

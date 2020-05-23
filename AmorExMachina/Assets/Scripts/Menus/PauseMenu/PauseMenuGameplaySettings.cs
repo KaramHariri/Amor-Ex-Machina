@@ -8,16 +8,20 @@ using TMPro;
 public class PauseMenuGameplaySettings : MonoBehaviour
 {
     private GameObject invertYToggleGameObject = null;
-    private GameObject subtitleToggleGameObject = null;
     private GameObject firstPersonLookSensitivitySlider = null;
     private GameObject thirdPersonLookSensitivitySlider = null;
+    private GameObject backGameObject = null;
 
     private Image thirdPersonLookSensitivityFillImage = null;
     private Image firstPersonLookSensitivityFillImage = null;
     private Toggle invertYToggle = null;
-    private Toggle subtitleToggle = null;
     private TextMeshProUGUI thirdPersonLookSensitivityAmountText = null;
     private TextMeshProUGUI firstPersonLookSensitivityAmountText = null;
+
+    [SerializeField] private TextMeshProUGUI invertYText = null;
+    [SerializeField] private TextMeshProUGUI thirdPersonLookSensitivityText = null;
+    [SerializeField] private TextMeshProUGUI firstPersonLookSensitivityText = null;
+    [SerializeField] private TextMeshProUGUI backText = null;
 
     public static PauseMenuGameplaySettings instance;
     [HideInInspector]
@@ -32,9 +36,11 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     private float maxSlidingDelay = 0.1f;
 
     private AudioManager audioManager = null;
+    private EventSystem eventSystem = null;
 
     private void Awake()
     {
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         instance = this;
         gameplayCanvasGroup = GetComponent<CanvasGroup>();
         gameplayCanvasGroup.alpha = 0.0f;
@@ -72,9 +78,41 @@ public class PauseMenuGameplaySettings : MonoBehaviour
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
+        SelectedButton();
         UpdateSlidersCheck();
         UpdateSettingsValues();
         UpdateSlidersAmountText();
+    }
+
+    void SelectedButton()
+    {
+        invertYText.color = Color.white;
+        thirdPersonLookSensitivityText.color = Color.white;
+        firstPersonLookSensitivityText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == invertYToggleGameObject.gameObject)
+        {
+            invertYText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == thirdPersonLookSensitivitySlider.gameObject)
+        {
+            thirdPersonLookSensitivityText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == firstPersonLookSensitivitySlider.gameObject)
+        {
+            firstPersonLookSensitivityText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == backGameObject.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
     }
 
     private void UpdateSlidersCheck()
@@ -94,9 +132,9 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     void InitTogglesAndSliderGameObjects()
     {
         invertYToggleGameObject = transform.GetChild(0).gameObject;
-        subtitleToggleGameObject = transform.GetChild(1).gameObject;
-        thirdPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
-        firstPersonLookSensitivitySlider = transform.GetChild(3).gameObject;
+        thirdPersonLookSensitivitySlider = transform.GetChild(1).gameObject;
+        firstPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
+        backGameObject = transform.GetChild(3).gameObject;
     }
 
     private void InitSlidersFill()
@@ -114,7 +152,6 @@ public class PauseMenuGameplaySettings : MonoBehaviour
     private void InitToggles()
     {
         invertYToggle = invertYToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
-        subtitleToggle = subtitleToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
     }
 
     private void SetSettingsValues()
@@ -122,7 +159,6 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         thirdPersonLookSensitivityFillImage.fillAmount = settingsMenuInstance.settings.thirdPersonLookSensitivity / 300.0f;
         firstPersonLookSensitivityFillImage.fillAmount = settingsMenuInstance.settings.firstPersonLookSensitivity / 300.0f;
         invertYToggle.isOn = settingsMenuInstance.settings.invertY;
-        subtitleToggle.isOn = settingsMenuInstance.settings.subtitle;
     }
 
     private void UpdateSettingsValues()
@@ -130,7 +166,6 @@ public class PauseMenuGameplaySettings : MonoBehaviour
         settingsMenuInstance.settings.thirdPersonLookSensitivity = thirdPersonLookSensitivityFillImage.fillAmount * 300.0f;
         settingsMenuInstance.settings.firstPersonLookSensitivity = firstPersonLookSensitivityFillImage.fillAmount * 300.0f;
         settingsMenuInstance.settings.invertY = invertYToggle.isOn;
-        settingsMenuInstance.settings.subtitle = subtitleToggle.isOn;
     }
 
     public void ToggleButton(Toggle toggle)

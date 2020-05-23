@@ -217,12 +217,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void PlayerIsKinematicCheck()
     {
-        if (GameHandler.currentState != GameState.NORMALGAME)
+        if (GameHandler.currentState != GameState.NORMALGAME && GameHandler.currentState != GameState.MENU)
         {
             rb.isKinematic = true;
         }
         else
         {
+            rb.velocity = Vector3.zero;
             rb.isKinematic = false;
         }
     }

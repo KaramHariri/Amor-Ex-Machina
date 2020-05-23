@@ -47,6 +47,7 @@ public class GuardSaveHandler : MonoBehaviour
         SaveData.current.guards[data.id].position = transform.position;
         SaveData.current.guards[data.id].rotation = transform.rotation;
         SaveData.current.guards[data.id].isDisabled = guardScript.disabled;
+        SaveData.current.guards[data.id].siblingIndex = guardScript.transform.GetSiblingIndex();
     }
 
     private void LoadGuardData()

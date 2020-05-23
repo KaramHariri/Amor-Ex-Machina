@@ -7,4 +7,5 @@ public class PlayerData
 {
     public Vector3 position;
     public Quaternion rotation;
+    public int disabledIndex = -1;
 }

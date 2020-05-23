@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public static bool canHackGuard = true;
     
     private Rigidbody rb = null;
-    private Guard disabledGuard = null;
+    [HideInInspector] public Guard disabledGuard = null;
     [SerializeField] List<Guard> possibleGuardsToDisable = null;
 
     [SerializeField] private float hackingTimer = 0.0f;

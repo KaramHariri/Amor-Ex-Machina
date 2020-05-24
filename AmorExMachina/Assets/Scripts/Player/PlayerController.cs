@@ -156,7 +156,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         GetInput();
 
-        DisableGuardCheck();
+        if(!hacking)
+            DisableGuardCheck();
     }
 
     void FixedUpdate()

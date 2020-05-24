@@ -14,7 +14,7 @@ public class StationaryIdle : Node
         NodeState nodeState = NodeState.FAILURE;
         float distance = Vector3.Distance(guard.transform.position, guard.guardMovement.path[0]);
         
-        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f /*&& guard.guardMovement.idle*/)
+        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.3f /*&& guard.guardMovement.idle*/)
         {
             guard.guardMovement.idle = true;
             //guard.guardMovement.animEnabled = false;

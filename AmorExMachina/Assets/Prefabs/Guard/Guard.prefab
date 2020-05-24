@@ -175,9 +175,9 @@ MonoBehaviour:
   guardType: 1
   movementType: 1
   rotationSpeed: 2
-  patrolSpeed: 2
-  chaseSpeed: 5
-  suspiciousSpeed: 3.5
+  patrolSpeed: 1
+  chaseSpeed: 4
+  suspiciousSpeed: 3
   fieldOfViewRadius: 20
   fieldOfViewAngle: 70
   maxAssistRadius: 10
@@ -230,8 +230,10 @@ MonoBehaviour:
   assistPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 1}
   idle: 0
+  shouldBeIdle: 0
   isWalking: 0
   isDisabled: 0
+  isChasingPlayer: 0
 --- !u!114 &6251880395322041266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -121,7 +121,7 @@ public class GuardController : MonoBehaviour
         Vector3 v = transform.forward;
         Vector3 dir = transform.right * horizontalInput + transform.forward * verticalInput;
         v = dir;
-
+        v.Normalize();
         v *= walkSpeed * moveAmount;
 
         v.y = rb.velocity.y;

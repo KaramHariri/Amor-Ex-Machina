@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 public class Idle : Node
 {
     Guard guard;
@@ -22,7 +23,8 @@ public class Idle : Node
         {
             distance = Vector3.Distance(guard.transform.position, guard.guardMovement.path[guard.guardMovement.wayPointIndex]);
         }
-        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f && guard.guardMovement.patrolIdleTimer > 0f && guard.guardMovement.shouldBeIdle /*&& guard.guardMovement.idle*/)
+
+        if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.3f && guard.guardMovement.patrolIdleTimer > 0f && guard.guardMovement.shouldBeIdle /*&& guard.guardMovement.idle*/)
         {
             guard.guardMovement.idle = true;
             //guard.guardMovement.animEnabled = false;

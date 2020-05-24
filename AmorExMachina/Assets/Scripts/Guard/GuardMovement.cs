@@ -22,6 +22,7 @@ public class GuardMovement : MonoBehaviour
 
     [HideInInspector] public bool idle = false;
     [HideInInspector] public bool shouldBeIdle = false;
+    [HideInInspector] public bool reachedDestination = false;
 
     private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     private GuardType guardType = GuardType.MOVING;
@@ -107,7 +108,6 @@ public class GuardMovement : MonoBehaviour
                         break;
                 }
             }
-            
         }
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)
@@ -123,16 +123,17 @@ public class GuardMovement : MonoBehaviour
             //navMeshAgent.SetDestination(currentWayPointPosition);
 
             {   //Added 2020-05-22
-                Vector3 directionToTransform = newPath.corners[1] - transform.position;
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
 
                 Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
 
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.rotationSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.patrolRotationSpeed * Time.deltaTime);
                 if(navMeshAgent.destination != null) 
                 {
                     navMeshAgent.ResetPath();
                 }
-                navMeshAgent.Move(transform.forward * 0.02f);
+                navMeshAgent.Move(transform.forward * guardScript.patrolSpeed * Time.deltaTime);
             }
 
             navMeshAgent.speed = guardScript.patrolSpeed;
@@ -142,18 +143,75 @@ public class GuardMovement : MonoBehaviour
 
     public void MoveToLastSightPosition(Vector3 target)
     {
-        navMeshAgent.SetDestination(target);
-        navMeshAgent.speed = guardScript.chaseSpeed;
-        navMeshAgent.stoppingDistance = 0.5f;
-        navMeshAgent.autoBraking = true;
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(target, newPath);
+        }
+
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.suspiciousSpeed * Time.deltaTime);
+            }
+
+            navMeshAgent.speed = guardScript.patrolSpeed;
+            navMeshAgent.stoppingDistance = 0.5f;
+            navMeshAgent.autoBraking = true;
+        }
+        //navMeshAgent.SetDestination(target);
+        //navMeshAgent.speed = guardScript.chaseSpeed;
+        //navMeshAgent.stoppingDistance = 0.5f;
+        //navMeshAgent.autoBraking = true;
     }
 
     public void MoveTowardsKnockedOutGuard(Vector3 target)
     {
-        navMeshAgent.SetDestination(target);
-        navMeshAgent.speed = guardScript.suspiciousSpeed;
-        navMeshAgent.stoppingDistance = 2.5f;
-        navMeshAgent.autoBraking = true;
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(target, newPath);
+        }
+
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                navMeshAgent.Move(transform.forward * guardScript.suspiciousSpeed * Time.deltaTime);
+            }
+
+            navMeshAgent.speed = guardScript.patrolSpeed;
+            navMeshAgent.stoppingDistance = 2.5f;
+            navMeshAgent.autoBraking = true;
+        }
+        else
+        {
+            Debug.Log("Can't find a path");
+        }
+        //navMeshAgent.SetDestination(target);
+        //navMeshAgent.speed = guardScript.suspiciousSpeed;
+        //navMeshAgent.stoppingDistance = 2.5f;
+        //navMeshAgent.autoBraking = true;
     }
 
     public void SetInvestigationPosition(Vector3 position)
@@ -170,13 +228,40 @@ public class GuardMovement : MonoBehaviour
         {
             navMeshAgent.CalculatePath(investigationPosition, newPath);
         }
+
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(investigationPosition);
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.suspiciousSpeed * Time.deltaTime);
+            }
+            navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.stoppingDistance = 3.0f;
-            navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;
         }
+
+        //NavMeshPath newPath = new NavMeshPath();
+        //if (navMeshAgent.enabled)
+        //{
+        //    navMeshAgent.CalculatePath(investigationPosition, newPath);
+        //}
+        //if (newPath.status == NavMeshPathStatus.PathComplete)
+        //{
+        //    navMeshAgent.SetDestination(investigationPosition);
+        //    navMeshAgent.stoppingDistance = 3.0f;
+        //    navMeshAgent.speed = guardScript.suspiciousSpeed;
+        //    navMeshAgent.autoBraking = true;
+        //}
     }
 
     public void SetAlarmInvestigationPosition(Vector3 position)
@@ -187,19 +272,45 @@ public class GuardMovement : MonoBehaviour
     public void AlarmInvestigate()
     {
         idle = false;
-        Vector3 alarmPosition = new Vector3(alarmInvestigationPosition.x, transform.position.y, alarmInvestigationPosition.z);
+        /*Vector3 alarmPosition = new Vector3(alarmInvestigationPosition.x, transform.position.y, alarmInvestigationPosition.z)*/;
         NavMeshPath newPath = new NavMeshPath();
         if (navMeshAgent.enabled)
         {
-            navMeshAgent.CalculatePath(alarmPosition, newPath);
+            navMeshAgent.CalculatePath(alarmInvestigationPosition, newPath);
         }
+
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(alarmPosition);
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.suspiciousSpeed * Time.deltaTime);
+            }
+            navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.stoppingDistance = 3.0f;
-            navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;
         }
+        //NavMeshPath newPath = new NavMeshPath();
+        //if (navMeshAgent.enabled)
+        //{
+        //    navMeshAgent.CalculatePath(alarmPosition, newPath);
+        //}
+        //if (newPath.status == NavMeshPathStatus.PathComplete)
+        //{
+        //    navMeshAgent.SetDestination(alarmPosition);
+        //    navMeshAgent.stoppingDistance = 3.0f;
+        //    navMeshAgent.speed = guardScript.suspiciousSpeed;
+        //    navMeshAgent.autoBraking = true;
+        //}
     }
 
     public void SetDistractionInvestigationPosition(Vector3 position)
@@ -216,13 +327,40 @@ public class GuardMovement : MonoBehaviour
         {
             navMeshAgent.CalculatePath(distractionInvestigationPosition, newPath);
         }
+
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(distractionInvestigationPosition);
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.suspiciousSpeed * Time.deltaTime);
+            }
+            navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.stoppingDistance = 3.0f;
-            navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;
         }
+
+        //NavMeshPath newPath = new NavMeshPath();
+        //if (navMeshAgent.enabled)
+        //{
+        //    navMeshAgent.CalculatePath(distractionInvestigationPosition, newPath);
+        //}
+        //if (newPath.status == NavMeshPathStatus.PathComplete)
+        //{
+        //    navMeshAgent.SetDestination(distractionInvestigationPosition);
+        //    navMeshAgent.stoppingDistance = 3.0f;
+        //    navMeshAgent.speed = guardScript.suspiciousSpeed;
+        //    navMeshAgent.autoBraking = true;
+        //}
     }
 
     public void ChasePlayer()
@@ -237,11 +375,38 @@ public class GuardMovement : MonoBehaviour
 
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
-            navMeshAgent.SetDestination(playerTransform.position);
-            navMeshAgent.speed = guardScript.chaseSpeed;
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.chaseRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.chaseSpeed * Time.deltaTime);
+            }
+            navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.stoppingDistance = 2.5f;
             navMeshAgent.autoBraking = false;
         }
+
+        //NavMeshPath newPath = new NavMeshPath();
+        //if (navMeshAgent.enabled)
+        //{
+        //    navMeshAgent.CalculatePath(playerTransform.position, newPath);
+        //}
+
+        //if (newPath.status == NavMeshPathStatus.PathComplete)
+        //{
+        //    navMeshAgent.SetDestination(playerTransform.position);
+        //    navMeshAgent.speed = guardScript.chaseSpeed;
+        //    navMeshAgent.stoppingDistance = 2.5f;
+        //    navMeshAgent.autoBraking = false;
+        //}
     }
 
     public void SetAssistPosition(Vector3 position)
@@ -251,10 +416,36 @@ public class GuardMovement : MonoBehaviour
 
     public void Assist()
     {
-        navMeshAgent.SetDestination(assistPosition);
-        navMeshAgent.stoppingDistance = 2.5f;
-        navMeshAgent.speed = guardScript.chaseSpeed;
-        navMeshAgent.autoBraking = true;
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(playerTransform.position, newPath);
+        }
+
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            {   //Added 2020-05-22
+                Vector3 cornerPosition = new Vector3(newPath.corners[1].x, transform.position.y, newPath.corners[1].z);
+                Vector3 directionToTransform = /*newPath.corners[1]*/ cornerPosition - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.suspiciousRotationSpeed * Time.deltaTime);
+                if (navMeshAgent.destination != null)
+                {
+                    navMeshAgent.ResetPath();
+                }
+                if(!reachedDestination)
+                    navMeshAgent.Move(transform.forward * guardScript.chaseSpeed * Time.deltaTime);
+            }
+            navMeshAgent.speed = guardScript.patrolSpeed;
+            navMeshAgent.stoppingDistance = 2.5f;
+            navMeshAgent.autoBraking = true;
+        }
+        //navMeshAgent.SetDestination(assistPosition);
+        //navMeshAgent.stoppingDistance = 2.5f;
+        //navMeshAgent.speed = guardScript.chaseSpeed;
+        //navMeshAgent.autoBraking = true;
     }
 
     void SetPath()

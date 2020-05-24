@@ -356,10 +356,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     {
         Vector3 targetPosition = new Vector3(target.position.x, target.position.y, target.position.z);
         Vector3 directionToTarget = targetPosition - transform.position;
-        directionToTarget.y = 0;
+        directionToTarget.y = 0.0f;
         Vector3 raycastOrigin = new Vector3(transform.position.x, 1.0f, transform.position.z);
         float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
-
         if (angle < guardScript.fieldOfViewAngle)
         {
             RaycastHit raycastHit;

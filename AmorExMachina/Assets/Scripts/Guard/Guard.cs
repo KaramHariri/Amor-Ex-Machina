@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using JetBrains.Annotations;
 
 public enum GuardType
 {
@@ -29,10 +30,12 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
 
     [Header("Speed")]
-    public float rotationSpeed = 2.5f;
+    public float patrolRotationSpeed = 2.5f;
+    public float suspiciousRotationSpeed = 3.0f;
+    public float chaseRotationSpeed = 3.5f;
     public float patrolSpeed = 2.0f;
-    public float chaseSpeed = 5.0f;
     public float suspiciousSpeed = 3.5f;
+    public float chaseSpeed = 5.0f;
 
     [Header("Sensing")]
     public float fieldOfViewRadius = 20.0f;

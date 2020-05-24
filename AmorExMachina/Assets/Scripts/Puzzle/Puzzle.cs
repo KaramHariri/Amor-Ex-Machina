@@ -20,13 +20,14 @@ public class Puzzle : MonoBehaviour
     private List<PuzzleButton> flipButtons = new List<PuzzleButton>();
 
     float buttonSwitchingCooldown = 0f;
-    float buttonSwitchingCooldownTime = 0.20f;
+    float buttonSwitchingCooldownTime = 0.15f;
     float buttonRotateCooldown = 0f;
     float buttonRotateCooldownTime = 0.1f;
     float buttonActivateCooldown = 0f;
-    float timeBetweenFlips = 0.2f;
+    float timeBetweenFlips = 0.10f;
 
     public PuzzleActivator PA;
+    public bool previousActivated = false;
     // ADDED
     public SlidingDoor door;
     private AudioManager audioManager = null;
@@ -76,6 +77,16 @@ public class Puzzle : MonoBehaviour
 
     private void Update()
     {
+        if(previousActivated  == false && PA.activated == true)
+        {
+            foreach(PuzzleButton b in buttons)
+            {
+                b.SetInitialMaterialColor();
+            }
+            selectedButton.SetInitialHovered();
+        }
+        previousActivated = PA.activated;
+
         if (PA.activated)
         {
             DecreaseCooldowns();
@@ -375,7 +386,6 @@ public class Puzzle : MonoBehaviour
         {
             PA.DeactivatePuzzle();
         }
-
         return true;
     }
 

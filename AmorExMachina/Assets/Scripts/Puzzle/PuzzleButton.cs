@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
-
-[RequireComponent(typeof(Image))]
 public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum ButtonType
@@ -31,30 +29,20 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public bool buttonOn = false;
 
     private Image background;
+    private Material backgroundMaterial;
 
     private Sprite ButtonEmpty;
 
-    private Sprite normalCircle;
-    private Sprite normalCross;
-    private Sprite normalUpArrow;
-    private Sprite normalDownArrow;
-    private Sprite normalRightArrow;
-    private Sprite normalLeftArrow;
-    private Sprite normalRotationUpArrow;
-    private Sprite normalRotationDownArrow;
-    private Sprite normalRotationRightArrow;
-    private Sprite normalRotationLeftArrow;
-
-    private Sprite selectedCircle;
-    private Sprite selectedCross;
-    private Sprite selectedUpArrow;
-    private Sprite selectedDownArrow;
-    private Sprite selectedRightArrow;
-    private Sprite selectedLeftArrow;
-    private Sprite selectedRotationUpArrow;
-    private Sprite selectedRotationDownArrow;
-    private Sprite selectedRotationRightArrow;
-    private Sprite selectedRotationLeftArrow;
+    private Sprite circle;
+    private Sprite cross;
+    private Sprite upArrow;
+    private Sprite downArrow;
+    private Sprite rightArrow;
+    private Sprite leftArrow;
+    private Sprite rotationUpArrow;
+    private Sprite rotationDownArrow;
+    private Sprite rotationRightArrow;
+    private Sprite rotationLeftArrow;
 
 
     public UnityEvent onButtonSelected;
@@ -62,6 +50,20 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public UnityEvent onButtonHovered;
 
     AudioManager audioManager;
+
+    //DEFAULT color #324558 opacity 66%
+    //HOVER color #2898b8 opacity 44%
+    //GREEN color #94b828 opacity 44%
+    //RED color #b82828 opacity 44%
+
+    //[SerializeField] private Color defaultColor = new Color(50, 69, 88);
+    //[SerializeField] private Color hoverColor = new Color(40, 152, 184);
+    //[SerializeField] private Color greenColor = new Color(148, 184, 40);
+    //[SerializeField] private Color redColor = new Color(184, 40, 40);
+    public Color defaultColor;
+    public Color hoverColor;
+    public Color greenColor;
+    public Color redColor;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -99,11 +101,14 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     private void Awake()
     {
-        background = GetComponent<Image>();
+        background = transform.Find("ButtonIcon").GetComponent<Image>();
+        backgroundMaterial = transform.Find("ButtonBackground").GetComponent<Image>().material;
+        puzzle = transform.parent.transform.parent.GetComponent<Puzzle>();
         puzzle.Subscribe(this);
 
         LoadSprites();
         SetNormalImage();
+        SetInitialMaterialColor();
         audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -135,7 +140,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (onButtonDeselected != null)
         {
             onButtonDeselected.Invoke();
-            SetNormalImage();
+            backgroundMaterial.SetColor("_Color", defaultColor);
         }
     }
 
@@ -144,7 +149,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (onButtonHovered != null)
         {
             onButtonHovered.Invoke();
-            SetSelectedImage();
+            backgroundMaterial.SetColor("_Color", hoverColor);
             audioManager.Play("SwitchButton");
         }
     }
@@ -155,10 +160,46 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (onButtonHovered != null)
         {
             onButtonHovered.Invoke();
-            SetSelectedImage();
+            //SetSelectedImage();
+            SetNormalImage();
+            backgroundMaterial.SetColor("_Color", hoverColor);
         }
     }
-    //
+  
+    public void SetInitialMaterialColor()
+    {
+        switch (type)
+        {
+            case ButtonType.Empty:
+                {
+                    backgroundMaterial.SetColor("_Color", redColor);
+                }
+                break;
+            case ButtonType.Circle:
+                {
+                    backgroundMaterial.SetColor("_Color", defaultColor);
+                }
+                break;
+            case ButtonType.Cross:
+                {
+                    backgroundMaterial.SetColor("_Color", defaultColor);
+                }
+                break;
+            case ButtonType.Arrow:
+                {
+                    backgroundMaterial.SetColor("_Color", defaultColor);
+                }
+                break;
+            case ButtonType.RotatableArrow:
+                {
+                    backgroundMaterial.SetColor("_Color", defaultColor);
+                }
+                break;
+            default:
+                backgroundMaterial.SetColor("_Color", defaultColor);
+                break;
+        }
+    }
 
     public void RotateDirection()
     {
@@ -182,18 +223,22 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 break;
         }
 
-        SetSelectedImage();
+        SetNormalImage();
+
+        //SetSelectedImage();
     }
 
     IEnumerator ChangeColorToRed()
     {
         float t = 0;
         float colorDuration = 1.0f;
-        Color currentColor = background.color;
+        Color currentColor = Color.white;
+        //Color currentColor = backgroundMaterial.color;
+        currentColor.a = 0.7f;
         while (t < colorDuration)
         {
             t += Time.deltaTime;
-            background.color = Color.Lerp(currentColor, Color.red, t / colorDuration);
+            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, redColor, t / colorDuration));
             yield return null;
         }
     }
@@ -201,73 +246,75 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         float t = 0;
         float colorDuration = 1.0f;
-        Color currentColor = background.color;
+        Color currentColor = Color.white;
+        //Color currentColor = backgroundMaterial.color;
+        currentColor.a = 0.7f;
         while (t < colorDuration)
         {
             t += Time.deltaTime;
-            background.color = Color.Lerp(currentColor, Color.green, t / colorDuration);
+            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, greenColor, t / colorDuration));
             yield return null;
         }
     }
 
     private void SetSelectedImage()
     {
-        switch (type)
-        {
-            case ButtonType.Empty:
-                background.sprite = ButtonEmpty;
-                break;
-            case ButtonType.Circle:
-                background.sprite = selectedCircle;
-                break;
-            case ButtonType.Cross:
-                background.sprite = selectedCross;
-                break;
-            case ButtonType.Arrow:
-                {
-                    switch (direction)
-                    {
-                        case ButtonDirection.North:
-                            background.sprite = selectedUpArrow;
-                            break;
-                        case ButtonDirection.East:
-                            background.sprite = selectedRightArrow;
-                            break;
-                        case ButtonDirection.West:
-                            background.sprite = selectedLeftArrow;
-                            break;
-                        case ButtonDirection.South:
-                            background.sprite = selectedDownArrow;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break;
-            case ButtonType.RotatableArrow:
-                {
-                    switch (direction)
-                    {
-                        case ButtonDirection.North:
-                            background.sprite = selectedRotationUpArrow;
-                            break;
-                        case ButtonDirection.East:
-                            background.sprite = selectedRotationRightArrow;
-                            break;
-                        case ButtonDirection.West:
-                            background.sprite = selectedRotationLeftArrow;
-                            break;
-                        case ButtonDirection.South:
-                            background.sprite = selectedRotationDownArrow;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
+        //switch (type)
+        //{
+        //    case ButtonType.Empty:
+        //        background.sprite = ButtonEmpty;
+        //        break;
+        //    case ButtonType.Circle:
+        //        background.sprite = selectedCircle;
+        //        break;
+        //    case ButtonType.Cross:
+        //        background.sprite = selectedCross;
+        //        break;
+        //    case ButtonType.Arrow:
+        //        {
+        //            switch (direction)
+        //            {
+        //                case ButtonDirection.North:
+        //                    background.sprite = selectedUpArrow;
+        //                    break;
+        //                case ButtonDirection.East:
+        //                    background.sprite = selectedRightArrow;
+        //                    break;
+        //                case ButtonDirection.West:
+        //                    background.sprite = selectedLeftArrow;
+        //                    break;
+        //                case ButtonDirection.South:
+        //                    background.sprite = selectedDownArrow;
+        //                    break;
+        //                default:
+        //                    break;
+        //            }
+        //        }
+        //        break;
+        //    case ButtonType.RotatableArrow:
+        //        {
+        //            switch (direction)
+        //            {
+        //                case ButtonDirection.North:
+        //                    background.sprite = selectedRotationUpArrow;
+        //                    break;
+        //                case ButtonDirection.East:
+        //                    background.sprite = selectedRotationRightArrow;
+        //                    break;
+        //                case ButtonDirection.West:
+        //                    background.sprite = selectedRotationLeftArrow;
+        //                    break;
+        //                case ButtonDirection.South:
+        //                    background.sprite = selectedRotationDownArrow;
+        //                    break;
+        //                default:
+        //                    break;
+        //            }
+        //        }
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     private void SetNormalImage()
@@ -278,26 +325,26 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 background.sprite = ButtonEmpty;
                 break;
             case ButtonType.Circle:
-                background.sprite = normalCircle;
+                background.sprite = circle;
                 break;
             case ButtonType.Cross:
-                background.sprite = normalCross;
+                background.sprite = cross;
                 break;
             case ButtonType.Arrow:
                 {
                     switch (direction)
                     {
                         case ButtonDirection.North:
-                            background.sprite = normalUpArrow;
+                            background.sprite = upArrow;
                             break;
                         case ButtonDirection.East:
-                            background.sprite = normalRightArrow;
+                            background.sprite = rightArrow;
                             break;
                         case ButtonDirection.West:
-                            background.sprite = normalLeftArrow;
+                            background.sprite = leftArrow;
                             break;
                         case ButtonDirection.South:
-                            background.sprite = normalDownArrow;
+                            background.sprite = downArrow;
                             break;
                         default:
                             break;
@@ -309,16 +356,16 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                     switch (direction)
                     {
                         case ButtonDirection.North:
-                            background.sprite = normalRotationUpArrow;
+                            background.sprite = rotationUpArrow;
                             break;
                         case ButtonDirection.East:
-                            background.sprite = normalRotationRightArrow;
+                            background.sprite = rotationRightArrow;
                             break;
                         case ButtonDirection.West:
-                            background.sprite = normalRotationLeftArrow;
+                            background.sprite = rotationLeftArrow;
                             break;
                         case ButtonDirection.South:
-                            background.sprite = normalRotationDownArrow;
+                            background.sprite = rotationDownArrow;
                             break;
                         default:
                             break;
@@ -332,29 +379,18 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     private void LoadSprites()
     {
-        ButtonEmpty = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/ButtonEmpty");
+        ButtonEmpty = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_empty");
 
-        normalCircle = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalCircle");
-        normalCross = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalCross");
-        normalUpArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalUpArrow");
-        normalDownArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalDownArrow");
-        normalRightArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalRightArrow");
-        normalLeftArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalLeftArrow");
-        normalRotationUpArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalRotationUpArrow");
-        normalRotationDownArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalRotationDownArrow");
-        normalRotationRightArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalRotationRightArrow");
-        normalRotationLeftArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/NormalRotationLeftArrow");
-
-        selectedCircle = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedCircle");
-        selectedCross = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedCross");
-        selectedUpArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedUpArrow");
-        selectedDownArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedDownArrow");
-        selectedRightArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedRightArrow");
-        selectedLeftArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedLeftArrow");
-        selectedRotationUpArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedRotationUpArrow");
-        selectedRotationDownArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedRotationDownArrow");
-        selectedRotationRightArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedRotationRightArrow");
-        selectedRotationLeftArrow = Resources.Load<Sprite>("Graphics/PuzzleTester/TempIcons/SelectedRotationLeftArrow");
+        circle = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_circle");
+        cross = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_cross");
+        upArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_arrow-up");
+        downArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_arrow-down");
+        rightArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_arrow-right");
+        leftArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_arrow-left");
+        rotationUpArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_rotate-up");
+        rotationDownArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_rotate-down");
+        rotationRightArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_rotate-right");
+        rotationLeftArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_rotate-left");
     }
 
 }

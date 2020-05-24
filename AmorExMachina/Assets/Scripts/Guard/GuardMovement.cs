@@ -20,7 +20,7 @@ public class GuardMovement : MonoBehaviour
 
     private Guard guardScript = null;
 
-    /*[HideInInspector]*/ public bool idle = false;
+    [HideInInspector] public bool idle = false;
     [HideInInspector] public bool shouldBeIdle = false;
 
     private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;

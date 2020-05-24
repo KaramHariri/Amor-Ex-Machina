@@ -194,7 +194,6 @@ public class PauseMenu : MonoBehaviour
         backgroundImage.enabled = false;
         GameHandler.currentState = GameHandler.previousState;
         yield return null;
-        canTakeInput = true;
     }
 
     void InitButtonsGameObject()

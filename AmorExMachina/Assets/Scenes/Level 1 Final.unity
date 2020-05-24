@@ -5769,6 +5769,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 4438296504859931543, guid: 44723c6e2d6ff2c4db7d89c9f23e7bee,
+        type: 3}
+      propertyPath: lockCursor
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44723c6e2d6ff2c4db7d89c9f23e7bee, type: 3}
 --- !u!4 &501943917 stripped

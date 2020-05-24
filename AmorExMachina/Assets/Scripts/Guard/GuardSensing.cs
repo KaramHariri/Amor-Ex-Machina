@@ -444,6 +444,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         playerInSight = false;
         suspicious = false;
         playerWasInSight = false;
+        guardScript.guardMovement.idle = false;
         disabledGuardsFound.Clear();
     }
 

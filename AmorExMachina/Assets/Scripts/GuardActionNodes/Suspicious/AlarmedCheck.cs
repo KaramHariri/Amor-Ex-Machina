@@ -14,7 +14,7 @@ public class AlarmedCheck : Node
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.Alarmed())
         {
-            guard.guardMovement.animEnabled = true;
+            //guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }

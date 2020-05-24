@@ -75,7 +75,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector] public bool disabled = false;
     [HideInInspector] public bool hacked = false;
     [HideInInspector] public bool assist = false;
-    [HideInInspector] public bool updatedRotation = false;
+    //[HideInInspector] public bool updatedRotation = false;
 
     #region ObserverSubjects
     private PlayerSoundSubject playerSoundSubject = null;
@@ -94,8 +94,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     private ParticleSystem enableParticleSystem = null;
     
     // Looking around helping vectors.
-    [HideInInspector] public Vector3 lookingAroundPositiveVector = Vector3.zero;
-    [HideInInspector] public Vector3 lookingAroundNegativeVector = Vector3.zero;
+    //[HideInInspector] public Vector3 lookingAroundPositiveVector = Vector3.zero;
+    //[HideInInspector] public Vector3 lookingAroundNegativeVector = Vector3.zero;
 
     [HideInInspector] public Transform playerTransform = null;
     public Transform guardNeckTransform = null;
@@ -310,15 +310,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     }
 
     // Update looking around vectors depending on the current Y eulerAngle.
-    public void UpdateLookingAroundAngle()
-    {
-        if (!updatedRotation)
-        {
-            lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
-            lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
-            updatedRotation = true;
-        }
-    }
+    //public void UpdateLookingAroundAngle()
+    //{
+    //    if (!updatedRotation)
+    //    {
+    //        lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
+    //        lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
+    //        updatedRotation = true;
+    //    }
+    //}
 
     // Play getting disabled particle system.
     public void PlayDisableVFX()
@@ -344,7 +344,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 if (sensing.CalculateLength(playerTransform.position) <= hearingRadius)
                 {
                     sensing.suspicious = true;
-                    updatedRotation = false;
+                    //updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
                 }
             }

@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 6251880395322041266}
   - component: {fileID: 5321087456107113189}
   - component: {fileID: 1666655225300581629}
+  - component: {fileID: 6306629648504184593}
   - component: {fileID: 5774702974144646945}
   - component: {fileID: 9207456565565230823}
   - component: {fileID: 6762608406102356382}
@@ -182,6 +183,7 @@ MonoBehaviour:
   minHearingRadius: 5
   maxHearingRadius: 10
   alertedHearingRadius: 15
+  alarmRadius: 15
   lookingAroundFrequency: 1
   lookingAroundAngle: 60
   maxDistanceValue: 0.6
@@ -200,9 +202,6 @@ MonoBehaviour:
   disabled: 0
   hacked: 0
   assist: 0
-  updatedRotation: 0
-  lookingAroundPositiveVector: {x: 0, y: 0, z: 0}
-  lookingAroundNegativeVector: {x: 0, y: 0, z: 0}
   playerTransform: {fileID: 0}
   guardNeckTransform: {fileID: 7433253180362526742}
 --- !u!114 &1467681558514617994
@@ -226,12 +225,12 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   investigationPosition: {x: 0, y: 0, z: 0}
   distractionInvestigationPosition: {x: 0, y: 0, z: 0}
+  alarmInvestigationPosition: {x: 0, y: 0, z: 0}
   assistPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 1}
   idle: 0
   isWalking: 0
   isDisabled: 0
-  animEnabled: 0
 --- !u!114 &6251880395322041266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +246,7 @@ MonoBehaviour:
   canHear: 0
   suspicious: 0
   distracted: 0
+  alarmed: 0
   playerWasInSight: 0
   navMeshAgent: {fileID: 0}
   sensingCollider: {fileID: 0}
@@ -282,6 +282,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4550b9c8e0c75e4438d62fc762cd5388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6306629648504184593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467681558514617997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb12268d97f8dbf4db1da64f1403822a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNeckTransform: {fileID: 0}
 --- !u!195 &5774702974144646945
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -771,15 +784,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -6057140222963153312, guid: 339443067a71e2047a89217f1abe9f16, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 339443067a71e2047a89217f1abe9f16, type: 3}
---- !u!4 &5847066871707581980 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 339443067a71e2047a89217f1abe9f16,
-    type: 3}
-  m_PrefabInstance: {fileID: 1467681557590054150}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7433253180362526742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -903401652210301680, guid: 339443067a71e2047a89217f1abe9f16,
+    type: 3}
+  m_PrefabInstance: {fileID: 1467681557590054150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5847066871707581980 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 339443067a71e2047a89217f1abe9f16,
     type: 3}
   m_PrefabInstance: {fileID: 1467681557590054150}
   m_PrefabAsset: {fileID: 0}

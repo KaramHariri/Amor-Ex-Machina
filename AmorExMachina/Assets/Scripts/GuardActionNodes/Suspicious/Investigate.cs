@@ -16,7 +16,8 @@ public class Investigate : Node
         float distance = Vector3.Distance(guard.transform.position, guard.guardMovement.investigationPosition);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f)
         {
-            guard.UpdateLookingAroundAngle();
+            guard.guardMovement.idle = true;
+            //guard.UpdateLookingAroundAngle();
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

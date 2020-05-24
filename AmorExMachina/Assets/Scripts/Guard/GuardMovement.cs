@@ -132,7 +132,7 @@ public class GuardMovement : MonoBehaviour
                 {
                     navMeshAgent.ResetPath();
                 }
-                navMeshAgent.Move(transform.forward * 0.02f);
+                navMeshAgent.Move(transform.forward * guardScript.patrolSpeed * Time.deltaTime);
             }
 
             navMeshAgent.speed = guardScript.patrolSpeed;

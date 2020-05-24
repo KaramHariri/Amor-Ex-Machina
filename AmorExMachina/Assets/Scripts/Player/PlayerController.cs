@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private float horizontalInput = 0.0f;
     private float moveAmount = 0.0f;
     private bool sneaking = true;
-    private bool hacking = false;
+    [HideInInspector] public bool hacking = false;
     public static bool canHackGuard = true;
     
     private Rigidbody rb = null;

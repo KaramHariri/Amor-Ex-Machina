@@ -30,6 +30,7 @@ public class GuardMovement : MonoBehaviour
     private Animator anim;
     [HideInInspector] public bool isWalking = false;
     [HideInInspector] public bool isDisabled = false;
+    [HideInInspector] public bool isChasingPlayer = false;
     [HideInInspector] public bool animEnabled = false;
 
     public void GuardMovementInit()
@@ -61,12 +62,13 @@ public class GuardMovement : MonoBehaviour
         anim.enabled = animEnabled;
         anim.SetBool("IsWalking", isWalking);
         anim.SetBool("IsDisabled", isDisabled);
+        anim.SetBool("IsChasingPlayer", isChasingPlayer);
     }
 
     public void FollowPath()
     {
         float distance = Vector3.Distance(transform.position, currentWayPoint);
-        if (distance <= navMeshAgent.stoppingDistance + 0.2f)
+        if (distance <= navMeshAgent.stoppingDistance + 0.3f)
         {
             if (guardType == GuardType.STATIONARY)
             {
@@ -110,9 +112,23 @@ public class GuardMovement : MonoBehaviour
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
             currentWayPoint = path[wayPointIndex];
-            Vector3 currentWayPointPosition = currentWayPoint;
 
-            navMeshAgent.SetDestination(currentWayPointPosition);
+            //Vector3 currentWayPointPosition = currentWayPoint;
+            //navMeshAgent.SetDestination(currentWayPointPosition);
+
+            {   //Added 2020-05-22
+                Vector3 directionToTransform = newPath.corners[1] - transform.position;
+
+                Quaternion targetQuaternion = Quaternion.LookRotation(directionToTransform);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, guardScript.rotationSpeed * Time.deltaTime);
+                if(navMeshAgent.destination != null) 
+                {
+                    navMeshAgent.ResetPath();
+                }
+                navMeshAgent.Move(transform.forward * 0.02f);
+            }
+
             navMeshAgent.speed = guardScript.patrolSpeed;
             navMeshAgent.autoBraking = true;
         }

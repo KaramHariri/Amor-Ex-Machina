@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     public static Transform thirdPersonCameraAim = null;
     public static Transform firstPersonCameraAim = null;
 
+    //Added 2020-05-24
+    [SerializeField] LayerMask wallsLayer = 0;
+
+
     void Awake()
     {
         thirdPersonCameraAim = transform.Find("ThirdPersonAim");
@@ -51,6 +55,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         Cursor.visible = false;
         rb.isKinematic = false;
         minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
+
+        //Added 2020-05-24
+        wallsLayer = LayerMask.GetMask("Walls");
     }
 
     void Start()
@@ -337,6 +344,14 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             if (closestGuard != null)
             {
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
+                //Added 2020-05-24
+                {
+                    if(Physics.Raycast(transform.position + new Vector3(0.0f, 1.0f, 0.0f), -targetToPlayerDirection, targetToPlayerDirection.magnitude, wallsLayer))
+                    {
+                        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+                        return;
+                    }
+                }
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
                 if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance /*&& !closestGuard.disabled*/)
                 {

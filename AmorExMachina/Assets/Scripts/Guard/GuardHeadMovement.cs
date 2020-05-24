@@ -25,8 +25,8 @@ public class GuardHeadMovement : MonoBehaviour
         }
         else
         {
-            float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * guard.lookingAroundFrequency));
-            guard.guardNeckTransform.localRotation = Quaternion.Lerp(guard.guardNeckTransform.localRotation, Quaternion.Euler(Vector3.zero), lerp);
+            //float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * guard.lookingAroundFrequency));
+            guard.guardNeckTransform.localRotation = Quaternion.Lerp(guard.guardNeckTransform.localRotation, Quaternion.Euler(Vector3.zero), Time.deltaTime);
         }
         //if (playerIsInSight)
         //{

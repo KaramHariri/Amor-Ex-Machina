@@ -41,6 +41,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public float minHearingRadius = 5.0f;
     public float maxHearingRadius = 10.0f;
     public float alertedHearingRadius = 15.0f;
+    public float alarmRadius = 15.0f;
 
     [Header("Looking Around")]
     public float lookingAroundFrequency = 1.0f;
@@ -75,7 +76,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     [HideInInspector] public bool disabled = false;
     [HideInInspector] public bool hacked = false;
     [HideInInspector] public bool assist = false;
-    [HideInInspector] public bool updatedRotation = false;
+    //[HideInInspector] public bool updatedRotation = false;
 
     #region ObserverSubjects
     private PlayerSoundSubject playerSoundSubject = null;
@@ -84,7 +85,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
 
     #region Minimap
     private GameObject minimapIcon = null;
-    private MeshRenderer minimapIconMeshRenderer = null;
+    private SpriteRenderer minimapIconSpriteRenderer = null;
     private bool visibleInMiniMap = false;
     private Camera mainCamera = null;
     private LayerMask minimapRaycastCheckLayer = 0;
@@ -94,8 +95,8 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     private ParticleSystem enableParticleSystem = null;
     
     // Looking around helping vectors.
-    [HideInInspector] public Vector3 lookingAroundPositiveVector = Vector3.zero;
-    [HideInInspector] public Vector3 lookingAroundNegativeVector = Vector3.zero;
+    //[HideInInspector] public Vector3 lookingAroundPositiveVector = Vector3.zero;
+    //[HideInInspector] public Vector3 lookingAroundNegativeVector = Vector3.zero;
 
     [HideInInspector] public Transform playerTransform = null;
     public Transform guardNeckTransform = null;
@@ -144,7 +145,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     {
         MinimapCamera.updateIconSize(minimapIcon.transform);
         ActivateMinimapIcon();
-        UpdateMinimapIconColor();
+        UpdateMinimapIcon();
         UpdateGuardState();
 
         if(guardState != GuardState.NORMAL) { return; }
@@ -154,6 +155,22 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             playerSpottedSubject.NotifyObservers(playerTransform.position);
         }
     }
+
+    //void LateUpdate()
+    //{
+    //    RotateGuardNeck();
+    //}
+
+    //void RotateGuardNeck()
+    //{
+    //    lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
+    //    lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
+    //    Quaternion from = Quaternion.Euler(lookingAroundPositiveVector);
+    //    Quaternion to = Quaternion.Euler(lookingAroundNegativeVector);
+
+    //    float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * lookingAroundFrequency));
+    //    guardNeckTransform.localRotation = Quaternion.Lerp(from, to, lerp);
+    //}
 
     void UpdateGuardState()
     {
@@ -229,7 +246,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     void InitMiniMap()
     {
         minimapIcon = transform.Find("MinimapIcon").gameObject;
-        minimapIconMeshRenderer = minimapIcon.GetComponent<MeshRenderer>();
+        minimapIconSpriteRenderer = minimapIcon.GetComponent<SpriteRenderer>();
         minimapIcon.SetActive(false);
         visibleInMiniMap = false;
     }
@@ -241,15 +258,19 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     }
 
     // Updating the minimap icon depending on the guard state.
-    void UpdateMinimapIconColor()
+    void UpdateMinimapIcon()
     {
-        if(disabled)
+        if(hacked)
         {
-            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.black, Time.deltaTime);
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.white, Time.deltaTime);
+        }
+        else if(disabled)
+        {
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.black, Time.deltaTime);
         }
         else
         {
-            minimapIconMeshRenderer.material.color = Color.Lerp(minimapIconMeshRenderer.material.color, Color.red, Time.deltaTime);
+            minimapIconSpriteRenderer.color = Color.Lerp(minimapIconSpriteRenderer.color, Color.red, Time.deltaTime);
         }
     }
     
@@ -290,15 +311,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     }
 
     // Update looking around vectors depending on the current Y eulerAngle.
-    public void UpdateLookingAroundAngle()
-    {
-        if (!updatedRotation)
-        {
-            lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
-            lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
-            updatedRotation = true;
-        }
-    }
+    //public void UpdateLookingAroundAngle()
+    //{
+    //    if (!updatedRotation)
+    //    {
+    //        lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
+    //        lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
+    //        updatedRotation = true;
+    //    }
+    //}
 
     // Play getting disabled particle system.
     public void PlayDisableVFX()
@@ -324,9 +345,18 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                 if (sensing.CalculateLength(playerTransform.position) <= hearingRadius)
                 {
                     sensing.suspicious = true;
-                    updatedRotation = false;
+                    //updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
                 }
+            }
+        }
+        else if (soundType == SoundType.ALARM)
+        {
+            if(sensing.CalculateLength(position) <= alarmRadius)
+            {
+                sensing.alarmed = true;
+                guardMovement.SetAlarmInvestigationPosition(position);
+                guardMovement.ResetIdleTimer();
             }
         }
         else if (soundType == SoundType.DISTRACTION)

@@ -12,7 +12,7 @@
         NodeState nodeState = NodeState.FAILURE;
         if (guard.sensing.Suspicious())
         {
-            guard.guardMovement.animEnabled = true;
+            //guard.guardMovement.animEnabled = true;
             guard.guardMovement.isWalking = true;
             guard.guardMovement.isChasingPlayer = true;
             nodeState = NodeState.SUCCESS;

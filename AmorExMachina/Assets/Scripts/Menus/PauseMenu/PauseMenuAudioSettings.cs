@@ -12,6 +12,7 @@ public class PauseMenuAudioSettings : MonoBehaviour
     private GameObject footstepsAudioSlider = null;
     private GameObject voiceAudioSlider = null;
     private GameObject musicAudioSlider = null;
+    private GameObject back = null;
 
     private Image masterAudioFillImage = null;
     private Image effectAudioFillImage = null;
@@ -24,6 +25,13 @@ public class PauseMenuAudioSettings : MonoBehaviour
     private TextMeshProUGUI footstepsAudioAmountText = null;
     private TextMeshProUGUI voiceAudioAmountText = null;
     private TextMeshProUGUI musicAudioAmountText = null;
+
+    private TextMeshProUGUI masterAudioText = null;
+    private TextMeshProUGUI effectAudioText = null;
+    private TextMeshProUGUI footstepsAudioText = null;
+    private TextMeshProUGUI voiceAudioText = null;
+    private TextMeshProUGUI musicAudioText = null;
+    private TextMeshProUGUI backText = null;
 
     public static PauseMenuAudioSettings instance = null;
     [HideInInspector]
@@ -40,8 +48,11 @@ public class PauseMenuAudioSettings : MonoBehaviour
 
     private AudioManager audioManager = null;
 
+    private EventSystem eventSystem = null;
+
     private void Awake()
     {
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         instance = this;
         audioCanvasGroup = GetComponent<CanvasGroup>();
         audioCanvasGroup.alpha = 0.0f;
@@ -50,6 +61,7 @@ public class PauseMenuAudioSettings : MonoBehaviour
         InitSliderGameObjects();
         InitSlidersFill();
         InitSlidersAmountText();
+        InitSlidersText();
 
         firstSelectedButtonInAudio = masterAudioSlider;
     }
@@ -79,9 +91,53 @@ public class PauseMenuAudioSettings : MonoBehaviour
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
+        SelectedButton();
         UpdateSlidersCheck();
         UpdateSettingsValues();
         UpdateSlidersAmountText();
+    }
+
+    void SelectedButton()
+    {
+        masterAudioText.color = Color.white;
+        effectAudioText.color = Color.white;
+        footstepsAudioText.color = Color.white;
+        voiceAudioText.color = Color.white;
+        musicAudioText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == masterAudioSlider)
+        {
+            masterAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == effectAudioSlider)
+        {
+            effectAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == footstepsAudioSlider)
+        {
+            footstepsAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == voiceAudioSlider)
+        {
+            voiceAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == musicAudioSlider)
+        {
+            musicAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == back)
+        {
+            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+        }
     }
 
     private void UpdateSlidersAmountText()
@@ -114,6 +170,7 @@ public class PauseMenuAudioSettings : MonoBehaviour
         voiceAudioSlider = transform.GetChild(2).gameObject;
         effectAudioSlider = transform.GetChild(3).gameObject;
         footstepsAudioSlider = transform.GetChild(4).gameObject;
+        back = transform.GetChild(5).gameObject;
     }
 
     private void InitSlidersAmountText()
@@ -123,6 +180,16 @@ public class PauseMenuAudioSettings : MonoBehaviour
         footstepsAudioAmountText = footstepsAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         voiceAudioAmountText = voiceAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         musicAudioAmountText = musicAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+    }
+
+    private void InitSlidersText()
+    {
+        masterAudioText = masterAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        effectAudioText = effectAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        footstepsAudioText = footstepsAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        voiceAudioText = voiceAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        musicAudioText = musicAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = back.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitSlidersFill()

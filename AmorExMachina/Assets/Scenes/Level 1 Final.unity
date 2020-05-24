@@ -4993,6 +4993,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleDoor (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9054185798070498444, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9054185798070498445, guid: 12bd44f4c2d1e164fb9293c4fd37d638,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7421,29 +7426,9 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+    - target: {fileID: 7651510278143552788, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6782102320174328518, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -16454,6 +16439,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvases
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb91fba7cb17d443bcf70e31bb72531, type: 3}

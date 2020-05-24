@@ -13,6 +13,7 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector] public NavMeshAgent navMeshAgent = null;
     [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
     [HideInInspector] public Vector3 distractionInvestigationPosition = Vector3.zero;
+    [HideInInspector] public Vector3 alarmInvestigationPosition = Vector3.zero;
     [HideInInspector] public Vector3 assistPosition = Vector3.zero;
 
     [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
@@ -20,6 +21,7 @@ public class GuardMovement : MonoBehaviour
     private Guard guardScript = null;
 
     [HideInInspector] public bool idle = false;
+    [HideInInspector] public bool shouldBeIdle = false;
 
     private MovementType movementType = MovementType.WAIT_AFTER_FULL_CYCLE;
     private GuardType guardType = GuardType.MOVING;
@@ -31,7 +33,7 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector] public bool isWalking = false;
     [HideInInspector] public bool isDisabled = false;
     [HideInInspector] public bool isChasingPlayer = false;
-    [HideInInspector] public bool animEnabled = false;
+    //[HideInInspector] public bool animEnabled = false;
 
     public void GuardMovementInit()
     {
@@ -59,7 +61,7 @@ public class GuardMovement : MonoBehaviour
 
     private void Update()
     {
-        anim.enabled = animEnabled;
+        //anim.enabled = animEnabled;
         anim.SetBool("IsWalking", isWalking);
         anim.SetBool("IsDisabled", isDisabled);
         anim.SetBool("IsChasingPlayer", isChasingPlayer);
@@ -73,7 +75,8 @@ public class GuardMovement : MonoBehaviour
             if (guardType == GuardType.STATIONARY)
             {
                 wayPointIndex = 0;
-                idle = true;
+                shouldBeIdle = true;
+                //idle = true;
                 navMeshAgent.stoppingDistance = 0.1f;
             }
             else
@@ -84,7 +87,8 @@ public class GuardMovement : MonoBehaviour
                         wayPointIndex = (wayPointIndex + 1) % path.Length;
                         if (wayPointIndex == 0)
                         {
-                            idle = true;
+                            shouldBeIdle = true;
+                            //idle = true;
                             navMeshAgent.stoppingDistance = 0.1f;
                         }
                         else
@@ -93,7 +97,9 @@ public class GuardMovement : MonoBehaviour
                     case MovementType.WAIT_AT_WAYPOINT:
                         wayPointIndex = (wayPointIndex + 1) % path.Length;
                         navMeshAgent.stoppingDistance = 0.1f;
-                        idle = true;
+                        shouldBeIdle = true;
+                        //Debug.Log("Idle true");
+                        //idle = true;
                         break;
                     case MovementType.DONT_WAIT:
                         wayPointIndex = (wayPointIndex + 1) % path.Length;
@@ -167,6 +173,29 @@ public class GuardMovement : MonoBehaviour
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
             navMeshAgent.SetDestination(investigationPosition);
+            navMeshAgent.stoppingDistance = 3.0f;
+            navMeshAgent.speed = guardScript.suspiciousSpeed;
+            navMeshAgent.autoBraking = true;
+        }
+    }
+
+    public void SetAlarmInvestigationPosition(Vector3 position)
+    {
+        alarmInvestigationPosition = position;
+    }
+
+    public void AlarmInvestigate()
+    {
+        idle = false;
+        Vector3 alarmPosition = new Vector3(alarmInvestigationPosition.x, transform.position.y, alarmInvestigationPosition.z);
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(alarmPosition, newPath);
+        }
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(alarmPosition);
             navMeshAgent.stoppingDistance = 3.0f;
             navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;

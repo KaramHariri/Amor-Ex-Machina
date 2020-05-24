@@ -41,6 +41,7 @@ public class CheckpointSaveHandler : MonoBehaviour
             Save();
             SceneHandler.shouldLoadFromFile = true;
             SceneHandler.hasSaveToAFile = true;
+            UIManager.saving();
         }
     }
 

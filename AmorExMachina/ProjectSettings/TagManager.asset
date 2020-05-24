@@ -7,6 +7,7 @@ TagManager:
   - Guard
   - FirstPersonCamera
   - ThirdPersonCamera
+  - PlayerNeck
   layers:
   - Default
   - TransparentFX

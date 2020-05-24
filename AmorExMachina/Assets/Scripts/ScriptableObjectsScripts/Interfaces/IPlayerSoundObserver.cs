@@ -2,7 +2,8 @@
 {
     CROUCHING,
     WALKING,
-    DISTRACTION
+    DISTRACTION,
+    ALARM
 }
 
 public interface IPlayerSoundObserver

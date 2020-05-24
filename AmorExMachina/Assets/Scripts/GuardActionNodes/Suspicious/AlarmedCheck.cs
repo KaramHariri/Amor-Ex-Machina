@@ -1,8 +1,10 @@
-﻿public class Disabled : Node
+﻿using UnityEngine;
+
+public class AlarmedCheck : Node
 {
     Guard guard;
 
-    public Disabled(Guard agent)
+    public AlarmedCheck(Guard agent)
     {
         guard = agent;
     }
@@ -10,12 +12,10 @@
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.FAILURE;
-        if (guard.disabled)
+        if (guard.sensing.Alarmed())
         {
             //guard.guardMovement.animEnabled = true;
-            guard.guardMovement.isWalking = false;
-            guard.sensing.Reset();
-            guard.guardMovement.navMeshAgent.speed = 0.0f;
+            guard.guardMovement.isWalking = true;
             nodeState = NodeState.SUCCESS;
         }
         return nodeState;

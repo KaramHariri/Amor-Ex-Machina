@@ -217,12 +217,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void PlayerIsKinematicCheck()
     {
-        if (GameHandler.currentState != GameState.NORMALGAME)
+        if (GameHandler.currentState != GameState.NORMALGAME && GameHandler.currentState != GameState.MENU)
         {
             rb.isKinematic = true;
         }
         else
         {
+            rb.velocity = Vector3.zero;
             rb.isKinematic = false;
         }
     }
@@ -336,7 +337,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             {
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && !closestGuard.disabled)
+                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance /*&& !closestGuard.disabled*/)
                 {
                     if (!closestGuard.sensing.Suspicious())
                     {

@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour, IInteractionButton
     public static Action activateTimer = delegate { };
     public static Action<float> updateTimer = delegate { };
     public static Action deactivateTimer = delegate { };
+
+    public static Action saving = delegate { };
+
+    public static Action activateGameOverPanel = delegate { };
     #endregion
 
     private float changeColorToYellow = 0.0f;
@@ -46,10 +50,20 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private GlitchEffect glitchEffect = null;
 
     private Transform playerTransform = null;
+    private CanvasGroup gameOverCanvasGroup = null;
+    private CanvasGroup savingCanvasGroup = null;
+
+    private float savingTimer = 0.0f;
+    private float maxSavingTimer = 5.0f;
+    private bool startSaving = false;
 
     void Awake()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        gameOverCanvasGroup = GameObject.Find("GameOverCanvas").GetComponent<CanvasGroup>();
+        gameOverCanvasGroup.alpha = 0.0f;
+        savingCanvasGroup = GameObject.Find("SavingCanvas").GetComponent<CanvasGroup>();
+        savingCanvasGroup.alpha = 0.0f;
     }
 
     void Start()
@@ -92,6 +106,36 @@ public class UIManager : MonoBehaviour, IInteractionButton
         activateTimer += ActivateTimer;
         updateTimer += UpdateTimer;
         deactivateTimer += DeactivateTimer;
+
+        activateGameOverPanel += ActivateGameOverPanel;
+        saving += Saving;
+    }
+
+    void Saving()
+    {
+        startSaving = true;
+        StartCoroutine("AnimateSavingText");
+    }
+
+    IEnumerator AnimateSavingText()
+    {
+        while (startSaving)
+        {
+            savingTimer += Time.deltaTime;
+            if (savingTimer < maxSavingTimer)
+            {
+                savingCanvasGroup.alpha = Mathf.PingPong(Time.time, 1.0f);
+            }
+            else
+            {
+                savingCanvasGroup.alpha = Mathf.Lerp(savingCanvasGroup.alpha, 0.0f, Time.deltaTime * 3.0f);
+                if (savingCanvasGroup.alpha <= 0.0f)
+                {
+                    startSaving = false;
+                }
+            }
+            yield return null;
+        }
     }
 
     void CreateIndicator(Transform target)
@@ -117,6 +161,14 @@ public class UIManager : MonoBehaviour, IInteractionButton
             indicators[target].UnRegister();
             indicators.Remove(target);
         }
+    }
+
+    void ActivateGameOverPanel()
+    {
+        if (gameOverCanvasGroup.alpha < 1.0f)
+            gameOverCanvasGroup.alpha += Time.deltaTime;
+        else
+            gameOverCanvasGroup.alpha = 1.0f;
     }
 
     void ActivateTimer()
@@ -238,5 +290,8 @@ public class UIManager : MonoBehaviour, IInteractionButton
         activateTimer -= ActivateTimer;
         updateTimer -= UpdateTimer;
         deactivateTimer -= DeactivateTimer;
+
+        activateGameOverPanel -= ActivateGameOverPanel;
+        saving -= Saving;
     }
 }

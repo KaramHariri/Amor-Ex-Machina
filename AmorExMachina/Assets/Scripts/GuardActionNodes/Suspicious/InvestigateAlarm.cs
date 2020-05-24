@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class InvestigateDistraction : Node
+public class InvestigateAlarm : Node
 {
     Guard guard;
 
-    public InvestigateDistraction(Guard agent)
+    public InvestigateAlarm(Guard agent)
     {
         guard = agent;
     }
@@ -12,8 +14,8 @@ public class InvestigateDistraction : Node
     public override NodeState Run()
     {
         NodeState nodeState = NodeState.RUNNING;
-        guard.guardMovement.DistractionInvestigate();
-        float distance = Vector3.Distance(guard.transform.position, guard.guardMovement.distractionInvestigationPosition);
+        guard.guardMovement.AlarmInvestigate();
+        float distance = Vector3.Distance(guard.transform.position, guard.guardMovement.alarmInvestigationPosition);
         if (distance <= guard.guardMovement.navMeshAgent.stoppingDistance + 0.2f)
         {
             guard.guardMovement.idle = true;

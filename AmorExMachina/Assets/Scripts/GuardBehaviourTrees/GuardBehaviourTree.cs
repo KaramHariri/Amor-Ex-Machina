@@ -37,6 +37,14 @@
     SequenceNode investigate;
     Investigate moveToInvestigationPosition;
     LookAround lookAround;
+
+    SequenceNode alarmedSequence;
+    AlarmedCheck alarmedCheck;
+    SucceederNode alarmedSucceeder;
+    SequenceNode alarmed;
+    InvestigateAlarm moveToAlarmPosition;
+    LookAround alarmedLookAround;
+
     // Distracted.
     SequenceNode distractedSequence;
     DistractionCheck distractedCheck;
@@ -110,6 +118,13 @@
         moveToInvestigationPosition = new Investigate(agent);
         lookAround = new LookAround(agent);
 
+        alarmedSequence = new SequenceNode();
+        alarmedCheck = new AlarmedCheck(agent);
+        alarmedSucceeder = new SucceederNode();
+        alarmed = new SequenceNode();
+        moveToAlarmPosition = new InvestigateAlarm(agent);
+        alarmedLookAround = new LookAround(agent);
+
         // Distracted.
         distractedSequence = new SequenceNode();
         distractedCheck = new DistractionCheck(agent);
@@ -173,6 +188,13 @@
         suspicious.AddChild(investigate);
         investigate.AddChild(moveToInvestigationPosition);
         investigate.AddChild(lookAround);
+
+        suspiciousCheck.AddChild(alarmedSequence);
+        alarmedSequence.AddChild(alarmedCheck);
+        alarmedSequence.AddChild(alarmedSucceeder);
+        alarmedSucceeder.AddChild(alarmed);
+        alarmed.AddChild(moveToAlarmPosition);
+        alarmed.AddChild(alarmedLookAround);
 
         suspiciousCheck.AddChild(distractedSequence);
         distractedSequence.AddChild(distractedCheck);

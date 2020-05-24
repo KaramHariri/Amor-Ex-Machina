@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class PauseMenuControlsSettings : MonoBehaviour
 {
@@ -22,20 +23,26 @@ public class PauseMenuControlsSettings : MonoBehaviour
     private PauseMenuKeyboardControlsKeybinding keyboardKeyBinding = null;
     private PauseMenuControllerControlsKeybinding controllerKeyBinding = null;
 
-    [SerializeField]
-    private Button controllerControlsButton = null;
-    //[SerializeField]
-    //private Button keyboardControlsButton = null;
+    [SerializeField] private Button controllerControlsButton = null;
+    [SerializeField] private Button keyboardControlsButton = null;
+    [SerializeField] private Button backButton = null;
+
+    private TextMeshProUGUI controllerText = null;
+    private TextMeshProUGUI keyboardText = null;
+    private TextMeshProUGUI backText = null;
 
     private GameObject lastSelectedButton = null;
+    private EventSystem eventSystem = null;
 
     private void Awake()
     {
         instance = this;
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         controlsCanvasGroup = GetComponent<CanvasGroup>();
         controlsCanvasGroup.alpha = 0.0f;
 
         controlsButtonHolder = transform.GetChild(0).gameObject;
+        InitButtonsText();
     }
 
     private void Start()
@@ -46,6 +53,13 @@ public class PauseMenuControlsSettings : MonoBehaviour
         transform.gameObject.SetActive(false);
         keyboardKeyBinding.gameObject.SetActive(false);
         controllerKeyBinding.gameObject.SetActive(false);
+    }
+
+    void InitButtonsText()
+    {
+        controllerText = controllerControlsButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        keyboardText = keyboardControlsButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = backButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -65,7 +79,33 @@ public class PauseMenuControlsSettings : MonoBehaviour
             lastSelectedButton = EventSystem.current.currentSelectedGameObject;
         }
 
+        SelectedButton();
         SetButtonsInteractable();
+    }
+
+    void SelectedButton()
+    {
+        controllerText.color = Color.white;
+        keyboardText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == controllerControlsButton.gameObject)
+        {
+            controllerText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == keyboardControlsButton.gameObject)
+        {
+            keyboardText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == backButton.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            return;
+        }
     }
 
     void SetButtonsInteractable()

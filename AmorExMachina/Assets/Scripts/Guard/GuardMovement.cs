@@ -13,6 +13,7 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector] public NavMeshAgent navMeshAgent = null;
     [HideInInspector] public Vector3 investigationPosition = Vector3.zero;
     [HideInInspector] public Vector3 distractionInvestigationPosition = Vector3.zero;
+    [HideInInspector] public Vector3 alarmInvestigationPosition = Vector3.zero;
     [HideInInspector] public Vector3 assistPosition = Vector3.zero;
 
     [HideInInspector] public Quaternion targetRotation = Quaternion.identity;
@@ -151,6 +152,29 @@ public class GuardMovement : MonoBehaviour
         if (newPath.status == NavMeshPathStatus.PathComplete)
         {
             navMeshAgent.SetDestination(investigationPosition);
+            navMeshAgent.stoppingDistance = 3.0f;
+            navMeshAgent.speed = guardScript.suspiciousSpeed;
+            navMeshAgent.autoBraking = true;
+        }
+    }
+
+    public void SetAlarmInvestigationPosition(Vector3 position)
+    {
+        alarmInvestigationPosition = position;
+    }
+
+    public void AlarmInvestigate()
+    {
+        idle = false;
+        Vector3 alarmPosition = new Vector3(alarmInvestigationPosition.x, transform.position.y, alarmInvestigationPosition.z);
+        NavMeshPath newPath = new NavMeshPath();
+        if (navMeshAgent.enabled)
+        {
+            navMeshAgent.CalculatePath(alarmPosition, newPath);
+        }
+        if (newPath.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(alarmPosition);
             navMeshAgent.stoppingDistance = 3.0f;
             navMeshAgent.speed = guardScript.suspiciousSpeed;
             navMeshAgent.autoBraking = true;

@@ -40,6 +40,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public float minHearingRadius = 5.0f;
     public float maxHearingRadius = 10.0f;
     public float alertedHearingRadius = 15.0f;
+    public float alarmRadius = 15.0f;
 
     [Header("Looking Around")]
     public float lookingAroundFrequency = 1.0f;
@@ -153,6 +154,22 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
             playerSpottedSubject.NotifyObservers(playerTransform.position);
         }
     }
+
+    //void LateUpdate()
+    //{
+    //    RotateGuardNeck();
+    //}
+
+    //void RotateGuardNeck()
+    //{
+    //    lookingAroundPositiveVector = new Vector3(0.0f, lookingAroundAngle, 0.0f);
+    //    lookingAroundNegativeVector = new Vector3(0.0f, -lookingAroundAngle, 0.0f);
+    //    Quaternion from = Quaternion.Euler(lookingAroundPositiveVector);
+    //    Quaternion to = Quaternion.Euler(lookingAroundNegativeVector);
+
+    //    float lerp = 0.5F * (1.0F + Mathf.Sin(Mathf.PI * Time.realtimeSinceStartup * lookingAroundFrequency));
+    //    guardNeckTransform.localRotation = Quaternion.Lerp(from, to, lerp);
+    //}
 
     void UpdateGuardState()
     {
@@ -330,6 +347,15 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
                     updatedRotation = false;
                     guardMovement.SetInvestigationPosition(position);
                 }
+            }
+        }
+        else if (soundType == SoundType.ALARM)
+        {
+            if(sensing.CalculateLength(position) <= alarmRadius)
+            {
+                sensing.alarmed = true;
+                guardMovement.SetAlarmInvestigationPosition(position);
+                guardMovement.ResetIdleTimer();
             }
         }
         else if (soundType == SoundType.DISTRACTION)

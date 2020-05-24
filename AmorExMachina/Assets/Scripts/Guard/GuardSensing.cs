@@ -9,6 +9,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     [HideInInspector] public bool canHear = false;
     [HideInInspector] public bool suspicious = false;
     [HideInInspector] public bool distracted = false;
+    [HideInInspector] public bool alarmed = false;
     [HideInInspector] public bool playerWasInSight = false;
     private bool playerInRange = false;
     private bool playerInSight = false;
@@ -132,7 +133,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             UIManager.updateIndicator(this.transform, IndicatorColor.Red);
         }
         // Check if the guard heard something (Player made noise) and the guard is not disabled.
-        else if (suspicious && !guardScript.disabled)
+        else if ((suspicious || alarmed) && !guardScript.disabled)
         {
             detectionAmount += Time.deltaTime * 2.0f;
             if (detectionAmount >= guardScript.maxDetectionBarAmount)
@@ -299,6 +300,15 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
     public bool Suspicious()
     {
         if (suspicious && detectionAmount >= guardScript.maxDetectionBarAmount)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool Alarmed()
+    {
+        if(alarmed)
         {
             return true;
         }

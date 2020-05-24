@@ -5,6 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     private PlayerSpottedSubject playerSpottedSubject = null;
+    private PlayerSoundSubject playerSoundSubject = null;
     private AudioManager audioManager = null;
     private Material material = null;
     private float timer = 0.0f;
@@ -17,6 +18,12 @@ public class Laser : MonoBehaviour
         if (playerSpottedSubject == null)
         {
             Debug.Log("Laser can't find PlayerSpottedSubject in GameHandler");
+        }
+
+        playerSoundSubject = GameHandler.playerSoundSubject;
+        if(playerSoundSubject == null)
+        {
+            Debug.Log("Laser can't find PlayerSoundSubject in GameHandler");
         }
 
         audioManager = GameHandler.audioManager;
@@ -50,7 +57,8 @@ public class Laser : MonoBehaviour
         {
             timer = maxPulseTimer;
             audioManager.Play("Alarm", transform.position);
-            playerSpottedSubject.NotifyObservers(transform.position);
+            //playerSpottedSubject.NotifyObservers(transform.position);
+            playerSoundSubject.NotifyObservers(SoundType.ALARM, transform.position);
         }
     }
 }

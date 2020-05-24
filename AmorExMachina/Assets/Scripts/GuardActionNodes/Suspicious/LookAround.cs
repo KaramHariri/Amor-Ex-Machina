@@ -25,6 +25,7 @@ public class LookAround : Node
             guard.assist = false;
             guard.sensing.suspicious = false;
             guard.sensing.distracted = false;
+            guard.sensing.alarmed = false;
             guard.updatedRotation = false;
             nodeState = NodeState.SUCCESS;
         }

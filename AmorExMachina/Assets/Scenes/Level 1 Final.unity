@@ -29716,7 +29716,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'Matt: If something ever happens to me, please leave, seriously, going
+      value: 'Matt: If something ever happens to me, just leave, seriously, going
         after me might be too dangerous'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,

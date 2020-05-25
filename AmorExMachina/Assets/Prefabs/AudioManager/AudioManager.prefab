@@ -48,7 +48,7 @@ MonoBehaviour:
   - name: ActivateButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 1ef96d3e262f1b649ab57540ce477351, type: 3}
+    - {fileID: 8300000, guid: c19eb0b91bacfe0419f2cb338de40940, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -100,7 +100,7 @@ MonoBehaviour:
   - name: DoorPuzzleChangingColor
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: 1e90ecc7d2437894a8ede99761705b1c, type: 3}
+    - {fileID: 8300000, guid: 9d7261a69f4c75b468593279f771498a, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163
@@ -139,7 +139,7 @@ MonoBehaviour:
   - name: DisableGuard
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: ebd0faf5405bdb94d8cd6594b2e14b01, type: 3}
+    - {fileID: 8300000, guid: 2907a040ac12a8943887a873ef860aad, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

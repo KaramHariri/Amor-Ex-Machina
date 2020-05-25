@@ -48,6 +48,7 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public UnityEvent onButtonSelected;
     public UnityEvent onButtonDeselected;
     public UnityEvent onButtonHovered;
+    private float lerpDuration = 0.7f;
 
     AudioManager audioManager;
 
@@ -231,28 +232,26 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     IEnumerator ChangeColorToRed()
     {
         float t = 0;
-        float colorDuration = 1.0f;
         Color currentColor = Color.white;
         //Color currentColor = backgroundMaterial.color;
         currentColor.a = 0.7f;
-        while (t < colorDuration)
+        while (t < lerpDuration)
         {
             t += Time.deltaTime;
-            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, redColor, t / colorDuration));
+            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, redColor, t / lerpDuration));
             yield return null;
         }
     }
     IEnumerator ChangeColorToGreen()
     {
         float t = 0;
-        float colorDuration = 1.0f;
         Color currentColor = Color.white;
         //Color currentColor = backgroundMaterial.color;
         currentColor.a = 0.7f;
-        while (t < colorDuration)
+        while (t < lerpDuration)
         {
             t += Time.deltaTime;
-            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, greenColor, t / colorDuration));
+            backgroundMaterial.SetColor("_Color", Color.Lerp(currentColor, greenColor, t / lerpDuration));
             yield return null;
         }
     }

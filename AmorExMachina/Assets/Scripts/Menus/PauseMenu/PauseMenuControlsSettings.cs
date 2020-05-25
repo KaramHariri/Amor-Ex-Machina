@@ -91,19 +91,19 @@ public class PauseMenuControlsSettings : MonoBehaviour
 
         if (eventSystem.currentSelectedGameObject == controllerControlsButton.gameObject)
         {
-            controllerText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            controllerText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == keyboardControlsButton.gameObject)
         {
-            keyboardText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            keyboardText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == backButton.gameObject)
         {
-            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
     }

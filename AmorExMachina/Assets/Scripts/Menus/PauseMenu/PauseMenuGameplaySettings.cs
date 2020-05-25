@@ -93,25 +93,25 @@ public class PauseMenuGameplaySettings : MonoBehaviour
 
         if (eventSystem.currentSelectedGameObject == invertYToggleGameObject.gameObject)
         {
-            invertYText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            invertYText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == thirdPersonLookSensitivitySlider.gameObject)
         {
-            thirdPersonLookSensitivityText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            thirdPersonLookSensitivityText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == firstPersonLookSensitivitySlider.gameObject)
         {
-            firstPersonLookSensitivityText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            firstPersonLookSensitivityText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == backGameObject.gameObject)
         {
-            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
     }
 

@@ -43,6 +43,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
     public float maxAssistRadius = 10.0f;
     public float minHearingRadius = 5.0f;
     public float maxHearingRadius = 10.0f;
+    public float maxDistractionRadius = 15.0f;
     public float alertedHearingRadius = 15.0f;
     public float alarmRadius = 15.0f;
 
@@ -364,7 +365,7 @@ public class Guard : MonoBehaviour, IPlayerSoundObserver, IPlayerSpottedObserver
         }
         else if (soundType == SoundType.DISTRACTION)
         {
-            if (sensing.CalculateLength(position) <= sensing.sensingCollider.radius)
+            if (sensing.CalculateLength(position) <= maxDistractionRadius)
             {
                 sensing.distracted = true;
                 guardMovement.SetDistractionInvestigationPosition(position);

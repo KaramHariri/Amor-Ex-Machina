@@ -353,27 +353,39 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                     }
                 }
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance /*&& !closestGuard.disabled*/)
+                if (!closestGuard.sensing.PlayerDetectedCheck() && !closestGuard.sensing.playerWasDetectedCheck() && !closestGuard.sensing.Suspicious() 
+                    && !closestGuard.sensing.Alarmed() && targetToPlayerDirection.magnitude <= disableDistance && disabledGuard != closestGuard)
                 {
-                    if (!closestGuard.sensing.Suspicious())
+                    //if (!closestGuard.sensing.Suspicious())
+                    //{
+                        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                        DisableGuardInputCheck(closestGuard);
+                    //}
+                    //else if (closestGuard.sensing.Suspicious() || closestGuard.sensing.playerWasDetectedCheck())
+                    //{
+                    //    if (angleToTarget < 180.0f && angleToTarget > 120.0f)
+                    //    {
+                    //        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                    //        DisableGuardInputCheck(closestGuard);
+                    //    }
+                    //    else
+                    //        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+                    //}
+                    //else
+                    //{
+                    //    interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
+                    //}
+                }
+                else if((closestGuard.sensing.PlayerDetectedCheck() || closestGuard.sensing.playerWasDetectedCheck() || closestGuard.sensing.Suspicious() || closestGuard.sensing.Alarmed())
+                        && targetToPlayerDirection.magnitude <= disableDistance && disabledGuard != closestGuard)
+                {
+                    if (angleToTarget < 180.0f && angleToTarget > 120.0f)
                     {
                         interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
                         DisableGuardInputCheck(closestGuard);
                     }
-                    else if (closestGuard.sensing.Suspicious() || closestGuard.sensing.playerWasDetectedCheck())
-                    {
-                        if (angleToTarget < 180.0f && angleToTarget > 120.0f)
-                        {
-                            interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                            DisableGuardInputCheck(closestGuard);
-                        }
-                        else
-                            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
-                    }
                     else
-                    {
                         interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
-                    }
                 }
                 else
                 {

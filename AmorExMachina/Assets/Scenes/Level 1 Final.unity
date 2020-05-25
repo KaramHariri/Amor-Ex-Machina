@@ -17715,6 +17715,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GabrielV2
       objectReference: {fileID: 0}
+    - target: {fileID: 8656541516008358879, guid: 32c2ca59a3db32f44909b173e2998588,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c4435f4bd4bd80d469063830e3dc42f6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c2ca59a3db32f44909b173e2998588, type: 3}
 --- !u!1001 &1055287338

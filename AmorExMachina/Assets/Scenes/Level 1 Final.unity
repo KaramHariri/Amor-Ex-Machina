@@ -4376,7 +4376,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 7.93
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -19109,8 +19109,9 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I will warn you of any danger ahead. Danger ahead. Now you have
-        been warned'
+      value: 'AI: This facility has more guards than screws in your body GB 4131,
+        and one rusty screw can mean the end of any robot. Gabriel: At least I don''t
+        have a screw loose. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -23329,8 +23330,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I will warn you of any danger ahead. Danger ahead. Now you have
-        been warned'
+      value: 'AI: Do not worry, I will warn you of any danger ahead. Danger ahead.
+        Now you have been warned.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -29710,8 +29711,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I will warn you of any danger ahead. Danger ahead. Now you have
-        been warned'
+      value: 'Matt: If something ever happens to me, please leave, seriously, going
+        after me might be too dangerous'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -32691,6 +32692,12 @@ PrefabInstance:
       propertyPath: sentenceAudio
       value: 
       objectReference: {fileID: 8300000, guid: ce58627a91cb2d446ac55d11a988ed46, type: 3}
+    - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: sentence
+      value: 'Matt: Gabe, just because I fixed you up doesn''t mean you have to stay,
+        it''s your life, do what you want. Gabriel: What If I want to stay with you?'
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.z

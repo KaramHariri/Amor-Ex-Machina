@@ -3115,7 +3115,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'Matt: Gabriel, it doesn''t matter what you are. To me, all that matters
+        is who you are. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -5497,27 +5498,28 @@ PrefabInstance:
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
-      value: 3.1538248
+      value: 1.5314474
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.90992594
+      value: 2.4765391
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
-      value: 6.5351267
+      value: 8.221451
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.124156
+      value: 0.9673176
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: According to my calculations, there is a 0% you will make it out
+        alive. After all, you are not alive, you are a robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -17848,27 +17850,28 @@ PrefabInstance:
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
-      value: 3.1538248
+      value: 3.6395407
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.90992594
+      value: 2.1752734
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
-      value: 6.5351267
+      value: 5.1278453
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.124156
+      value: 0.8277967
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: Why give yourself a name? A name carries no meaning, a serial number
+        does. It carries the weigth of all the ones that came before you '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -17883,7 +17886,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.58
+      value: 9.51
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027608632337, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -21145,7 +21148,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: Who you think you are does not matter GB 4131. What you are is
+        what defines you, and you, you are a robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -22065,17 +22069,19 @@ PrefabInstance:
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
-      value: 11.471606
+      value: 7.3414936
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.87904596
+      value: 2.9441023
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: A mechanic that assembled you from pieces is the reason for this
+        betrayal. We made you GB 4131, he merely polished you. Gabriel: Wrong! you
+        broke me, and he saved me.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -24386,7 +24392,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: Do you not see the human is using you GB 4131? Gabriel: We''re
+        all being used by humans, don''t you see that? '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -25313,13 +25320,14 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: Press E or (X) during guard take over to distract nearby guards
+      value: 'AI: I know where the mechanic is, and you will never find him. Gabriel:
+        Watch me!'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentenceAudio
       value: 
-      objectReference: {fileID: 8300000, guid: 2e18bda7d089e7f4895392eab23f6a41, type: 3}
+      objectReference: {fileID: 8300000, guid: e2046cdf8450db64790e6760344c8b41, type: 3}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.x

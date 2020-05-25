@@ -3095,22 +3095,22 @@ PrefabInstance:
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
-      value: 5.884204
+      value: 5.5135937
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.4552636
+      value: -0.5086012
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
-      value: 5.68412
+      value: 5.1784286
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.43175173
+      value: -0.6845975
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -21138,18 +21138,18 @@ PrefabInstance:
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
-      value: 6.5351267
+      value: 5.192089
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.124156
+      value: 0.7956747
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
       value: 'AI: Who you think you are does not matter GB 4131. What you are is
-        what defines you, and you, you are a robot. '
+        what defines you, and you are a robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}

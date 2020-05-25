@@ -10263,6 +10263,64 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1332830660}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &601989503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601989504}
+  m_Layer: 0
+  m_Name: ScannerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &601989504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601989503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 604860594}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &604860593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 963194225, guid: 84593d0c549aabe4e87825e7606b0e1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1316725720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &604860594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 963194228, guid: 84593d0c549aabe4e87825e7606b0e1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1316725720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &604860595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604860593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e02574b60c587438b952788fd6d498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scannerOrigin: {fileID: 601989504}
+  effectMaterial: {fileID: 2100000, guid: 1f644d7818232354487a4a3debab192a, type: 2}
+  scanDistance: 0
+  scanSpeed: 30
 --- !u!4 &608443479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5986783184274417270, guid: a880b9b2481cdac428e96d25d7a7bfe5,

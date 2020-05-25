@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     //Added 2020-05-24
     [SerializeField] LayerMask wallsLayer = 0;
 
+    //Added 2020-05-25
+    private SonarActivator sonarActivator;
 
     void Awake()
     {
@@ -58,6 +60,9 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         //Added 2020-05-24
         wallsLayer = LayerMask.GetMask("Walls");
+
+        //Added 2020-05-25
+        sonarActivator = FindObjectOfType<SonarActivator>();
     }
 
     void Start()
@@ -220,6 +225,12 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             guardHackedSubject.GuardHackedNotify("");
             audioManager.Play("HackGuard", this.transform.position);
             GameHandler.currentState = GameState.NORMALGAME;
+
+            //Added 2020-05-25
+            if (sonarActivator != null)
+            {
+                sonarActivator.hidePulse();
+            }
         }
     }
 
@@ -265,6 +276,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 UIManager.deactivateTimer();
                 GameHandler.currentState = GameState.NORMALGAME;
                 disabledGuard = null;
+
+                //Added 2020-05-25
+                if (sonarActivator != null)
+                {
+                    sonarActivator.hidePulse();
+                }
+
                 return;
             }
         }

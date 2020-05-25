@@ -26,12 +26,15 @@ public class GuardController : MonoBehaviour
     [SerializeField] private float distractionCooldown = 5.0f;
     [SerializeField] private float distractionTimer = 0.0f;
 
+    private SonarActivator sonarActivator;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         guard = GetComponent<Guard>();
         mainCamera = Camera.main;
         distractionParticleSystem = transform.Find("VFX").Find("Guard Distraction").GetComponent<ParticleSystem>();
+        sonarActivator = FindObjectOfType<SonarActivator>();
     }
 
     private void Start()
@@ -101,8 +104,13 @@ public class GuardController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         if(distractionTimer <= 0 && (Input.GetKeyDown(settings.distractGuardWhileHackingController) || Input.GetKeyDown(settings.distractGuardWhileHackingKeyboard)))
         {
+            if(sonarActivator != null)
+            {
+                sonarActivator.PulseSonar(transform.position);
+            }
+
             playerSoundSubject.NotifyObservers(SoundType.DISTRACTION, this.transform.position);
-            PlayDistractionParticleSystem();
+            //PlayDistractionParticleSystem();
             audioManager.Play("DistractGuard", this.transform.position);
             distractionTimer = distractionCooldown;
         }

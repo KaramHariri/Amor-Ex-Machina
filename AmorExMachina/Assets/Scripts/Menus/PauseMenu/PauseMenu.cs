@@ -99,25 +99,25 @@ public class PauseMenu : MonoBehaviour
 
         if (eventSystem.currentSelectedGameObject == resumeGameObject)
         {
-            resumeText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            resumeText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == loadGameObject)
         {
-            loadText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            loadText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == settingsGameObject)
         {
-            settingsText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            settingsText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == quitGameObject)
         {
-            quitText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            quitText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
     }
 

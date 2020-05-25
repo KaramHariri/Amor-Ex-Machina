@@ -108,35 +108,35 @@ public class PauseMenuAudioSettings : MonoBehaviour
 
         if (eventSystem.currentSelectedGameObject == masterAudioSlider)
         {
-            masterAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            masterAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == effectAudioSlider)
         {
-            effectAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            effectAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == footstepsAudioSlider)
         {
-            footstepsAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            footstepsAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == voiceAudioSlider)
         {
-            voiceAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            voiceAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == musicAudioSlider)
         {
-            musicAudioText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            musicAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == back)
         {
-            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
     }
 

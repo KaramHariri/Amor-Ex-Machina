@@ -353,7 +353,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                     }
                 }
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance /*&& !closestGuard.disabled*/)
+                if (!closestGuard.sensing.PlayerDetectedCheck() && targetToPlayerDirection.magnitude <= disableDistance && disabledGuard != closestGuard)
                 {
                     if (!closestGuard.sensing.Suspicious())
                     {

@@ -157,55 +157,55 @@ public class PauseMenuControllerControlsKeybinding : MonoBehaviour
 
         if (eventSystem.currentSelectedGameObject == cameraToggleGameObject.gameObject)
         {
-            cameraToggleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            cameraToggleActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == movementToggleGameObject.gameObject)
         {
-            movementToggleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            movementToggleActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == disableGuardGameObject.gameObject)
         {
-            disableGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            disableGuardActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
             return;
         }
 
         if (eventSystem.currentSelectedGameObject == hackGuardGameObject.gameObject)
         {
-            hackGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            hackGuardActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == distractGuardGameObject.gameObject)
         {
-            distractGuardActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            distractGuardActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == activatePuzzleGameObject.gameObject)
         {
-            activatePuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            activatePuzzleActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == activateButtonInPuzzleGameObject.gameObject)
         {
-            activateButtonInPuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            activateButtonInPuzzleActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == rotateArrowInPuzzleGameObject.gameObject)
         {
-            rotateArrowInPuzzleActionText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            rotateArrowInPuzzleActionText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == useDefaultGameObject.gameObject)
         {
-            useDefaultText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            useDefaultText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
 
         if (eventSystem.currentSelectedGameObject == backGameObject.gameObject)
         {
-            backText.color = new Color(1.0f, 0.8156863f, 0.08627451f, 1.0f);
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
         }
     }
 

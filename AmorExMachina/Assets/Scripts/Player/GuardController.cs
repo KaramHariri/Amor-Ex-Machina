@@ -26,12 +26,22 @@ public class GuardController : MonoBehaviour
     [SerializeField] private float distractionCooldown = 5.0f;
     [SerializeField] private float distractionTimer = 0.0f;
 
+    //Added 2020-05-26
+    private AudioSource rightFootSound = null;
+    private AudioSource leftFootSound = null;
+    float walkingStepDistance = 0.8f;
+    //float runningStepDistance = 0.4f;
+    private float accumulateDistance = 0.0f;
+    private bool soundFromRightFoot = true;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         guard = GetComponent<Guard>();
         mainCamera = Camera.main;
         distractionParticleSystem = transform.Find("VFX").Find("Guard Distraction").GetComponent<ParticleSystem>();
+        rightFootSound = transform.Find("RightFootAudioSource").GetComponent<AudioSource>();
+        leftFootSound = transform.Find("LeftFootAudioSource").GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -82,6 +92,8 @@ public class GuardController : MonoBehaviour
         {
             GetInput();
         }
+
+        PlaySound();
     }
 
     void FixedUpdate()
@@ -126,10 +138,37 @@ public class GuardController : MonoBehaviour
 
         v.y = rb.velocity.y;
         rb.velocity = v;
+
+        if(v.magnitude > 0)
+        {
+            accumulateDistance += Time.deltaTime;
+        }
+        else
+        {
+            accumulateDistance = 0.0f;
+        }
     }
 
     void PlayDistractionParticleSystem()
     {
         distractionParticleSystem.Play();
+    }
+
+    void PlaySound()
+    {
+        if (accumulateDistance > walkingStepDistance)
+        {
+            if (soundFromRightFoot)
+            {
+                rightFootSound.Play();
+            }
+            else
+            {
+                leftFootSound.Play();
+            }
+
+            accumulateDistance = 0.0f;
+            soundFromRightFoot = !soundFromRightFoot;
+        }
     }
 }

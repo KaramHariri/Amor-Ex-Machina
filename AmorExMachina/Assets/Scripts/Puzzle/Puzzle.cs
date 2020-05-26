@@ -25,7 +25,7 @@ public class Puzzle : MonoBehaviour
     float buttonRotateCooldownTime = 0.1f;
     float buttonActivateCooldown = 0f;
     float buttonActivateAddedCooldownTime = 0.1f;
-    float timeBetweenFlips = 0.07f;
+    float timeBetweenFlips = 0.1f;
 
     public PuzzleActivator PA;
     public bool previousActivated = false;

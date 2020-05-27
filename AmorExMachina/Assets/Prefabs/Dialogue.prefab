@@ -47,7 +47,7 @@ MonoBehaviour:
   sentence: 
   sentenceAudio: {fileID: 8300000, guid: 9d3e7750f7aef65428b8daefe5f799ea, type: 3}
   dialogueGameObject: {fileID: 9202409028929382068}
-  textAnimationSpeed: 0.1
+  textAnimationSpeed: 0.02
 --- !u!65 &9202409027554416084
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -80, y: 152}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 1200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9202409028929382075
 CanvasRenderer:
@@ -381,14 +381,14 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0

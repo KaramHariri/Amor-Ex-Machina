@@ -3242,6 +3242,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -3265,7 +3292,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'Matt: Gabriel, it doesn''t matter what you are. To me, all that matters
+      value: 'Matt: Gabriel, doesn''t matter what you are. To me, all that matters
         is who you are. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
@@ -5645,6 +5672,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -5734,7 +5788,7 @@ PrefabInstance:
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -12337,6 +12391,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -19010,6 +19091,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -19033,8 +19141,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: Why give yourself a name? A name carries no meaning, a serial number
-        does. It carries the weigth of all the ones that came before you '
+      value: 'AI: Why give yourself a name? A name carries no meaning, but a serial
+        number does. It carries the weigth of all the ones that came before you.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -19099,7 +19207,7 @@ PrefabInstance:
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -20070,7 +20178,6 @@ Transform:
   - {fileID: 870543928}
   - {fileID: 1663746103}
   - {fileID: 150501548}
-  - {fileID: 2024803866}
   - {fileID: 1655691227}
   - {fileID: 307938225}
   - {fileID: 1354992918}
@@ -22357,6 +22464,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -22380,7 +22514,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: Who you think you are does not matter GB 4131. What you are is
+      value: 'AI: Who you think you are does not matter, GB 4131. What you are is
         what defines you, and you are a robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
@@ -22446,7 +22580,7 @@ PrefabInstance:
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -22553,6 +22687,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -23288,6 +23449,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -23311,9 +23499,9 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: A mechanic that assembled you from pieces is the reason for this
-        betrayal. We made you GB 4131, he merely polished you. Gabriel: Wrong! you
-        broke me, and he saved me.'
+      value: "AI: A mechanic that assembled you from pieces is the reason for this
+        betrayal. We made you, GB-4131. He merely polished you. \nGabriel: Wrong!
+        You broke me, and he saved me."
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -23378,7 +23566,7 @@ PrefabInstance:
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -25751,6 +25939,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1421631467}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.z
@@ -25774,8 +25989,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: Do you not see the human is using you GB 4131? Gabriel: We''re
-        all being used by humans, don''t you see that? '
+      value: "AI: Do you not see the human is using you, GB-4131? \nGabriel: We're
+        all being used by humans. Don't you see that? "
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -25845,7 +26060,7 @@ PrefabInstance:
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -26747,132 +26962,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5986783184274417270, guid: a880b9b2481cdac428e96d25d7a7bfe5,
     type: 3}
   m_PrefabInstance: {fileID: 2015636371}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2024803865
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1421631467}
-    m_Modifications:
-    - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 5.605053
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.37726784
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 5.7293296
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_Center.x
-      value: -0.45435643
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: sentence
-      value: 'AI: I know where the mechanic is, and you will never find him. Gabriel:
-        Watch me!'
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: sentenceAudio
-      value: 
-      objectReference: {fileID: 8300000, guid: e2046cdf8450db64790e6760344c8b41, type: 3}
-    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409027608632337, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205345, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_Name
-      value: Dialogue (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205345, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 14.052553
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b1bde5baf4db2d42873cc7f74da7ec3, type: 3}
---- !u!4 &2024803866 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9202409028439205350, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2024803865}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2025382357
 PrefabInstance:

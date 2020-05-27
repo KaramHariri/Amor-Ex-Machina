@@ -15,7 +15,9 @@ public class Dialogue : MonoBehaviour
     private GameObject dialogueGameObject = null;
     private TextMeshProUGUI dialogueText = null;
     private AudioSource dialogueAudio = null;
-    private bool dialoguePlayed = false;
+    //Changed and Added 2020-05-27 (For the Save System)
+/*    [HideInInspector]*/ public bool dialoguePlayed = false;
+/*    [HideInInspector]*/ public bool hasBeenInitialized = false;
     private bool finishedTyping = false;
 
     [SerializeField] private float textAnimationSpeed = 0.1f;
@@ -58,7 +60,8 @@ public class Dialogue : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && !dialoguePlayed)
+        //if(other.CompareTag("Player") && !dialoguePlayed)
+        if(other.CompareTag("Player") && !dialoguePlayed && hasBeenInitialized)
         {
             dialoguePlayed = true;
             dialogueGameObject.SetActive(true);

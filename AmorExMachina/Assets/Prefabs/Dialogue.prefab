@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9202409027554416090}
   - component: {fileID: 9202409027554416085}
   - component: {fileID: 9202409027554416084}
+  - component: {fileID: 5789840429830439791}
   m_Layer: 0
   m_Name: DialogueTrigger
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   sentence: 
   sentenceAudio: {fileID: 8300000, guid: 9d3e7750f7aef65428b8daefe5f799ea, type: 3}
   dialogueGameObject: {fileID: 9202409028929382068}
+  dialoguePlayed: 0
+  hasBeenInitialized: 0
   textAnimationSpeed: 0.02
 --- !u!65 &9202409027554416084
 BoxCollider:
@@ -61,6 +64,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5667486, y: 2.1420975, z: 1}
   m_Center: {x: -0.46061277, y: 0.57104874, z: 0}
+--- !u!114 &5789840429830439791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9202409027554416087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefeafda3e9e7d847a8c2ab7afc063bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasBeenInitialized: 0
 --- !u!1 &9202409027608632336
 GameObject:
   m_ObjectHideFlags: 0

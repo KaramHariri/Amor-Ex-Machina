@@ -24,8 +24,8 @@ public class Puzzle : MonoBehaviour
     float buttonRotateCooldown = 0f;
     float buttonRotateCooldownTime = 0.1f;
     float buttonActivateCooldown = 0f;
-    float buttonActivateAddedCooldownTime = 0.1f;
-    float timeBetweenFlips = 0.1f;
+    float buttonActivateAddedCooldownTime = 0.2f;
+    float timeBetweenFlips = 0.09f;
 
     public PuzzleActivator PA;
     public bool previousActivated = false;
@@ -80,6 +80,7 @@ public class Puzzle : MonoBehaviour
                 b.SetInitialMaterialColor();
             }
             selectedButton.SetInitialHovered();
+            buttonActivateCooldown = PA.duration;
         }
         previousActivated = PA.activated;
 

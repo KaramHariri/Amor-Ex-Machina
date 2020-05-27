@@ -34,6 +34,9 @@ public class GuardController : MonoBehaviour
     private float accumulateDistance = 0.0f;
     private bool soundFromRightFoot = true;
 
+    //Added 2020-05-27
+    private GameObject AudioListenerObject = null;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,6 +45,7 @@ public class GuardController : MonoBehaviour
         distractionParticleSystem = transform.Find("VFX").Find("Guard Distraction").GetComponent<ParticleSystem>();
         rightFootSound = transform.Find("RightFootAudioSource").GetComponent<AudioSource>();
         leftFootSound = transform.Find("LeftFootAudioSource").GetComponent<AudioSource>();
+        AudioListenerObject = GameObject.Find("AudioListener");
     }
 
     private void Start()
@@ -107,6 +111,11 @@ public class GuardController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        MoveAudioListener();
+    }
+
     void GetInput()
     {
         verticalInput = Input.GetAxis("Vertical");
@@ -169,6 +178,14 @@ public class GuardController : MonoBehaviour
 
             accumulateDistance = 0.0f;
             soundFromRightFoot = !soundFromRightFoot;
+        }
+    }
+
+    private void MoveAudioListener()
+    {
+        if(guard.hacked)
+        {
+            AudioListenerObject.transform.position = this.transform.position;
         }
     }
 }

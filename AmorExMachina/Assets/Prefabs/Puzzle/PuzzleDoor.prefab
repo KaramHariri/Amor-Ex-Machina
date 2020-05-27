@@ -43634,8 +43634,6 @@ MonoBehaviour:
   PA: {fileID: 9054185797979732618}
   previousActivated: 0
   door: {fileID: 630974545708813815}
-  puzzleCompleteVFX: {fileID: 8143000828592023511}
-  activateButtonVFX: {fileID: 171876103556800898}
 --- !u!1 &9054185797979732724
 GameObject:
   m_ObjectHideFlags: 0

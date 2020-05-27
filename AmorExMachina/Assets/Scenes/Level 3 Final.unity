@@ -298,6 +298,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -336,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: Robots do not have feelings, only code. Gabriel: Well I am a bot
+      value: 'AI: Robots do not have feelings, only code. Gabriel: Well, I am a bot
         with emotions, but my calculations say you are mean. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
@@ -1343,6 +1370,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -1381,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I am designed to defend this facility, now that I can not, I am
+      value: 'AI: I am designed to defend this facility. Now that I can not, I am
         experiencing conflicting code. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
@@ -8044,6 +8098,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -8088,7 +8169,22 @@ PrefabInstance:
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.6
+      value: -5.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1636728
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0341
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0341
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205345, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -21802,6 +21898,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -37616,6 +37739,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -37654,8 +37804,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I have seen your code, and I observed all processing. Yet why do
-        I not understand your actions. '
+      value: 'AI: I have seen your code, and I observe all processing. Yet why do
+        I not understand your actions?'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -41539,6 +41689,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -41577,19 +41754,24 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: Ah now I see. You are wearing this jacket because it is a belonging
-        of the mechanic Matthew. First you steal his jacket, and now you intend to
+      value: 'AI: Ah, now I see. You are wearing this jacket because it is a belonging
+        of the mechanic Matthew. First you steal his jacket and now you intend to
         steal him. You are a bad robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.56
+      value: -3.68
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.08
+      value: 7.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3723
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205345, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -49242,6 +49424,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -49281,8 +49490,8 @@ PrefabInstance:
         type: 3}
       propertyPath: sentence
       value: "AI: Why do I have the desire to choose when my choices are predetermined?
-        Gabriel: Maybe you're becoming more like me. \nAI: You have already ruined
-        my facility, I will not allow you to ruin me."
+        \nGabriel: Maybe you're becoming more like me. \nAI: You have already ruined
+        my facility. I will not allow you to ruin me."
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -58676,6 +58885,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -66331,6 +66572,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -66370,7 +66638,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sentence
       value: 'Matt: I never thought I would say this to anyone, especially not a
-        robot, but damn Gabriel, I think I love you.'
+        robot... But damn, Gabriel! I think I love you.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -67336,6 +67604,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -83096,6 +83391,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -83134,8 +83456,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: I have noticed you are not a frequent speaker GB 4131. Gabriel:
-        Unlike you, I have something better to do. '
+      value: "AI: I have noticed you are not a frequent speaker, GB-4131. \nGabriel:
+        Unlike you, I have something better to do. "
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -88741,6 +89063,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1737013689}
     m_Modifications:
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4070042929081010180, guid: 8db00c1bcac6c1c4191bbe34a1ec576a,
+        type: 2}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 436592695139024394, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416084, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_Size.x
@@ -88785,12 +89134,17 @@ PrefabInstance:
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.2
+      value: -17.88
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.39
+      value: 8.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.196
       objectReference: {fileID: 0}
     - target: {fileID: 9202409028439205345, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}

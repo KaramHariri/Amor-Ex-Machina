@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,12 @@ public class Dialogue : MonoBehaviour
 
     [SerializeField]
     private GameObject dialogueGameObject = null;
-    private Text dialogueText = null;
+    private TextMeshProUGUI dialogueText = null;
     private AudioSource dialogueAudio = null;
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
+
+    [SerializeField] private float textAnimationSpeed = 0.1f;
 
     //[SerializeField] private Settings settings = null;
     private Settings settings = null;
@@ -28,7 +31,7 @@ public class Dialogue : MonoBehaviour
             Debug.Log("Dialogue can't find Settings in GameHandler");
         }
 
-        dialogueText = dialogueGameObject.GetComponent<Text>();
+        dialogueText = dialogueGameObject.GetComponent<TextMeshProUGUI>();
         dialogueAudio = dialogueGameObject.GetComponent<AudioSource>();
         dialogueGameObject.SetActive(false);
         dialogueAudio.volume = settings.voiceVolume * settings.masterVolume;
@@ -38,6 +41,18 @@ public class Dialogue : MonoBehaviour
 
     private void Update()
     {
+        if(GameHandler.currentState == GameState.MENU )
+        {
+            dialogueAudio.Pause();
+            return;
+        }
+        else
+        {
+            if(dialoguePlayed)
+            {
+                dialogueAudio.UnPause();
+            }
+        }
         DeactivateDialogueCheck();
     }
 
@@ -63,9 +78,8 @@ public class Dialogue : MonoBehaviour
             foreach (char letter in sentence.ToCharArray())
             {
                 dialogueText.text += letter;
-                yield return null;
+                yield return new WaitForSeconds(textAnimationSpeed);
             }
-            Debug.Log("finished typing");
             finishedTyping = true;
         }
     }

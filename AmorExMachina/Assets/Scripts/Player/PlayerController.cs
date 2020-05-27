@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     //Added 2020-05-24
     [SerializeField] LayerMask wallsLayer = 0;
 
+    //Added 2020-05-27
+    private GameObject AudioListenerObject = null;
 
     void Awake()
     {
@@ -55,7 +57,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         Cursor.visible = false;
         rb.isKinematic = false;
         minimapIcon = gameObject.transform.Find("MinimapIcon").gameObject;
-
+        AudioListenerObject = GameObject.Find("AudioListener");
         //Added 2020-05-24
         wallsLayer = LayerMask.GetMask("Walls");
     }
@@ -180,6 +182,11 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             FirstPersonRotationHandling();
         }
         HandleMovement();
+    }
+
+    void LateUpdate()
+    {
+        MoveAudioListener();
     }
 
     void PlaySound()
@@ -480,5 +487,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     void OnDestroy()
     {
         playerSpottedSubject.RemoveObserver(this);
+    }
+
+    private void MoveAudioListener()
+    {
+        if(!hacking)
+        {
+            AudioListenerObject.transform.position = this.transform.position;
+        }
     }
 }

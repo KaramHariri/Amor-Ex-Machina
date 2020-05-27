@@ -85,11 +85,11 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         //Debug.DrawRay(playerTransform.position, playerForwardDirection, Color.blue);
         //Debug.Log(Vector3.Angle(directionToLockFromPlayer, playerForwardDirection));
 
-        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
+        interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.SQUARE);
 
         if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
 
-        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CIRCLE);
+        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.SQUARE);
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {
@@ -135,7 +135,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
         if (other.CompareTag("Player"))
         {
             PlayerController.canHackGuard = true;
-            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CIRCLE);
+            interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.SQUARE);
             canBeActivated = false;
         }
     }

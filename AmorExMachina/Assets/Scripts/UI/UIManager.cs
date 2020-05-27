@@ -7,10 +7,18 @@ using TMPro;
 
 public enum InteractionButtons
 {
-    CIRCLE,
-    SQUARE,
-    TRIANGLE,
-    CROSS
+    SQUARE = 0,
+    TRIANGLE = 1,
+    CROSS = 2,
+    R3 = 3,
+    R2 = 4,
+    OPTIONS = 5,
+    R = 6,
+    F = 7,
+    E = 8,
+    Q = 9,
+    LEFTSHIFT = 10,
+    ESC = 11,
 }
 
 public class UIManager : MonoBehaviour, IInteractionButton
@@ -18,9 +26,10 @@ public class UIManager : MonoBehaviour, IInteractionButton
     private Dictionary<Transform, SpottedIndicator> indicators = new Dictionary<Transform, SpottedIndicator>();
 
     private InteractionButtonSubject interactionButtonSubject = null;
+    private Settings settings = null;
 
-    GameObject circleButton = null;
-    GameObject crossButton = null;
+    GameObject[] buttons = null;
+    GameObject buttonsCanvas = null;
 
     TextMeshProUGUI hackingTimer = null;
     GameObject hackingSlider = null;
@@ -75,13 +84,22 @@ public class UIManager : MonoBehaviour, IInteractionButton
         }
         interactionButtonSubject.AddObserver(this);
 
+        settings = GameHandler.settings;
+        if (settings == null)
+        {
+            Debug.Log("UIManager can't find Settings in GameHandler");
+        }
 
         glitchEffect = Camera.main.GetComponent<GlitchEffect>();
 
-        circleButton = GameObject.Find("CircleButton");
-        circleButton.SetActive(false);
-        crossButton = GameObject.Find("CrossButton");
-        crossButton.SetActive(false);
+        buttonsCanvas = GameObject.Find("ButtonsCanvas");
+        buttons = new GameObject[buttonsCanvas.transform.childCount];
+        //circleButton = GameObject.Find("CircleButton");
+        //circleButton.SetActive(false);
+        //crossButton = GameObject.Find("CrossButton");
+        //crossButton.SetActive(false);
+
+        InitInteractionButtons();
 
         hackingTimer = GameObject.Find("HackingTimer").GetComponent<TextMeshProUGUI>();
         if(hackingTimer == null)
@@ -97,6 +115,11 @@ public class UIManager : MonoBehaviour, IInteractionButton
         hackingSlider.SetActive(false);
     }
 
+    void Update()
+    {
+        //DeactivateButtons();
+    }
+
     private void OnEnable()
     {
         createIndicator += CreateIndicator;
@@ -109,6 +132,26 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
         activateGameOverPanel += ActivateGameOverPanel;
         saving += Saving;
+    }
+
+    void InitInteractionButtons()
+    {
+        for(int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i] = buttonsCanvas.transform.GetChild(i).gameObject;
+            buttons[i].SetActive(false);
+        }
+    }
+
+    void DeactivateButtons()
+    {
+        for(int i = 0; i < buttons.Length; i++)
+        {
+            if (settings.useControllerInput && i > 5)
+                buttons[i].SetActive(false);
+            else
+                buttons[i].SetActive(false);
+        }
     }
 
     void Saving()
@@ -244,40 +287,84 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
     public void NotifyToShowInteractionButton(InteractionButtons buttonToShow)
     {
-        switch (buttonToShow)
+        InteractionButtons button = buttonToShow;
+        int index = 0;
+        if (settings.useControllerInput)
         {
-            case InteractionButtons.CIRCLE:
-                circleButton.SetActive(true);
-                break;
-            case InteractionButtons.SQUARE:
-                break;
-            case InteractionButtons.TRIANGLE:
-                break;
-            case InteractionButtons.CROSS:
-                crossButton.SetActive(true);
-                break;
-            default:
-                break;
+            index = (int)button;
+            buttons[index + 6].SetActive(false);
         }
+        else
+        {
+            index = (int)button + 6;
+            buttons[index - 6].SetActive(false);
+        }
+
+        buttons[index].SetActive(true);
+        //switch (buttonToShow)
+        //{
+        //    case InteractionButtons.CIRCLE:
+        //        buttons[index].SetActive(true);
+        //        break;
+        //    case InteractionButtons.SQUARE:
+        //        break;
+        //    case InteractionButtons.TRIANGLE:
+        //        break;
+        //    case InteractionButtons.CROSS:
+        //        break;
+        //    case InteractionButtons.R3:
+        //        break;
+        //    case InteractionButtons.R2:
+        //        break;
+        //    case InteractionButtons.OPTIONS:
+        //        break;
+        //    case InteractionButtons.E:
+        //        break;
+        //    case InteractionButtons.ESC:
+        //        break;
+        //    case InteractionButtons.F:
+        //        break;
+        //    case InteractionButtons.LEFTSHIFT:
+        //        break;
+        //    case InteractionButtons.Q:
+        //        break;
+        //    case InteractionButtons.R:
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     public void NotifyToHideInteractionButton(InteractionButtons buttonToHide)
     {
-        switch (buttonToHide)
+        InteractionButtons button = buttonToHide;
+        int index = 0;
+        if (settings.useControllerInput)
         {
-            case InteractionButtons.CIRCLE:
-                circleButton.SetActive(false);
-                break;
-            case InteractionButtons.SQUARE:
-                break;
-            case InteractionButtons.TRIANGLE:
-                break;
-            case InteractionButtons.CROSS:
-                crossButton.SetActive(false);
-                break;
-            default:
-                break;
+            index = (int)button;
+            buttons[index + 6].SetActive(false);
         }
+        else
+        {
+            index = (int)button + 6;
+            buttons[index - 6].SetActive(false);
+        }
+        buttons[index].SetActive(false);
+        //switch (buttonToHide)
+        //{
+        //    case InteractionButtons.CIRCLE:
+        //        circleButton.SetActive(false);
+        //        break;
+        //    case InteractionButtons.SQUARE:
+        //        break;
+        //    case InteractionButtons.TRIANGLE:
+        //        break;
+        //    case InteractionButtons.CROSS:
+        //        crossButton.SetActive(false);
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     void OnDestroy()

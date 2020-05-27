@@ -36,6 +36,14 @@ public class GuardMovement : MonoBehaviour
     [HideInInspector] public bool isChasingPlayer = false;
     //[HideInInspector] public bool animEnabled = false;
 
+    //Added 2020-05-26
+    private AudioSource rightFootSound = null;
+    private AudioSource leftFootSound = null;
+    float walkingStepDistance = 0.8f;
+    float runningStepDistance = 0.4f;
+    private float accumulateDistance = 0.0f;
+    private bool soundFromRightFoot = true;
+
     public void GuardMovementInit()
     {
         SetPath();
@@ -49,6 +57,8 @@ public class GuardMovement : MonoBehaviour
         guardScript = GetComponent<Guard>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        rightFootSound = transform.Find("RightFootAudioSource").GetComponent<AudioSource>();
+        leftFootSound = transform.Find("LeftFootAudioSource").GetComponent<AudioSource>();
     }
 
     void SetMovementVariables()
@@ -66,6 +76,8 @@ public class GuardMovement : MonoBehaviour
         anim.SetBool("IsWalking", isWalking);
         anim.SetBool("IsDisabled", isDisabled);
         anim.SetBool("IsChasingPlayer", isChasingPlayer);
+
+        PlaySound();
     }
 
     public void FollowPath()
@@ -464,4 +476,46 @@ public class GuardMovement : MonoBehaviour
         patrolIdleTimer = guardScript.maxPatrolIdleTimer;
         lookingAroundTimer = guardScript.maxLookingAroundTimer;
     }
+
+    void PlaySound()
+    {
+        accumulateDistance += (Time.deltaTime);
+        if (isWalking)
+        {
+            if (accumulateDistance > runningStepDistance && isChasingPlayer)
+            {
+                if (soundFromRightFoot)
+                {
+                    rightFootSound.Play();
+                }
+                else
+                {
+                    leftFootSound.Play();
+                }
+
+                accumulateDistance = 0.0f;
+                soundFromRightFoot = !soundFromRightFoot;
+            }
+            else if (accumulateDistance > walkingStepDistance && !isChasingPlayer)
+            {
+                if (soundFromRightFoot)
+                {
+                    rightFootSound.Play();
+                }
+                else
+                {
+                    leftFootSound.Play();
+                }
+
+                accumulateDistance = 0.0f;
+                soundFromRightFoot = !soundFromRightFoot;
+            }
+        }
+        else
+        {
+            accumulateDistance = 0.0f;
+            soundFromRightFoot = true;
+        }
+    }
+
 }

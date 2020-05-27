@@ -17316,6 +17316,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 177690033498228943, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 180491193192285936, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 180491193629470264, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 180491193799710880, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17376,6 +17391,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvases
       objectReference: {fileID: 0}
+    - target: {fileID: 262988462919598961, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -17399,6 +17419,11 @@ PrefabInstance:
     - target: {fileID: 2991462344069913924, guid: ddb91fba7cb17d443bcf70e31bb72531,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720375810273245830, guid: ddb91fba7cb17d443bcf70e31bb72531,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

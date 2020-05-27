@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class Dialogue : MonoBehaviour
 
     [SerializeField]
     private GameObject dialogueGameObject = null;
-    private Text dialogueText = null;
+    private TextMeshProUGUI dialogueText = null;
     private AudioSource dialogueAudio = null;
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
@@ -30,7 +31,7 @@ public class Dialogue : MonoBehaviour
             Debug.Log("Dialogue can't find Settings in GameHandler");
         }
 
-        dialogueText = dialogueGameObject.GetComponent<Text>();
+        dialogueText = dialogueGameObject.GetComponent<TextMeshProUGUI>();
         dialogueAudio = dialogueGameObject.GetComponent<AudioSource>();
         dialogueGameObject.SetActive(false);
         dialogueAudio.volume = settings.voiceVolume * settings.masterVolume;

@@ -67,7 +67,7 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if(eventSystem.currentSelectedGameObject != lastSelectedButton)
+        if(eventSystem.currentSelectedGameObject != lastSelectedButton && eventSystem.currentSelectedGameObject != null)
         {
             audioManager.Play("SwitchMenuButton");
         }

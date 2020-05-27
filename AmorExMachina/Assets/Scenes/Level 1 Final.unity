@@ -1965,46 +1965,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[5].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 6d7c602ac3321b343a7f576631ef17d5, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[12].pitch
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[12].randomPitch
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[5].threeDimensionalSound
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[7].threeDimensionalSound
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[18].clip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9b376b9186373e0499edc57c444f6977, type: 3}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[18].pitch
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1683811264663684605, guid: 5d3065baac6382540b38913bf14bb4a8,
-        type: 3}
-      propertyPath: soundFX.Array.data[5].maxSoundDistance
-      value: 45
-      objectReference: {fileID: 0}
     - target: {fileID: 2353145917178366114, guid: 5d3065baac6382540b38913bf14bb4a8,
         type: 3}
       propertyPath: m_Name
@@ -10766,8 +10726,8 @@ Transform:
   - {fileID: 1661877203}
   - {fileID: 1776792676}
   - {fileID: 1779626537}
-  - {fileID: 1952257964}
   - {fileID: 1816158325}
+  - {fileID: 1952257964}
   - {fileID: 1956377789}
   - {fileID: 1962035930}
   - {fileID: 1963225960}
@@ -10783,8 +10743,8 @@ Transform:
   - {fileID: 1079536958}
   - {fileID: 535202997}
   - {fileID: 104173500}
-  - {fileID: 79482906}
   - {fileID: 1445695401}
+  - {fileID: 79482906}
   - {fileID: 1382928245}
   - {fileID: 1201272558}
   m_Father: {fileID: 25530408}
@@ -23867,16 +23827,16 @@ Transform:
   - {fileID: 223091465}
   - {fileID: 1540978442}
   - {fileID: 1935785525}
-  - {fileID: 1635822287}
   - {fileID: 702815169}
+  - {fileID: 1635822287}
   - {fileID: 1751432790}
   - {fileID: 940631768}
   - {fileID: 785177156}
   - {fileID: 2102385118}
   - {fileID: 153496742}
   - {fileID: 1816344904}
-  - {fileID: 2078064658}
   - {fileID: 1944438302}
+  - {fileID: 2078064658}
   - {fileID: 727498606}
   - {fileID: 948262937}
   - {fileID: 1456470882}

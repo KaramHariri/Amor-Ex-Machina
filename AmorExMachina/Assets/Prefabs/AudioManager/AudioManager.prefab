@@ -147,7 +147,7 @@ MonoBehaviour:
     maxSoundDistance: 100
     loop: 0
     playOnAwake: 0
-    threeDimensionalSound: 1
+    threeDimensionalSound: 0
     aS: {fileID: 0}
   - name: HackGuard
     audioType: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 26dca4610c1d64644a05b718b64e1dea, type: 3}
     - {fileID: 8300000, guid: 7ebb2ceed9b833d4181aca42ebf3c0c3, type: 3}
     volume: 1
-    pitch: 0.9
+    pitch: 1.2
     randomVolume: 0.163
     randomPitch: 0
     maxSoundDistance: 300

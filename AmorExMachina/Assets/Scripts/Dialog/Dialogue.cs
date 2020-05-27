@@ -17,6 +17,8 @@ public class Dialogue : MonoBehaviour
     private bool dialoguePlayed = false;
     private bool finishedTyping = false;
 
+    [SerializeField] private float textAnimationSpeed = 0.1f;
+
     //[SerializeField] private Settings settings = null;
     private Settings settings = null;
 
@@ -38,6 +40,18 @@ public class Dialogue : MonoBehaviour
 
     private void Update()
     {
+        if(GameHandler.currentState == GameState.MENU )
+        {
+            dialogueAudio.Pause();
+            return;
+        }
+        else
+        {
+            if(dialoguePlayed)
+            {
+                dialogueAudio.UnPause();
+            }
+        }
         DeactivateDialogueCheck();
     }
 
@@ -63,9 +77,8 @@ public class Dialogue : MonoBehaviour
             foreach (char letter in sentence.ToCharArray())
             {
                 dialogueText.text += letter;
-                yield return null;
+                yield return new WaitForSeconds(textAnimationSpeed);
             }
-            Debug.Log("finished typing");
             finishedTyping = true;
         }
     }

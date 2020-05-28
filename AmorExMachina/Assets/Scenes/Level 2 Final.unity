@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Guard6Camera '
       objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -296,6 +301,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
@@ -2115,6 +2125,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard5
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &281980226 stripped
@@ -2194,6 +2209,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
@@ -3060,6 +3080,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &551088979 stripped
@@ -3079,6 +3104,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard8Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
@@ -4484,6 +4514,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard7Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4658,6 +4693,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard1Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
@@ -6715,6 +6755,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard3Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7141,6 +7186,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard4
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &1366414794 stripped
@@ -7160,6 +7210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard4Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
@@ -7402,6 +7457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GuardCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
@@ -7734,6 +7794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7433253180362526742, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
         type: 3}
@@ -8528,6 +8593,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard6
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &1840450730 stripped
@@ -8906,6 +8976,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard5Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 7191248303394602026, guid: 4f3cd963baef3a44cbb596e5e293bdff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7191248303394602029, guid: 4f3cd963baef3a44cbb596e5e293bdff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9135,6 +9210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard3
       objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}
 --- !u!4 &2032023527 stripped
@@ -9283,6 +9363,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Guard1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467681558514617997, guid: 4756ebe8bb2159c49a6bea5f0ad1c974,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4756ebe8bb2159c49a6bea5f0ad1c974, type: 3}

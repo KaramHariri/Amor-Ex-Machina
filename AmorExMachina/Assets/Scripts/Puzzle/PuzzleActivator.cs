@@ -89,7 +89,8 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
         if (Vector3.Angle(directionToLockFromPlayer, playerForwardDirection) > 75) { return; }
 
-        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.SQUARE);
+        if(!activated)
+            interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.SQUARE);
         //if (Input.GetButtonDown("Circle") && animationCooldown <= 0)
         if ((Input.GetKeyDown(settings.activatePuzzleController) || Input.GetKeyDown(settings.activatePuzzleKeyboard)) && animationCooldown <= 0)
         {

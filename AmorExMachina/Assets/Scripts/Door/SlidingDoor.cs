@@ -28,11 +28,11 @@ public class SlidingDoor : MonoBehaviour
     [SerializeField] private ParticleSystem doorOpeningParticleSystem;
     
     #region private
-    private bool animating = false;
-    private slidingDoorState animatingState = slidingDoorState.NONE;
-    private slidingDoorState state = slidingDoorState.NONE;
+    [SerializeField]private bool animating = false;
+    [SerializeField]private slidingDoorState animatingState = slidingDoorState.NONE;
+    [SerializeField]private slidingDoorState state = slidingDoorState.NONE;
 
-    private List<Transform> inRange = new List<Transform>();
+    [SerializeField]private List<Transform> inRange = new List<Transform>();
 
     IEnumerator IE_StartAnimating = null, IE_Animate = null, IE_LeftDoor = null, IE_RightDoor = null;
     #endregion
@@ -114,11 +114,15 @@ public class SlidingDoor : MonoBehaviour
         IE_RightDoor = Move(rightDoor, -xPos);
         IE_LeftDoor = Move(leftDoor, xPos);
 
-        audioManager.Play(state.Equals(slidingDoorState.OPEN) ? "DoorOpen" : "DoorOpen", transform.position);
-        if(state.Equals(slidingDoorState.OPEN))
+        if (inRange.Count == 1)
         {
-            doorOpeningParticleSystem.Play();
-        }
+            audioManager.Play(state.Equals(slidingDoorState.OPEN) ? "DoorOpen" : "DoorOpen", transform.position);
+            if (state.Equals(slidingDoorState.OPEN))
+            {
+                doorOpeningParticleSystem.Play();
+            }
+
+        }    
 
         StartCoroutine(IE_RightDoor);
         StartCoroutine(IE_LeftDoor);

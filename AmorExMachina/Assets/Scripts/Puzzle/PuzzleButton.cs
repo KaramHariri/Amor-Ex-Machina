@@ -173,7 +173,14 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             case ButtonType.Empty:
                 {
-                    backgroundMaterial.SetColor("_Color", redColor);
+                    if(buttonOn)
+                    {
+                        backgroundMaterial.SetColor("_Color", greenColor);
+                    }
+                    else
+                    {
+                        backgroundMaterial.SetColor("_Color", redColor);
+                    }
                 }
                 break;
             case ButtonType.Circle:

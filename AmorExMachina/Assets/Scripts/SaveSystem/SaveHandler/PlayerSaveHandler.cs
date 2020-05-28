@@ -18,7 +18,7 @@ public class PlayerSaveHandler : MonoBehaviour
         PlayerController temp = GetComponent<PlayerController>();
         if(temp.disabledGuard != null)
         {
-            Debug.Log("Sibling index = " + temp.disabledGuard.transform.GetSiblingIndex());
+            //Debug.Log("Sibling index = " + temp.disabledGuard.transform.GetSiblingIndex());
             SaveData.current.playerData.disabledIndex = temp.disabledGuard.transform.GetSiblingIndex();
         }
     }
@@ -31,7 +31,7 @@ public class PlayerSaveHandler : MonoBehaviour
         if(SaveData.current.playerData.disabledIndex != -1)
         {
             PlayerController temp = GetComponent<PlayerController>();
-            Debug.Log("sibling index = " + SaveData.current.playerData.disabledIndex);
+            //Debug.Log("sibling index = " + SaveData.current.playerData.disabledIndex);
             temp.disabledGuard = GameObject.Find("GuardsHolder").transform.GetChild(SaveData.current.playerData.disabledIndex).GetComponent<Guard>();
         }
     }

@@ -220,7 +220,8 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             audioManager.Play("ActivateDoorPuzzle");
             Debug.Log("FORCED TO CLOSE DOWN THE PUZZLE SOLVING DUE TO BEING SPOTTED");
             animationCooldown = duration + 0.2f;
-            MoveTo(onScreenPosition, offScreenPosition, duration);
+            //MoveTo(onScreenPosition, offScreenPosition, duration);
+            MoveTo(onScreenPosition, offScreenPosition, 0.2f);
             activated = !activated;
             GameHandler.currentState = GameState.NORMALGAME;
         }

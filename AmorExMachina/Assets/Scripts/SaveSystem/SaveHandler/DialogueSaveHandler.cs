@@ -51,13 +51,13 @@ public class DialogueSaveHandler : MonoBehaviour
 
     private void SaveDialogueData()
     {
-        Debug.Log("Saving dialogue data: name" +transform.name + " has played dialogue " + dialogueScript.dialoguePlayed);
+        //Debug.Log("Saving dialogue data: name" +transform.name + " has played dialogue " + dialogueScript.dialoguePlayed);
         SaveData.current.dialogues[data.id].hasPlayed = dialogueScript.dialoguePlayed;
     }
 
     private void LoadDialogueData()
     {
-        Debug.Log("loading dialogue data: name" + transform.name + " has played dialogue " + dialogueScript.dialoguePlayed);
+        //Debug.Log("loading dialogue data: name" + transform.name + " has played dialogue " + dialogueScript.dialoguePlayed);
         hasBeenInitialized = true;
         dialogueScript.hasBeenInitialized = true;
         dialogueScript.dialoguePlayed = SaveData.current.dialogues[data.id].hasPlayed;

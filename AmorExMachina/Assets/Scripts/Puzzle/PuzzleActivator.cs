@@ -103,6 +103,10 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
                 animationCooldown = duration + 0.2f;
                 activated = !activated;
                 GameHandler.currentState = GameState.PUZZLE;
+
+                // Added 20-05-28
+                UIManager.activatePuzzleControlsPanel();
+                ////
             }
             else
             {
@@ -112,6 +116,10 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
                 animationCooldown = duration + 0.2f;
                 activated = !activated;
                 GameHandler.currentState = GameState.NORMALGAME;
+
+                // Added 20-05-28
+                UIManager.deactivatePuzzleControlsPanel();
+                ////
             }
         }
     }
@@ -143,8 +151,11 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
 
     public void DeactivatePuzzle()
     {
-        audioManager.Play("CompletePuzzle");
+        // Added 20-05-28
+        UIManager.deactivatePuzzleControlsPanel();
+        ////
 
+        audioManager.Play("CompletePuzzle");
         puzzleSolved = true;
 
         //Debug.Log("Deactivated");

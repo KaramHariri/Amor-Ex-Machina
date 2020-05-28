@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour, IInteractionButton
     GameObject hackingTimerBackground = null;
     Image hackingSliderFill = null;
 
+    GameObject puzzleControlsPanel = null;
 
     #region Delegates
     public static Action<Transform> createIndicator = delegate { };
@@ -49,6 +50,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
     public static Action saving = delegate { };
 
     public static Action activateGameOverPanel = delegate { };
+
+    public static Action activatePuzzleControlsPanel = delegate { };
+    public static Action deactivatePuzzleControlsPanel = delegate { };
     #endregion
 
     private float changeColorToYellow = 0.0f;
@@ -73,6 +77,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
         gameOverCanvasGroup.alpha = 0.0f;
         savingCanvasGroup = GameObject.Find("SavingCanvas").GetComponent<CanvasGroup>();
         savingCanvasGroup.alpha = 0.0f;
+
+        puzzleControlsPanel = GameObject.Find("PuzzleControls");
+        puzzleControlsPanel.SetActive(false);
     }
 
     void Start()
@@ -132,6 +139,9 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
         activateGameOverPanel += ActivateGameOverPanel;
         saving += Saving;
+
+        activatePuzzleControlsPanel += ActivatePuzzleControlsPanel;
+        deactivatePuzzleControlsPanel += DeactivatePuzzleControlsPanel;
     }
 
     void InitInteractionButtons()
@@ -152,6 +162,16 @@ public class UIManager : MonoBehaviour, IInteractionButton
             else
                 buttons[i].SetActive(false);
         }
+    }
+
+    void ActivatePuzzleControlsPanel()
+    {
+        puzzleControlsPanel.SetActive(true);
+    }
+
+    void DeactivatePuzzleControlsPanel()
+    {
+        puzzleControlsPanel.SetActive(false);
     }
 
     void Saving()
@@ -301,38 +321,6 @@ public class UIManager : MonoBehaviour, IInteractionButton
         }
 
         buttons[index].SetActive(true);
-        //switch (buttonToShow)
-        //{
-        //    case InteractionButtons.CIRCLE:
-        //        buttons[index].SetActive(true);
-        //        break;
-        //    case InteractionButtons.SQUARE:
-        //        break;
-        //    case InteractionButtons.TRIANGLE:
-        //        break;
-        //    case InteractionButtons.CROSS:
-        //        break;
-        //    case InteractionButtons.R3:
-        //        break;
-        //    case InteractionButtons.R2:
-        //        break;
-        //    case InteractionButtons.OPTIONS:
-        //        break;
-        //    case InteractionButtons.E:
-        //        break;
-        //    case InteractionButtons.ESC:
-        //        break;
-        //    case InteractionButtons.F:
-        //        break;
-        //    case InteractionButtons.LEFTSHIFT:
-        //        break;
-        //    case InteractionButtons.Q:
-        //        break;
-        //    case InteractionButtons.R:
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
     public void NotifyToHideInteractionButton(InteractionButtons buttonToHide)
@@ -350,21 +338,6 @@ public class UIManager : MonoBehaviour, IInteractionButton
             buttons[index - 6].SetActive(false);
         }
         buttons[index].SetActive(false);
-        //switch (buttonToHide)
-        //{
-        //    case InteractionButtons.CIRCLE:
-        //        circleButton.SetActive(false);
-        //        break;
-        //    case InteractionButtons.SQUARE:
-        //        break;
-        //    case InteractionButtons.TRIANGLE:
-        //        break;
-        //    case InteractionButtons.CROSS:
-        //        crossButton.SetActive(false);
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
     void OnDestroy()
@@ -380,5 +353,8 @@ public class UIManager : MonoBehaviour, IInteractionButton
 
         activateGameOverPanel -= ActivateGameOverPanel;
         saving -= Saving;
+
+        activatePuzzleControlsPanel -= ActivatePuzzleControlsPanel;
+        deactivatePuzzleControlsPanel -= DeactivatePuzzleControlsPanel;
     }
 }

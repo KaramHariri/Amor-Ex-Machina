@@ -1765,7 +1765,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3660275907326674588, guid: e6f934e9f57e87448903804b94e96a5e, type: 3}
---- !u!64 &6567379463525108959
+--- !u!64 &2783409162270610811
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1779,7 +1779,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6068259622144703634, guid: 2756ef1fd91f1ed4195a6f8238428d9f, type: 3}
---- !u!64 &2783409162270610811
+--- !u!64 &6567379463525108959
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2283,7 +2283,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6757979150414394290, guid: f19c5ee3b8b91dd4589038dd459476ef, type: 3}
---- !u!64 &6567379464262769905
+--- !u!64 &2783409162182790455
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2297,7 +2297,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3660275907326674588, guid: e6f934e9f57e87448903804b94e96a5e, type: 3}
---- !u!64 &2783409162182790455
+--- !u!64 &6567379464262769905
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3364,12 +3364,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6567379464754236068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PropsHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 73
   m_IsActive: 1
 --- !u!4 &6567379464754236068
 Transform:

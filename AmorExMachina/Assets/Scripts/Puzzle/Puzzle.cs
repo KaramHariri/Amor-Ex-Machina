@@ -80,7 +80,7 @@ public class Puzzle : MonoBehaviour
                 b.SetInitialMaterialColor();
             }
             selectedButton.SetInitialHovered();
-            buttonActivateCooldown = PA.duration;
+            //buttonActivateCooldown = PA.duration;
         }
         previousActivated = PA.activated;
 

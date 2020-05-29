@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class AudioSettingsMenu : MonoBehaviour
 {
     private GameObject masterAudioSlider = null;
-    private GameObject effectAudioSlider = null;
-    private GameObject footstepsAudioSlider = null;
-    private GameObject voiceAudioSlider = null;
     private GameObject musicAudioSlider = null;
+    private GameObject effectAudioSlider = null;
+    private GameObject voiceAudioSlider = null;
+    private GameObject footstepsAudioSlider = null;
+    private GameObject back = null;
 
     private Image masterAudioFillImage = null;
     private Image effectAudioFillImage = null;
@@ -17,11 +18,18 @@ public class AudioSettingsMenu : MonoBehaviour
     private Image voiceAudioFillImage = null;
     private Image musicAudioFillImage = null;
 
-    private Text masterAudioAmountText = null;
-    private Text effectAudioAmountText = null;
-    private Text footstepsAudioAmountText = null;
-    private Text voiceAudioAmountText = null;
-    private Text musicAudioAmountText = null;
+    private TextMeshProUGUI masterAudioAmountText = null;
+    private TextMeshProUGUI effectAudioAmountText = null;
+    private TextMeshProUGUI footstepsAudioAmountText = null;
+    private TextMeshProUGUI voiceAudioAmountText = null;
+    private TextMeshProUGUI musicAudioAmountText = null;
+
+    private TextMeshProUGUI masterAudioText = null;
+    private TextMeshProUGUI effectAudioText = null;
+    private TextMeshProUGUI footstepsAudioText = null;
+    private TextMeshProUGUI voiceAudioText = null;
+    private TextMeshProUGUI musicAudioText = null;
+    private TextMeshProUGUI backText = null;
 
     public static AudioSettingsMenu instance = null;
     [HideInInspector]
@@ -36,9 +44,12 @@ public class AudioSettingsMenu : MonoBehaviour
 
     [SerializeField] AudioSource buttonAudio = null;
     private Settings settings = null;
+    private EventSystem eventSystem = null;
+
     private void Awake()
     {
         settings = Resources.Load<Settings>("References/Settings/StaticSettings");
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         instance = this;
         audioCanvasGroup = GetComponent<CanvasGroup>();
         audioCanvasGroup.alpha = 0.0f;
@@ -47,6 +58,7 @@ public class AudioSettingsMenu : MonoBehaviour
         InitSliderGameObjects();
         InitSlidersFill();
         InitSlidersAmountText();
+        InitSlidersText();
 
         firstSelectedButtonInAudio = masterAudioSlider;
     }
@@ -67,9 +79,53 @@ public class AudioSettingsMenu : MonoBehaviour
         }
         buttonAudio.volume = settings.effectsVolume * settings.masterVolume;
 
+        SelectedButton();
         UpdateSlidersCheck();
         UpdateSettingsValues();
         UpdateSlidersAmountText();
+    }
+
+    void SelectedButton()
+    {
+        masterAudioText.color = Color.white;
+        effectAudioText.color = Color.white;
+        footstepsAudioText.color = Color.white;
+        voiceAudioText.color = Color.white;
+        musicAudioText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == masterAudioSlider)
+        {
+            masterAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == effectAudioSlider)
+        {
+            effectAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == footstepsAudioSlider)
+        {
+            footstepsAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == voiceAudioSlider)
+        {
+            voiceAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == musicAudioSlider)
+        {
+            musicAudioText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+        }
+
+        if (eventSystem.currentSelectedGameObject == back)
+        {
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+        }
     }
 
     private void UpdateSlidersAmountText()
@@ -102,15 +158,26 @@ public class AudioSettingsMenu : MonoBehaviour
         voiceAudioSlider = transform.GetChild(2).gameObject;
         effectAudioSlider = transform.GetChild(3).gameObject;
         footstepsAudioSlider = transform.GetChild(4).gameObject;
+        back = transform.GetChild(5).gameObject;
     }
 
     private void InitSlidersAmountText()
     {
-        masterAudioAmountText = masterAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        effectAudioAmountText = effectAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        footstepsAudioAmountText = footstepsAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        voiceAudioAmountText = voiceAudioSlider.transform.GetChild(2).GetComponent<Text>();
-        musicAudioAmountText = musicAudioSlider.transform.GetChild(2).GetComponent<Text>();
+        masterAudioAmountText = masterAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        effectAudioAmountText = effectAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        footstepsAudioAmountText = footstepsAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        voiceAudioAmountText = voiceAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        musicAudioAmountText = musicAudioSlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+    }
+
+    private void InitSlidersText()
+    {
+        masterAudioText = masterAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        effectAudioText = effectAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        footstepsAudioText = footstepsAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        voiceAudioText = voiceAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        musicAudioText = musicAudioSlider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = back.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitSlidersFill()

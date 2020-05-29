@@ -1,21 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameplaySettingsMenu : MonoBehaviour
 {
     private GameObject invertYToggleGameObject = null;
-    private GameObject subtitleToggleGameObject = null;
     private GameObject firstPersonLookSensitivitySlider = null;
     private GameObject thirdPersonLookSensitivitySlider = null;
+    private GameObject backGameObject = null;
 
     private Image thirdPersonLookSensitivityFillImage = null;
     private Image firstPersonLookSensitivityFillImage = null;
     private Toggle invertYToggle = null;
-    private Toggle subtitleToggle = null;
-    private Text thirdPersonLookSensitivityAmountText = null;
-    private Text firstPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI thirdPersonLookSensitivityAmountText = null;
+    private TextMeshProUGUI firstPersonLookSensitivityAmountText = null;
+
+    [SerializeField] private TextMeshProUGUI invertYText = null;
+    [SerializeField] private TextMeshProUGUI thirdPersonLookSensitivityText = null;
+    [SerializeField] private TextMeshProUGUI firstPersonLookSensitivityText = null;
+    [SerializeField] private TextMeshProUGUI backText = null;
 
     public static GameplaySettingsMenu instance;
     [HideInInspector]
@@ -29,6 +33,7 @@ public class GameplaySettingsMenu : MonoBehaviour
     private float maxSlidingDelay = 0.1f;
 
     [SerializeField] AudioSource buttonAudio;
+    EventSystem eventSystem = null;
 
     private void Awake()
     {
@@ -42,6 +47,8 @@ public class GameplaySettingsMenu : MonoBehaviour
         InitToggles();
         InitSlidersAmountText();
         firstSelectedButtonInGameplay = invertYToggleGameObject;
+
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
     private void Start()
@@ -61,9 +68,41 @@ public class GameplaySettingsMenu : MonoBehaviour
 
         buttonAudio.volume = optionsMenuInstance.settings.effectsVolume * optionsMenuInstance.settings.masterVolume;
 
+        SelectedButton();
         UpdateSlidersCheck();
         UpdateSettingsValues();
         UpdateSlidersAmountText();
+    }
+
+    void SelectedButton()
+    {
+        invertYText.color = Color.white;
+        thirdPersonLookSensitivityText.color = Color.white;
+        firstPersonLookSensitivityText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == invertYToggleGameObject.gameObject)
+        {
+            invertYText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == thirdPersonLookSensitivitySlider.gameObject)
+        {
+            thirdPersonLookSensitivityText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == firstPersonLookSensitivitySlider.gameObject)
+        {
+            firstPersonLookSensitivityText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == backGameObject.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+        }
     }
 
     private void UpdateSlidersCheck()
@@ -83,9 +122,9 @@ public class GameplaySettingsMenu : MonoBehaviour
     void InitTogglesAndSliderGameObjects()
     {
         invertYToggleGameObject = transform.GetChild(0).gameObject;
-        subtitleToggleGameObject = transform.GetChild(1).gameObject;
-        thirdPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
-        firstPersonLookSensitivitySlider = transform.GetChild(3).gameObject;
+        thirdPersonLookSensitivitySlider = transform.GetChild(1).gameObject;
+        firstPersonLookSensitivitySlider = transform.GetChild(2).gameObject;
+        backGameObject = transform.GetChild(3).gameObject;
     }
 
     private void InitSlidersFill()
@@ -96,14 +135,13 @@ public class GameplaySettingsMenu : MonoBehaviour
 
     private void InitSlidersAmountText()
     {
-        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
-        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<Text>();
+        thirdPersonLookSensitivityAmountText = thirdPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        firstPersonLookSensitivityAmountText = firstPersonLookSensitivitySlider.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
 
     private void InitToggles()
     {
         invertYToggle = invertYToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
-        subtitleToggle = subtitleToggleGameObject.transform.GetChild(0).GetComponent<Toggle>();
     }
 
     private void SetSettingsValues()
@@ -111,7 +149,6 @@ public class GameplaySettingsMenu : MonoBehaviour
         thirdPersonLookSensitivityFillImage.fillAmount = optionsMenuInstance.settings.thirdPersonLookSensitivity / 300.0f;
         firstPersonLookSensitivityFillImage.fillAmount = optionsMenuInstance.settings.firstPersonLookSensitivity / 300.0f;
         invertYToggle.isOn = optionsMenuInstance.settings.invertY;
-        subtitleToggle.isOn = optionsMenuInstance.settings.subtitle;
     }
 
     private void UpdateSettingsValues()
@@ -119,7 +156,6 @@ public class GameplaySettingsMenu : MonoBehaviour
         optionsMenuInstance.settings.thirdPersonLookSensitivity = thirdPersonLookSensitivityFillImage.fillAmount * 300.0f;
         optionsMenuInstance.settings.firstPersonLookSensitivity = firstPersonLookSensitivityFillImage.fillAmount * 300.0f;
         optionsMenuInstance.settings.invertY = invertYToggle.isOn;
-        optionsMenuInstance.settings.subtitle = subtitleToggle.isOn;
     }
 
     public void ToggleButton(Toggle toggle)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3471578867587347757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoboTube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 894886663537352095}
   - component: {fileID: 6870188208348143974}
   - component: {fileID: 3578201461601030654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: robo_tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -383,6 +383,11 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
     }
 
+    public void SetDefaultColor()
+    {
+        backgroundMaterial.SetColor("_Color", defaultColor);
+    }
+
     private void LoadSprites()
     {
         ButtonEmpty = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_empty");
@@ -399,4 +404,9 @@ public class PuzzleButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         rotationLeftArrow = Resources.Load<Sprite>("Graphics/Puzzle/puzzle_rotate-left");
     }
 
+    void OnDestroy()
+    {
+        SetDefaultColor();
+    }
+    
 }

@@ -33,13 +33,13 @@ public class PlayerAnimationController : MonoBehaviour
         thirdPersonCameraTransform = GameObject.FindGameObjectWithTag("ThirdPersonCamera").transform;
 
         settings = GameHandler.settings;
-        if(settings == null)
+        if (settings == null)
         {
             Debug.Log("PlayerAnimationController can't find Settings in GameHandler");
         }
 
         cameraVariables = GameHandler.playerCamerasVariables;
-        if(cameraVariables == null)
+        if (cameraVariables == null)
         {
             Debug.Log("PlayerAnimationController can't find PlayerCamerasVariables in GameHanlder");
         }
@@ -63,6 +63,10 @@ public class PlayerAnimationController : MonoBehaviour
             modelTransform.LookAt(transform.position + inputDirection);
         }
 
+        // Added 2020-05-29
+        inputDirection.Normalize();
+
+
         anim.SetFloat("Velocity", inputDirection.magnitude);
         anim.SetBool("Crouching", sneaking);
         anim.SetBool("IsHacking", PC.hacking);
@@ -70,7 +74,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void GetInput()
     {
-        if(GameHandler.currentState != GameState.NORMALGAME)
+        if (GameHandler.currentState != GameState.NORMALGAME)
         {
             verticalInput = 0;
             horizontalInput = 0;

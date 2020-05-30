@@ -48,7 +48,7 @@ MonoBehaviour:
   - name: ActivateButton
     audioType: 0
     clip:
-    - {fileID: 8300000, guid: c19eb0b91bacfe0419f2cb338de40940, type: 3}
+    - {fileID: 8300000, guid: 0c5e2a8cde5abdb4180ffd9c13a3e1bb, type: 3}
     volume: 1
     pitch: 0.9
     randomVolume: 0.163

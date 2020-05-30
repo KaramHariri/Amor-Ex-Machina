@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
         mainMenuAudio.volume = optionsMenu.settings.musicVolume * optionsMenu.settings.masterVolume;
         buttonAudio.volume = optionsMenu.settings.effectsVolume * optionsMenu.settings.masterVolume;
 
-        if (lastSelectedButton != eventSystem.currentSelectedGameObject)
+        if (lastSelectedButton != eventSystem.currentSelectedGameObject && eventSystem.currentSelectedGameObject != null)
         {
             if (!buttonAudio.isPlaying)
                 buttonAudio.Play();

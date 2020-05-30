@@ -79,6 +79,10 @@ public class SceneHandler : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         currentLevelIndex++;
+        if(currentLevelIndex > SceneManager.sceneCountInBuildSettings - 1)
+        {
+            currentLevelIndex = 1;
+        }
         scenesLoading.Add(SceneManager.LoadSceneAsync(currentLevelIndex, LoadSceneMode.Additive));
 
         StartCoroutine("GetSceneLoadProgress");

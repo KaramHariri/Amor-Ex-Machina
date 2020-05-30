@@ -18,6 +18,8 @@ public class Intro : MonoBehaviour
 
     private bool usingController = false;
 
+    private bool hasPlayed = false;
+
     void Start()
     {
         Xbutton = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/XButton");
@@ -30,6 +32,14 @@ public class Intro : MonoBehaviour
 
     private void Update()
     {
+        if(hasPlayed && !videoPlayer.isPlaying)
+        {
+            if(sceneHandler != null)
+            {
+                sceneHandler.StartLoadNextSceneCoroutine();
+            }
+        }
+
         if(usingController)
         {
             maskImage.sprite = Xbutton;
@@ -99,5 +109,6 @@ public class Intro : MonoBehaviour
         videoPlayer.Play();
         yield return new WaitForSeconds(videoPlayDelay);
         transform.GetChild(0).gameObject.SetActive(false);
+        hasPlayed = true;
     }
 }

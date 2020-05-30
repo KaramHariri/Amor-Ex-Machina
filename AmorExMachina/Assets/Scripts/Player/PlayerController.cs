@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     private bool sneaking = true;
     [HideInInspector] public bool hacking = false;
     public static bool canHackGuard = true;
-    
+
     private Rigidbody rb = null;
     [HideInInspector] public Guard disabledGuard = null;
     [SerializeField] List<Guard> possibleGuardsToDisable = null;
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
         GetInput();
 
-        if(!hacking)
+        if (!hacking)
             DisableGuardCheck();
     }
 
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 audioManager.Play("PlayerWalking");
                 accumulateDistance = 0.0f;
             }
-            else if(accumulateDistance > walkingStepDistance && !sneaking)
+            else if (accumulateDistance > walkingStepDistance && !sneaking)
             {
                 audioManager.Play("PlayerWalking");
                 accumulateDistance = 0.0f;
@@ -246,13 +246,13 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
     void HackingGuardCheck()
     {
         if (disabledGuard == null || disabledGuard.disabled == false) { return; }
-        
+
         if (canHackGuard)
         {
             if (!hacking && (Input.GetKeyDown(settings.hackGuardController) || Input.GetKeyDown(settings.hackGuardKeyboard)))
             {
                 disabledGuard.hacked = true;
-                hacking = true;            
+                hacking = true;
                 //Added 2020-05-21
                 disabledGuard.guardMovement.isDisabled = false;
                 guardHackedSubject.GuardHackedNotify(disabledGuard.name);
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Input.GetKey(settings.movementToggleController) || Input.GetKey(settings.movementToggleKeyboard))
+        if (Input.GetKey(settings.movementToggleController) || Input.GetKey(settings.movementToggleKeyboard))
         {
             sneaking = false;
         }
@@ -294,11 +294,11 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void FirstPersonRotationHandling()
     {
-        if(cameraVariables.switchedCameraToFirstPerson)
+        if (cameraVariables.switchedCameraToFirstPerson)
         {
             moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
 
-            Quaternion targetRotation = Quaternion.Euler(0.0f, FirstPersonCinemachine.firstPersonCameraTransform.eulerAngles.y , 0.0f);
+            Quaternion targetRotation = Quaternion.Euler(0.0f, FirstPersonCinemachine.firstPersonCameraTransform.eulerAngles.y, 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }
     }
@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
         }
         else
         {
-            Vector3 dir = ThirdPersonCinemachine.thirdPersonCameraTransform.transform.right * horizontalInput 
+            Vector3 dir = ThirdPersonCinemachine.thirdPersonCameraTransform.transform.right * horizontalInput
                         + ThirdPersonCinemachine.thirdPersonCameraTransform.forward * verticalInput;
             v = dir;
         }
@@ -354,20 +354,20 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                 Vector3 targetToPlayerDirection = transform.position - closestGuard.transform.position;
                 //Added 2020-05-24
                 {
-                    if(Physics.Raycast(transform.position + new Vector3(0.0f, 1.0f, 0.0f), -targetToPlayerDirection, targetToPlayerDirection.magnitude, wallsLayer))
+                    if (Physics.Raycast(transform.position + new Vector3(0.0f, 1.0f, 0.0f), -targetToPlayerDirection, targetToPlayerDirection.magnitude, wallsLayer))
                     {
                         interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
                         return;
                     }
                 }
                 float angleToTarget = Vector3.Angle(closestGuard.transform.forward, targetToPlayerDirection);
-                if (!closestGuard.sensing.PlayerDetectedCheck() && !closestGuard.sensing.playerWasDetectedCheck() && !closestGuard.sensing.Suspicious() 
+                if (!closestGuard.sensing.PlayerDetectedCheck() && !closestGuard.sensing.playerWasDetectedCheck() && !closestGuard.sensing.Suspicious()
                     && !closestGuard.sensing.Alarmed() && targetToPlayerDirection.magnitude <= disableDistance && disabledGuard != closestGuard)
                 {
                     //if (!closestGuard.sensing.Suspicious())
                     //{
-                        interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
-                        DisableGuardInputCheck(closestGuard);
+                    interactionButtonSubject.NotifyToShowInteractionButton(InteractionButtons.CROSS);
+                    DisableGuardInputCheck(closestGuard);
                     //}
                     //else if (closestGuard.sensing.Suspicious() || closestGuard.sensing.playerWasDetectedCheck())
                     //{
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
                     //    interactionButtonSubject.NotifyToHideInteractionButton(InteractionButtons.CROSS);
                     //}
                 }
-                else if((closestGuard.sensing.PlayerDetectedCheck() || closestGuard.sensing.playerWasDetectedCheck() || closestGuard.sensing.Suspicious() || closestGuard.sensing.Alarmed())
+                else if ((closestGuard.sensing.PlayerDetectedCheck() || closestGuard.sensing.playerWasDetectedCheck() || closestGuard.sensing.Suspicious() || closestGuard.sensing.Alarmed())
                         && targetToPlayerDirection.magnitude <= disableDistance && disabledGuard != closestGuard)
                 {
                     if (angleToTarget < 180.0f && angleToTarget > 120.0f)
@@ -492,7 +492,7 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     private void MoveAudioListener()
     {
-        if(!hacking)
+        if (!hacking)
         {
             AudioListenerObject.transform.position = this.transform.position;
         }

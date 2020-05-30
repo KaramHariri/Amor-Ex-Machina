@@ -23,7 +23,7 @@ public class Intro : MonoBehaviour
     void Start()
     {
         Xbutton = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/XButton");
-        Ebutton = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/EButton");
+        Ebutton = Resources.Load<Sprite>("Graphics/PS4ControllerButtons/buttons_kb_e_round");
         videoPlayer = GetComponent<VideoPlayer>();
         StartCoroutine("PrepareVideo");
         StartCoroutine("ControllerCheck");

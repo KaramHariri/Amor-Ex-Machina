@@ -77,9 +77,11 @@ public class FirstPersonCinemachine : MonoBehaviour
         if (!playerCamerasVariables.switchedCameraToFirstPerson)
         {
             cinemachinePOV.m_HorizontalAxis.Value = playerYAngle;
+            cinemachinePOV.m_VerticalAxis.Value = 0.0f;
         }
         else
         {
+            //PERHAPS CHANGE THIS TO ALWAYS POINT IN THE DIRECTION OF THE PLAYER 
             Quaternion targetRotation = Quaternion.Euler(0.0f, mainCamera.transform.eulerAngles.y, 0.0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
         }

@@ -20,6 +20,8 @@ public class PlayerAnimationController : MonoBehaviour
     float horizontalInput = 0.0f;
     bool sneaking = false;
 
+    private float moveAmount = 0.0f;
+
     private Transform thirdPersonCameraTransform = null;
 
     void Start()
@@ -49,18 +51,28 @@ public class PlayerAnimationController : MonoBehaviour
     {
         GetInput();
 
-        if (cameraVariables.switchedCameraToFirstPerson)
-        {
-            inputDirection = transform.right * horizontalInput + transform.forward * verticalInput;
-        }
-        else
-        {
+        //if (cameraVariables.switchedCameraToFirstPerson)
+        //{
+        //    inputDirection = transform.right * horizontalInput + transform.forward * verticalInput;
+        //}
+        //else
+        //{
             inputDirection = thirdPersonCameraTransform.transform.right * horizontalInput + thirdPersonCameraTransform.forward * verticalInput;
-        }
+        //}
 
         if (GameHandler.currentState == GameState.NORMALGAME)
         {
-            modelTransform.LookAt(transform.position + inputDirection);
+            if (!cameraVariables.switchedCameraToFirstPerson)
+                modelTransform.LookAt(transform.position + inputDirection);
+            else
+            {
+                //Debug.Log("In first person view");
+                //modelTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                //moveAmount = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+                modelTransform.LookAt(transform.position + FirstPersonCinemachine.firstPersonCameraTransform.forward);
+                //Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 100.0f * Time.deltaTime);
+            }
         }
 
         // Added 2020-05-29

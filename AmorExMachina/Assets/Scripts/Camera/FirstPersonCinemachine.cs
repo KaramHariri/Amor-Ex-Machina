@@ -25,6 +25,9 @@ public class FirstPersonCinemachine : MonoBehaviour
     public static Transform firstPersonCameraTransform = null;
     public static CinemachineVirtualCamera firstPersonCamera = null;
 
+    //Added 2020-05-30
+    private Transform modelTransform = null;
+
     private void Awake()
     {
         cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -33,6 +36,8 @@ public class FirstPersonCinemachine : MonoBehaviour
         mainCamera = Camera.main;
         firstPersonCameraTransform = this.transform;
         firstPersonCamera = cinemachineVirtualCamera;
+
+        modelTransform = GameObject.FindGameObjectWithTag("Player").transform.Find("character_gabriel");
     }
 
     private void Start()
@@ -70,13 +75,17 @@ public class FirstPersonCinemachine : MonoBehaviour
 
     void RotateCinemachineTransform()
     {
-        float playerYAngle = cinemachineVirtualCamera.m_Follow.eulerAngles.y;
-        if (playerYAngle > 180)
-            playerYAngle -= 360;
+        //float playerYAngle = cinemachineVirtualCamera.m_Follow.eulerAngles.y;
+        float cameraAngle = ThirdPersonCinemachine.thirdPersonCameraTransform.eulerAngles.y;
+        //if (playerYAngle > 180)
+        //    playerYAngle -= 360;
+        if (cameraAngle > 180)
+            cameraAngle -= 360;
 
         if (!playerCamerasVariables.switchedCameraToFirstPerson)
         {
-            cinemachinePOV.m_HorizontalAxis.Value = playerYAngle;
+            //cinemachinePOV.m_HorizontalAxis.Value = playerYAngle;
+            cinemachinePOV.m_HorizontalAxis.Value = cameraAngle;
             cinemachinePOV.m_VerticalAxis.Value = 0.0f;
         }
         else

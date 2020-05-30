@@ -141,6 +141,7 @@ public class CameraManager : MonoBehaviour, IGuardHackedObserver
                     {
                         settings.useControllerInput = false;
                     }
+                    yield return null;
                 }
             }
             else if(temp.Length <= 0)

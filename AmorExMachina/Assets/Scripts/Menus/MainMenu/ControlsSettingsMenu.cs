@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using TMPro;
 
 public class ControlsSettingsMenu : MonoBehaviour
 {
@@ -21,10 +22,15 @@ public class ControlsSettingsMenu : MonoBehaviour
     private KeyboardControlsKeyBinding keyboardKeyBinding = null;
     private ControllerControlsKeyBinding controllerKeyBinding = null;
 
-    [SerializeField]
-    private Button controllerControlsButton = null;
-    //[SerializeField]
-    //private Button keyboardControlsButton = null;
+    [SerializeField] private Button controllerControlsButton = null;
+    [SerializeField] private Button keyboardControlsButton = null;
+    [SerializeField] private Button backButton = null;
+
+    private TextMeshProUGUI controllerText = null;
+    private TextMeshProUGUI keyboardText = null;
+    private TextMeshProUGUI backText = null;
+
+    private EventSystem eventSystem = null;
 
     private void Awake()
     {
@@ -33,6 +39,8 @@ public class ControlsSettingsMenu : MonoBehaviour
         controlsCanvasGroup.alpha = 0.0f;
 
         controlsButtonHolder = transform.GetChild(0).gameObject;
+
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
     private void Start()
@@ -43,6 +51,8 @@ public class ControlsSettingsMenu : MonoBehaviour
         transform.gameObject.SetActive(false);
         keyboardKeyBinding.gameObject.SetActive(false);
         controllerKeyBinding.gameObject.SetActive(false);
+
+        InitButtonsText();
     }
 
     private void Update()
@@ -53,7 +63,40 @@ public class ControlsSettingsMenu : MonoBehaviour
             return;
         }
 
+        SelectedButton();
         SetButtonsInteractable();
+    }
+
+    void SelectedButton()
+    {
+        controllerText.color = Color.white;
+        keyboardText.color = Color.white;
+        backText.color = Color.white;
+
+        if (eventSystem.currentSelectedGameObject == controllerControlsButton.gameObject)
+        {
+            controllerText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == keyboardControlsButton.gameObject)
+        {
+            keyboardText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+
+        if (eventSystem.currentSelectedGameObject == backButton.gameObject)
+        {
+            backText.color = new Color(1.0f, 0.5176471f, 0.08627451f, 1.0f);
+            return;
+        }
+    }
+
+    void InitButtonsText()
+    {
+        controllerText = controllerControlsButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        keyboardText = keyboardControlsButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backText = backButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     void SetButtonsInteractable()

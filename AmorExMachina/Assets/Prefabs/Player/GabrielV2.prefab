@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143974046}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2, z: -0.048}
+  m_LocalPosition: {x: 0, y: 5.5, z: -0.048}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 8604184855125432446}
@@ -196,6 +196,8 @@ MonoBehaviour:
   disableDistance: 1.8
   sneakSpeed: 3
   walkSpeed: 5
+  hacking: 0
+  disabledGuard: {fileID: 0}
   possibleGuardsToDisable:
   - {fileID: 0}
   - {fileID: 0}
@@ -204,6 +206,9 @@ MonoBehaviour:
   playerMeshRenderer: {fileID: 8656541516008358879}
   sneakingStepDistance: 0.5
   walkingStepDistance: 0.25
+  wallsLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &6588145092540544496
 MonoBehaviour:
   m_ObjectHideFlags: 0

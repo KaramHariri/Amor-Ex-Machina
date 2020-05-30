@@ -63,6 +63,10 @@ public class PlayerAnimationController : MonoBehaviour
             modelTransform.LookAt(transform.position + inputDirection);
         }
 
+        // Added 2020-05-29
+        inputDirection.Normalize();
+
+
         anim.SetFloat("Velocity", inputDirection.magnitude);
         anim.SetBool("Crouching", sneaking);
         anim.SetBool("IsHacking", PC.hacking);

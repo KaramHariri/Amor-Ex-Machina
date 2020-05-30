@@ -327,9 +327,10 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
             v = dir;
         }
 
+        // Added 2020-05-29 (Moved normalize up to before stepDistanceModifier)
+        v.Normalize();
         stepDistanceModifier = v.magnitude;
 
-        v.Normalize();
         v *= ((sneaking) ? sneakSpeed : walkSpeed) * moveAmount;
 
         v.y = rb.velocity.y;

@@ -224,6 +224,7 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             MoveTo(onScreenPosition, offScreenPosition, 0.2f);
             activated = !activated;
             GameHandler.currentState = GameState.NORMALGAME;
+            UIManager.deactivatePuzzleControlsPanel();
         }
     }
 

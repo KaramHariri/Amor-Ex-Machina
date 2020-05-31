@@ -2263,14 +2263,14 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: According to my calculations, there is a 0% chance you will make
-        it out alive. After all, you are not alive. You are a robot. '
+      value: 'AI: My computations predict your chance of success is 1.3 percent.
+        I am disappointed, that number is much too high.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentenceAudio
       value: 
-      objectReference: {fileID: 8300000, guid: f6a5ff77ec3f4b54498f37774c8a5d37, type: 3}
+      objectReference: {fileID: 8300000, guid: 50bd48ff2e7e542418ef92c110f582a4, type: 3}
     - target: {fileID: 9202409027554416090, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: m_LocalPosition.x

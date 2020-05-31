@@ -60,6 +60,7 @@ public class GuardSaveHandler : MonoBehaviour
         guardScript.sensing.Reset();
         if(SaveData.current.guards[data.id].isDisabled)
         {
+            //Debug.Log("Loading guard data and guard " + guardScript.name + " is disabled");
             guardScript.sensing.NotifyBeingDisabledFromLoad();
         }
     }

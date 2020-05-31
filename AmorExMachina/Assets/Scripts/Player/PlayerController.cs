@@ -121,6 +121,12 @@ public class PlayerController : MonoBehaviour, IPlayerSpottedObserver
 
     void Update()
     {
+        //Added 2020-05-31
+        if(disabledGuard != null && !disabledGuard.disabled)
+        {
+            disabledGuard = null;
+        }
+
         PlayerIsKinematicCheck();
 
         if (GameHandler.currentState != GameState.HACKING && GameHandler.currentState != GameState.NORMALGAME) { return; }

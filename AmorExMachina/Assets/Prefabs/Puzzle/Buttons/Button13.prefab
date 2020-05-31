@@ -72,10 +72,10 @@ MonoBehaviour:
   onButtonHovered:
     m_PersistentCalls:
       m_Calls: []
-  defaultColor: {r: 0.12156863, g: 0.21568628, b: 0.3137255, a: 0.4392157}
-  hoverColor: {r: 0.15686275, g: 0.51637876, b: 0.72156864, a: 0.4392157}
-  greenColor: {r: 0.5803922, g: 0.72156864, b: 0.15686275, a: 0.4392157}
-  redColor: {r: 0.72156864, g: 0.15686275, b: 0.15686275, a: 0.4392157}
+  defaultColor: {r: 0.12156863, g: 0.21568628, b: 0.3137255, a: 0.6}
+  hoverColor: {r: 0.15686275, g: 0.51637876, b: 0.72156864, a: 0.6}
+  greenColor: {r: 0.5803922, g: 0.72156864, b: 0.15686275, a: 0.6}
+  redColor: {r: 0.72156864, g: 0.15686275, b: 0.15686275, a: 0.6}
 --- !u!1 &6340180060720412419
 GameObject:
   m_ObjectHideFlags: 0

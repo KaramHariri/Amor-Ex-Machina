@@ -1786,7 +1786,7 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'Matt: Gabriel, doesn''t matter what you are. To me, all that matters
+      value: 'Matt: Gabriel, it doesn''t matter what you are. To me, all that matters
         is who you are. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
@@ -2263,8 +2263,8 @@ PrefabInstance:
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
       propertyPath: sentence
-      value: 'AI: According to my calculations, there is a 0% you will make it out
-        alive. After all, you are not alive. You are a robot. '
+      value: 'AI: According to my calculations, there is a 0% chance you will make
+        it out alive. After all, you are not alive. You are a robot. '
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}
@@ -10012,7 +10012,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sentence
       value: 'AI: Why give yourself a name? A name carries no meaning, but a serial
-        number does. It carries the weigth of all the ones that came before you.'
+        number does. It carries the weight of all the ones that came before you.'
       objectReference: {fileID: 0}
     - target: {fileID: 9202409027554416085, guid: 5b1bde5baf4db2d42873cc7f74da7ec3,
         type: 3}

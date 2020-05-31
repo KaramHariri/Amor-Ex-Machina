@@ -36,6 +36,9 @@ public class ThirdPersonCinemachine : MonoBehaviour
     public static Transform thirdPersonCameraTransform = null;
     public static CinemachineFreeLook thirdPersonCamera = null;
 
+    [SerializeField]
+    private bool flipCameraRotation = false;
+
     private void Awake()
     {
         
@@ -45,6 +48,9 @@ public class ThirdPersonCinemachine : MonoBehaviour
 
         thirdPersonCameraTransform = this.transform;
         thirdPersonCamera = cinemachineFreeLook;
+
+        if (flipCameraRotation)
+            cinemachineFreeLook.m_XAxis.Value = 180.0f;
     }
 
     private void Start()

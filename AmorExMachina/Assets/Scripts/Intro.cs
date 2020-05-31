@@ -52,7 +52,7 @@ public class Intro : MonoBehaviour
         if(Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.E))
         {
             currentTimerToSkip += Time.deltaTime;
-            if(currentTimerToSkip >= maxTimerToSkip - 0.2f)
+            if(currentTimerToSkip >= maxTimerToSkip - 0.1f)
             {
                 currentTimerToSkip = maxTimerToSkip;
                 if(sceneHandler != null)

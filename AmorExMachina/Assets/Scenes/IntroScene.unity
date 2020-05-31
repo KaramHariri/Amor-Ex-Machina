@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ed6541c2da60444b53e1d388c80090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoPlayDelay: 0.1
+  videoPlayDelay: 0.2
   maskImage: {fileID: 357370876}
   fillImage: {fileID: 1524088822}
   maxTimerToSkip: 2

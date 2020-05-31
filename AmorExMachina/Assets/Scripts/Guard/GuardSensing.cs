@@ -230,11 +230,15 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             {
                 if (CalculateLength(disabledGuards[i].transform.position) <= sensingCollider.radius)
                 {
-                    Vector3 directionToDisabledGuard = disabledGuards[i].transform.position - transform.position;
-                    float angle = Vector3.Angle(directionToDisabledGuard, guardScript.guardNeckTransform.forward);
+                    //Debug.Log("SensingCollider radius = " + sensingCollider.radius);
+                    //Debug.Log("FieldOfView radius = " + guardScript.fieldOfViewRadius);
 
-                    if (angle < guardScript.fieldOfViewAngle)
-                    {
+                    //Vector3 directionToDisabledGuard = disabledGuards[i].transform.position - transform.position;
+                    //float angle = Vector3.Angle(directionToDisabledGuard, guardScript.guardNeckTransform.forward);
+
+                    //Added/removed 2020-05-31
+                    //if (angle < guardScript.fieldOfViewAngle)
+                    //{
                         if (RaycastHitCheckToTarget(disabledGuards[i].transform, raycastDisabledGuardCheckLayer))
                         {
                             if (disabledGuards[i].disabled && !disabledGuards[i].hacked)
@@ -248,7 +252,7 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
                                     disabledGuardsFound.Remove(disabledGuards[i]);
                             }
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -361,6 +365,8 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         Vector3 directionToTarget = targetPosition - transform.position;
         directionToTarget.y = 0.0f;
         Vector3 raycastOrigin = new Vector3(transform.position.x, 1.0f, transform.position.z);
+        //Added 2020-05-31
+        Debug.DrawRay(raycastOrigin, directionToTarget);
         float angle = Vector3.Angle(directionToTarget, guardScript.guardNeckTransform.forward);
         if (angle < guardScript.fieldOfViewAngle)
         {

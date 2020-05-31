@@ -283,6 +283,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
             playerWasInSight = true;
             suspicious = false;
             playerLastSightPosition = playerTransform.position;
+            //Added 2020-05-31
+            alarmed = false;
+            guardScript.assist = false;
             return true;
         }
         return false;

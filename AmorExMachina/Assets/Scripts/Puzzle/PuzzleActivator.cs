@@ -226,4 +226,9 @@ public class PuzzleActivator : MonoBehaviour, IPlayerSpottedObserver
             GameHandler.currentState = GameState.NORMALGAME;
         }
     }
+
+    private void OnDestroy()
+    {
+        playerSpottedSubject.RemoveObserver(this);
+    }
 }

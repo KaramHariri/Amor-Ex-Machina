@@ -474,4 +474,9 @@ public class GuardSensing : MonoBehaviour, IGuardDisabledObserver
         distanceFactorAmount = guardScript.minDistanceValue + distancePercent * valueDifference;
         //Debug.Log("DistanceFactorAmount: " + distanceFactorAmount + " , distancePercent: " + distancePercent);
     }
+
+    public void NotifyBeingDisabledFromLoad()
+    {
+        guardDisabledSubject.GuardDisabledNotify(guardScript);
+    }
 }

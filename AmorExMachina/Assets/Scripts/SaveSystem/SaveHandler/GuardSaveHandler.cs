@@ -56,6 +56,11 @@ public class GuardSaveHandler : MonoBehaviour
         transform.position = SaveData.current.guards[data.id].position;
         transform.rotation = SaveData.current.guards[data.id].rotation;
         guardScript.disabled = SaveData.current.guards[data.id].isDisabled;
+        guardScript.guardMovement.isDisabled = SaveData.current.guards[data.id].isDisabled;
         guardScript.sensing.Reset();
+        if(SaveData.current.guards[data.id].isDisabled)
+        {
+            guardScript.sensing.NotifyBeingDisabledFromLoad();
+        }
     }
 }

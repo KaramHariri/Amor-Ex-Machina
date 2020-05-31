@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class EndOfLevelTrigger : MonoBehaviour
 {
-    private SceneHandler sceneHandlerInstance = null;
-
-    private void Awake()
-    {
-        sceneHandlerInstance = SceneHandler.instance;
-    }
-
-    //IEnumerator LoadNextScene()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    SceneHandler.loadNextScene();
-    //}
+    [SerializeField] private bool thirdLevel = false;
+    [SerializeField] private float delayTimer = 5.0f;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            //StartCoroutine("LoadNextScene");
-            SceneHandler.loadNextScene();
+            StartCoroutine("DelayEndOfThirdLevel");
         }
+    }
+
+    IEnumerator DelayEndOfThirdLevel()
+    {
+        if (thirdLevel)
+        {
+            yield return new WaitForSeconds(delayTimer);
+        }
+        else
+            yield return new WaitForSeconds(1.0f);
+
+        SceneHandler.loadNextScene();
     }
 }

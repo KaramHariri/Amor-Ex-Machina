@@ -60,7 +60,10 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (GameHandler.currentState == GameState.NORMALGAME)
         {
-            modelTransform.LookAt(transform.position + inputDirection);
+            if (!cameraVariables.switchedCameraToFirstPerson)
+                modelTransform.LookAt(transform.position + inputDirection);
+            else
+                modelTransform.LookAt(transform.position + FirstPersonCinemachine.firstPersonCameraTransform.forward);
         }
 
         // Added 2020-05-29

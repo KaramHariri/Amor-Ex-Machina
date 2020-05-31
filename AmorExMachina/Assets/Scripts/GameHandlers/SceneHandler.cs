@@ -152,12 +152,4 @@ public class SceneHandler : MonoBehaviour
         loadNextScene -= StartLoadNextSceneCoroutine;
         reloadScene -= StartReloadAfterGameOverCoroutine;
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneHandler.loadNextScene();
-        }
-    }
 }

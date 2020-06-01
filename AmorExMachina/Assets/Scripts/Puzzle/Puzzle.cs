@@ -20,11 +20,11 @@ public class Puzzle : MonoBehaviour
     private List<PuzzleButton> flipButtons = new List<PuzzleButton>();
 
     float buttonSwitchingCooldown = 0f;
-    float buttonSwitchingCooldownTime = 0.15f;
+    float buttonSwitchingCooldownTime = 0.05f;
     float buttonRotateCooldown = 0f;
     float buttonRotateCooldownTime = 0.1f;
     float buttonActivateCooldown = 0f;
-    float buttonActivateAddedCooldownTime = 0.2f;
+    float buttonActivateAddedCooldownTime = 0.05f;
     float timeBetweenFlips = 0.09f;
 
     public PuzzleActivator PA;
@@ -176,6 +176,7 @@ public class Puzzle : MonoBehaviour
 
     public void GenerateFlipTileList()
     {
+        if(flipButtons.Count > 0) { Debug.Log("Tiles are still being flipped"); return; }
         if(selectedButton == null) { return; }
 
         flipButtons.Clear();

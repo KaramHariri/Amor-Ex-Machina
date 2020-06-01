@@ -6,34 +6,34 @@ using UnityEngine.SceneManagement;
 public class CheckpointSaveHandler : MonoBehaviour
 {
     //private bool hasUpdated = false;
-    [SerializeField] private bool hasBeenInitialized = false;
     [SerializeField] private bool hasUpdated = false;
     private CheckpointData data = new CheckpointData();
 
     private void Start()
     {
         data.id = SceneManager.GetActiveScene().name + transform.GetSiblingIndex();
-        //Debug.Log("checkpoint id:" + data.id);
+        Debug.Log(transform.name + " - checkpoint id:" + data.id);
 
         if (!SaveData.current.checkpoints.ContainsKey(data.id))
         {
-            //Debug.Log("Added checkpoint to checkpoints");
+            Debug.Log("Added checkpoint to checkpoints");
             SaveData.current.checkpoints.Add(data.id, data);
 
             //GameEvents.current.onSaveDataEvent += SaveCheckpointData;
         }
         else
         {
-            //Debug.Log("Already have a checkpoint with this ID");
+            Debug.Log("Already have a checkpoint with this ID");
             //LoadCheckpointData();
         }
-        hasBeenInitialized = true;
+
         GameEvents.current.onLoadDataEvent += LoadCheckpointData;
+        GameEvents.current.onSaveDataEvent += SaveCheckpointData;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(hasBeenInitialized && !data.hasUpdated && other.CompareTag("Player"))
+        if(!data.hasUpdated && other.CompareTag("Player"))
         {
             //Debug.Log("Collided with player, saving game");
             data.hasUpdated = true;
@@ -52,7 +52,7 @@ public class CheckpointSaveHandler : MonoBehaviour
 
     private void SaveToFile()
     {
-        //Debug.Log("Saving to file number: " + SceneHandler.instance.GetCurrentSaveFileIndex());
+        Debug.Log("Saving to file");
         SerializationManager.Save("test" /*+ SceneHandler.instance.GetCurrentSaveFileIndex()*/ , SaveData.current);
         //SceneHandler.instance.IncreaseSaveFileIndex();
     }
@@ -69,10 +69,16 @@ public class CheckpointSaveHandler : MonoBehaviour
 
     private void LoadCheckpointData()
     {
-        Debug.Log("Loading checkpoint data");
-        hasBeenInitialized = true;
+        //hasBeenInitialized = true;
         data.hasUpdated = SaveData.current.checkpoints[data.id].hasUpdated;
         hasUpdated = data.hasUpdated;
+        Debug.Log("Loading checkpoint data" + transform.name + " hasUpdated " + hasUpdated + " data id = " + data.id);
+    }
+
+    private void SaveCheckpointData()
+    {
+        Debug.Log("Saving checkpoint data " + transform.name + " " + data.hasUpdated);
+        SaveData.current.checkpoints[data.id].hasUpdated = data.hasUpdated;
     }
 
     //private void Load()

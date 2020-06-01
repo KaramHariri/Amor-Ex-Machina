@@ -43724,7 +43724,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   activated: 0
   puzzleSolved: 0
-  duration: 1
+  duration: 0.5
   animationCooldown: 0
 --- !u!1 &9054185798070498444
 GameObject:
